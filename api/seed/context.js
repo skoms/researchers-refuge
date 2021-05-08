@@ -8,16 +8,19 @@ class Context {
     this.enableLogging = enableLogging;
   }
 
+  // Trims down excess whitespaces
   static prepareQuery(text) {
     return text
       .replace(/\s+/g, ' ')
       .trim();
   }
 
+  // Logs out query and params
   static log(text, params) {
     console.info(`Running query: "${text}", with params: ${JSON.stringify(params)}`);
   }
 
+  // Prepare query and execute ( used to update, create etc )
   execute(text, ...params) {
     const sql = Context.prepareQuery(text);
     if (this.enableLogging) {
@@ -34,6 +37,7 @@ class Context {
     });
   }
 
+  // Prepare query and execute, returns all rows with specific data
   query(text, ...params) {
     const sql = Context.prepareQuery(text);
     if (this.enableLogging) {
@@ -50,10 +54,12 @@ class Context {
     });
   }
 
+  // returns all data based on query
   async retrieve(text, ...params) {
     return this.query(text, ...params);
   }
 
+  // returns one row of data based on query
   async retrieveSingle(text, ...params) {
     const data = await this.query(text, ...params);
     let record;
@@ -67,6 +73,7 @@ class Context {
     return record;
   }
 
+  // returns one value of data based on query
   async retrieveValue(text, ...params) {
     const data = await this.query(text, ...params);
     let record;

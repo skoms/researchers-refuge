@@ -18,6 +18,7 @@ const app = express();
 app.use(cors());
 
 // setup morgan which gives us http request logging
+// concise output colored by response status for development use
 app.use(morgan('dev'));
 
 // Parsing incoming data to JSON
@@ -39,7 +40,7 @@ app.use('/api', routes);
 // setup a friendly greeting for the root route
 app.get('/', asyncHandler(async (req, res) => {
   res.json({
-    message: 'Welcome to my REST API project, please enjoy your stay!',
+    message: 'This is an API SQLite Database with user and article info',
   });
 }));
 

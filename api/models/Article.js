@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Course extends Model { }
-  Course.init({
+  class Article extends Model { }
+  Article.init({
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,13 +35,13 @@ module.exports = (sequelize) => {
     },
   }, { sequelize });
 
-  Course.associate = (models) => {  
-    Course.belongsTo(models.User, {
+  Article.associate = (models) => {  
+    Article.belongsTo(models.User, {
       foreignKey: {
         fieldName: 'userId',
       }
     });
   }
 
-  return Course;
+  return Article;
 }

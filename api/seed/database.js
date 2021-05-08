@@ -5,18 +5,20 @@ const Context = require('./context');
 
 class Database {
   constructor(seedData, enableLogging) {
-    this.courses = seedData.courses;
+    this.articles = seedData.articles;
     this.users = seedData.users;
     this.enableLogging = enableLogging;
-    this.context = new Context('fsjstd-restapi.db', enableLogging);
+    this.context = new Context('ResearchRefuge.db', enableLogging);
   }
 
+  // Log message if logging is enabled
   log(message) {
     if (this.enableLogging) {
       console.info(message);
     }
   }
 
+  // Checks if table already exists
   tableExists(tableName) {
     this.log(`Checking if the ${tableName} table exists...`);
 
@@ -30,6 +32,7 @@ class Database {
       `, tableName);
   }
 
+  // Inserts users into database
   createUser(user) {
     return this.context
       .execute(`
@@ -44,21 +47,23 @@ class Database {
       user.password);
   }
 
-  createCourse(course) {
+  // Inserts article into database
+  createArticle(article) {
     return this.context
       .execute(`
-        INSERT INTO Courses
+        INSERT INTO Articles
           (userId, title, description, estimatedTime, materialsNeeded, createdAt, updatedAt)
         VALUES
           (?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
-      course.userId,
-      course.title,
-      course.description,
-      course.estimatedTime,
-      course.materialsNeeded);
+      article.userId,
+      article.title,
+      article.description,
+      article.estimatedTime,
+      article.materialsNeeded);
   }
 
+  // Hashes the passwords in the for the database
   async hashUserPasswords(users) {
     const usersWithHashedPasswords = [];
 
@@ -70,18 +75,21 @@ class Database {
     return usersWithHashedPasswords;
   }
 
+  // Inserts all the users given as argument to the database
   async createUsers(users) {
     for (const user of users) {
       await this.createUser(user);
     }
   }
 
-  async createCourses(courses) {
-    for (const course of courses) {
-      await this.createCourse(course);
+  // Inserts all the articles given as argument to the database
+  async createArticles(articles) {
+    for (const article of articles) {
+      await this.createArticle(article);
     }
   }
 
+  // Initializes all the databases if not already there, if they are, data gets dropped and filled with new seed data
   async init() {
     const userTableExists = await this.tableExists('Users');
 

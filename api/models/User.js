@@ -72,7 +72,7 @@ module.exports = (sequelize) => {
   }, { sequelize });
 
   User.associate = (models) => {  
-    User.hasMany(models.Course);
+    User.hasMany(models.Article);
   }
 
   return User;
