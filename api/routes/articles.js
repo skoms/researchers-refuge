@@ -11,7 +11,7 @@ const { Article, User } = require('../models');
 // GET finds and displays all the articles and basic info on their owners
 router.get('/', asyncHandler(async (req, res) => {
   const articles = await Article.findAll(({
-    attributes: ['id', 'title', 'description', 'estimatedTime', 'materialsNeeded', 'userId'], 
+    attributes: ['id', 'title', 'topic', 'introduction', 'textBody', 'userId'], 
     include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] } ] }));
 
   res.status(200).json(articles);
@@ -20,7 +20,7 @@ router.get('/', asyncHandler(async (req, res) => {
 // GET finds specified article and basic info on its owner
 router.get('/:id', asyncHandler(async (req, res) => {
   const article = await Article.findByPk(req.params.id, { 
-    attributes: ['id', 'title', 'description', 'estimatedTime', 'materialsNeeded', 'userId'], 
+    attributes: ['id', 'title', 'topic', 'introduction', 'textBody', 'userId'], 
     include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] } ] });
   if (article) {
     res.status(200).json(article);

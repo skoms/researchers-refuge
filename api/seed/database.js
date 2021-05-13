@@ -52,15 +52,14 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Articles
-          (userId, title, description, estimatedTime, materialsNeeded, createdAt, updatedAt)
+          (userId, title, topic, introduction, textBody, createdAt, updatedAt)
         VALUES
           (?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       article.userId,
       article.title,
-      article.description,
-      article.estimatedTime,
-      article.materialsNeeded);
+      article.introduction,
+      article.textBody);
   }
 
   // Hashes the passwords in the for the database
@@ -123,25 +122,25 @@ class Database {
 
     await this.createUsers(users);
 
-    const courseTableExists = await this.tableExists('Courses');
+    const articleTableExists = await this.tableExists('Articles');
 
-    if (courseTableExists) {
-      this.log('Dropping the Courses table...');
+    if (articleTableExists) {
+      this.log('Dropping the Articles table...');
 
       await this.context.execute(`
-        DROP TABLE IF EXISTS Courses;
+        DROP TABLE IF EXISTS Articles;
       `);
     }
 
-    this.log('Creating the Courses table...');
+    this.log('Creating the Articles table...');
 
     await this.context.execute(`
-      CREATE TABLE Courses (
+      CREATE TABLE Articles (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         title VARCHAR(255) NOT NULL DEFAULT '', 
-        description TEXT NOT NULL DEFAULT '', 
-        estimatedTime VARCHAR(255), 
-        materialsNeeded VARCHAR(255), 
+        topic VARCHAR(255) NOT NULL DEFAULT '', 
+        introduction TEXT NOT NULL DEFAULT '', 
+        textBody TEXT NOT NULL DEFAULT '', 
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL, 
         userId INTEGER NOT NULL DEFAULT -1 
@@ -149,9 +148,9 @@ class Database {
       );
     `);
 
-    this.log('Creating the course records...');
+    this.log('Creating the article records...');
 
-    await this.createCourses(this.courses);
+    await this.createArticles(this.articles);
 
     this.log('Database successfully initialized!');
   }

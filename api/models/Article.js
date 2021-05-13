@@ -15,23 +15,41 @@ module.exports = (sequelize) => {
         }
       }
     },
-    description: {
+    topic: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Please provide a value for "topic"'
+        },
+        notEmpty: {
+          msg: 'Please provide a value for "topic"'
+        }
+      }
+    },
+    introduction: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Please provide a value for "description"'
+          msg: 'Please provide a value for "introduction"'
         },
         notEmpty: {
-          msg: 'Please provide a value for "description"'
+          msg: 'Please provide a value for "introduction"'
         }
       }
     },
-    estimatedTime: {
-      type: DataTypes.STRING,
-    },
-    materialsNeeded: {
-      type: DataTypes.STRING,
+    textBody: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Please provide a value for "textBody"'
+        },
+        notEmpty: {
+          msg: 'Please provide a value for "textBody"'
+        }
+      }
     },
   }, { sequelize });
 
