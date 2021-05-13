@@ -8,19 +8,26 @@
  
  #### Components
  * Header
- * Footer
- * Article
+ * SearchField
+ * Content
+ * RecommendModule
+ * MyInfoModule
+ * Feed
+ * MenuBar
+ * ArticleCards
+  * ArticleCard
+ * MainPage
+ * Topics
+ * Topic
+ * MyProfile
+ * UserProfile
  * ArticleDetails
  * CreateArticle
  * UpdateArticle
- * Topics
- * Topic
- * NewsFeed
- * MyProfile
- * UserProfile
  * UserArticles
  * UserLogin
- * 
+ * UserRegistration
+ * Footer
  * 
  * 
  * 

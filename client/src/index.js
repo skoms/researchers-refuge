@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './styles/reset.css';
+import './styles/global.css';
+import App from './app/App';
+import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App 
+      state={store.getState()}
+      dispatch={store.dispatch}
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );

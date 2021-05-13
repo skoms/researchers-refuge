@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+}
+
+/* Header and Footer Styling */
+.header, .footer {
+  background-color: aquamarine;
+  display: flex;
+  padding: .6rem 0;
+  position: fixed;
+  width: 100%;
+}
+
+.footer {
+  bottom: 0;
+}
+
+/* Content Styling */
+.content {
+  margin: 3rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template: auto / repeat(12, 1fr);
+  grid-template-areas: 
+    "info info info feed feed feed feed feed feed rec rec rec";
+  gap: .5rem;
+  justify-items: center;
+}
+
+/* Info Module Styling */
+.info-mod {
+  grid-area: info;
+  background-color: blueviolet;
+  width: 100%;
+}
+
+/* Feed Styling */
+.feed {
+  grid-area: feed;
+  background-color: teal;
+  width: 100%;
+}
+
+/* Recommend Module Styling */
+.rec-mod {
+  grid-area: rec;
+  background-color: yellowgreen;
+  width: 100%;
+}

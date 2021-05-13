@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "firstName": "Root",
+      "lastName": "Admin",
+      "emailAddress": "root@admin.com",
+      "password": "admin"
+    },
+    {
+      "firstName": "Andy",
+      "lastName": "Mothafuckin Jones",
+      "emailAddress": "andy@jones.com",
+      "password": "andyjones"
+    }
+  ],
+  "articles": [
+    {
+      "userId": 1,
+      "title": "Build a Basic Bookcase",
+      "topic": "test",
+      "introduction": "High-end furniture projects are great to dream about.",
+      "textBody": "High-end furniture projects are great to dream about."
+    },
+    {
+      "userId": 2,
+      "title": "Learn How to Program",
+      "topic": "test",
+      "introduction": "In this course, you'll learn how to write code like a pro!",
+      "textBody": "In this course, you'll learn how to write code like a pro!"
+    },
+    {
+      "userId": 2,
+      "title": "Learn How to Test Programs",
+      "topic": "test",
+      "introduction": "In this course, you'll learn how to test programs.",
+      "textBody": "In this course, you'll learn how to test programs."
+    }
+  ]
+}
