@@ -30,7 +30,10 @@
 /* Info Module Styling */
 .info-mod {
   grid-area: info;
-  background-color: blueviolet;
+  background-color: rgb(186, 152, 218);
+  border: thin solid black;
+  border-radius: .75rem;
+  padding: .5rem 0;
   width: 100%;
 }
 
@@ -45,5 +48,8 @@
 .rec-mod {
   grid-area: rec;
   background-color: yellowgreen;
+  border: thin solid black;
+  border-radius: .75rem;
+  padding: .5rem 0;
   width: 100%;
 }

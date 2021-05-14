@@ -2,7 +2,7 @@ import React from 'react'
 
 const MenuBar = () => {
   return (
-    <div>
+    <div className='menu-bar'>
       <p>This is a menuBar</p>
     </div>
   )
