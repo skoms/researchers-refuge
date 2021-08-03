@@ -2,54 +2,369 @@
   text-align: center;
 }
 
-/* Header and Footer Styling */
+body {
+  background-color: #9DD7F6;
+  color: rgb(0, 36, 104);
+  font-size: 16px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: .6rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin: .5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: .5rem;
+}
+
+/* Custom Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: .5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: none;
+  border-radius: 10px;
+}
+
+.on-scrollbar::-webkit-scrollbar-thumb {
+  background: #64B5F7;
+}
+
+/* ==================== Header and Footer Styling ===================== */
 .header, .footer {
-  background-color: aquamarine;
-  display: flex;
+  background-color: #2296F3;
+  color: white;
   padding: .6rem 0;
   position: fixed;
   width: 100%;
 }
 
-.footer {
-  bottom: 0;
+.header {
+  top: 0;
+  display: grid;
+  display: grid;
+  grid-template-columns: 
+    calc( 50vw - 38rem )
+    repeat(6, 1fr)
+    calc( 50vw - 38rem );
+  grid-template-areas: 
+    ". name name search search profile profile .";
+  gap: 1.5rem;
+  align-items: center;
 }
 
-/* Content Styling */
+.logo-home-a {
+  text-decoration: none;
+  color: white;
+  grid-area: name;
+  justify-self: left;
+  margin: 0 .7rem;
+}
+
+.header .search {
+  justify-self: center;
+  grid-area: search;
+}
+
+.search input {
+  border: none;
+  padding: .3rem .8rem;
+  border-radius: .75rem;
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.header .my-profile-a {
+  justify-self: right;
+  display: flex;
+  grid-area: profile;
+  margin: 0 .7rem;
+  text-decoration: none;
+}
+
+.header .my-profile-a button {
+  border: none;
+  color: white;
+  background: none;
+  font-weight: 900;
+}
+
+.header .my-profile-a button:hover {
+  cursor: pointer;
+  text-shadow: black 2px 1px 2px;
+}
+
+.header .my-profile-a img {
+  border-radius: 50%;
+}
+
+.header .my-profile-a img:hover {
+  transform: scale(1.1);
+  transition-duration: 0.3s;
+}
+
+.header .sign-buttons {
+  justify-self: right;
+  display: flex;
+  grid-area: profile;
+  margin: 0 .7rem;
+  text-decoration: none;
+}
+
+.header .sign-buttons button {
+  border: none;
+  border-radius: .75rem;
+  margin-left: .5rem;
+  color: rgb(0, 36, 104);
+  background:  #FFF;
+  font-weight: 900;
+}
+
+.header .sign-buttons button:hover {
+  cursor: pointer;
+  background-color: rgb(118, 205, 255);
+}
+
+.footer {
+  bottom: 0;
+  display: flex;
+}
+
+.footer .trademark {
+  margin-left: .7rem;
+}
+
+/* ================ Content Styling (Main Page) ======================= */
 .content {
   margin: 3rem .5rem;
   height: 100%;
   display: grid;
-  grid-template: auto / repeat(12, 1fr);
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
   grid-template-areas: 
-    "info info info feed feed feed feed feed feed rec rec rec";
-  gap: .5rem;
+    ". info info info feed feed feed feed feed feed rec rec rec .";
+  gap: 1.5rem;
   justify-items: center;
 }
 
 /* Info Module Styling */
 .info-mod {
   grid-area: info;
-  background-color: rgb(186, 152, 218);
-  border: thin solid black;
+  background-color: #FFF;
   border-radius: .75rem;
   padding: .5rem 0;
   width: 100%;
+  max-width: 300px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-mod img {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  margin: 0 0 .3rem 0;
+}
+
+.info-mod .full-name {
+  font-weight: 900;
+}
+
+.info-mod .occupation {
+  color: rgb(91, 116, 163);
+}
+
+.info-mod table {
+  margin: .5rem 0;
+  width: 80%;
+}
+
+.info-mod table th {
+  text-align: left;
+}
+
+.info-mod table td {
+  text-align: center;
 }
 
 /* Feed Styling */
 .feed {
   grid-area: feed;
-  background-color: teal;
   width: 100%;
 }
 
 /* Recommend Module Styling */
 .rec-mod {
   grid-area: rec;
-  background-color: yellowgreen;
-  border: thin solid black;
-  border-radius: .75rem;
-  padding: .5rem 0;
   width: 100%;
+  max-width: 300px;
+  height: fit-content;
+  margin-top: -.25rem;
+}
+
+.rec-mod table {
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.table-spacing {
+  border-collapse: separate;
+  border-spacing: .25rem;
+}
+
+.rec-mod th {
+  color: #FFF;
+  background-color: rgb(0, 36, 104);
+  border-radius: .4rem;
+  padding: .3rem;
+}
+
+.rec-mod td {
+  color: rgb(0, 36, 104);
+  border-radius: .4rem;
+  background-color: #FFF;
+  padding: .3rem;
+}
+
+/* MenuBar Styling */
+.menu-bar {
+  background-color: #64B5F7;
+  margin: 0 0 .5rem 0;
+  border-radius: .75rem;
+  padding: .4rem .1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-bar button {
+  border-radius: .6rem;
+  color: rgb(0, 36, 104);
+  background-color: #FFF;
+  border: none;
+  padding: .2rem .6rem;
+  margin: 0 .3rem;
+}
+
+.menu-bar button:hover {
+  cursor: pointer;
+  background-color: rgb(118, 234, 255);
+}
+
+/* Article Cards Styling */
+.article-cards {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  padding: .3rem;
+  margin-right: -.7rem;
+  height: 81.5vh;
+  overflow: auto;
+}
+
+/* Article Card Styling */
+.article-card {
+  background-color: #E8F7FF;
+  margin: 0 .1rem .5rem .1rem;
+  border: none;
+  border-radius: .75rem;
+  padding: .3rem 0;
+  width: 99%;
+}
+
+.article-cards a {
+  text-decoration: none;
+}
+
+.article-card-headline {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+}
+
+.article-card h2 {
+  margin-bottom: .1rem;
+  color: rgb(0, 36, 104);
+}
+
+.article-card span {
+  color: rgb(91, 116, 163);
+  text-align: center;
+}
+
+.article-card p {
+  color: rgb(91, 116, 163);
+  text-align: left;
+  margin: .5rem 1rem;
+}
+
+.article-card:hover {
+  transform: scale(1.03);
+  transition-duration: 0.2s;
+}
+
+/* ============== Content Styling (Userprofile Page) ================== */
+
+
+
+/* ============== Content Styling (SignIn Page) ======================= */
+
+
+
+/* ============== Content Styling (SignUp Page) ======================= */
+
+
+/* ============== Small Screen Content Styling  ======================= */
+@media only screen and (max-width: 800px) {
+  /* ============= Base Styling ======================================= */
+
+
+
+  /* ============= Header and Footer Styling ========================== */
+
+
+
+  /* ============= Content Styling (Main Page) ======================== */
+
+
+
+  /* ============= Content Styling (Userprofile Page) ================= */
+
+  
+
+  /* ============= Content Styling (SignIn Page) ====================== */
+
+
+
+  /* ============= Content Styling (SignUp Page) ====================== */
+
+
+
+  /* ============= Content Styling (Article Page) ===================== */
+
+
+
 }

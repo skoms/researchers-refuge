@@ -8,7 +8,7 @@ const SearchField = () => {
         type="text"
         value='' //TODO - Set to searchTerm state
         // onChange={} //TODO - Set up onChange eventhandler
-        placeholder="Search articles or people"
+        placeholder="Search for articles or people"
       />
     </div>
   )

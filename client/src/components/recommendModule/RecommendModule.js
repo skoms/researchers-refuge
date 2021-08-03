@@ -3,12 +3,54 @@ import React from 'react'
 const RecommendModule = () => {
   return (
     <div className='rec-mod'>
-      <h4>RecommendModule:</h4>
-      <ul>
-        <li>Recommendation 1</li>
-        <li>Recommendation 2</li>
-        <li>Recommendation 3</li>
-      </ul>
+      <table className='table-spacing'>
+        <tbody>
+          <tr>
+            <th>Recommended Fields</th>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+        </tbody>
+      </table>
+      <table className='table-spacing'>
+        <tbody>
+          <tr>
+            <th>Recommended Articles</th>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+        </tbody>
+      </table>
+      <table className='table-spacing'>
+        <tbody>
+          <tr>
+            <th>Recommended Researchers</th>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
