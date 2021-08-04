@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import MainPage from '../components/mainPage/MainPage';
+import ArticleDetails from "../components/article/articleDetails/ArticleDetails";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <main>
           <Switch>
             <Route exact path='/' component={MainPage} />
-            <Route path='/1' render={ () => (<h1>It still works just fine!</h1>) } />
+            <Route path='/articles/:id' component={ArticleDetails} />
           </Switch>
         </main>
         <Footer />

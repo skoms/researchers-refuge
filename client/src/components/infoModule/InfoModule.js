@@ -1,11 +1,12 @@
 import React from 'react'
 
-const MyInfoModule = props => {
+const InfoModule = props => {
   return (
     <div className='info-mod'>
       <img src="https://via.placeholder.com/75" alt="placeholder" />
       <p className='full-name'>FirstName LastName</p>
       <p className='occupation'>Profession / Occupation</p>
+      <p className="bio">Loves to be placeholders for ambitious projects!</p>
       <table>
         <tbody>
           <tr>
@@ -34,4 +35,4 @@ const MyInfoModule = props => {
   )
 }
 
-export default MyInfoModule
+export default InfoModule

@@ -49,7 +49,7 @@ h4 {
 
 /* ==================== Header and Footer Styling ===================== */
 .header, .footer {
-  background-color: #2296F3;
+  background-color: #38B6FF;
   color: white;
   padding: .6rem 0;
   position: fixed;
@@ -76,6 +76,19 @@ h4 {
   grid-area: name;
   justify-self: left;
   margin: 0 .7rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo-home-a h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.logo-home-a img {
+  height: 4rem;
+  width: 4rem;
+  margin: -.6rem 0;
 }
 
 .header .search {
@@ -87,6 +100,7 @@ h4 {
   border: none;
   padding: .3rem .8rem;
   border-radius: .75rem;
+  background-color: #E8F7FF;
 }
 
 .search input:focus {
@@ -103,7 +117,7 @@ h4 {
 
 .header .my-profile-a button {
   border: none;
-  color: white;
+  color: #E8F7FF;
   background: none;
   font-weight: 900;
 }
@@ -154,8 +168,8 @@ h4 {
 }
 
 /* ================ Content Styling (Main Page) ======================= */
-.content {
-  margin: 3rem .5rem;
+.main-page-content {
+  margin: 5rem .5rem 2rem .5rem;
   height: 100%;
   display: grid;
   grid-template-columns: 
@@ -171,11 +185,11 @@ h4 {
 /* Info Module Styling */
 .info-mod {
   grid-area: info;
-  background-color: #FFF;
+  background-color: #E8F7FF;
   border-radius: .75rem;
   padding: .5rem 0;
   width: 100%;
-  max-width: 300px;
+  max-width: 15rem;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -195,6 +209,10 @@ h4 {
 
 .info-mod .occupation {
   color: rgb(91, 116, 163);
+}
+
+.info-mod .bio {
+  margin: .5rem 0;
 }
 
 .info-mod table {
@@ -236,7 +254,7 @@ h4 {
 }
 
 .rec-mod th {
-  color: #FFF;
+  color: #E8F7FF;
   background-color: rgb(0, 36, 104);
   border-radius: .4rem;
   padding: .3rem;
@@ -245,7 +263,7 @@ h4 {
 .rec-mod td {
   color: rgb(0, 36, 104);
   border-radius: .4rem;
-  background-color: #FFF;
+  background-color: #E8F7FF;
   padding: .3rem;
 }
 
@@ -263,7 +281,7 @@ h4 {
 .menu-bar button {
   border-radius: .6rem;
   color: rgb(0, 36, 104);
-  background-color: #FFF;
+  background-color: #E8F7FF;
   border: none;
   padding: .2rem .6rem;
   margin: 0 .3rem;
@@ -324,6 +342,69 @@ h4 {
 .article-card:hover {
   transform: scale(1.03);
   transition-duration: 0.2s;
+}
+
+/* ============= Content Styling (Article Page) ======================= */
+.content-article-details {
+  margin: 5rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". info info info article article article article article article article article . .";
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+/* Author details */
+.author-details {
+  grid-area: info;
+  width: 100%;
+}
+
+/* Article */
+.article-div {
+  grid-area: article;
+  font-size: 1.2rem;
+  padding: 1rem;
+  background-color: #E8F7FF;
+  border-radius: .75rem;
+  text-align: left;
+}
+
+.article-div h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 1rem 1rem;
+}
+
+.article-date-of-release, .article-intro, .article-body {
+  margin: 1rem;
+  text-indent: 2rem;
+}
+
+.article-date-of-release {
+  text-align: right;
+  color: #bdbdbd;
+}
+
+.article-div .nav-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.article-div .nav-buttons button {
+  background: none;
+  border: none;
+}
+
+.article-div .nav-buttons button:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 /* ============== Content Styling (Userprofile Page) ================== */

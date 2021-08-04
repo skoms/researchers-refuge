@@ -7,7 +7,10 @@ let loggedIn = true;
 const Header = () => {
   return (
     <div className='header'>
-      <a className='logo-home-a' href="/"><h2>Researchers' Refuge</h2></a>
+      <a className='logo-home-a' href="/">
+        <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
+        <h2>Researchers' Refuge</h2>
+      </a>
       <div className="search">
         <SearchField />
       </div>

@@ -1,12 +1,15 @@
 import React from 'react'
 
-import Content from '../content/Content'
+import InfoModule from '../infoModule/InfoModule'
+import Feed from '../feed/Feed'
+import RecommendModule from '../recommendModule/RecommendModule'
 
 const MainPage = props => {
   return (
-    <div>
-      <h2>Content here:</h2>
-      <Content />
+    <div className='main-page-content'>
+      <InfoModule />
+      <Feed />
+      <RecommendModule />
     </div>
   )
 }

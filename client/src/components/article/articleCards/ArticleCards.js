@@ -176,12 +176,13 @@ const tempCards = [
 const ArticleCards = (props) => {
   window.addEventListener('scroll', e => {
     let scrollbarTimeout;
-    if ( e.target.classList.contains('on-scrollbar') === false ) {
-      e.target.classList.add("on-scrollbar");
-      clearTimeout(scrollbarTimeout);
-      scrollbarTimeout = setTimeout(() => {
-        e.target.classList.remove("on-scrollbar");
-      }, 800);
+    if ( e.target === true 
+         && e.target.classList.contains('on-scrollbar') === false ) {
+        e.target.classList.add("on-scrollbar");
+        clearTimeout(scrollbarTimeout);
+        scrollbarTimeout = setTimeout(() => {
+          e.target.classList.remove("on-scrollbar");
+        }, 800);
     }
   }, true);
   return (
