@@ -1,4 +1,5 @@
 import React from 'react'
+import DarkModeButton from '../darkmodeButton/DarkModeButton';
 
 import SearchField from '../searchField/SearchField'
 
@@ -16,11 +17,12 @@ const Header = () => {
       </div>
       { 
       loggedIn ?
-        <a className='my-profile-a' href="/my-profile">
-          <button>Sign Out</button>
-          <button>My Profile</button>
+        <div className='my-profile-div'>
+          <DarkModeButton />
+          <a href="/sign-out">Sign Out</a>
+          <a href="/my-profile">My Profile</a>
           <img src="https://via.placeholder.com/30" alt="placeholder" />
-        </a>
+        </div>
       :
         <div className='sign-buttons'>
           <a href="/sign-in">

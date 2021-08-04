@@ -8,10 +8,13 @@ body {
   font-size: 16px;
 }
 
-h2 {
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin: .6rem;
+body.darkmode {
+  background-color: #0D1117;
+}
+
+.darkmode * {
+  background-color: #0D1117;
+  color: #E8F7FF;
 }
 
 h2 {
@@ -56,6 +59,10 @@ h4 {
   width: 100%;
 }
 
+.darkmode .header, .footer {
+  background-color: #161B22;
+}
+
 .header {
   top: 0;
   display: grid;
@@ -80,6 +87,10 @@ h4 {
   align-items: center;
 }
 
+.darkmode .logo-home-a {
+  background: #161B22;
+}
+
 .logo-home-a h2 {
   font-size: 1.2rem;
   margin: 0;
@@ -89,6 +100,11 @@ h4 {
   height: 4rem;
   width: 4rem;
   margin: -.6rem 0;
+  border-radius: 50%;
+}
+
+.darkmode .logo-home-a img {
+  transform: scale(0.8);
 }
 
 .header .search {
@@ -107,31 +123,51 @@ h4 {
   outline: none;
 }
 
-.header .my-profile-a {
+.header .my-profile-div {
   justify-self: right;
   display: flex;
+  align-items: center;
   grid-area: profile;
   margin: 0 .7rem;
   text-decoration: none;
 }
 
-.header .my-profile-a button {
+.darkmode .my-profile-div {
+  background: #161B22;
+}
+
+.darkmode-button {
+  background: none;
+  border: none;
+}
+
+.darkmode .darkmode-button {
+  background: #161B22;
+}
+
+.header .my-profile-div a {
   border: none;
   color: #E8F7FF;
   background: none;
+  margin: 0 .7rem 0 .3rem;
   font-weight: 900;
+  text-decoration: none;
 }
 
-.header .my-profile-a button:hover {
+.header .my-profile-div a:hover {
   cursor: pointer;
   text-shadow: black 2px 1px 2px;
 }
 
-.header .my-profile-a img {
+.darkmode .header .my-profile-div a:hover {
+  text-shadow: whitesmoke 2px 1px 2px;
+}
+
+.header .my-profile-div img {
   border-radius: 50%;
 }
 
-.header .my-profile-a img:hover {
+.header .my-profile-div img:hover {
   transform: scale(1.1);
   transition-duration: 0.3s;
 }
@@ -148,9 +184,15 @@ h4 {
   border: none;
   border-radius: .75rem;
   margin-left: .5rem;
+  padding: .2rem .5rem;
   color: rgb(0, 36, 104);
-  background:  #FFF;
-  font-weight: 900;
+  background:  #E8F7FF;
+  font-weight: 500;
+}
+
+.darkmode .header .sign-buttons button {
+  background: #161B22;
+  color: #E8F7FF;
 }
 
 .header .sign-buttons button:hover {
@@ -165,6 +207,10 @@ h4 {
 
 .footer .trademark {
   margin-left: .7rem;
+}
+
+.darkmode .footer * {
+  background: #161B22;
 }
 
 /* ================ Content Styling (Main Page) ======================= */
@@ -194,6 +240,10 @@ h4 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.darkmode .info-mod, .darkmode .info-mod * {
+  background: #161B22;
 }
 
 .info-mod img {
@@ -255,9 +305,14 @@ h4 {
 
 .rec-mod th {
   color: #E8F7FF;
-  background-color: rgb(0, 36, 104);
+  background-color: #64B5F7;
   border-radius: .4rem;
   padding: .3rem;
+}
+
+.darkmode .rec-mod th {
+  background: #27303d;
+  color: #38B6FF;
 }
 
 .rec-mod td {
@@ -265,6 +320,11 @@ h4 {
   border-radius: .4rem;
   background-color: #E8F7FF;
   padding: .3rem;
+}
+
+.darkmode .rec-mod td {
+  background: #161B22;
+  color: #E8F7FF;
 }
 
 /* MenuBar Styling */
@@ -278,6 +338,11 @@ h4 {
   justify-content: space-between;
 }
 
+.darkmode .menu-bar, .darkmode .menu-bar * {
+  background: #161B22;
+  color: #38B6FF;
+}
+
 .menu-bar button {
   border-radius: .6rem;
   color: rgb(0, 36, 104);
@@ -287,9 +352,18 @@ h4 {
   margin: 0 .3rem;
 }
 
+.darkmode .menu-bar button {
+  background: #27303d;
+  color: #38B6FF;
+}
+
 .menu-bar button:hover {
   cursor: pointer;
   background-color: rgb(118, 234, 255);
+}
+
+.darkmode .menu-bar button:hover {
+  background: #1a3861;
 }
 
 /* Article Cards Styling */
@@ -301,6 +375,10 @@ h4 {
   margin-right: -.7rem;
   height: 81.5vh;
   overflow: auto;
+}
+
+.darkmode .article-cards * {
+  background: #161B22;
 }
 
 /* Article Card Styling */
@@ -328,6 +406,10 @@ h4 {
   color: rgb(0, 36, 104);
 }
 
+.darkmode .article-card h2 {
+  color: #38B6FF;
+}
+
 .article-card span {
   color: rgb(91, 116, 163);
   text-align: center;
@@ -339,8 +421,13 @@ h4 {
   margin: .5rem 1rem;
 }
 
+.darkmode .article-card p {
+  color: #E8F7FF;
+}
+
 .article-card:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
+  box-shadow: #1b4469 0 2px 3px;
   transition-duration: 0.2s;
 }
 
@@ -381,14 +468,25 @@ h4 {
   margin: 1rem 1rem;
 }
 
-.article-date-of-release, .article-intro, .article-body {
+.article-header, .article-intro, .article-body {
   margin: 1rem;
   text-indent: 2rem;
 }
 
-.article-date-of-release {
-  text-align: right;
+.article-header {
+  display: flex;
+  justify-content: space-between;
   color: #bdbdbd;
+  text-indent: 0;
+}
+
+.article-header a {
+  text-decoration: none;
+  color: #bdbdbd;
+}
+
+.article-header a:hover {
+  text-decoration: underline;
 }
 
 .article-div .nav-buttons {
@@ -397,14 +495,19 @@ h4 {
   justify-content: space-around;
 }
 
-.article-div .nav-buttons button {
+.article-div .nav-buttons a {
   background: none;
   border: none;
 }
 
-.article-div .nav-buttons button:hover {
+.nav-buttons img {
+  height: 2.5rem;
+}
+
+.article-div .nav-buttons a:hover {
   cursor: pointer;
   transform: scale(1.2);
+  transition-duration: 0.2s;
 }
 
 /* ============== Content Styling (Userprofile Page) ================== */
