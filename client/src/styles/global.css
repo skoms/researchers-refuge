@@ -211,6 +211,7 @@ h4 {
 
 .darkmode .footer * {
   background: #161B22;
+  color: #38B6FF;
 }
 
 /* ================ Content Styling (Main Page) ======================= */
@@ -230,16 +231,15 @@ h4 {
 
 /* Info Module Styling */
 .info-mod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   grid-area: info;
   background-color: #E8F7FF;
   border-radius: .75rem;
   padding: .5rem 0;
-  width: 100%;
-  max-width: 15rem;
+  width: 15rem;
   height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .darkmode .info-mod, .darkmode .info-mod * {
@@ -255,6 +255,10 @@ h4 {
 
 .info-mod .full-name {
   font-weight: 900;
+}
+
+.darkmode .full-name {
+  color: #38B6FF;
 }
 
 .info-mod .occupation {
@@ -441,7 +445,7 @@ h4 {
     calc(50vw - 38rem);
   grid-template-areas: 
     ". info info info article article article article article article article article article .";
-  gap: 1.5rem;
+  gap: .5rem;
   justify-items: center;
 }
 
@@ -459,13 +463,21 @@ h4 {
   overflow: auto;
   margin: 1rem -.7rem 0 0;
   height: 25vh;
-  width: 100%;
-  max-width: 14rem;
+  width: 14rem;
   font-size: .8rem;
   padding: .3rem;
   background: #E8F7FF;
   border: #E8F7FF .2rem solid;
   border-radius: .75rem;
+}
+
+.darkmode .related-articles {
+  background: #161B22;
+  border: #161B22 .2rem solid;
+}
+
+.darkmode .related-articles * {
+  background: #161B22;
 }
 
 .related-articles::-webkit-scrollbar {
@@ -478,6 +490,10 @@ h4 {
   margin: .2rem .3rem;
 }
 
+.darkmode .related-articles .article-card {
+  box-shadow: #38B6FF -.04rem .04rem .2rem;
+}
+
 .related-articles a {
   text-decoration: none;
 }
@@ -487,10 +503,15 @@ h4 {
   font-size: .9rem;
 }
 
+.darkmode .related-articles h2 {
+  color: #38B6FF;
+}
+
 /* Article */
 .article-div {
   grid-area: article;
   font-size: 1.2rem;
+  margin-bottom: 3rem;
   padding: 1rem;
   background-color: #E8F7FF;
   border-radius: .75rem;
