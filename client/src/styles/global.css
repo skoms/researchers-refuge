@@ -59,7 +59,7 @@ h4 {
   width: 100%;
 }
 
-.darkmode .header, .footer {
+.darkmode .header, .darkmode .footer {
   background-color: #161B22;
 }
 
@@ -156,11 +156,11 @@ h4 {
 
 .header .my-profile-div a:hover {
   cursor: pointer;
-  text-shadow: black 2px 1px 2px;
+  text-shadow: black 2px 2px 2px;
 }
 
 .darkmode .header .my-profile-div a:hover {
-  text-shadow: whitesmoke 2px 1px 2px;
+  text-shadow: #38B6FF 2px 2px 2px;
 }
 
 .header .my-profile-div img {
@@ -370,7 +370,6 @@ h4 {
 .article-cards {
   display: flex;
   flex-direction: column;
-  justify-items: center;
   padding: .3rem;
   margin-right: -.7rem;
   height: 81.5vh;
@@ -441,15 +440,51 @@ h4 {
     repeat(12, 1fr) 
     calc(50vw - 38rem);
   grid-template-areas: 
-    ". info info info article article article article article article article article . .";
+    ". info info info article article article article article article article article article .";
   gap: 1.5rem;
   justify-items: center;
 }
 
-/* Author details */
-.author-details {
+/* ArticleDetails Sidebar */
+.article-details-sidebar {
   grid-area: info;
   width: 100%;
+}
+
+/* Related Articles */
+.related-articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  margin: 1rem -.7rem 0 0;
+  height: 25vh;
+  width: 100%;
+  max-width: 14rem;
+  font-size: .8rem;
+  padding: .3rem;
+  background: #E8F7FF;
+  border: #E8F7FF .2rem solid;
+  border-radius: .75rem;
+}
+
+.related-articles::-webkit-scrollbar {
+  width: 0;
+}
+
+.related-articles .article-card {
+  box-shadow: black -.05rem .05rem .2rem;
+  width: 90%;
+  margin: .2rem .3rem;
+}
+
+.related-articles a {
+  text-decoration: none;
+}
+
+.related-articles h2 {
+  margin-top: 0;
+  font-size: .9rem;
 }
 
 /* Article */
@@ -462,10 +497,18 @@ h4 {
   text-align: left;
 }
 
+.darkmode .article-div, .darkmode .article-div * {
+  background: #27303d;
+}
+
 .article-div h1 {
   font-size: 2.5rem;
   font-weight: 900;
   margin: 1rem 1rem;
+}
+
+.darkmode .article-div h1 {
+  color: #38B6FF;
 }
 
 .article-header, .article-intro, .article-body {

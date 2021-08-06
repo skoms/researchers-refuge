@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 
 const DarkModeButton = () => {
-  const [darkmodeOn, setDarkmodeOn] = useState(false);
+  const [darkmodeOn, setDarkmodeOn] = useState(() => (localStorage.getItem('darkmode') === 'true'));
 
   const toggleDarkmode = () => {
     if (darkmodeOn) {
-      setDarkmodeOn(false);
-      localStorage.setItem('darkmode', 'true');
-    } else {
-      setDarkmodeOn(true);
       localStorage.setItem('darkmode', 'false');
+      setDarkmodeOn(false);
+    } else {
+      localStorage.setItem('darkmode', 'true');
+      setDarkmodeOn(true);
     }
     document.getElementsByTagName('body')[0].classList.toggle('darkmode');
-    
   }
 
   window.addEventListener('load', () => {
