@@ -662,6 +662,16 @@ h4 {
   text-align: center;
 }
 
+.darkmode .user-registration-form {
+  background: linear-gradient(-45deg, #2b2b55, #162d41, #23364d, #19393b );
+  background-size: 400% 400%;
+  animation: moving-gradient 15s ease infinite;
+}
+
+.darkmode .user-registration-form * {
+  background: none;
+}
+
 /* Grid area initiations */
 .user-registration-form h1 {
   grid-area: title;
@@ -707,8 +717,14 @@ h4 {
 .user-registration-form input {
   border: none;
   border-radius: .25rem;
+  background: #e8f7ff7e;
   box-shadow: 0 2px 8px -3px #1a3861;
   height: 2rem;
+}
+
+.darkmode .user-registration-form input {
+  background: #161b2293;
+  box-shadow: 0 2px 8px -3px #38B6FF;
 }
 
 .user-registration-form .form-input {
@@ -734,6 +750,10 @@ h4 {
   transition: all .3s;
 }
 
+.darkmode .user-registration-form button {
+  box-shadow: 0 2px 12px -3px #3d84e7;
+}
+
 .user-registration-form .button-primary {
   width: 50%;
   font-size: 1.1rem;
@@ -743,12 +763,22 @@ h4 {
   animation: sign-up-btn 6s 3s infinite ease-in-out;
 }
 
+.darkmode .user-registration-form .button-primary {
+  background: linear-gradient(#1a3861, #161B22);
+  animation: sign-up-btn 6s 3s infinite ease-in-out;
+}
+
 .user-registration-form .button-secondary {
   width: 30%;
   font-size: 1rem;
   margin: 1rem 1rem;
   background: #E8F7FF;
   color: #1a3861;
+}
+
+.darkmode .user-registration-form .button-secondary {
+  background: #27303d;
+  color: #E8F7FF;
 }
 
 .user-registration-form button:hover {
