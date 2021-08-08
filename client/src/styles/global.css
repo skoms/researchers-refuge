@@ -137,6 +137,7 @@ h4 {
 }
 
 .darkmode-button {
+  cursor: pointer;
   background: none;
   border: none;
 }
@@ -180,7 +181,11 @@ h4 {
   text-decoration: none;
 }
 
-.header .sign-buttons button {
+.darkmode .sign-buttons a {
+  background-color: #161B22;
+}
+
+.header .sign-buttons a button {
   border: none;
   border-radius: .75rem;
   margin-left: .5rem;
@@ -190,14 +195,19 @@ h4 {
   font-weight: 500;
 }
 
-.darkmode .header .sign-buttons button {
-  background: #161B22;
+.darkmode .header .sign-buttons a button {
+  background: #27303d;
+  color: #38B6FF;
+}
+
+.header .sign-buttons a button:hover {
+  cursor: pointer;
+  background-color: rgb(118, 205, 255);
   color: #E8F7FF;
 }
 
-.header .sign-buttons button:hover {
-  cursor: pointer;
-  background-color: rgb(118, 205, 255);
+.darkmode .sign-buttons a button:hover {
+  background: #1a3861;
 }
 
 .footer {
@@ -583,7 +593,30 @@ h4 {
 
 
 /* ============== Content Styling (SignUp Page) ======================= */
+.user-registration-div {
+  margin: 7rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". . . . form form form form form form . . . .";
+  gap: .5rem;
+  justify-items: center;
+}
 
+.user-registration-form {
+  grid-area: form;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #E8F7FF;
+  padding: 1rem;
+  border-radius: .75rem;
+}
 
 /* ============== Small Screen Content Styling  ======================= */
 @media only screen and (max-width: 800px) {

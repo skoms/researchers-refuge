@@ -3,7 +3,7 @@ import DarkModeButton from '../darkmodeButton/DarkModeButton';
 
 import SearchField from '../searchField/SearchField'
 
-let loggedIn = true;
+let loggedIn = false;
 
 const Header = () => {
   return (
@@ -25,6 +25,7 @@ const Header = () => {
         </div>
       :
         <div className='sign-buttons'>
+          <DarkModeButton />
           <a href="/sign-in">
             <button>Sign In</button>
           </a>
