@@ -3,7 +3,7 @@ import DarkModeButton from '../darkmodeButton/DarkModeButton';
 
 import SearchField from '../searchField/SearchField'
 
-let loggedIn = false;
+let loggedIn = true;
 
 const Header = () => {
   return (

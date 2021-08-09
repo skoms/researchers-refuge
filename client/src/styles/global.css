@@ -615,7 +615,122 @@ h4 {
 }
 
 /* ============== Content Styling (Userprofile Page) ================== */
+.user-profile-page {
+  margin: 7rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". content content content content content content content content content content content content .";
+  gap: .5rem;
+  justify-items: center;
+}
 
+.user-profile-div {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile-info-header {
+  position: relative;
+  background: #E8F7FF;
+  border-radius: .75rem;
+  padding: 1rem .3rem;
+  display: grid;
+  grid-template-columns: 
+    repeat(12, 1fr);
+  grid-template-areas: 
+    "header header header header header header header header header header header header"
+    ". follow . . . name-occupation name-occupation . . . . ."
+    ". stats stats stats stats stats stats stats stats stats stats  .";
+  gap: .5rem;
+  justify-items: center;
+}
+
+/* Grid Area Declarations */
+.user-profile-info-header .header-img {
+  grid-area: header;
+}
+
+.user-profile-info-header .name-and-occupation {
+  grid-area: name-occupation;
+}
+
+.user-profile-info-header .stats {
+  grid-area: stats;
+}
+
+/*---------------------------*/
+
+.user-profile-info-header .header-img {
+  width: 100%;
+  border-radius: .75rem;
+  margin: -.7rem 0 .5rem 0;
+}
+
+.user-profile-info-header .profile-pic {
+  border:#E8F7FF 4px solid;
+  border-radius: 50%;
+  position: absolute;
+  right: 50%;
+  bottom: 40%;
+  margin-right: -62px;
+  z-index: 1;
+}
+
+.user-profile-info-header .profile-pic:hover {
+  transform: scale(1.1) translateY(-.3rem);
+  transition: all .3s;
+}
+
+.user-profile-info-header button {
+  line-height: 2rem;
+  border-radius: .75rem;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 12px -3px #1a3861;
+  opacity: 0.85;
+  transition: all .3s;
+}
+
+.darkmode .user-profile-info-header button {
+  box-shadow: 0 2px 12px -3px #3d84e7;
+}
+
+.user-profile-info-header .button-primary {
+  position: absolute;
+  width: 15%;
+  right: 0%;
+  bottom: 45%;
+  min-width: 5rem;
+  font-size: 1.1rem;
+  margin: 1rem 1rem;
+  background: linear-gradient(#64B5F7, #38B6FF);
+  color: #E8F7FF;
+  animation: sign-up-btn 6s 3s infinite ease-in-out;
+}
+
+.darkmode .user-profile-info-header .button-primary {
+  background: linear-gradient(#1a3861, #161B22);
+  animation: sign-up-btn 6s 3s infinite ease-in-out;
+}
+
+.user-profile-info-header button:hover {
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 2px 12px -3px #0D1117;
+}
+
+.user-profile-info-header .stats {
+  margin: 1rem 0;
+  display: flex;
+  width: 80%;
+  justify-content: space-evenly;
+}
 
 
 /* ============== Content Styling (SignIn Page) ======================= */
@@ -739,6 +854,7 @@ h4 {
 
 .user-login-form .button-primary {
   width: 50%;
+  min-width: 5rem;
   font-size: 1.1rem;
   margin: 1rem 1rem;
   background: linear-gradient(#64B5F7, #38B6FF);
@@ -753,6 +869,7 @@ h4 {
 
 .user-login-form .button-secondary {
   width: 30%;
+  min-width: 4rem;
   font-size: 1rem;
   margin: 1rem 1rem;
   background: #E8F7FF;
