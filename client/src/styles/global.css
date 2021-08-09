@@ -650,6 +650,10 @@ h4 {
   justify-items: center;
 }
 
+.darkmode .user-profile-info-header, .darkmode .user-profile-info-header * {
+  background: #161B22;
+}
+
 /* Grid Area Declarations */
 .user-profile-info-header .header-img-div {
   grid-area: header;
@@ -686,6 +690,10 @@ h4 {
   z-index: 1;
 }
 
+.darkmode .user-profile-info-header .profile-pic {
+  border: #161B22 4px solid;
+}
+
 .user-profile-info-header .profile-pic:hover {
   transform: scale(1.1) translateY(-.3rem);
   transition: all .3s;
@@ -696,8 +704,16 @@ h4 {
   color: #1b4469;
 }
 
+.darkmode .user-profile-info-header .full-name {
+  color: #38B6FF;
+}
+
 .user-profile-info-header .occupation{
   color: #bdbdbd;
+}
+
+.darkmode .user-profile-info-header .occupation {
+  color: #5b6e8b;
 }
 
 .user-profile-info-header button {
@@ -754,12 +770,26 @@ h4 {
   border-radius: .3rem;
 }
 
+.darkmode .user-profile-info-header .stat {
+  background: #1b4469;
+}
+
+.darkmode .user-profile-info-header .title {
+  background: none;
+  color: #38B6FF;
+}
+
 .user-profile-info-header .data {
   padding: .2rem .5rem;
   margin-left: .2rem;
   background: #9DD7F6;
   color: #1a3861;
   border-radius: .2rem;
+}
+
+.darkmode .user-profile-info-header .data {
+  background: #112541;
+  color: #a6f9ff;
 }
 
 

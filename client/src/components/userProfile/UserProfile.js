@@ -6,8 +6,8 @@ const UserProfile = () => {
       <div className="user-profile-div">
         <div className="user-profile-info-header">
         <div className="header-img-div">
-          <img src="https://via.placeholder.com/1000x150" alt="header"  className="header-img"/>
-          <img src="https://via.placeholder.com/120x120" alt="profilepic" className="profile-pic" />
+          <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
+          <img src="https://placeimg.com/120/120/people" alt="profilepic" className="profile-pic" />
           <button className='button-primary'>Follow</button>
         </div>
           
