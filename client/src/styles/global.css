@@ -636,7 +636,6 @@ h4 {
 }
 
 .user-profile-info-header {
-  position: relative;
   background: #E8F7FF;
   border-radius: .75rem;
   padding: 1rem .3rem;
@@ -652,7 +651,7 @@ h4 {
 }
 
 /* Grid Area Declarations */
-.user-profile-info-header .header-img {
+.user-profile-info-header .header-img-div {
   grid-area: header;
 }
 
@@ -666,6 +665,11 @@ h4 {
 
 /*---------------------------*/
 
+.user-profile-info-header .header-img-div {
+  position: relative;
+  width: 100%;
+}
+
 .user-profile-info-header .header-img {
   width: 100%;
   border-radius: .75rem;
@@ -677,7 +681,7 @@ h4 {
   border-radius: 50%;
   position: absolute;
   right: 50%;
-  bottom: 40%;
+  bottom: -10%;
   margin-right: -62px;
   z-index: 1;
 }
@@ -685,6 +689,15 @@ h4 {
 .user-profile-info-header .profile-pic:hover {
   transform: scale(1.1) translateY(-.3rem);
   transition: all .3s;
+}
+
+.user-profile-info-header .full-name {
+  margin-top: 1rem;
+  color: #1b4469;
+}
+
+.user-profile-info-header .occupation{
+  color: #bdbdbd;
 }
 
 .user-profile-info-header button {
@@ -705,7 +718,7 @@ h4 {
   position: absolute;
   width: 15%;
   right: 0%;
-  bottom: 45%;
+  bottom: 3%;
   min-width: 5rem;
   font-size: 1.1rem;
   margin: 1rem 1rem;
@@ -730,6 +743,23 @@ h4 {
   display: flex;
   width: 80%;
   justify-content: space-evenly;
+}
+
+.user-profile-info-header .stat {
+  display: flex;
+  align-items: center;
+  background: #64B5F7;
+  color: #E8F7FF;
+  padding: .2rem .2rem .2rem .4rem;
+  border-radius: .3rem;
+}
+
+.user-profile-info-header .data {
+  padding: .2rem .5rem;
+  margin-left: .2rem;
+  background: #9DD7F6;
+  color: #1a3861;
+  border-radius: .2rem;
 }
 
 
