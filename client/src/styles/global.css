@@ -621,20 +621,23 @@ h4 {
   display: grid;
   grid-template-columns: 
     calc(50vw - 38rem) 
-    repeat(12, 1fr) 
+    repeat(4, 1fr) 
     calc(50vw - 38rem);
   grid-template-areas: 
-    ". content content content content content content content content content content content content .";
+    ". header header header header ."
+    ". published published published published ."
+    ". accredited accredited accredited accredited .";
   gap: .5rem;
   justify-items: center;
 }
 
 .user-profile-div {
-  grid-area: content;
+  grid-area: header;
   display: flex;
   flex-direction: column;
 }
 
+/*UserProfile info-header*/
 .user-profile-info-header {
   background: #E8F7FF;
   border-radius: .75rem;
@@ -792,6 +795,30 @@ h4 {
   color: #a6f9ff;
 }
 
+
+/*UserProfile Articles-Published*/
+.articles-published {
+  grid-area: published;
+  margin: 2rem 0;
+  background: #E8F7FF;
+  border-radius: .75rem;
+}
+
+.articles-published .title {
+  margin: 1rem 0 2rem 0;
+}
+
+.articles-published .article-cards {
+  max-height: 20rem;
+  align-items: center;
+}
+
+.articles-published .article-card {
+  width: 80%;
+  max-width: 60rem;
+  box-shadow: #161B22 2px 0 12px -3px;
+  margin: .5rem .3rem;
+}
 
 /* ============== Content Styling (SignIn Page) ======================= */
 .user-login-div {
