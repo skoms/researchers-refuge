@@ -47,6 +47,10 @@ const UserProfileFeed = props => {
           <h2 className="title">Articles Published:</h2>
           <ArticleCards />
         </div>
+        <div className="articles-accredited">
+          <h2 className="title">Articles Recently Accredited:</h2>
+          <ArticleCards />
+        </div>
       </div>
   )
 }

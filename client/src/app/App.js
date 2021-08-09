@@ -8,6 +8,7 @@ import ArticleDetails from "../components/article/articleDetails/ArticleDetails"
 import UserRegistration from '../components/userRegistration/UserRegistration';
 import UserLogin from '../components/userLogin/UserLogin';
 import UserProfile from '../components/userProfile/UserProfile';
+import MyProfile from '../components/myProfile/MyProfile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route exact path='/sign-up' component={UserRegistration} />
             <Route exact path='/sign-in' component={UserLogin} />
             <Route path='/users/:id' component={UserProfile} />
+            <Route path='/my-profile' component={MyProfile} />
             <Route path='/articles/:id' component={ArticleDetails} />
           </Switch>
         </main>
