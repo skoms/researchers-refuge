@@ -863,6 +863,31 @@ button:hover {
   margin: 1rem 0 2rem 0;
 }
 
+.articles-published .sort-nav {
+  margin-top: -1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sort-nav div {
+  display: flex;
+}
+
+.sort-nav div * {
+  margin-left: .5rem;
+  min-width: 8rem;
+  align-items: center;
+}
+
+.sort-nav select {
+  width: 50%;
+}
+
+.sort-nav label {
+  word-wrap: nowrap;
+  width: 50%;
+}
+
 .articles-published .article-cards {
   max-height: 20rem;
   align-items: center;
@@ -871,7 +896,9 @@ button:hover {
 .articles-published .article-card {
   width: 80%;
   max-width: 60rem;
-  box-shadow: #161B22 2px 0 12px -3px;
+  border-bottom: #bdbdbd solid .1rem;
+  border-radius: 0;
+  box-shadow: none;
   margin: .5rem .3rem;
 }
 
@@ -895,7 +922,9 @@ button:hover {
 .articles-accredited .article-card {
   width: 80%;
   max-width: 60rem;
-  box-shadow: #161B22 2px 0 12px -3px;
+  border-bottom: #bdbdbd solid .1rem;
+  border-radius: 0;
+  box-shadow: none;
   margin: .5rem .3rem;
 }
 
@@ -961,6 +990,10 @@ button:hover {
   border-radius: 50%;
   height: 4rem;
   margin-right: .5rem;
+}
+
+.rec-user .button-primary {
+  animation: none;
 }
 
 /* ============== Content Styling (SignIn Page) ======================= */
