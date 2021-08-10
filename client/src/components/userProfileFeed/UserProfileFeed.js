@@ -25,7 +25,7 @@ const UserProfileFeed = props => {
               <p className="title">Most active field:</p>
               <p className="data">n</p>
             </div>
-            <div className="stat">
+            <div className="stat most-active-field">
               <p className="title">Articles:</p>
               <p className="data">n</p>
             </div>
@@ -59,6 +59,7 @@ const UserProfileFeed = props => {
             <div>
               <label htmlFor='topic-select'>Topic: </label>
               <select name="topic-select" id="topic-select">
+                <option className='default' value="">Select a topic</option>
                 <option value="Astrology">Astrology</option>
                 <option value="Techology">Techology</option>
                 <option value="Psychology">Psychology</option>

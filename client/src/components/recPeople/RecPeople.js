@@ -9,12 +9,12 @@ const RecPeople = () => {
       {
         tempUsers.map( user => (
           <div className="rec-user">
-            <img src={user.imgURL} alt="profilepic" className="profile-pic" />
-            <p className="full-name">{user.name}</p>
+            <a href={`/users/${user.UserId}`} className="profile-pic" ><img src={user.imgURL} alt="profilepic" /></a>
+            <a href={`/users/${user.UserId}`} className="full-name"><p>{user.name}</p></a>
             <p className="occupation">{user.occupation}</p>
-            <a href={`/users/${user.UserId}`}><button className='button-primary'>Follow</button></a>
+            <button className='button-primary'>Follow</button>
           </div>
-        ))
+        )).slice(0,5)
       }
     </div>
   )

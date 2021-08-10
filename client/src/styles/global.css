@@ -59,6 +59,25 @@ h4 {
   margin: .5rem;
 }
 
+select {
+  border-radius: .3rem;
+  border: #9cd8fa solid .15rem;
+  color: #112541;
+}
+
+select:focus {
+  outline: none;
+  border: #38B6FF solid .15rem;
+}
+
+.darkmode select {
+  border: #112541 solid .15rem;
+}
+
+.darkmode select:focus {
+  border: #257aac solid .15rem;
+}
+
 /* Custom Scrollbar */
 /* width */
 ::-webkit-scrollbar {
@@ -687,6 +706,7 @@ button:hover {
 }
 
 .user-profile-div {
+  margin-bottom: 3rem;
   grid-area: content;
   display: flex;
   flex-direction: column;
@@ -815,13 +835,14 @@ button:hover {
 .user-profile-info-header .stats {
   margin: 1rem 0;
   display: flex;
-  width: 80%;
+  width: 90%;
   justify-content: space-evenly;
 }
 
 .user-profile-info-header .stat {
   display: flex;
   align-items: center;
+  min-width: fit-content;
   background: #64B5F7;
   color: #E8F7FF;
   padding: .2rem .2rem .2rem .4rem;
@@ -859,8 +880,16 @@ button:hover {
   border-radius: .75rem;
 }
 
+.darkmode .articles-published, .darkmode .articles-published * {
+  background: #161B22;
+}
+
 .articles-published .title {
   margin: 1rem 0 2rem 0;
+}
+
+.darkmode .articles-published .title {
+  color: #38B6FF;
 }
 
 .articles-published .sort-nav {
@@ -893,6 +922,10 @@ button:hover {
   align-items: center;
 }
 
+.darkmode .articles-published .article-cards {
+  background: none;
+}
+
 .articles-published .article-card {
   width: 80%;
   max-width: 60rem;
@@ -910,13 +943,26 @@ button:hover {
   border-radius: .75rem;
 }
 
+.darkmode .articles-accredited, .darkmode .articles-accredited * {
+  background: #161B22;
+}
+
 .articles-accredited .title {
   margin: 1rem 0 2rem 0;
+}
+
+.darkmode .articles-accredited .title {
+  color: #38B6FF;
 }
 
 .articles-accredited .article-cards {
   max-height: 20rem;
   align-items: center;
+}
+
+
+.darkmode .articles-accredited .article-cards {
+  background: none;
 }
 
 .articles-accredited .article-card {
@@ -946,8 +992,13 @@ button:hover {
 .my-profile-page .rec-ppl {
   grid-area: rec-ppl;
   width: 100%;
+  max-height: 28rem;
   background: #E8F7FF;
   border-radius: .75rem;
+}
+
+.darkmode .rec-ppl, .darkmode .rec-ppl * {
+  background: #161B22;
 }
 
 .my-profile-page .rec-ppl h2 {
@@ -986,14 +1037,37 @@ button:hover {
   text-align: left;
 }
 
-.rec-user .profile-pic {
+.darkmode .rec-user {
+  background: #161B22;
+}
+
+.rec-user .profile-pic img {
   border-radius: 50%;
   height: 4rem;
   margin-right: .5rem;
 }
 
 .rec-user .button-primary {
+  width: 50%;
+  height: 70%;
   animation: none;
+}
+
+.my-profile-page .rec-user .full-name {
+  text-decoration: none;
+  color: #162d41;
+}
+
+.darkmode .rec-user .full-name p {
+  color: #38B6FF;
+}
+
+.my-profile-page .rec-user .full-name:hover {
+  text-decoration: underline;
+}
+
+.my-profile-page .rec-user .occupation {
+  color: #bdbdbd;
 }
 
 /* ============== Content Styling (SignIn Page) ======================= */
