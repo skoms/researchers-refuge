@@ -697,7 +697,7 @@ button:hover {
 }
 
 /* ============= Content Styling (Create Article Page) ======================= */
-.create-article-div {
+.create-update-article-div {
   margin: 5rem .5rem 2rem .5rem;
   height: 100%;
   display: grid;
@@ -711,7 +711,7 @@ button:hover {
   justify-items: center;
 }
 
-.create-article-form {
+.create-update-article-form {
   grid-area: form;
   display: grid; 
   grid-template-columns: repeat(6, 1fr);
@@ -720,7 +720,8 @@ button:hover {
     '. title title title title .'
     '. intro intro intro intro .'
     '. body body body body .'
-    '. date date tags tags .';
+    '. date date tags tags .'
+    '. btn btn btn btn .';
   grid-gap: .5rem;
   background: linear-gradient(90deg, #E8F7FF, #a6d7ff, #cce4ff, #a6f9ff );
   background-size: 400% 400%;
@@ -731,66 +732,69 @@ button:hover {
   justify-items: center;
 }
 
-.darkmode .create-article-form {
+.darkmode .create-update-article-form {
   background: linear-gradient(90deg, #2b2b55, #162d41, #23364d, #19393b );
   background-size: 400% 400%;
-  animation: moving-gradient 15s ease infinite;
+  animation: moving-gradient 30s ease infinite;
 }
 
 /* Grid Area Declarations */
-.create-article-form .h1 {
+.create-update-article-form .h1 {
   grid-area: h1;
 }
-.create-article-form .title {
+.create-update-article-form .title {
   grid-area: title;
 }
-.create-article-form .intro {
+.create-update-article-form .intro {
   grid-area: intro;
 }
-.create-article-form .body {
+.create-update-article-form .body {
   grid-area: body;
 }
-.create-article-form .date {
+.create-update-article-form .date {
   grid-area: date;
 }
-.create-article-form .tags {
+.create-update-article-form .tags {
   grid-area: tags;
+}
+.create-update-article-form .form-buttons {
+  grid-area: btn;
 }
 /*---------------------------*/
 
-.create-article-form h1 {
+.create-update-article-form h1 {
   font-weight: 900;
   font-size: 1.6rem;
   margin: 0 0 1rem 0;
 }
 
-.darkmode .create-article-form h1 {
+.darkmode .create-update-article-form h1 {
   background: none;
   color: #38B6FF;
 }
 
-.create-article-form .form-input {
+.create-update-article-form .form-input {
   display: flex;
   flex-direction: column-reverse;
   text-align: left;
   width: 100%;
 }
 
-.darkmode .create-article-form .form-input {
+.darkmode .create-update-article-form .form-input {
   background: none;
 }
 
-.create-article-form .form-input label {
+.create-update-article-form .form-input label {
   font-size: 1.1rem;
   margin: .4rem 0 .2rem 0;
 }
 
-.darkmode .create-article-form .form-input label {
+.darkmode .create-update-article-form .form-input label {
   background: none;
   color: #38B6FF;
 }
 
-.create-article-form .form-input input, .create-article-form .form-input textarea {
+.create-update-article-form .form-input input, .create-update-article-form .form-input textarea {
   border: none;
   border-radius: .25rem;
   background: #e8f7ff7e;
@@ -798,16 +802,22 @@ button:hover {
   height: 2rem;
 }
 
-.create-article-form .form-input textarea {
-  height: 10rem;
+.create-update-article-form .form-input textarea {
+  font-size: 1rem;
+  height: 20rem;
 }
 
-.darkmode .create-article-form .form-input input, .darkmode .create-article-form .form-input textarea {
+.darkmode .create-update-article-form .form-input input, .darkmode .create-update-article-form .form-input textarea {
   background: #161b2293;
   box-shadow: 0 2px 8px -3px #38B6FF;
 }
+ .create-update-article-form .form-input input:focus, .create-update-article-form .form-input textarea:focus {
+  border: #162d41 solid .1rem;
+  margin: -.1rem;
+  outline: none;
+}
 
-.darkmode .create-article-form .form-input input:focus, .darkmode .create-article-form .form-input textarea:focus {
+.darkmode .create-update-article-form .form-input input:focus, .darkmode .create-update-article-form .form-input textarea:focus {
   border: #38B6FF solid .1rem;
   margin: -.1rem;
   outline: none;
@@ -816,6 +826,33 @@ button:hover {
 .darkmode .date input::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
+
+.create-update-article-form .form-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: .8rem;
+}
+
+.darkmode .create-update-article-form .form-buttons {
+  background: none;
+}
+
+.create-update-article-form .form-buttons button {
+  line-height: 2rem;
+  font-size: 1.1rem;
+}
+
+.create-update-article-form .form-buttons .button-primary {
+  min-width: 6rem;
+  width: 30%;
+}
+
+.create-update-article-form .form-buttons .button-secondary {
+  min-width: 4rem;
+  width: 15%;
+}
+
 
 /* ============== Content Styling (Userprofile Page) ================== */
 .user-profile-page {
