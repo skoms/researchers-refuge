@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import MainPage from '../components/mainPage/MainPage';
-import ArticleDetails from "../components/article/articleDetails/ArticleDetails";
+import ArticleDetails from '../components/article/articleDetails/ArticleDetails';
+import CreateArticle from '../components/article/createArticle/CreateArticle';
 import UserRegistration from '../components/userRegistration/UserRegistration';
 import UserLogin from '../components/userLogin/UserLogin';
 import UserProfile from '../components/userProfile/UserProfile';
@@ -23,6 +24,7 @@ function App() {
             <Route path='/users/:id' component={UserProfile} />
             <Route path='/my-profile' component={MyProfile} />
             <Route path='/articles/:id' component={ArticleDetails} />
+            <Route path='/create-article' component={CreateArticle} />
           </Switch>
         </main>
         <Footer />

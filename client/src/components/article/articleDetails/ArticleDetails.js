@@ -10,10 +10,12 @@ let isOwner = true;
 const ArticleDetails = props => {
   return (
     <div className="content-article-details">
+      
       <div className="article-details-sidebar">
         <InfoModule />
         <RelatedArticles />
       </div>
+      
       <div className="article-div"> 
         
         { isOwner 
@@ -24,11 +26,14 @@ const ArticleDetails = props => {
         }
         
         <h1>WHAT IS ARTIFICIAL INTELLIGENCE?</h1> 
+        
         <div className="article-header">
           <a href={`/users/`/* ADD USER ID HERE */}>John McCarthy</a>
           <p>12/11-2007</p>
         </div>
+        
         <p className="article-intro">This article for the layman answers basic questions about artificial intelligence. The opinions expressed here are not all consensus opinion among researchers in AI.</p>
+        
         <p className="article-body">Q. What is artificial intelligence?
 A. It is the science and engineering of making intelligent machines, especially intelligent computer programs. It is related to the similar task of
 using computers to understand human intelligence, but AI does not have to
