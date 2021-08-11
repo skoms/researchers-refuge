@@ -4,7 +4,10 @@
 import InfoModule from "../../infoModule/InfoModule";
 import RelatedArticles from "./relatedArticles/RelatedArticles";
 
-const ArticleDetails = () => {
+// TEMPORARY VARIABLE
+let isOwner = true;
+
+const ArticleDetails = props => {
   return (
     <div className="content-article-details">
       <div className="article-details-sidebar">
@@ -12,6 +15,14 @@ const ArticleDetails = () => {
         <RelatedArticles />
       </div>
       <div className="article-div"> 
+        
+        { isOwner 
+        ? 
+          <a href={`/update-article/${props.match.params.id}`}><button className='button-primary'>Edit Article</button></a>
+        :
+          <></>
+        }
+        
         <h1>WHAT IS ARTIFICIAL INTELLIGENCE?</h1> 
         <div className="article-header">
           <a href={`/users/`/* ADD USER ID HERE */}>John McCarthy</a>
@@ -78,16 +89,26 @@ Whenever people do better than computers on some task or computers
 use a lot of computation to do as well as people, this demonstrates that the
 program designers lack understanding of the intellectual mechanisms required
 to do the task efficiently.</p> 
+        
+        
         <div className="nav-buttons">
-          <a className="prev" href="/">
-            { localStorage.getItem('darkmode') === 'true' 
-            ?
-              <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-left.png" alt="previous button"/>
-            :
-              <img src="https://img.icons8.com/ios/50/000000/circled-chevron-left.png" alt="previous button"/>
-            }
-          </a>
-          <a className="home" href="/">
+
+          { parseInt(props.match.params.id) !== 1 
+          ?
+            <a className="prev" href={`/articles/${parseInt(props.match.params.id) - 1}`}>
+              { localStorage.getItem('darkmode') === 'true' 
+              ?
+                <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-left.png" alt="previous button"/>
+              :
+                <img src="https://img.icons8.com/ios/50/000000/circled-chevron-left.png" alt="previous button"/>
+              }
+            </a>
+          :
+            <a href="/"> </a>
+          }
+          
+
+          <a className="home" href='/'>
             { localStorage.getItem('darkmode') === 'true' 
               ?
                 <img src="https://img.icons8.com/ios/64/38B6FF/home-page.png" alt="home button"/>
@@ -95,7 +116,8 @@ to do the task efficiently.</p>
                 <img src="https://img.icons8.com/ios/64/000000/home-page.png" alt="home button"/>
             }
           </a>
-          <a className="next" href="/">
+
+          <a className="next" href={`/articles/${parseInt(props.match.params.id) + 1}`}>
             { localStorage.getItem('darkmode') === 'true' 
               ?
                 <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-right.png" alt="next button"/>
@@ -103,6 +125,7 @@ to do the task efficiently.</p>
                 <img src="https://img.icons8.com/ios/50/000000/circled-chevron-right.png" alt="next button"/>
             }
           </a>
+
         </div>
       </div>
     </div>
