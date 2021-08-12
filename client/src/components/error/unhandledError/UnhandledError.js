@@ -9,7 +9,7 @@ const UnhandledError = props => {
       ?
         <img src="https://img.icons8.com/ios/180/38B6FF/no-entry.png" alt='stop-sign' />
       :
-        <img src="https://img.icons8.com/ios/180/000000/no-entry.png" alt='stop-sign' />
+        <img src="https://img.icons8.com/ios/180/1a3861/no-entry.png" alt='stop-sign' />
       }
       <h1 className="status-code">{props.statusCode || 500}</h1>
       <p className="error-message">{props.errorMessage || 'Something went wrong, please try and refresh the page, if the issue persists, please'} <a href="/">contact us</a></p>

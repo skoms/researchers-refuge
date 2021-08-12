@@ -9,7 +9,7 @@ const MenuBar = () => {
         <button>Top</button>
         <button>By Topic</button>
       </div>
-      <a href="/create-article">
+      <a href="/articles/create">
         <button>Write New Article</button>
       </a>
     </div>

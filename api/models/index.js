@@ -15,6 +15,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+// Dynamically reads over all files in this models directory and makes a model for each file apart from 'index.js'
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -25,6 +26,7 @@ fs
     db[model.name] = model;
   });
 
+// Dynamically checks and hooks up associate models
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

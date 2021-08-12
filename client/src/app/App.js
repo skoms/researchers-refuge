@@ -26,10 +26,10 @@ function App() {
             <Route exact path='/sign-up' component={UserRegistration} />
             <Route exact path='/sign-in' component={UserLogin} />
             <Route path='/users/:id' component={UserProfile} />
-            <Route path='/my-profile' component={MyProfile} />
+            <Route path='/users/my-profile' component={MyProfile} />
             <Route path='/articles/:id' component={ArticleDetails} />
-            <Route path='/create-article' component={CreateArticle} />
-            <Route path='/update-article/:id' component={UpdateArticle} />
+            <Route path='/articles/create' component={CreateArticle} />
+            <Route path='/article/:id/update' component={UpdateArticle} />
             <Route path='/forbidden' component={Forbidden} />
             <Route path='/error' component={UnhandledError} />
             <Route component={NotFound} />

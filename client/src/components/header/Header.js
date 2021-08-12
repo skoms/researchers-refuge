@@ -20,7 +20,7 @@ const Header = () => {
         <div className='my-profile-div'>
           <DarkModeButton />
           <a href="/sign-out">Sign Out</a>
-          <a href="/my-profile">My Profile</a>
+          <a href="/users/my-profile">My Profile</a>
           <img src="https://via.placeholder.com/30" alt="placeholder" />
         </div>
       :

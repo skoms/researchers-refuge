@@ -27,27 +27,39 @@ module.exports = (sequelize) => {
         }
       }
     },
-    introduction: {
+    intro: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Please provide a value for "introduction"'
+          msg: 'Please provide a value for "intro"'
         },
         notEmpty: {
-          msg: 'Please provide a value for "introduction"'
+          msg: 'Please provide a value for "intro"'
         }
       }
     },
-    textBody: {
+    body: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Please provide a value for "textBody"'
+          msg: 'Please provide a value for "body"'
         },
         notEmpty: {
-          msg: 'Please provide a value for "textBody"'
+          msg: 'Please provide a value for "body"'
+        }
+      }
+    },
+    tags: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Please provide a value for "tags"'
+        },
+        notEmpty: {
+          msg: 'Please provide a value for "tags"'
         }
       }
     },

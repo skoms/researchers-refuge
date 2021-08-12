@@ -20,8 +20,7 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
 // POST creates a new user and stores it in database if it meet requirements
 router.post('/', asyncHandler(async (req, res) => {
 
-  // Commented out to prevent conflicting with project requirements, but feel free to uncomment to see that it works perfectly :)
-  // Setting validation up here, to not collide with hashing of the password on the model, see error message for requirements
+  // Commented out for easier testing, but feel free to uncomment to see that it works perfectly :)
   // const passwordIsValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/.test(req.body.password);
   // if (passwordIsValid) {
   //   await User.create(req.body);

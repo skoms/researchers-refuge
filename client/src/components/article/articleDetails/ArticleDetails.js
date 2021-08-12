@@ -20,7 +20,7 @@ const ArticleDetails = props => {
         
         { isOwner 
         ? 
-          <a href={`/update-article/${props.match.params.id}`}><button className='button-primary'>Edit Article</button></a>
+          <a href={`/articles/${props.match.params.id}/update`}><button className='button-primary'>Edit Article</button></a>
         :
           <></>
         }
