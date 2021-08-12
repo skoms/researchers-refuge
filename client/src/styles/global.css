@@ -1283,7 +1283,7 @@ button:hover {
   background: none;
 }
 
-/* Grid area initiations */
+/* Grid area declarations */
 .user-login-form h1 {
   grid-area: title;
 }
@@ -1303,6 +1303,7 @@ button:hover {
 .user-login-form p {
   grid-area: signup-p;
 }
+/*---------------------------*/
 
 .user-login-form h1 {
   font-size: 1.5rem;
@@ -1440,7 +1441,7 @@ button:hover {
   background: none;
 }
 
-/* Grid area initiations */
+/* Grid area declarations */
 .user-registration-form h1 {
   grid-area: title;
 }
@@ -1472,6 +1473,7 @@ button:hover {
 .user-registration-form p {
   grid-area: login-p;
 }
+/*---------------------------*/
 
 .user-registration-form h1 {
   font-size: 1.5rem;
@@ -1557,6 +1559,72 @@ button:hover {
 
 .user-registration-form p {
   text-align: center;
+}
+
+/* ============= Content Styling (Main Page) ======================== */
+.error-div {
+  margin: 7rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(4, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". pic pic pic pic ."
+    ". status status status status ."
+    ". message message message message ."
+    ". stack stack stack stack .";
+  gap: .5rem;
+  justify-items: center;
+  color: #1a3861;
+}
+
+.darkmode .error-div, .darkmode .error-div * {
+  color: #38B6FF;
+  background: none;
+}
+
+/* Grid Area Declarations */
+.error-div img {
+  grid-area: pic;
+}
+.error-div .status-code {
+  grid-area: status;
+}
+.error-div .error-message {
+  grid-area: message;
+}
+.error-div .error-stack {
+  grid-area: stack;
+}
+/*---------------------------*/
+
+.error-div .status-code {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.error-div .error-message {
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.error-div .error-stack {
+  margin: 2rem 0;
+  font-size: .9rem;
+  color: #E8F7FF;
+  background: #dd3939;
+  padding: 1rem;
+  border-radius: .25rem;
+  max-width: 40rem;
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.darkmode .error-div .error-stack {
+  color: brown;
+  background: #27303d;
 }
 
 /* ============== Small Screen Content Styling  ======================= */
