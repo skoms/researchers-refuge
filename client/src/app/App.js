@@ -11,6 +11,9 @@ import UserRegistration from '../components/userRegistration/UserRegistration';
 import UserLogin from '../components/userLogin/UserLogin';
 import UserProfile from '../components/userProfile/UserProfile';
 import MyProfile from '../components/myProfile/MyProfile';
+import Forbidden from '../components/error/forbidden/Forbidden';
+import NotFound from '../components/error/notFound/NotFound';
+import UnhandledError from '../components/error/unhandledError/UnhandledError';
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
             <Route path='/articles/:id' component={ArticleDetails} />
             <Route path='/create-article' component={CreateArticle} />
             <Route path='/update-article/:id' component={UpdateArticle} />
+            <Route path='/forbidden' component={Forbidden} />
+            <Route path='/error' component={UnhandledError} />
+            <Route component={NotFound} />
           </Switch>
         </main>
         <Footer />
