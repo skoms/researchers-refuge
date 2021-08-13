@@ -16,24 +16,34 @@
   "articles": [
     {
       "userId": 1,
-      "title": "Build a Basic Bookcase",
-      "topic": "test",
-      "intro": "High-end furniture projects are great to dream about.",
-      "body": "High-end furniture projects are great to dream about."
+      "title": "Do we see others online as human?",
+      "topic": "Technology",
+      "intro": "I sometimes wonder why many of us feel so free to be nasty to strangers.",
+      "body": "I’ve often wondered if part of the reason that there is so much venom spewed on Twitter and other social media is that it’s difficult to actually recognize pieces of text on a screen as being from real, feeling human beings. I was nudged into this thought by a recent Washington Post story about Brianna Wu, who had been the target of extreme harassment several years ago during the GamerGate situation. She is apparently getting contacted by some former members of that group, who are sending apologies and regrets for their past actions. The story reminded me of something that happened to me way back when, during the days of the BBS (bulletin board system).",
+      "tags": "psychology,tech,internet,social media"
+    },
+    {
+      "userId": 1,
+      "title": "Reddit is now valued at more than $10 billion",
+      "topic": "Social Media",
+      "intro": "The company is still planning on going public.",
+      "body": "Reddit, the self-declared ‘front page of the internet,’ says it is now valued at more than $10 billion after raising an additional $410 million in funding, with the final round expected to grow to up to $700 million. The company continues to build and sanitize its business, removing racist, misogynist, and otherwise controversial communities, as it prepares to go public at some point in the future. “We are still planning on going public, but we don’t have a firm timeline there yet,” Reddit’s co-founder and CEO Steve Huffman told The New York Times in an interview. “All good companies should go public when they can.” The company previously raised $250 million in funding earlier this year for a valuation of $6 billion. But Huffman told the Times the company was approached with this recent financing round by Fidelity Investments and were made “an offer that we couldn’t refuse.”",
+      "tags": "investment,tech,internet,social media"
     },
     {
       "userId": 2,
-      "title": "Learn How to Program",
-      "topic": "test",
-      "intro": "In this course, you'll learn how to write code like a pro!",
-      "body": "In this course, you'll learn how to write code like a pro!"
+      "title": "Windows 11 is getting updated snipping tool, calculator, and mail apps",
+      "topic": "Technology",
+      "intro": "More Windows 11 app updates are also on the way",
+      "body": "Microsoft is improving some of the built-in apps available in Windows 11. Windows Insiders in the Dev Channel can now test new updates to the Snipping Tool, Calculator, Mail, and Calendar apps. Some of the updates are minor, but all are designed to match the new visual style in Windows 11. Microsoft is replacing the classic Snipping Tool and Snip & Sketch apps in Windows 11 with a new Snipping Tool app that combines the best features of both apps. The Win + Shift + S keyboard shortcut will be the main way to take a screenshot in Windows 11, and it will activate the snipping menu with various options for selecting what content to screenshot.",
+      "tags": "windows,windows 11,microsoft,operating system,updates"
     },
     {
       "userId": 2,
-      "title": "Learn How to Test Programs",
-      "topic": "test",
-      "intro": "In this course, you'll learn how to test programs.",
-      "body": "In this course, you'll learn how to test programs."
+      "title": "Google bans tracking tool that sold users’ location data",
+      "topic": "Surveillance",
+      "intro": "SafeGraph offered data for COVID-19 tracking.",
+      "body": "Google has banned a company that sold Android users’ location data for COVID-19 mapping and other purposes, Motherboard reports. SafeGraph was one of several companies that collected geolocation records through plug-ins in other Android apps, then aggregated it for organizations including The New York Times and Centers for Disease Control. According to Motherboard, Google told developers in June that they had to remove SafeGraph’s software development kit within seven days. Motherboard says it’s not clear whether SafeGraph is still collecting any data from Android apps, and The Verge has reached out to Google and SafeGraph to confirm. SafeGraph’s ban follows an earlier crackdown on location-collecting apps. In December 2020, Google and Apple banned a similar service called X-Mode Social, which reportedly worked with the US military among other customers. Apple didn’t immediately respond to a request for comment on its policy around SafeGraph.  SafeGraph data is supposed to be anonymized, but as Motherboard discusses, location datasets can often reveal details about individuals despite these safeguards. And although users must approve location-gathering by individual apps, many aren’t aware of how their information is being used."
     }
   ]
 }
