@@ -18,22 +18,22 @@
       "userId": 1,
       "title": "Build a Basic Bookcase",
       "topic": "test",
-      "introduction": "High-end furniture projects are great to dream about.",
-      "textBody": "High-end furniture projects are great to dream about."
+      "intro": "High-end furniture projects are great to dream about.",
+      "body": "High-end furniture projects are great to dream about."
     },
     {
       "userId": 2,
       "title": "Learn How to Program",
       "topic": "test",
-      "introduction": "In this course, you'll learn how to write code like a pro!",
-      "textBody": "In this course, you'll learn how to write code like a pro!"
+      "intro": "In this course, you'll learn how to write code like a pro!",
+      "body": "In this course, you'll learn how to write code like a pro!"
     },
     {
       "userId": 2,
       "title": "Learn How to Test Programs",
       "topic": "test",
-      "introduction": "In this course, you'll learn how to test programs.",
-      "textBody": "In this course, you'll learn how to test programs."
+      "intro": "In this course, you'll learn how to test programs.",
+      "body": "In this course, you'll learn how to test programs."
     }
   ]
 }
