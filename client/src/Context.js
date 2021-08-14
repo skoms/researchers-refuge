@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import Data from './Data.js';
 
 // Creates Context
@@ -11,7 +11,7 @@ export class Provider extends Component {
     super();
     this.data = new Data(); // Imports functions made for managing api calls, check '/src/Data.js'
     this.state = {
-      authenticatedUser: Cookies.getJSON('authenticatedUser') || null, // Sets the 'authenticatedUser' if theres a cookie, or 'null' if not
+      authenticatedUser: Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null, // Sets the 'authenticatedUser' if theres a cookie, or 'null' if not
     };
   }
 

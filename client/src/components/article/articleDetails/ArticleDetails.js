@@ -3,6 +3,7 @@
 
 import InfoModule from "../../infoModule/InfoModule";
 import RelatedArticles from "./relatedArticles/RelatedArticles";
+import React, { Fragment } from 'react';
 
 // TEMPORARY VARIABLE
 let isOwner = true;
@@ -20,9 +21,9 @@ const ArticleDetails = props => {
         
         { isOwner 
         ? 
-          <a href={`/articles/${props.match.params.id}/update`}><button className='button-primary'>Edit Article</button></a>
+          <a href={`/update-article/${props.match.params.id}`}><button className='button-primary'>Edit Article</button></a>
         :
-          <></>
+          <Fragment></Fragment>
         }
         
         <h1>WHAT IS ARTIFICIAL INTELLIGENCE?</h1> 
@@ -98,9 +99,9 @@ to do the task efficiently.</p>
         
         <div className="nav-buttons">
 
-          { parseInt(props.match.params.id) !== 1 
+          { parseInt(props.match.params.id, 10) !== 1 
           ?
-            <a className="prev" href={`/articles/${parseInt(props.match.params.id) - 1}`}>
+            <a className="prev" href={`/articles/${parseInt(props.match.params.id, 10) - 1}`}>
               { localStorage.getItem('darkmode') === 'true' 
               ?
                 <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-left.png" alt="previous button"/>
@@ -122,7 +123,7 @@ to do the task efficiently.</p>
             }
           </a>
 
-          <a className="next" href={`/articles/${parseInt(props.match.params.id) + 1}`}>
+          <a className="next" href={`/articles/${parseInt(props.match.params.id, 10) + 1}`}>
             { localStorage.getItem('darkmode') === 'true' 
               ?
                 <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-right.png" alt="next button"/>

@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import DarkModeButton from '../darkmodeButton/DarkModeButton';
+import { Context } from '../../Context';
 
 import SearchField from '../searchField/SearchField'
 
-let loggedIn = true;
-
 const Header = () => {
+  const context = useContext(Context);
+  const [loggedIn, setLoggedIn] = useState(context.authenticatedUser !== null);
+
+  useEffect(() => {
+    setLoggedIn(context.authenticatedUser !== null);
+  }, [context.authenticatedUser]);
+
   return (
     <div className='header'>
       <a className='logo-home-a' href="/">
@@ -19,8 +25,8 @@ const Header = () => {
       loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />
-          <a href="/sign-out">Sign Out</a>
-          <a href="/users/my-profile">My Profile</a>
+          <a href='/sign-out'>Sign Out</a>
+          <a href="/my-profile">My Profile</a>
           <img src="https://via.placeholder.com/30" alt="placeholder" />
         </div>
       :
