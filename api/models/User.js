@@ -89,16 +89,16 @@ module.exports = (sequelize) => {
       }
     },
     articles: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
     },
     credits: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
     },
     followers: {
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
     },
     following: {
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
     },
     imgURL: {
       type: DataTypes.STRING,
