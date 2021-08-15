@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
       }
     },
     tags: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY,
       allowNull: false,
       validate: {
         notNull: {

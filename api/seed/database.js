@@ -37,14 +37,21 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Users
-          (firstName, lastName, emailAddress, password, createdAt, updatedAt)
+          (firstName, lastName, emailAddress, password, occupation, mostActiveField, articles, credits, followers, following, imgURL, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       user.firstName,
       user.lastName,
       user.emailAddress,
-      user.password);
+      user.password,
+      user.occupation,
+      user.mostActiveField,
+      user.articles,
+      user.credits,
+      user.followers,
+      user.following,
+      user.imgURL);
   }
 
   // Inserts article into database
@@ -54,10 +61,11 @@ class Database {
         INSERT INTO Articles
           (userId, title, topic, intro, body, tags, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       article.userId,
       article.title,
+      article.topic,
       article.intro,
       article.body,
       article.tags);
@@ -110,6 +118,13 @@ class Database {
         lastName VARCHAR(255) NOT NULL DEFAULT '', 
         emailAddress VARCHAR(255) NOT NULL DEFAULT '' UNIQUE, 
         password VARCHAR(255) NOT NULL DEFAULT '', 
+        occupation VARCHAR(255) NOT NULL DEFAULT '', 
+        mostActiveField VARCHAR(255) DEFAULT '', 
+        articles INTEGER DEFAULT 0, 
+        credits INTEGER DEFAULT 0, 
+        followers ARRAY DEFAULT [  ], 
+        following ARRAY DEFAULT [  ],
+        imgURL VARCHAR(255) DEFAULT 'https://placeimg.com/120/120/people', 
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL
       );
@@ -142,7 +157,7 @@ class Database {
         topic VARCHAR(255) NOT NULL DEFAULT '', 
         intro TEXT NOT NULL DEFAULT '', 
         body TEXT NOT NULL DEFAULT '', 
-        tags VARCHAR(255) NOT NULL DEFAULT '', 
+        tags ARRAY NOT NULL DEFAULT [], 
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL, 
         userId INTEGER NOT NULL DEFAULT -1 

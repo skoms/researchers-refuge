@@ -69,6 +69,40 @@ module.exports = (sequelize) => {
         }
       }
     },
+    occupation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      set(val) { // set to lowercase after validation to have more consistent data
+        if (val) {
+          const lowercased = val.toLowerCase();
+          this.setDataValue('occupation', lowercased);
+        }
+      }
+    },
+    mostActiveField: {
+      type: DataTypes.STRING,
+      set(val) { // set to lowercase after validation to have more consistent data
+        if (val) {
+          const lowercased = val.toLowerCase();
+          this.setDataValue('mostActiveField', lowercased);
+        }
+      }
+    },
+    articles: {
+      type: DataTypes.NUMBER,
+    },
+    credits: {
+      type: DataTypes.NUMBER,
+    },
+    followers: {
+      type: DataTypes.ARRAY,
+    },
+    following: {
+      type: DataTypes.ARRAY,
+    },
+    imgURL: {
+      type: DataTypes.STRING,
+    },
   }, { sequelize });
 
   User.associate = (models) => {  
