@@ -78,6 +78,21 @@ select:focus {
   border: #257aac solid .15rem;
 }
 
+div .errors {
+  margin-left: 1rem;
+  justify-self: left;
+}
+
+.errors ul {
+  list-style-image: url("https://img.icons8.com/ios-filled/10/dd3939/x.png");
+}
+
+.errors .error {
+  font-weight: 900;
+  margin: .2rem 0;
+  color: #dd3939;
+}
+
 /* Custom Scrollbar */
 /* width */
 ::-webkit-scrollbar {
@@ -1257,6 +1272,7 @@ button:hover {
   grid-template-columns: repeat(6, 1fr);
   grid-template-areas: 
     ". title title title title ."
+    ". errors errors errors errors ."
     ". email email email email ."
     ". pass pass pass pass ."
     ". btn btn btn btn ."
@@ -1286,6 +1302,10 @@ button:hover {
 /* Grid area declarations */
 .user-login-form h1 {
   grid-area: title;
+}
+
+.user-login-form .errors {
+  grid-area: errors;
 }
 
 .user-login-form .email {
