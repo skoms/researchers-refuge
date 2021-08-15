@@ -12,15 +12,13 @@ export default class Data {
     const URL = 'http://localhost:5000/api' + path;
     const options = {
       method,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
+      headers: { 'Content-Type': 'application/json; charset=utf-8' }
     };
     if (body) {
       options.body = JSON.stringify(body);
     }
     if (requiresAuth) {
-      const encodedCredentials = Buffer.from(`${credentials.emailAddress}:${credentials.password}`, 'base64');
+      const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
     return fetch(URL, options);

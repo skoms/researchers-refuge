@@ -1,16 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react'
 import DarkModeButton from '../darkmodeButton/DarkModeButton';
 import { Context } from '../../Context';
+import { useHistory } from 'react-router-dom';
 
 import SearchField from '../searchField/SearchField'
 
 const Header = () => {
   const context = useContext(Context);
+  const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(context.authenticatedUser !== null);
 
   useEffect(() => {
     setLoggedIn(context.authenticatedUser !== null);
   }, [context.authenticatedUser]);
+
+  const LogOut = () => {
+    context.actions.signOut();
+  }
 
   return (
     <div className='header'>
@@ -25,7 +31,7 @@ const Header = () => {
       loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />
-          <a href='/sign-out'>Sign Out</a>
+          <a href='/'><button className='signout-btn' onClick={LogOut}>Sign Out</button></a>
           <a href="/my-profile">My Profile</a>
           <img src="https://via.placeholder.com/30" alt="placeholder" />
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Context } from '../../Context';
 //TODO - Add onClick on 'cancel' button to take them back whence they came
 //TODO - Add onSubmit on form
@@ -9,10 +9,13 @@ const UserLogin = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([  ]);
+
   const context = useContext(Context);
   const history = useHistory();
+  const location = useLocation();
 
-  const change = e => {
+
+  const change = (e) => {
     switch (e.target.name) {
       case 'emailAddress':  
         setEmailAddress(e.target.value);
@@ -25,20 +28,41 @@ const UserLogin = () => {
     }
   }
 
-  const Login = () => {
-    const res = context.actions.SignIn( emailAddress, password );
-    if ( res.status === 200 ) {
-      history.push('/');
-    } else if ( res.status === 500 ) {
-      setErrors(['A server error occured, please try again!']);
-    } else {
-      setErrors(res.message);
-    }
+  const submit = async (e) => {
+    e.preventDefault();
+    const { from } = location.state || { from: { pathname: '/' } };
+    console.log(context.actions)
+    await context.actions.signIn( emailAddress, password )
+      .then(res => {
+        switch (res.status) {
+          case 200:
+            history.push(from);
+            break;
+          case 401:
+            setErrors(res.message);
+            break; 
+          case 500:
+            history.push('/error');
+            break;  
+          default:
+            break;
+        }
+      })
+      .catch(err => {
+        history.push('/error');
+        console.error(err);
+    });
   }
+
+  const cancel = (e) => {
+    e.preventDefault();
+    history.push('/');
+  }
+
   return (
     <div className='user-login-div'>
-      <form className='user-login-form'>
-        <h1 class="card_title">LOGIN</h1>
+      <form className='user-login-form' onSubmit={submit}>
+        <h1 className="card_title">LOGIN</h1>
         <div className="errors">
           { errors 
           ?
@@ -53,15 +77,15 @@ const UserLogin = () => {
         </div>
         <div className="form-input email">
           <label htmlFor="emailAddress">Email</label>
-          <input id="emailAddress" name="emailAddress" type="email"/>
+          <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
         </div>
         <div className="form-input pass">
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password"/>
+            <input id="password" name="password" type="password" onChange={change}/>
         </div>
         <div className='form-buttons'>
-          <button className="button-primary" type="submit">Sign In</button>
-          <button className="button-secondary">Cancel</button>
+          <button className="button-primary" type="submit" onSubmit={submit}>Sign In</button>
+          <button className="button-secondary" onClick={cancel}>Cancel</button>
         </div>
         <p>Don't have a user account yet? Click here to <a href="/sign-up">sign up</a>!</p>
       </form>

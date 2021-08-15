@@ -267,21 +267,31 @@ button:hover {
   box-shadow: none;
 }
 
-.header .my-profile-div a {
+.header .my-profile-div a, .header .my-profile-div .signout-btn {
   border: none;
+  box-shadow: none;
+  padding: none;
   color: #E8F7FF;
+  opacity: 1;
+  font-weight: 500;
+  line-height: 1rem;
   background: none;
   margin: 0 .7rem 0 .3rem;
   font-weight: 900;
   text-decoration: none;
+  transition: all .3s;
 }
 
-.header .my-profile-div a:hover {
+.header .my-profile-div .signout-btn {
+  margin-right: -.5rem;
+}
+
+.header .my-profile-div a:hover, .header .my-profile-div .signout-btn:hover {
   cursor: pointer;
   text-shadow: black 2px 2px 2px;
 }
 
-.darkmode .header .my-profile-div a:hover {
+.darkmode .header .my-profile-div a:hover, .darkmode .header .my-profile-div .signout-btn:hover {
   text-shadow: #38B6FF 2px 2px 2px;
 }
 
@@ -300,6 +310,7 @@ button:hover {
   grid-area: profile;
   margin: 0 .7rem;
   text-decoration: none;
+  transition: all .3s;
 }
 
 .darkmode .sign-buttons a {
