@@ -8,7 +8,7 @@ class Database {
     this.articles = seedData.articles;
     this.users = seedData.users;
     this.enableLogging = enableLogging;
-    this.context = new Context('ResearchRefuge.db', enableLogging);
+    this.context = new Context('ResearchersRefuge.db', enableLogging);
   }
 
   // Log message if logging is enabled
