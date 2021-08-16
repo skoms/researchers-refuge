@@ -31,7 +31,6 @@ const UserLogin = () => {
   const submit = async (e) => {
     e.preventDefault();
     const { from } = location.state || { from: { pathname: '/' } };
-    console.log(context.actions)
     await context.actions.signIn( emailAddress, password )
       .then(res => {
         switch (res.status) {

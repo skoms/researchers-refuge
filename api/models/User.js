@@ -71,7 +71,6 @@ module.exports = (sequelize) => {
     },
     occupation: {
       type: DataTypes.STRING,
-      allowNull: false,
       set(val) { // set to lowercase after validation to have more consistent data
         if (val) {
           const lowercased = val.toLowerCase();

@@ -116,13 +116,10 @@ export default class Data {
   async createUser(user) {
     const res = await this.api('/users', 'POST', user);
     if ( res.status === 201 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            user: data
-          };
-        });
+      console.log('CREATE USER WORKED');
+      return {
+        status: res.status,
+      };
     } else if ( res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {

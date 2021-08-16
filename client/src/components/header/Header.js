@@ -1,13 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import DarkModeButton from '../darkmodeButton/DarkModeButton';
 import { Context } from '../../Context';
-import { useHistory } from 'react-router-dom';
 
 import SearchField from '../searchField/SearchField'
 
 const Header = () => {
   const context = useContext(Context);
-  const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(context.authenticatedUser !== null);
 
   useEffect(() => {

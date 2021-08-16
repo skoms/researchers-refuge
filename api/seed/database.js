@@ -118,7 +118,7 @@ class Database {
         lastName VARCHAR(255) NOT NULL DEFAULT '', 
         emailAddress VARCHAR(255) NOT NULL DEFAULT '' UNIQUE, 
         password VARCHAR(255) NOT NULL DEFAULT '', 
-        occupation VARCHAR(255) NOT NULL DEFAULT '', 
+        occupation VARCHAR(255) DEFAULT '', 
         mostActiveField VARCHAR(255) DEFAULT '', 
         articles INTEGER DEFAULT 0, 
         credits INTEGER DEFAULT 0, 
