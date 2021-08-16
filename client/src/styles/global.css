@@ -114,6 +114,14 @@ div .errors {
   background: #64B5F7;
 }
 
+/* Browser autofill styling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #162d41;
+}
 /* Button styling (primary - secondary) */
 button {
   border-radius: .75rem;
@@ -1545,8 +1553,8 @@ button:hover {
 }
 
 .user-registration-div .missmatch label {
+  color: rgb(212, 31, 31);
   font-weight: 900;
-  color: rgb(247, 33, 33);
 }
 
 .user-registration-div .match input {
@@ -1554,8 +1562,8 @@ button:hover {
 }
 
 .user-registration-div .match label {
+  color: rgb(31, 173, 13);
   font-weight: 900;
-  color: rgb(39, 209, 16);
 }
 
 .user-registration-div .confirm-pass {

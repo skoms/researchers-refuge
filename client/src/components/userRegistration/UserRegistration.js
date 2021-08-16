@@ -16,11 +16,23 @@ const UserRegistration = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
+  /* Name regex to also include international names written in the latin alphabet */
+  const nameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+  /* A simple email regex to do the trick */
+  const emailRegex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
+  /* password: 8-20 characters, at least 1 uppercase, 1 lowercase and one digit */
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
+
   const [passwordsMatch, setPasswordsMatch] = useState();
   const [initiatedFocus, setInitiatedFocus] = useState(false);
   const [errors, setErrors] = useState([  ]);
   const history = useHistory();
   const location = useLocation();
+
+  const smallCheckmark = <img src="https://img.icons8.com/ios-filled/12/34970d/checkmark--v1.png" alt="checkmark"/>;
+  const smallCross = <img src="https://img.icons8.com/ios-filled/12/dd3939/x.png"  alt="cross"/>;
+  const mediumCheckmark = <img src="https://img.icons8.com/ios-filled/16/34970d/checkmark--v1.png" alt="checkmark"/>;
+  const mediumCross = <img src="https://img.icons8.com/ios-filled/16/dd3939/x.png"  alt="cross"/>;
 
   const passMatchCheck = (target, value) => {
     !initiatedFocus && setInitiatedFocus(true);
@@ -35,20 +47,39 @@ const UserRegistration = () => {
     }
   }
 
+  const fieldIsValid = (regex, targetValue, targetQuery) => {
+    const fitsRequirements = regex.test(targetValue);
+    const target = document.querySelector(targetQuery);
+    if ( fitsRequirements ) {
+      target.classList.contains('missmatch') && target.classList.remove('missmatch');
+      !target.classList.contains('match') && target.classList.add('match');
+      return true;
+    } else {
+      setPasswordsMatch(false);
+      !target.classList.contains('missmatch') && target.classList.add('missmatch');
+      target.classList.contains('match') && target.classList.remove('match');
+      return false;
+    }
+  }
+
   const change = (e) => {
     const { name, value } = e.target;
     switch (name) {
       case 'firstName':
         setFirstName(value);
+        fieldIsValid(nameRegex, value, '.first-name');
         break;
       case 'lastName':
         setLastName(value);
+        fieldIsValid(nameRegex, value, '.last-name');
         break;
       case 'emailAddress':
         setEmailAddress(value);
+        fieldIsValid(emailRegex, value, '.email');
         break;
       case 'password':
         setPassword(value);
+        fieldIsValid(passwordRegex, value, '.pass');
         break;
       case 'confirmPassword':
         passMatchCheck(e.target.parentElement, value);
@@ -94,31 +125,38 @@ const UserRegistration = () => {
   return (
     <div className='user-registration-div'>
       <form className='user-registration-form' onSubmit={submit}>
-        <h1 class="card_title">REGISTER NEW USER</h1>
+        <h1 className="card_title">REGISTER NEW USER</h1>
         <div className="errors">
-          { errors 
-          ?
-            <ul>
-              {
-                errors.map( error => <li className='error'>{error}</li>)
-              }
+          { errors ?
+            <ul> 
+            { errors.map( error => <li className='error'>{error}</li>) }
             </ul>
           :
               <React.Fragment />
           }
         </div>
+
         <div className="form-input first-name">
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="firstName">
+            First Name { firstName && ( fieldIsValid(nameRegex, firstName, '.first-name') ? smallCheckmark : smallCross ) }
+          </label>
           <input id="firstName" name="firstName" type="text" onChange={change}/>
         </div>
+
         <div className="form-input last-name">
-          <label htmlFor="lastName">Last Name</label>
+          <label htmlFor="lastName">
+            Last Name { lastName && ( fieldIsValid(nameRegex, lastName, '.last-name') ? smallCheckmark : smallCross ) }
+          </label>
           <input id="lastName" name="lastName" type="text" onChange={change}/>
         </div>
+
         <div className="form-input email">
-          <label htmlFor="emailAddress">Email</label>
+          <label htmlFor="emailAddress">
+            Email { emailAddress && (fieldIsValid(emailRegex, emailAddress, '.email') ? smallCheckmark : smallCross ) }
+          </label>
           <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
         </div>
+
         <div className="form-input pass">
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" onChange={change}/>
@@ -126,12 +164,7 @@ const UserRegistration = () => {
         <div className="form-input confirm-pass">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
-          { initiatedFocus && ( passwordsMatch ? 
-              <img src="https://img.icons8.com/ios-filled/16/34970d/checkmark--v1.png" alt="checkmark"/> 
-              :  
-              <img src="https://img.icons8.com/ios-filled/16/dd3939/x.png"  alt="cross"/>
-            )
-          }
+          { initiatedFocus && ( passwordsMatch ? mediumCheckmark : mediumCross ) }
         </div>
         <div className='form-buttons'>
           <button className="button-primary" type="submit" onSubmit={submit}>Sign Up</button>
