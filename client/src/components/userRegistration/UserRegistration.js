@@ -16,20 +16,22 @@ const UserRegistration = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [passwordsMatch, setPasswordsMatch] = useState();
+  const [initiatedFocus, setInitiatedFocus] = useState(false);
   const [errors, setErrors] = useState([  ]);
   const history = useHistory();
   const location = useLocation();
 
   const passMatchCheck = (target, value) => {
+    !initiatedFocus && setInitiatedFocus(true);
     if ( password === value ) {
       setPasswordsMatch(true);
       target.classList.contains('missmatch') && target.classList.remove('missmatch');
-      console.log(`match, password: ${password} | confirmation: ${value}`);
+      !target.classList.contains('match') && target.classList.add('match');
     } else {
       setPasswordsMatch(false);
       !target.classList.contains('missmatch') && target.classList.add('missmatch');
-      console.log(`missmatch, password: ${password} | confirmation: ${value}`);
+      target.classList.contains('match') && target.classList.remove('match');
     }
   }
 
@@ -49,7 +51,7 @@ const UserRegistration = () => {
         setPassword(value);
         break;
       case 'confirmPassword':
-        passMatchCheck(e.target, value);
+        passMatchCheck(e.target.parentElement, value);
         break;
       default:
         break;
@@ -69,13 +71,6 @@ const UserRegistration = () => {
       lastName,
       emailAddress,
       password,
-      // occupation: 'Unknown',
-      // mostActiveField: 'none',
-      // articles: 0,
-      // credits: 0,
-      // followers: [  ],
-      // following: [  ],
-      // imgURL: null,
     };
 
     passwordsMatch && await context.actions.signUp(user)
@@ -84,8 +79,8 @@ const UserRegistration = () => {
           case 201:
             history.push(from);
             break;
-          case 401:
-            setErrors(res.message);
+          case 400:
+            setErrors(res.errors);
             break;
           case 500:
             history.push('/error');
@@ -131,6 +126,12 @@ const UserRegistration = () => {
         <div className="form-input confirm-pass">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
+          { initiatedFocus && ( passwordsMatch ? 
+              <img src="https://img.icons8.com/ios-filled/16/34970d/checkmark--v1.png" alt="checkmark"/> 
+              :  
+              <img src="https://img.icons8.com/ios-filled/16/dd3939/x.png"  alt="cross"/>
+            )
+          }
         </div>
         <div className='form-buttons'>
           <button className="button-primary" type="submit" onSubmit={submit}>Sign Up</button>

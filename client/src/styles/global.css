@@ -1445,6 +1445,7 @@ button:hover {
   grid-template-columns: repeat(6, 1fr);
   grid-template-areas: 
     ". title title title title ."
+    ". errors errors errors errors ."
     ". first first last last ."
     ". email email email email ."
     ". pass pass confirm-pass confirm-pass ."
@@ -1475,6 +1476,10 @@ button:hover {
 /* Grid area declarations */
 .user-registration-form h1 {
   grid-area: title;
+}
+
+.user-registration-div .errors {
+  grid-area: errors;
 }
 
 .user-registration-form .first-name {
@@ -1533,6 +1538,34 @@ button:hover {
   flex-direction: column;
   text-align: left;
   width: 100%;
+}
+
+.user-registration-div .missmatch input {
+  background: rgba(240, 128, 128, 0.644);
+}
+
+.user-registration-div .missmatch label {
+  font-weight: 900;
+  color: rgb(247, 33, 33);
+}
+
+.user-registration-div .match input {
+  background:rgba(80, 236, 148, 0.658);
+}
+
+.user-registration-div .match label {
+  font-weight: 900;
+  color: rgb(39, 209, 16);
+}
+
+.user-registration-div .confirm-pass {
+  position: relative;
+}
+
+.user-registration-div .confirm-pass img {
+  position: absolute;
+  right: 3%;
+  bottom: 18%;
 }
 
 .user-registration-form .form-buttons {
