@@ -11,7 +11,7 @@ const { User } = require('../models');
 // GET authenticated user info
 router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
   const user = await User.findOne({
-    attributes: ['id', 'firstName', 'lastName', 'emailAddress'],
+    attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],
     where: { emailAddress: req.currentUser.emailAddress }
   });
   res.status(200).json(user);

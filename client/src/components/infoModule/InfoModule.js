@@ -1,33 +1,49 @@
 import React from 'react'
 
 const InfoModule = props => {
+  const {
+    firstName,
+    lastName,
+    occupation,
+    mostActiveField,
+    articles,
+    credits,
+    followers,
+    following,
+    imgURL
+  } = props.user;
+
   return (
     <div className='info-mod'>
-      <img src="https://via.placeholder.com/75" alt="placeholder" />
-      <p className='full-name'>FirstName LastName</p>
-      <p className='occupation'>Profession / Occupation</p>
+      <img alt='your profile'
+        src={ imgURL || "https://img.icons8.com/ios-glyphs/75/ffffff/user--v1.png" }
+        className={ imgURL ? '' : 'placeholder' } 
+        height="75" width="75" 
+      />
+      <p className='full-name'>{`${firstName} ${lastName}`}</p>
+      <p className='occupation'>{occupation}</p>
       <p className="bio">Loves to be placeholders for ambitious projects!</p>
       <table>
         <tbody>
           <tr>
-            <th>Most Active in:</th>
-            <td>n</td>
+            <th>Active in:</th>
+            <td>{ mostActiveField || '' }</td>
           </tr>
           <tr>
-            <th>Articles Written:</th>
-            <td>n</td>
+            <th>Articles:</th>
+            <td>{ articles }</td>
           </tr>
           <tr>
-            <th>Credits Accumulated:</th>
-            <td>n</td>
+            <th>Credits:</th>
+            <td>{ credits }</td>
           </tr>
           <tr>
             <th>Followers:</th>
-            <td>n</td>
+            <td>{ followers.length }</td>
           </tr>
           <tr>
             <th>Following:</th>
-            <td>n</td>
+            <td>{ following.length }</td>
           </tr>
         </tbody>
       </table>

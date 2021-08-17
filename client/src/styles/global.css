@@ -408,7 +408,21 @@ button:hover {
   border-radius: 50%;
   width: 75px;
   height: 75px;
+  padding: 0;
   margin: 0 0 .3rem 0;
+}
+
+.info-mod .placeholder {
+  background: #1a3861;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  padding: 5px;
+  margin: 0 0 .3rem 0;
+}
+
+.darkmode .info-mod .placeholder {
+  background: none;
 }
 
 .info-mod .full-name {
