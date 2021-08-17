@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 import { Context } from '../../Context';
@@ -17,7 +17,7 @@ const UserRegistration = () => {
   const [password, setPassword] = useState('');
 
   /* Name regex to also include international names written in the latin alphabet */
-  const nameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+  const nameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/;
   /* A simple email regex to do the trick */
   const emailRegex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
   /* password: 8-20 characters, at least 1 uppercase, 1 lowercase and one digit */
@@ -33,6 +33,7 @@ const UserRegistration = () => {
   const smallCross = <img src="https://img.icons8.com/ios-filled/12/dd3939/x.png"  alt="cross"/>;
   const mediumCheckmark = <img src="https://img.icons8.com/ios-filled/16/34970d/checkmark--v1.png" alt="checkmark"/>;
   const mediumCross = <img src="https://img.icons8.com/ios-filled/16/dd3939/x.png"  alt="cross"/>;
+  const listOfErrors = <ul>{ errors.map( error => <li className='error'>{error}</li>) }</ul>;
 
   const passMatchCheck = (target, value) => {
     !initiatedFocus && setInitiatedFocus(true);
@@ -54,8 +55,10 @@ const UserRegistration = () => {
       target.classList.contains('missmatch') && target.classList.remove('missmatch');
       !target.classList.contains('match') && target.classList.add('match');
       return true;
+    } else if (targetValue === '') {
+      target.classList.contains('missmatch') && target.classList.remove('missmatch');
+      target.classList.contains('match') && target.classList.remove('match');
     } else {
-      setPasswordsMatch(false);
       !target.classList.contains('missmatch') && target.classList.add('missmatch');
       target.classList.contains('match') && target.classList.remove('match');
       return false;
@@ -127,13 +130,7 @@ const UserRegistration = () => {
       <form className='user-registration-form' onSubmit={submit}>
         <h1 className="card_title">REGISTER NEW USER</h1>
         <div className="errors">
-          { errors ?
-            <ul> 
-            { errors.map( error => <li className='error'>{error}</li>) }
-            </ul>
-          :
-              <React.Fragment />
-          }
+          { errors ? listOfErrors : <Fragment /> }
         </div>
 
         <div className="form-input first-name">
