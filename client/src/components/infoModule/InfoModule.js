@@ -18,7 +18,6 @@ const InfoModule = props => {
       <img alt='your profile'
         src={ imgURL || "https://img.icons8.com/ios-glyphs/75/ffffff/user--v1.png" }
         className={ imgURL ? '' : 'placeholder' } 
-        height="75" width="75" 
       />
       <p className='full-name'>{`${firstName} ${lastName}`}</p>
       <p className='occupation'>{occupation}</p>

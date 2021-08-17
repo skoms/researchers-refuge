@@ -9,11 +9,25 @@ import React, { Fragment } from 'react';
 let isOwner = true;
 
 const ArticleDetails = props => {
+  //TODO - Replace this variable and hook up so that its the Author displayed
+  const temporaryAuthor = {
+    firstName: 'Author',
+    lastName: 'Authorsen',
+    occupation: 'Author',
+    mostActiveField: 'Author',
+    articles: 123,
+    credits: 1234,
+    followers: [1,2,3,4,5],
+    following: [1,2,3],
+    imgURL: ''
+  }
   return (
     <div className="content-article-details">
       
       <div className="article-details-sidebar">
-        <InfoModule />
+        <InfoModule 
+          user={temporaryAuthor}
+        />
         <RelatedArticles />
       </div>
       

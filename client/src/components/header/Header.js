@@ -31,7 +31,10 @@ const Header = () => {
           <DarkModeButton />
           <a href='/'><button className='signout-btn' onClick={LogOut}>Sign Out</button></a>
           <a href="/my-profile">My Profile</a>
-          <img src="https://via.placeholder.com/30" alt="placeholder" />
+          <img alt='your profile'
+            src={ context.authenticatedUser.imgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
+            className={ context.authenticatedUser.imgURL ? '' : 'placeholder' } 
+          />
         </div>
       :
         <div className='sign-buttons'>

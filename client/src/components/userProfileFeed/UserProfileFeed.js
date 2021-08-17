@@ -2,12 +2,26 @@ import React from 'react'
 import ArticleCards from '../article/articleCards/ArticleCards'
 
 const UserProfileFeed = props => {
+  const {
+    firstName,
+    lastName,
+    occupation,
+    mostActiveField,
+    articles,
+    credits,
+    followers,
+    following,
+    imgURL
+  } = props.user;
   return (
       <div className="user-profile-div">
         <div className="user-profile-info-header">
           <div className="header-img-div">
             <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
-            <img src="https://placeimg.com/120/120/people" alt="profilepic" className="profile-pic" />
+            <img 
+              src={ imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
+              alt="profilepic" className={`profile-pic ${imgURL ? "" : "placeholder"}`} 
+            />
             { props.owner 
             ?
               <button className='button-primary'>Edit Profile</button>
@@ -17,29 +31,29 @@ const UserProfileFeed = props => {
             }
           </div>
           <div className="name-and-occupation">
-            <h2 className="full-name">Kari Nordmann</h2>
-            <p className="occupation">Unemployed</p>
+            <h2 className="full-name">{`${firstName} ${lastName}`}</h2>
+            <p className="occupation">{occupation}</p>
           </div>
           <div className="stats">
             <div className="stat">
               <p className="title">Most active field:</p>
-              <p className="data">n</p>
+              <p className="data">{ mostActiveField || 'None' }</p>
             </div>
             <div className="stat most-active-field">
               <p className="title">Articles:</p>
-              <p className="data">n</p>
+              <p className="data">{ articles }</p>
             </div>
             <div className="stat">
               <p className="title">Credits:</p>
-              <p className="data">n</p>
+              <p className="data">{credits}</p>
             </div>
             <div className="stat">
               <p className="title">Followers:</p>
-              <p className="data">n</p>
+              <p className="data">{ followers.length }</p>
             </div>
             <div className="stat">
               <p className="title">Following:</p>
-              <p className="data">n</p>
+              <p className="data">{ following.length }</p>
             </div>
           </div>
         </div>

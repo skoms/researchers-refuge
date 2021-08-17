@@ -255,6 +255,11 @@ button:hover {
   text-decoration: none;
 }
 
+.header .my-profile-div img {
+  height: 30px;
+  width: 30px;
+}
+
 .darkmode .my-profile-div {
   background: #161B22;
 }
@@ -698,7 +703,13 @@ button:hover {
   line-height: 2rem;
   font-size: 1.1rem;
   margin-left: 1rem;
+  background: linear-gradient(#64B5F7, #38B6FF);
 }
+
+.darkmode .article-div .button-primary {
+  background: linear-gradient(#1a3861, #161B22);
+}
+
 
 .article-div h1 {
   font-size: 2.5rem;
@@ -980,7 +991,10 @@ button:hover {
 
 .user-profile-info-header .profile-pic {
   border:#E8F7FF 4px solid;
+  background: #E8F7FF;
   border-radius: 50%;
+  height: 120px;
+  width: 120px;
   position: absolute;
   right: 50%;
   bottom: -10%;
@@ -990,7 +1004,9 @@ button:hover {
 
 .darkmode .user-profile-info-header .profile-pic {
   border: #161B22 4px solid;
+  background: #161B22;
 }
+
 
 .user-profile-info-header .profile-pic:hover {
   transform: scale(1.1) translateY(-.3rem);
@@ -1055,7 +1071,7 @@ button:hover {
 .user-profile-info-header .stats {
   margin: 1rem 0;
   display: flex;
-  width: 90%;
+  width: 100%;
   justify-content: space-evenly;
 }
 
