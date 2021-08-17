@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 import { Context } from '../../Context';
@@ -31,38 +31,59 @@ const UserRegistration = () => {
 
   const smallCheckmark = <img src="https://img.icons8.com/ios-filled/12/34970d/checkmark--v1.png" alt="checkmark"/>;
   const smallCross = <img src="https://img.icons8.com/ios-filled/12/dd3939/x.png"  alt="cross"/>;
-  const mediumCheckmark = <img src="https://img.icons8.com/ios-filled/16/34970d/checkmark--v1.png" alt="checkmark"/>;
-  const mediumCross = <img src="https://img.icons8.com/ios-filled/16/dd3939/x.png"  alt="cross"/>;
   const listOfErrors = <ul>{ errors.map( error => <li className='error'>{error}</li>) }</ul>;
 
-  const passMatchCheck = (target, value) => {
+  const passMatchCheck = (value) => {
     !initiatedFocus && setInitiatedFocus(true);
+    const { classList } =  document.querySelector('.confirm-pass');
     if ( password === value ) {
       setPasswordsMatch(true);
-      target.classList.contains('missmatch') && target.classList.remove('missmatch');
-      !target.classList.contains('match') && target.classList.add('match');
+      classList.contains('missmatch') && classList.remove('missmatch');
+      !classList.contains('match') && classList.add('match');
     } else {
       setPasswordsMatch(false);
-      !target.classList.contains('missmatch') && target.classList.add('missmatch');
-      target.classList.contains('match') && target.classList.remove('match');
+      !classList.contains('missmatch') && classList.add('missmatch');
+      classList.contains('match') && classList.remove('match');
     }
   }
 
   const fieldIsValid = (regex, targetValue, targetQuery) => {
     const fitsRequirements = regex.test(targetValue);
-    const target = document.querySelector(targetQuery);
+    const { classList } = document.querySelector(targetQuery);
     if ( fitsRequirements ) {
-      target.classList.contains('missmatch') && target.classList.remove('missmatch');
-      !target.classList.contains('match') && target.classList.add('match');
+      classList.contains('missmatch') && classList.remove('missmatch');
+      !classList.contains('match') && classList.add('match');
       return true;
     } else if (targetValue === '') {
-      target.classList.contains('missmatch') && target.classList.remove('missmatch');
-      target.classList.contains('match') && target.classList.remove('match');
+      classList.contains('missmatch') && classList.remove('missmatch');
+      classList.contains('match') && classList.remove('match');
     } else {
-      !target.classList.contains('missmatch') && target.classList.add('missmatch');
-      target.classList.contains('match') && target.classList.remove('match');
+      !classList.contains('missmatch') && classList.add('missmatch');
+      classList.contains('match') && classList.remove('match');
       return false;
     }
+  }
+
+  const isReadyToSubmit = () => {
+    const isReady = ( 
+      fieldIsValid(nameRegex, firstName, '.first-name') &&
+      fieldIsValid(nameRegex, lastName, '.last-name') &&
+      fieldIsValid(emailRegex, emailAddress, '.email') &&
+      fieldIsValid(passwordRegex, password, '.pass') &&
+      passwordsMatch
+    );
+    const button = document.querySelector('#sign-up-btn');
+    const { classList } = button;
+    if ( isReady ) {
+      classList.contains('disabled') && classList.remove('disabled');
+      !classList.contains('active') && classList.add('active');
+      button.disabled = "";
+    } else {
+      !classList.contains('disabled') && classList.add('disabled');
+      classList.contains('active') && classList.remove('active');
+      button.disabled = "disabled";
+    }
+    return isReady;
   }
 
   const change = (e) => {
@@ -85,7 +106,7 @@ const UserRegistration = () => {
         fieldIsValid(passwordRegex, value, '.pass');
         break;
       case 'confirmPassword':
-        passMatchCheck(e.target.parentElement, value);
+        passMatchCheck(value);
         break;
       default:
         break;
@@ -107,7 +128,7 @@ const UserRegistration = () => {
       password,
     };
 
-    passwordsMatch && await context.actions.signUp(user)
+    isReadyToSubmit() && await context.actions.signUp(user)
       .then(res => {
         switch (res.status) {
           case 201:
@@ -124,6 +145,11 @@ const UserRegistration = () => {
         }
       })
   }
+
+  useEffect(() => {
+    isReadyToSubmit();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstName, lastName, emailAddress, password, passwordsMatch])
 
   return (
     <div className='user-registration-div'>
@@ -155,16 +181,20 @@ const UserRegistration = () => {
         </div>
 
         <div className="form-input pass">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+            Password { password && ( fieldIsValid(passwordRegex, password, '.pass') ? smallCheckmark : smallCross ) }
+            </label>
             <input id="password" name="password" type="password" onChange={change}/>
         </div>
         <div className="form-input confirm-pass">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+          <label htmlFor="confirmPassword">
+            Confirm Password { initiatedFocus && ( passwordsMatch ? smallCheckmark : smallCross ) }
+          </label>
           <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
-          { initiatedFocus && ( passwordsMatch ? mediumCheckmark : mediumCross ) }
+          
         </div>
         <div className='form-buttons'>
-          <button className="button-primary" type="submit" onSubmit={submit}>Sign Up</button>
+          <button id="sign-up-btn" className="button-primary disabled" type="submit" onSubmit={submit}>Sign Up</button>
           <button className="button-secondary" onClick={cancel}>Cancel</button>
         </div>
         <p>Already have a user account? Click here to <a href="/sign-in">sign in</a>!</p>

@@ -122,6 +122,14 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #162d41;
 }
+
+.darkmode input:-webkit-autofill,
+.darkmode input:-webkit-autofill:hover,
+.darkmode input:-webkit-autofill:focus,
+.darkmode input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #E8F7FF;
+}
 /* Button styling (primary - secondary) */
 button {
   border-radius: .75rem;
@@ -1566,16 +1574,6 @@ button:hover {
   font-weight: 900;
 }
 
-.user-registration-div .confirm-pass {
-  position: relative;
-}
-
-.user-registration-div .confirm-pass img {
-  position: absolute;
-  right: 3%;
-  bottom: 18%;
-}
-
 .user-registration-form .form-buttons {
   display: flex;
   justify-content: center;
@@ -1600,14 +1598,43 @@ button:hover {
   width: 50%;
   font-size: 1.1rem;
   margin: 1rem 1rem;
+}
+
+.user-registration-form .active {
   background: linear-gradient(#64B5F7, #38B6FF);
   color: #E8F7FF;
   animation: sign-up-btn 6s 3s infinite ease-in-out;
 }
 
-.darkmode .user-registration-form .button-primary {
+.user-registration-form .disabled {
+  background: #5b6e8b;
+  color: #bdbdbd;
+  animation: none;
+}
+
+.user-registration-form .disabled:hover {
+  cursor: not-allowed;
+  background: #5b6e8b;
+  opacity: .85;
+  box-shadow: 0 2px 12px -3px #1a3861;
+}
+
+.darkmode .user-registration-form .active {
   background: linear-gradient(#1a3861, #161B22);
   animation: sign-up-btn 6s 3s infinite ease-in-out;
+}
+
+.darkmode .user-registration-form .disabled {
+  background: #3a4658;
+  color: #8b8b8b;
+  animation: none;
+}
+
+.darkmode .user-registration-form .disabled:hover {
+  cursor: not-allowed;
+  background: #3a4658;
+  opacity: .85;
+  box-shadow: 0 2px 12px -3px #3d84e7;
 }
 
 .user-registration-form .button-secondary {
