@@ -5,9 +5,7 @@ import { Context } from '../../Context';
 
 //TODO - Add onChange to each field to verify input
 //TODO - Add onClick on 'cancel' button to take them back whence they came
-//TODO - Add onSubmit on form
 //TODO - Add 'from' location state in the Link so to fix when they want to go back in their history
-//TODO - Add verification to check whether the password and the confirmed password is the same before submitting the form
 
 const UserRegistration = () => {
   const context = useContext(Context);
