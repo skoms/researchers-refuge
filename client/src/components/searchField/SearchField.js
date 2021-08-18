@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const SearchField = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const change = (e) => {
+    setSearchTerm(e.target.value);
+  }
   return (
     <div>
       <input
         id="search"
         type="text"
-        value='' //TODO - Set to searchTerm state
-        // onChange={} //TODO - Set up onChange eventhandler
+        value={searchTerm}
+        onChange={change}
         placeholder="Search for articles or people"
       />
     </div>

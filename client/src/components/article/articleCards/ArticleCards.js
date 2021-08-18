@@ -17,7 +17,6 @@ const ArticleCards = (props) => {
           switch (res.status) {
             case 200:
               setArticles(res.articles);
-              console.log(res.articles);
               break;
             case 500:
               history.push('/error');
