@@ -538,6 +538,16 @@ button:hover {
   color: #38B6FF;
 }
 
+.menu-bar .selected {
+  color: #E8F7FF;
+  background-color: rgb(0, 36, 104);
+}
+
+.darkmode .menu-bar .selected {
+  background: #38B6FF;
+  color: #27303d;
+}
+
 .menu-bar button:hover {
   cursor: pointer;
   background-color: rgb(118, 234, 255);
