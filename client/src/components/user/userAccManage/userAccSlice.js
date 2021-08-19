@@ -18,7 +18,7 @@ export const signIn = createAsyncThunk(
   if (response.status === 200) {
     const { user } = response;
     user.password = password;
-    Cookies.set('authenticatedUser', JSON.stringify(user));
+    Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
   }
   return response;
 });
@@ -33,7 +33,7 @@ export const signUp = createAsyncThunk(
       Cookies.set('authenticatedUser', JSON.stringify({
         password: user.password,
         ...getRes.user
-      }));
+      }), { sameSite: 'Strict' });
       return {
         status: createRes.status,
         user: getRes.user
