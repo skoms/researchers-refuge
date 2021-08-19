@@ -1,19 +1,31 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import DarkModeButton from '../darkmodeButton/DarkModeButton';
-import { Context } from '../../Context';
+import Cookies from 'js-cookie';
 
 import SearchField from '../searchField/SearchField'
+import {
+  selectLoggedIn,
+  selectAuthenticatedUser,
+  signOut,
+  updateAccount
+} from '../user/userAccManage/userAccSlice';
 
 const Header = () => {
-  const context = useContext(Context);
-  const [loggedIn, setLoggedIn] = useState(context.authenticatedUser !== null);
+  const [didLoad, setDidLoad] = useState(false);
+  const loggedIn = useSelector(selectLoggedIn);
+  const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoggedIn(context.authenticatedUser !== null);
-  }, [context.authenticatedUser]);
+    if (!didLoad) {
+      dispatch(updateAccount(Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null));
+      setDidLoad(true);
+    }
+  }, [authenticatedUser, didLoad, dispatch]);
 
   const LogOut = () => {
-    context.actions.signOut();
+    dispatch(signOut());
   }
 
   return (
@@ -25,15 +37,14 @@ const Header = () => {
       <div className="search">
         <SearchField />
       </div>
-      { 
-      loggedIn ?
+      { didLoad && loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />
           <a href='/'><button className='signout-btn' onClick={LogOut}>Sign Out</button></a>
           <a href="/my-profile">My Profile</a>
           <img alt='your profile'
-            src={ context.authenticatedUser.imgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
-            className={ context.authenticatedUser.imgURL ? '' : 'placeholder' } 
+            src={ authenticatedUser.imgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
+            className={ authenticatedUser.imgURL ? '' : 'placeholder' } 
           />
         </div>
       :

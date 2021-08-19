@@ -6,6 +6,7 @@ export const data = new Data();
 
 const initialState = {
   status: 'idle',
+  loggedIn: false,
   error: null,
   authenticatedUser: Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null,
 };
@@ -53,17 +54,20 @@ export const userAccSlice = createSlice({
   reducers: {
     signOut: (state) => {
       Cookies.remove('authenticatedUser');
+      console.log('Signed out!')
       return {
         ...state,
+        loggedIn: false,
         authenticatedUser: null
       }
     },
-    updateAccount: (state, user) => {
+    updateAccount: (state, action) => {
       return {
         ...state,
-        authenticatedUser: user
+        loggedIn: action.payload ? true : false,
+        authenticatedUser: action.payload
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.fulfilled, (state, action) => {
@@ -83,4 +87,9 @@ export const userAccSlice = createSlice({
   }
 });
 
+export const selectAuthenticatedUser = state => state.userAcc.authenticatedUser;
+export const selectLoggedIn = state => state.userAcc.loggedIn;
+
 export const { signOut, updateAccount } = userAccSlice.actions;
+
+export default userAccSlice.reducer;

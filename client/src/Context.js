@@ -38,24 +38,6 @@ export class Provider extends Component {
   }
 
   /**
-   * Capitalizes the first word or all words in a string
-   * @param {string} string - the string to capitalize
-   * @param {bool} firstOnly - true or false, whether to only capitalize first or all
-   * @returns the altered string
-   */
-  capitalize = (string, firstOnly = false) => {
-    let strArray = string.split(' ');
-    if (strArray.length <= 1 || firstOnly) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    } else {
-      strArray = strArray.map( str => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      });
-      return strArray.join(' ');
-    }
-  }
-
-  /**
    * Signs up (and if successful, signs in) the user, and sets cookie and global variable for authenticated user
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns the status code and the user object if successful, if not, throws an error

@@ -25,6 +25,24 @@ export default class Data {
   }
 
   /**
+ * Capitalizes the first word or all words in a string
+ * @param {string} string - the string to capitalize
+ * @param {bool} firstOnly - true or false, whether to only capitalize first or all
+ * @returns the altered string
+ */
+    capitalize = (string, firstOnly = false) => {
+    let strArray = string.split(' ');
+    if (strArray.length <= 1 || firstOnly) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    } else {
+      strArray = strArray.map( str => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      });
+      return strArray.join(' ');
+    }
+  }
+
+  /**
    * Gets the user if credentials matches server
    * @param {string} emailAddress - User's Email to log in
    * @param {string} password - User's password to log in
