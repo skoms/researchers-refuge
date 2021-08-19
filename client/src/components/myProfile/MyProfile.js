@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import RecPeople from '../recPeople/RecPeople'
 
-import UserProfileFeed from '../userProfileFeed/UserProfileFeed'
+import UserProfileFeed from '../user/userProfile/userProfileFeed/UserProfileFeed';
 import { Context } from '../../Context'
 
 const MyProfile = () => {

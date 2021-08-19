@@ -1,5 +1,5 @@
 import React from 'react'
-import ArticleCards from '../article/articleCards/ArticleCards'
+import ArticleCards from '../../../article/articleCards/ArticleCards';
 
 const UserProfileFeed = props => {
   const {
