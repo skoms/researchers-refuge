@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 
 //TODO - Import all the needed Reducers
 import searchFieldReducer from '../components/searchField/searchFieldSlice';
+import feedReducer from "../components/feed/FeedSlice";
 
 export const store = configureStore({
   reducer: {
     //TODO - Add all the reducers
-    searchField: searchFieldReducer
+    searchField: searchFieldReducer,
+    feed: feedReducer,
   }
 });

@@ -19,5 +19,5 @@ export const { update } = searchFieldSlice.actions;
 
 export const selectSearchTerm = state => state.searchTerm;
 
-export default searchFieldSlice.reducers;
+export default searchFieldSlice.reducer;
 
