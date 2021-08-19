@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import Data from "../../../Data";
 
-export const data = new Data();
+const data = new Data();
 
 const initialState = {
   status: 'idle',

@@ -17,6 +17,17 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
   res.status(200).json(user);
 }));
 
+// GET finds specified user and basic info on its owner
+router.get('/:id', asyncHandler(async (req, res) => {
+  const user = await User.findByPk(req.params.id, { 
+    attributes: ['id', 'firstName', 'lastName', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL']});
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).end();
+  }
+}));
+
 // POST creates a new user and stores it in database if it meet requirements
 router.post('/', asyncHandler(async (req, res) => {
 

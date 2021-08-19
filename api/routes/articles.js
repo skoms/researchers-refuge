@@ -29,6 +29,21 @@ router.get('/:id', asyncHandler(async (req, res) => {
   }
 }));
 
+// GET finds and displays all the articles and basic info on their owners
+router.get('/owner-:id', asyncHandler(async (req, res) => {
+  const articles = await Article.findAll(({
+    attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId'], 
+    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    where: { userId: req.params.id }
+  }));
+
+  if (articles) {
+    res.status(200).json(articles);
+  } else {
+    res.status(404).end();
+  }
+}));
+
 // POST creates a new article and assigns the logged authenticated user as its owner
 router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
   req.body.userId = req.currentUser.id;

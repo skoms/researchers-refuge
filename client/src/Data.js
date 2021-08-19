@@ -61,11 +61,36 @@ export default class Data {
     } else if ( res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
+      return {
+        status: res.status,
+        errors: res.message
+      };
+    }
+  }
+
+  /**
+   * Gets a specific user and returns it
+   * @param {integer} id - the ID of the user
+   * @returns status code, data on success, errors on failure
+   */
+  async getUserById(id) {
+    const res = await this.api(`/users/${id}`, 'GET');
+    if ( res.status === 200 ) {
       return res.json()
         .then( data => {
           return {
             status: res.status,
-            errors: data.message
+            user: data
+          };
+        });
+    } else if ( res.status === 404  || res.status === 500 ) {
+      return { status: res.status };
+    } else if ( res.status > 299 ) {
+      return res.json()
+        .then(data => {
+          return {
+            status: res.status,
+            errors: res.message
           };
         });
     }
@@ -100,6 +125,31 @@ export default class Data {
   }
 
   /**
+   * Gets a specific article and returns it
+   * @param {integer} id - the ID of the article
+   * @returns status code, data on success, errors on failure
+   */
+   async getArticlesByOwnerId(id) {
+    const res = await this.api(`/articles/owner-${id}`, 'GET');
+    if ( res.status === 200 ) {
+      return res.json()
+        .then( data => {
+          return {
+            status: res.status,
+            articles: data
+          };
+        });
+    } else if ( res.status === 404  || res.status === 500 ) {
+      return { status: res.status };
+    } else if ( res.status > 299 ) {
+      return {
+        status: res.status,
+        errors: res.message
+      };
+    };
+  }
+
+  /**
    * Gets all articles stored in the API
    * @returns status code, data on success, errors on failure
    */
@@ -116,13 +166,10 @@ export default class Data {
     } else if ( res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            errors: data.message
-          };
-        });
+      return {
+        status: res.status,
+        errors: res.message
+      };
     }
   }
 
