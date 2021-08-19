@@ -31,8 +31,8 @@ export const signUp = createAsyncThunk(
     const getRes = await data.getUser(user.emailAddress, user.password);
     if (getRes.status === 200) {
       Cookies.set('authenticatedUser', JSON.stringify({
-        id: getRes.user.id,
-        ...user
+        password: user.password,
+        ...getRes.user
       }));
       return {
         status: createRes.status,
