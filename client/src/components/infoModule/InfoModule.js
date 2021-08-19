@@ -30,19 +30,19 @@ const InfoModule = props => {
           </tr>
           <tr>
             <th>Articles:</th>
-            <td>{ articles }</td>
+            <td>{ articles || 0 }</td>
           </tr>
           <tr>
             <th>Credits:</th>
-            <td>{ credits }</td>
+            <td>{ credits || 0 }</td>
           </tr>
           <tr>
             <th>Followers:</th>
-            <td>{ followers.length }</td>
+            <td>{ typeof followers === 'object' ? followers.length : 0 }</td>
           </tr>
           <tr>
             <th>Following:</th>
-            <td>{ following.length }</td>
+            <td>{ typeof following === 'object' ? following.length : 0 }</td>
           </tr>
         </tbody>
       </table>

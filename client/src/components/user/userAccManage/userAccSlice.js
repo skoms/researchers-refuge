@@ -19,8 +19,8 @@ export const signIn = createAsyncThunk(
     const { user } = response;
     user.password = password;
     Cookies.set('authenticatedUser', JSON.stringify(user));
-  } 
-  return response.user;
+  }
+  return response;
 });
 
 export const signUp = createAsyncThunk(
@@ -54,7 +54,6 @@ export const userAccSlice = createSlice({
   reducers: {
     signOut: (state) => {
       Cookies.remove('authenticatedUser');
-      console.log('Signed out!')
       return {
         ...state,
         loggedIn: false,
@@ -73,15 +72,15 @@ export const userAccSlice = createSlice({
     builder.addCase(signIn.fulfilled, (state, action) => {
       return {
         ...state,
-        authenticatedUser: action.payload
+        loggedIn: action.payload.user ? true : false,
+        authenticatedUser: action.payload.user
       }
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
       return { 
         ...state,
-        authenticatedUser: {
-          ...action.payload.user
-        }
+        loggedIn: action.payload.user ? true : false,
+        authenticatedUser: action.payload.user
       }
     });
   }

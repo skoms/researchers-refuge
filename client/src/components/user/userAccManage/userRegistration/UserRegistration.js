@@ -1,14 +1,18 @@
-import React, { Fragment, useState, useContext, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
-import { Context } from '../../../../Context';
+import { useDispatch } from 'react-redux';
+import {
+  signUp
+} from '../userAccSlice';
 
 //TODO - Add onChange to each field to verify input
 //TODO - Add onClick on 'cancel' button to take them back whence they came
 //TODO - Add 'from' location state in the Link so to fix when they want to go back in their history
 
 const UserRegistration = () => {
-  const context = useContext(Context);
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -126,7 +130,8 @@ const UserRegistration = () => {
       password,
     };
 
-    isReadyToSubmit() && await context.actions.signUp(user)
+    isReadyToSubmit() && await dispatch(signUp(user))
+      .then(res => res.payload)
       .then(res => {
         switch (res.status) {
           case 201:

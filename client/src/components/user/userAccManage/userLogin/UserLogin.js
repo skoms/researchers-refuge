@@ -1,18 +1,22 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Context } from '../../../../Context';
+import {
+  signIn
+} from '../userAccSlice';
 //TODO - Add onClick on 'cancel' button to take them back whence they came
 //TODO - Add onSubmit on form
 //TODO - Add 'from' location state in the Link so to fix when they want to go back in their history
 
 const UserLogin = () => {
+  
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([  ]);
 
-  const context = useContext(Context);
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
 
 
   const change = (e) => {
@@ -31,26 +35,21 @@ const UserLogin = () => {
   const submit = async (e) => {
     e.preventDefault();
     const { from } = location.state || { from: { pathname: '/' } };
-    await context.actions.signIn( emailAddress, password )
+    await dispatch(signIn({ emailAddress, password }))
+      .then(res => res.payload)
       .then(res => {
-        switch (res.status) {
-          case 200:
-            history.push(from);
-            break;
-          case 401:
-            setErrors(res.message);
-            break; 
-          case 500:
-            history.push('/error');
-            break;  
-          default:
-            break;
+        if (res.status === 200) {
+          history.push(from);
+        } else if (res.status === 401) {
+          setErrors(res.message);
+        } else if (res.status === 500) {
+          history.push('/error')
         }
       })
-      .catch(err => {
+      .catch((err) => {
         history.push('/error');
         console.error(err);
-    });
+      });
   }
 
   const cancel = (e) => {

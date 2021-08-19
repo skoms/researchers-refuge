@@ -122,8 +122,8 @@ class Database {
         mostActiveField VARCHAR(255) DEFAULT '', 
         articles INTEGER DEFAULT 0, 
         credits INTEGER DEFAULT 0, 
-        followers ARRAY DEFAULT [  ], 
-        following ARRAY DEFAULT [  ],
+        followers ARRAY DEFAULT [], 
+        following ARRAY DEFAULT [],
         imgURL VARCHAR(255) DEFAULT 'https://placeimg.com/120/120/people', 
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL

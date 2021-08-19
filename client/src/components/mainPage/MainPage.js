@@ -1,25 +1,20 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
-
+import React, { Fragment } from 'react'
+import { useSelector } from 'react-redux'
 import InfoModule from '../infoModule/InfoModule'
 import Feed from '../feed/Feed'
 import RecommendModule from '../recommendModule/RecommendModule'
-import { Context } from '../../Context'
+import {
+  selectAuthenticatedUser,
+  selectLoggedIn,
+} from '../user/userAccManage/userAccSlice';
 
 const MainPage = props => {
-  const context = useContext(Context);
-  const [user, setUser] = useState(null);
-  const [didLoad, setDidLoad] = useState(false);
+  const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const loggedIn = useSelector(selectLoggedIn);
 
-  useEffect(() => {
-    if (!didLoad) {
-      setDidLoad(true);
-      setUser(context.authenticatedUser);
-    }
-  }, [context.authenticatedUser, didLoad]);
-  
   return (
     <div className='main-page-content'>
-      { didLoad && user ? <InfoModule user={user} /> :<Fragment /> }
+      { loggedIn ? <InfoModule user={authenticatedUser} /> :<Fragment /> }
       <Feed />
       <RecommendModule />
     </div>

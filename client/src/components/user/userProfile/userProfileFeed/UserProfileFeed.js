@@ -32,7 +32,7 @@ const UserProfileFeed = props => {
           </div>
           <div className="name-and-occupation">
             <h2 className="full-name">{`${firstName} ${lastName}`}</h2>
-            <p className="occupation">{occupation}</p>
+            <p className="occupation">{ occupation || '' }</p>
           </div>
           <div className="stats">
             <div className="stat">
@@ -41,19 +41,23 @@ const UserProfileFeed = props => {
             </div>
             <div className="stat most-active-field">
               <p className="title">Articles:</p>
-              <p className="data">{ articles }</p>
+              <p className="data">{ articles || 0 }</p>
             </div>
             <div className="stat">
               <p className="title">Credits:</p>
-              <p className="data">{credits}</p>
+              <p className="data">{ credits || 0 }</p>
             </div>
             <div className="stat">
               <p className="title">Followers:</p>
-              <p className="data">{ followers.length }</p>
+              <p className="data">
+                { typeof followers === 'object' ? followers.length : 0 }
+              </p>
             </div>
             <div className="stat">
               <p className="title">Following:</p>
-              <p className="data">{ following.length }</p>
+              <p className="data">
+                { typeof following === 'object' ? following.length : 0 }
+              </p>
             </div>
           </div>
         </div>
