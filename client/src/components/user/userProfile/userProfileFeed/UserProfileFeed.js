@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { 
   selectAuthenticatedUser
@@ -11,19 +12,19 @@ import {
 } from '../userFeedSlice';
 
 const UserProfileFeed = props => {
-  const { id } = useParams();
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const history = useHistory();
   const [didLoad, setDidLoad] = useState(false);  
   const [owner, setOwner] = useState(props.owner ? authenticatedUser : null);
 
-  if (authenticatedUser.id === parseInt(id)) {
+  if (authenticatedUser.id === parseInt(props.id)) {
     history.push('/my-profile')
   }
 
   useEffect(() => {
     const getOwnerInfo = async (id) => {
+      console.log('dispatched!')
       await dispatch(getUserInfo(id))
         .then(res => res.payload)
         .then(res => {
@@ -35,31 +36,20 @@ const UserProfileFeed = props => {
         })
     }
     if (!didLoad) {
-      owner === null && getOwnerInfo();
+      owner === null && getOwnerInfo(props.id);
       setDidLoad(true);
+      console.log('Loaded');
     }
-  }, [didLoad, owner, dispatch, history])
+  }, [didLoad, owner, dispatch, history, props.id])
 
-  const {
-    firstName,
-    lastName,
-    occupation,
-    mostActiveField,
-    articles,
-    credits,
-    followers,
-    following,
-    imgURL
-  } = owner;
-
-  return (
+  return owner !== null ? (
       <div className="user-profile-div">
         <div className="user-profile-info-header">
           <div className="header-img-div">
             <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
             <img 
-              src={ imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
-              alt="profilepic" className={`profile-pic ${imgURL ? "" : "placeholder"}`} 
+              src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
+              alt="profilepic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
             />
             { props.owner
             ?
@@ -70,32 +60,32 @@ const UserProfileFeed = props => {
             }
           </div>
           <div className="name-and-occupation">
-            <h2 className="full-name">{`${firstName} ${lastName}`}</h2>
-            <p className="occupation">{ occupation || '' }</p>
+            <h2 className="full-name">{`${owner.firstName} ${owner.lastName}`}</h2>
+            <p className="occupation">{ owner.occupation || '' }</p>
           </div>
           <div className="stats">
             <div className="stat">
               <p className="title">Most active field:</p>
-              <p className="data">{ mostActiveField || 'None' }</p>
+              <p className="data">{ owner.mostActiveField || 'None' }</p>
             </div>
             <div className="stat most-active-field">
               <p className="title">Articles:</p>
-              <p className="data">{ articles || 0 }</p>
+              <p className="data">{ owner.articles || 0 }</p>
             </div>
             <div className="stat">
               <p className="title">Credits:</p>
-              <p className="data">{ credits || 0 }</p>
+              <p className="data">{ owner.credits || 0 }</p>
             </div>
             <div className="stat">
               <p className="title">Followers:</p>
               <p className="data">
-                { typeof followers === 'object' ? followers.length : 0 }
+                { typeof owner.followers === 'object' ? owner.followers.length : 0 }
               </p>
             </div>
             <div className="stat">
               <p className="title">Following:</p>
               <p className="data">
-                { typeof following === 'object' ? following.length : 0 }
+                { typeof owner.following === 'object' ? owner.following.length : 0 }
               </p>
             </div>
           </div>
@@ -134,6 +124,8 @@ const UserProfileFeed = props => {
         </div>
       </div>
   )
+  :
+  <Fragment />
 }
 
 export default UserProfileFeed
