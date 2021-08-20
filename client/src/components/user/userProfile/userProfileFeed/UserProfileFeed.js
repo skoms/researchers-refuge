@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
+import { 
+  selectAuthenticatedUser,
+  selectLoggedIn
+} from '../../userAccManage/userAccSlice';
+import {
+  getUserInfo,
+  getUserArticles
+} from '../userFeedSlice';
 
 const UserProfileFeed = props => {
+  const dispatch = useDispatch();
+  const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const { id } = useParams();
+  const [isOwner, setIsOwner] = useState(authenticatedUser.id === parseInt(id));
+  const history = useHistory();
+
+  if (isOwner) {
+    history.push('/my-profile')
+  }
   const {
     firstName,
     lastName,
@@ -22,7 +41,7 @@ const UserProfileFeed = props => {
               src={ imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
               alt="profilepic" className={`profile-pic ${imgURL ? "" : "placeholder"}`} 
             />
-            { props.owner 
+            { props.owner || isOwner
             ?
               <button className='button-primary'>Edit Profile</button>
               

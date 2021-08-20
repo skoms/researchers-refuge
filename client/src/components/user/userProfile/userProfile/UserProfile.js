@@ -5,6 +5,7 @@ import UserProfileFeed from '../userProfileFeed/UserProfileFeed';
 
 const UserProfile = () => {
   const temporaryUser = {
+    id: 3,
     firstName: 'Temp',
     lastName: 'User',
     occupation: 'Tester',

@@ -1,6 +1,6 @@
 const tempUsers = [ 
   {
-    UserId: 1,
+    id: 1,
     firstName: 'firstName',
     lastName: 'lastName',
     emailAddress: 'email@example.com',
