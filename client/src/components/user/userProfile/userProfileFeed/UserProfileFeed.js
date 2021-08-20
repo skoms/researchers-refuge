@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { 
-  selectAuthenticatedUser,
-  selectLoggedIn
+  selectAuthenticatedUser
 } from '../../userAccManage/userAccSlice';
 import {
   getUserInfo,
@@ -12,15 +11,35 @@ import {
 } from '../userFeedSlice';
 
 const UserProfileFeed = props => {
-  const dispatch = useDispatch();
-  const authenticatedUser = useSelector(selectAuthenticatedUser);
   const { id } = useParams();
-  const [isOwner, setIsOwner] = useState(authenticatedUser.id === parseInt(id));
+  const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const dispatch = useDispatch();
   const history = useHistory();
+  const [didLoad, setDidLoad] = useState(false);  
+  const [owner, setOwner] = useState(props.owner ? authenticatedUser : null);
 
-  if (isOwner) {
+  if (authenticatedUser.id === parseInt(id)) {
     history.push('/my-profile')
   }
+
+  useEffect(() => {
+    const getOwnerInfo = async (id) => {
+      await dispatch(getUserInfo(id))
+        .then(res => res.payload)
+        .then(res => {
+          if (res.status === 200) {
+            setOwner(res.user);
+          } else if (res.status === 404) {
+            history.push('/not-found');
+          }
+        })
+    }
+    if (!didLoad) {
+      owner === null && getOwnerInfo();
+      setDidLoad(true);
+    }
+  }, [didLoad, owner, dispatch, history])
+
   const {
     firstName,
     lastName,
@@ -31,7 +50,8 @@ const UserProfileFeed = props => {
     followers,
     following,
     imgURL
-  } = props.user;
+  } = owner;
+
   return (
       <div className="user-profile-div">
         <div className="user-profile-info-header">
@@ -41,7 +61,7 @@ const UserProfileFeed = props => {
               src={ imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
               alt="profilepic" className={`profile-pic ${imgURL ? "" : "placeholder"}`} 
             />
-            { props.owner || isOwner
+            { props.owner
             ?
               <button className='button-primary'>Edit Profile</button>
               
