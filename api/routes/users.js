@@ -59,7 +59,7 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
   }
 }));
 
-// PUT updates 'followers' for the target and 'following' for the follow/unfollow
+// PUT updates 'followers' for the target and 'following' for the follow/unfollow, and returns both Users to update them
 router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
   // Fetches the two users from the API
   const user = await User.findOne({
