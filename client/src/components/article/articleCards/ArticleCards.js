@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserArticles } from '../../user/userProfile/userFeedSlice';
+import { selectFeedArticles } from '../../feed/FeedSlice';
 import ArticleCard from './articleCard/ArticleCard';
 
 const ArticleCards = (props) => {
   const ownersArticles = useSelector(selectUserArticles);
+  const feedArticles = useSelector(selectFeedArticles);
   const [articles, setArticles] = useState([  ]);
   const [didLoad, setDidLoad] = useState(false);
 
@@ -18,6 +20,9 @@ const ArticleCards = (props) => {
         //TODO - Hook up this one too ( has to be done after implementing credit system and tracking )
         setArticles([  ])
         break;
+      case 'feed':
+        setArticles(feedArticles);
+        break;
       default:
         break;
     }
@@ -25,7 +30,7 @@ const ArticleCards = (props) => {
       setDidLoad(true);
       console.log(props);
     }
-  }, [didLoad, props, ownersArticles])
+  }, [didLoad, props, ownersArticles, feedArticles])
 
   window.addEventListener('scroll', e => {
     let scrollbarTimeout;

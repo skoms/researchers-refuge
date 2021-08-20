@@ -32,15 +32,31 @@ export const userFeedSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
-      return {
-        ...state,
-        owner: action.payload.user
+      if (action.payload.status === 200) {
+        return {
+          ...state,
+          owner: {
+            ...action.payload.user,
+            followers: action.payload.user.followers.split(','),
+            following: action.payload.user.following.split(',')
+          }
+        }
+      } else {
+        return {
+          ...state
+        }
       }
     });
     builder.addCase(getUserArticles.fulfilled, (state, action) => {
-      return {
-        ...state,
-        userArticles: action.payload.articles
+      if (action.payload.status === 200) {
+        return {
+          ...state,
+          userArticles: action.payload.articles
+        }
+      } else {
+        return {
+          ...state
+        }
       }
     });
   }

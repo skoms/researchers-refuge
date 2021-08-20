@@ -86,13 +86,10 @@ export default class Data {
     } else if ( res.status === 404  || res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then(data => {
-          return {
-            status: res.status,
-            errors: res.message
-          };
-        });
+      return {
+        status: res.status,
+        errors: res.message
+      };
     }
   }
 
@@ -114,13 +111,10 @@ export default class Data {
     } else if ( res.status === 404  || res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then(data => {
-          return {
-            status: res.status,
-            errors: res.message
-          };
-        });
+      return {
+        status: res.status,
+        errors: res.message
+      };
     }
   }
 
@@ -224,13 +218,10 @@ export default class Data {
     } else if ( res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            errors: data.message
-          }
-        })
+      return {
+        status: res.status,
+        errors: res.message
+      };
     }
   }
 
@@ -254,13 +245,10 @@ export default class Data {
     } else if (res.status === 403 || res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            errors: data.message
-          }
-        })
+      return {
+        status: res.status,
+        errors: res.message
+      };
     }
   }
 
@@ -277,13 +265,10 @@ export default class Data {
     } else if (res.status === 403 || res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            errors: data.message
-          }
-        })
+      return {
+        status: res.status,
+        errors: res.message
+      };
     }
   }
 }

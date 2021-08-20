@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { update } from '../feed/FeedSlice';
+import { updateFilter } from '../feed/FeedSlice';
 
 const MenuBar = () => {
   const dispatch = useDispatch();
@@ -14,17 +14,17 @@ const MenuBar = () => {
           classList.contains('selected') && classList.remove('selected')
         });
         classList.add('selected');
-        dispatch(update(value));
+        dispatch(updateFilter(value));
       }
     }
   }
   return (
     <div className='menu-bar'>
       <div>
-        <button onClick={select}>Popular</button>
-        <button onClick={select}>New</button>
-        <button onClick={select}>Top</button>
-        <button onClick={select}>By Topic</button>
+        <button onClick={select} className='selected' value='popular'>Popular</button>
+        <button onClick={select} value='new'>New</button>
+        <button onClick={select} value='top'>Top</button>
+        <button onClick={select} value='bytopic'>By Topic</button>
       </div>
       <a href="/write-article">
         <button>Write New Article</button>

@@ -15,7 +15,7 @@ const UserProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [didLoad, setDidLoad] = useState(false);  
+  const [didLoad, setDidLoad] = useState(false);
   const [owner, setOwner] = useState(props.owner ? authenticatedUser : null);
 
   if (authenticatedUser.id === parseInt(props.id)) {
@@ -47,10 +47,11 @@ const UserProfileFeed = props => {
     }
     if (!didLoad) {
       owner === null && getOwnerInfo(props.id);
-      props.owner ? 
-        getOwnersArticles(authenticatedUser.id) : getOwnersArticles(props.id);
+      if (owner) {
+        props.owner ? 
+          getOwnersArticles(authenticatedUser.id) : getOwnersArticles(props.id);
+      }
       setDidLoad(true);
-      console.log('Loaded');
     }
   }, [didLoad, owner, dispatch, history, props, authenticatedUser.id])
 
@@ -91,13 +92,13 @@ const UserProfileFeed = props => {
             <div className="stat">
               <p className="title">Followers:</p>
               <p className="data">
-                { typeof owner.followers === 'object' ? owner.followers.length : 0 }
+                { owner.followers.split(',').length || 0 }
               </p>
             </div>
             <div className="stat">
               <p className="title">Following:</p>
               <p className="data">
-                { typeof owner.following === 'object' ? owner.following.length : 0 }
+                { owner.following.split(',').length || 0 }
               </p>
             </div>
           </div>
