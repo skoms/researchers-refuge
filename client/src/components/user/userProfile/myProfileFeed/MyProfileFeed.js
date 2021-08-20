@@ -3,49 +3,22 @@ import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
-import { 
-  followUser,
-  selectAuthenticatedUser,
-  updateAccount
-} from '../../userAccManage/userAccSlice';
-import {
-  getUserInfo,
-  getUserArticles,
-  updateIsFollowedByMe,
-  selectIsFollowedByMe,
-  selectOwner,
-  updateOwner
-} from '../userFeedSlice';
+import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
+import { getUserArticles } from '../userFeedSlice';
 
-const UserProfileFeed = props => {
+const MyProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
-  const isFollowedByMe = useSelector(selectIsFollowedByMe);
   const dispatch = useDispatch();
   const history = useHistory();
   const [didLoad, setDidLoad] = useState(false);
   
-  const owner = useSelector(selectOwner);
-
-  const [fetching, setFetching] = useState(false);
+  const [owner, setOwner] = useState(authenticatedUser);
 
   if (authenticatedUser.id === parseInt(props.id)) {
     history.push('/my-profile')
   }
 
   useEffect(() => {
-    const getOwnerInfo = async (id) => {
-      await dispatch(getUserInfo(id))
-        .then(res => res.payload)
-        .then(res => {
-          if (res.status === 404) {
-            history.push('/not-found');
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          history.push('/error')
-        });
-    }
     const getOwnersArticles = async (id) => {
       await dispatch(getUserArticles(id))
         .catch(err => {
@@ -53,38 +26,12 @@ const UserProfileFeed = props => {
           history.push('/error')
         });
     }
-    if (fetching === false) {
-      owner === null && getOwnerInfo(props.id);
-      setFetching(true);
-    }
+    setOwner(authenticatedUser);
     if (!didLoad && owner) {
-      getOwnersArticles(props.id);
-      dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id.toString())));
+      getOwnersArticles(authenticatedUser.id);
       setDidLoad(true);
     }
-  }, [didLoad, owner, dispatch, history, props, authenticatedUser.id, fetching])
-
-  const followUnfollow = async (e) => {
-    const button = e.target;
-    await dispatch(followUser({ id: props.id, user: authenticatedUser }))
-      .then(res => res.payload)
-      .then(res => {
-        console.log(res);
-        if (res.status === 200) {
-          button.innerText = button.innerText === 'Follow' ? 'Unfollow' : 'Follow';
-          dispatch(updateAccount({
-            ...res.users.user,
-            followers: res.users.user.followers.split(','),
-            following: res.users.user.following.split(',')
-          }));
-          dispatch(updateOwner({
-            ...res.users.target,
-            followers: res.users.target.followers.split(','),
-            following: res.users.target.following.split(',')
-          }));
-        }
-      });
-  }
+  }, [didLoad, owner, dispatch, history, authenticatedUser])
 
   return owner !== null ? (
       <div className="user-profile-div">
@@ -95,9 +42,8 @@ const UserProfileFeed = props => {
               src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
               alt="profilepic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
             />
-            <button className='button-primary' onClick={followUnfollow} >
-              { isFollowedByMe ? 'Unfollow' : 'Follow' }
-            </button>
+            <button className='button-primary'>Edit Profile</button>
+              
           </div>
           <div className="name-and-occupation">
             <h2 className="full-name">{`${owner.firstName} ${owner.lastName}`}</h2>
@@ -119,13 +65,13 @@ const UserProfileFeed = props => {
             <div className="stat">
               <p className="title">Followers:</p>
               <p className="data">
-                { owner.followers.length || 0 }
+                { owner.followers.split(',').length || 0 }
               </p>
             </div>
             <div className="stat">
               <p className="title">Following:</p>
               <p className="data">
-                { owner.following.length || 0 }
+                { owner.following.split(',').length || 0 }
               </p>
             </div>
           </div>
@@ -168,4 +114,4 @@ const UserProfileFeed = props => {
   <Fragment />
 }
 
-export default UserProfileFeed
+export default MyProfileFeed

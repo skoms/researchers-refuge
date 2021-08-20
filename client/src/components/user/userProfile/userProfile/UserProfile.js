@@ -7,10 +7,7 @@ const UserProfile = () => {
   const { id } = useParams();
   return (
     <div className='user-profile-page'>
-      <UserProfileFeed 
-        id={id}
-        owner={false}
-      />
+      <UserProfileFeed id={id} />
     </div>
   )
 }

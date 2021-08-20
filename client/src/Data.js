@@ -226,6 +226,32 @@ export default class Data {
   }
 
   /**
+   * Updates the data on the user who wants to follow/unfollow and the target
+   * @param {integer} id - The ID of the article one wants to update
+   * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
+   * @returns status code, data on success, errors on failure
+   */
+   async followUnfollow({ id, user }) {
+    const res = await this.api(`/users/${id}/follow`, 'PUT', null, true, user);
+    if ( res.status === 200) {
+      return res.json()
+        .then( data => {
+          return {
+            status: res.status,
+            users: data
+          }
+        });
+    } else if ( res.status === 403 || res.status === 500 ) {
+      return { status: res.status };
+    } else if ( res.status > 299 ) {
+      return {
+        status: res.status,
+        errors: res.message
+      };
+    }
+  }
+
+  /**
    * Updates and saves an article to the API
    * @param {object} article - the article object with properties: title, topic, intro, body, tags
    * @param {integer} id - The ID of the article one wants to update

@@ -12,7 +12,6 @@ module.exports = async (req, res, next) => {
   if (userLogin) {
     const user = await User.findOne({ where: { emailAddress: userLogin.name.toLowerCase() } }); 
     // set userLogin.name(email) to lowercase to make the login username/email case insensitive, like most logins are
-    console.log(user);
     if (user) {
       authenticated = bcrypt
         .compareSync(userLogin.pass, user.password); // Sets 'authenticated' to true 

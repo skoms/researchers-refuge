@@ -5,6 +5,7 @@ const data = new Data();
 
 const initialState = {
   owner: null,
+  isFollowedByMe: null,
   userArticles: null,
 };
 
@@ -28,7 +29,21 @@ export const userFeedSlice = createSlice({
   name: 'userFeed',
   initialState,
   reducers: {
-
+    updateIsFollowedByMe: (state, action) => {
+      return {
+        ...state,
+        isFollowedByMe: action.payload
+      }
+    },
+    updateOwner: (state, action) => {
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          ...action.payload
+        }
+      }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
@@ -39,7 +54,7 @@ export const userFeedSlice = createSlice({
             ...action.payload.user,
             followers: action.payload.user.followers.split(','),
             following: action.payload.user.following.split(',')
-          }
+          },
         }
       } else {
         return {
@@ -62,7 +77,10 @@ export const userFeedSlice = createSlice({
   }
 });
 
+export const { updateIsFollowedByMe, updateOwner } = userFeedSlice.actions;
+
 export const selectOwner = state => state.userFeed.owner;
+export const selectIsFollowedByMe = state => state.userFeed.isFollowedByMe;
 export const selectUserArticles = state => state.userFeed.userArticles;
 
 export default userFeedSlice.reducer;

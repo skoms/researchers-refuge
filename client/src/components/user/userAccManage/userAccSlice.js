@@ -48,6 +48,13 @@ export const signUp = createAsyncThunk(
   }
 });
 
+export const followUser = createAsyncThunk(
+  'userAcc/followUser',
+  async (id, user) => {
+    const response = await data.followUnfollow(id, user);
+    return response;
+});
+
 export const userAccSlice = createSlice({
   name: 'userAcc',
   initialState,
@@ -64,7 +71,10 @@ export const userAccSlice = createSlice({
       return {
         ...state,
         loggedIn: action.payload ? true : false,
-        authenticatedUser: action.payload
+        authenticatedUser: {
+          ...state.authenticatedUser,
+          ...action.payload
+        }
       }
     },
   },
@@ -73,14 +83,22 @@ export const userAccSlice = createSlice({
       return {
         ...state,
         loggedIn: action.payload.user ? true : false,
-        authenticatedUser: action.payload.user
+        authenticatedUser: {
+          ...action.payload.user,
+          followers: action.payload.user.followers.split(',').filter(entry => entry !== ' '),
+          following: action.payload.user.following.split(',').filter(entry => entry !== ' ')
+        }
       }
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
       return { 
         ...state,
         loggedIn: action.payload.user ? true : false,
-        authenticatedUser: action.payload.user
+        authenticatedUser: {
+          ...action.payload.user,
+          followers: action.payload.user.followers.split(',').filter(entry => entry !== ' '),
+          following: action.payload.user.following.split(',').filter(entry => entry !== ' ')
+        }
       }
     });
   }

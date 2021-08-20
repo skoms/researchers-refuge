@@ -87,7 +87,12 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
 
     // If it returns any data it was fail, so we check if theres any return
     if (!userRes.name && !targetRes.name) {
-      res.status(204).end();
+      const user = await User.findOne({ attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'], 
+        where: { emailAddress: req.currentUser.emailAddress },
+      });
+      const target = await User.findOne({ attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],  
+        where: { id: req.params.id } });
+      res.status(200).json({ user, target });
     }
   } else {
     res.status(403).end();
