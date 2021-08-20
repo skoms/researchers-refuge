@@ -30,7 +30,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and displays all the articles and basic info on their owners
-router.get('/owner-:id', asyncHandler(async (req, res) => {
+router.get('/owner/:id', asyncHandler(async (req, res) => {
   const articles = await Article.findAll(({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],

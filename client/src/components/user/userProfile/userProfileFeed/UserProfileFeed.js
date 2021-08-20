@@ -24,7 +24,6 @@ const UserProfileFeed = props => {
 
   useEffect(() => {
     const getOwnerInfo = async (id) => {
-      console.log('dispatched!')
       await dispatch(getUserInfo(id))
         .then(res => res.payload)
         .then(res => {
@@ -34,13 +33,26 @@ const UserProfileFeed = props => {
             history.push('/not-found');
           }
         })
+        .catch(err => {
+          console.error(err);
+          history.push('/error')
+        });
+    }
+    const getOwnersArticles = async (id) => {
+      await dispatch(getUserArticles(id))
+        .catch(err => {
+          console.error(err);
+          history.push('/error')
+        });
     }
     if (!didLoad) {
       owner === null && getOwnerInfo(props.id);
+      props.owner ? 
+        getOwnersArticles(authenticatedUser.id) : getOwnersArticles(props.id);
       setDidLoad(true);
       console.log('Loaded');
     }
-  }, [didLoad, owner, dispatch, history, props.id])
+  }, [didLoad, owner, dispatch, history, props, authenticatedUser.id])
 
   return owner !== null ? (
       <div className="user-profile-div">
@@ -116,11 +128,11 @@ const UserProfileFeed = props => {
             </div>
             
           </div>
-          <ArticleCards />
+          <ArticleCards type='ownersArticles' />
         </div>
         <div className="articles-accredited">
           <h2 className="title">Articles Recently Accredited:</h2>
-          <ArticleCards />
+          <ArticleCards type='accreditedArticles' />
         </div>
       </div>
   )

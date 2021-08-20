@@ -130,7 +130,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getArticlesByOwnerId(id) {
-    const res = await this.api(`/articles/owner-${id}`, 'GET');
+    const res = await this.api(`/articles/owner/${id}`, 'GET');
     if ( res.status === 200 ) {
       return res.json()
         .then( data => {
