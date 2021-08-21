@@ -7,6 +7,7 @@ class Database {
   constructor(seedData, enableLogging) {
     this.articles = seedData.articles;
     this.users = seedData.users;
+    this.topics = seedData.topics;
     this.enableLogging = enableLogging;
     this.context = new Context('ResearchersRefuge.db', enableLogging);
   }
@@ -59,11 +60,12 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Articles
-          (userId, title, topic, intro, body, tags, published, credits, createdAt, updatedAt)
+          (userId, topicId, title, topic, intro, body, tags, published, credits, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       article.userId,
+      article.topicId,
       article.title,
       article.topic,
       article.intro,
@@ -71,6 +73,20 @@ class Database {
       article.tags,
       article.published,
       article.credits);
+  }
+
+  // Inserts topic into database
+  createTopic(topic) {
+    return this.context
+      .execute(`
+        INSERT INTO Topics
+          (name, relatedTags, articles, createdAt, updatedAt)
+        VALUES
+          (?, ?, ?, datetime('now'), datetime('now'));
+      `,
+      topic.name,
+      topic.relatedTags,
+      topic.articles);
   }
 
   // Hashes the passwords in the for the database
@@ -96,6 +112,13 @@ class Database {
   async createArticles(articles) {
     for (const article of articles) {
       await this.createArticle(article);
+    }
+  }
+
+  // Inserts all the topics given as argument to the database
+  async createTopics(topics) {
+    for (const topic of topics) {
+      await this.createTopic(topic);
     }
   }
 
@@ -166,12 +189,42 @@ class Database {
         updatedAt DATETIME NOT NULL, 
         userId INTEGER NOT NULL DEFAULT -1 
           REFERENCES Users (id) ON DELETE CASCADE ON UPDATE CASCADE
+        topicId INTEGER NOT NULL DEFAULT -1 
+          REFERENCES Topics (id) ON DELETE CASCADE ON UPDATE CASCADE
       );
     `);
 
     this.log('Creating the article records...');
 
-    await this.createArticles(this.articles);
+    await this.createArticles(this.articles); 
+
+
+    const topicTableExists = await this.tableExists('Topics');
+
+    if (topicTableExists) {
+      this.log('Dropping the Topics table...');
+
+      await this.context.execute(`
+        DROP TABLE IF EXISTS Topics;
+      `);
+    }
+
+    this.log('Creating the Topics table...');
+
+    await this.context.execute(`
+      CREATE TABLE Topics (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        name VARCHAR(255) NOT NULL DEFAULT '', 
+        relatedTags ARRAY NOT NULL DEFAULT [], 
+        articles ARRAY NOT NULL DEFAULT [], 
+        createdAt DATETIME NOT NULL, 
+        updatedAt DATETIME NOT NULL
+      );
+    `);
+
+    this.log('Creating the topic records...');
+
+    await this.createTopics(this.topics);
 
     this.log('Database successfully initialized!');
   }

@@ -47,6 +47,7 @@ router.get('/owner/:id', asyncHandler(async (req, res) => {
 // POST creates a new article and assigns the logged authenticated user as its owner
 router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
   req.body.userId = req.currentUser.id;
+  //TODO - Add way to check whether the topic is valid and save it to req.body
   const article = await Article.create(req.body);
 
   res.location(`/api/articles/${article.id}`).status(201).end();

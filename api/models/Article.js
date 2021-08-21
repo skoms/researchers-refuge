@@ -86,6 +86,11 @@ module.exports = (sequelize) => {
         fieldName: 'userId',
       }
     });
+    Article.belongsTo(models.Topic, {
+      foreignKey: {
+        fieldName: 'topicId',
+      }
+    });
   }
 
   return Article;
