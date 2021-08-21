@@ -163,42 +163,6 @@ class Database {
 
     await this.createUsers(users);
 
-    const articleTableExists = await this.tableExists('Articles');
-
-    if (articleTableExists) {
-      this.log('Dropping the Articles table...');
-
-      await this.context.execute(`
-        DROP TABLE IF EXISTS Articles;
-      `);
-    }
-
-    this.log('Creating the Articles table...');
-
-    await this.context.execute(`
-      CREATE TABLE Articles (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        title VARCHAR(255) NOT NULL DEFAULT '', 
-        topic VARCHAR(255) NOT NULL DEFAULT '', 
-        intro TEXT NOT NULL DEFAULT '', 
-        body TEXT NOT NULL DEFAULT '', 
-        tags ARRAY NOT NULL DEFAULT [], 
-        published DATE NOT NULL,
-        credits INTEGER DEFAULT 0,
-        createdAt DATETIME NOT NULL, 
-        updatedAt DATETIME NOT NULL, 
-        userId INTEGER NOT NULL DEFAULT -1 
-          REFERENCES Users (id) ON DELETE CASCADE ON UPDATE CASCADE
-        topicId INTEGER NOT NULL DEFAULT -1 
-          REFERENCES Topics (id) ON DELETE CASCADE ON UPDATE CASCADE
-      );
-    `);
-
-    this.log('Creating the article records...');
-
-    await this.createArticles(this.articles); 
-
-
     const topicTableExists = await this.tableExists('Topics');
 
     if (topicTableExists) {
@@ -225,6 +189,41 @@ class Database {
     this.log('Creating the topic records...');
 
     await this.createTopics(this.topics);
+
+    const articleTableExists = await this.tableExists('Articles');
+
+    if (articleTableExists) {
+      this.log('Dropping the Articles table...');
+
+      await this.context.execute(`
+        DROP TABLE IF EXISTS Articles;
+      `);
+    }
+
+    this.log('Creating the Articles table...');
+
+    await this.context.execute(`
+      CREATE TABLE Articles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        title VARCHAR(255) NOT NULL DEFAULT '', 
+        topic VARCHAR(255) NOT NULL DEFAULT '', 
+        intro TEXT NOT NULL DEFAULT '', 
+        body TEXT NOT NULL DEFAULT '', 
+        tags ARRAY NOT NULL DEFAULT [], 
+        published DATE NOT NULL,
+        credits INTEGER DEFAULT 0,
+        createdAt DATETIME NOT NULL, 
+        updatedAt DATETIME NOT NULL, 
+        userId INTEGER NOT NULL DEFAULT -1
+          REFERENCES Users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+        topicId INTEGER NOT NULL DEFAULT -1 
+          REFERENCES Topics (id) ON DELETE CASCADE ON UPDATE CASCADE
+      );
+    `);
+
+    this.log('Creating the article records...');
+
+    await this.createArticles(this.articles); 
 
     this.log('Database successfully initialized!');
   }

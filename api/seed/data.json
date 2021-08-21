@@ -27,9 +27,27 @@
       "imgURL": "https://placeimg.com/120/120/people"
     }
   ],
+  "topics": [
+    {
+      "name": "Technology",
+      "relatedTags": ["electronics", "tech", "computer", "software", "newtechnology", "techblogger", "techies", "techgadgets", "artificialintelligence", "technologythesedays", "technews", "techlover", "technologyrocks", "techtrends", "datascience", "machinelearning", "artificialintelligence", "deeplearning", "programming", "mathematics", "algorithm", "datascientist", "bigdata", "neuralnetworks"],
+      "articles": [1,3]
+    },
+    {
+      "name": "Social Media",
+      "relatedTags": ["websitedesign", "marketingconsultant", "googleadwords", "agenciademarketing", "socialmediatip", "socialmediamarketer", "facebookads", "digitalagency", "socialmediamarketing", "marketing"],
+      "articles": [2]
+    },
+    {
+      "name": "Surveillance",
+      "relatedTags": [ "socialengineering", "hikvisioncamera", "component", "hikvisioncctv", "securityservices", "securitycompany", "securityguard", "contacttracing", "facialrecognition", "securitysystem", "privacy" ],
+      "articles": [4]
+    }
+  ],
   "articles": [
     {
       "userId": 1,
+      "topicId": 1,
       "title": "Do we see others online as human?",
       "topic": "Technology",
       "intro": "I sometimes wonder why many of us feel so free to be nasty to strangers.",
@@ -40,6 +58,7 @@
     },
     {
       "userId": 1,
+      "topicId": 2,
       "title": "Reddit is now valued at more than $10 billion",
       "topic": "Social Media",
       "intro": "The company is still planning on going public.",
@@ -50,6 +69,7 @@
     },
     {
       "userId": 2,
+      "topicId": 1,
       "title": "Windows 11 is getting updated snipping tool, calculator, and mail apps",
       "topic": "Technology",
       "intro": "More Windows 11 app updates are also on the way",
@@ -60,6 +80,7 @@
     },
     {
       "userId": 2,
+      "topicId": 4,
       "title": "Google bans tracking tool that sold users’ location data",
       "topic": "Surveillance",
       "intro": "SafeGraph offered data for COVID-19 tracking.",
