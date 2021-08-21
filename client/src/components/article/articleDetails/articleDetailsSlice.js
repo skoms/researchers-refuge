@@ -27,12 +27,10 @@ export const articleDetailsSlice = createSlice({
       if (action.payload.status === 200) {
         const { article } = action.payload;
         const { User, published } = article;
-        
+
         const followersArr = data.followStringToArray(User.followers);
         const followingArr = data.followStringToArray(User.following);
-
-        const match = published.match(/^(\d+)-(\d+)-(\d+)$/);
-        const formattedDate = `${match[3]}-${match[2]}-${match[1]}`;
+        const formattedDate = data.formatDate(published)
 
         return {
           ...state,

@@ -52,6 +52,16 @@ export default class Data {
   }
 
   /**
+   * Converts date string from API to EU format (DD-MM-YYYY)
+   * @param {string} string - date 'YYYY-MM-DD' format string received from API
+   * @returns a 'DD-MM-YYYY' formatted date string
+   */
+  formatDate = (string) => {
+    const match = string.match(/^(\d+)-(\d+)-(\d+)$/);
+    return `${match[3]}-${match[2]}-${match[1]}`;
+  }
+
+  /**
    * Gets the user if credentials matches server
    * @param {string} emailAddress - User's Email to log in
    * @param {string} password - User's password to log in
