@@ -63,6 +63,21 @@ module.exports = (sequelize) => {
         }
       }
     },
+    published: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Please provide a value for "published"'
+        },
+        notEmpty: {
+          msg: 'Please provide a value for "published"'
+        }
+      }
+    },
+    credits: {
+      type: DataTypes.INTEGER,
+    },
   }, { sequelize });
 
   Article.associate = (models) => {  

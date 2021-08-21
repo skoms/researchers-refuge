@@ -59,16 +59,18 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Articles
-          (userId, title, topic, intro, body, tags, createdAt, updatedAt)
+          (userId, title, topic, intro, body, tags, published, credits, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       article.userId,
       article.title,
       article.topic,
       article.intro,
       article.body,
-      article.tags);
+      article.tags,
+      article.published,
+      article.credits);
   }
 
   // Hashes the passwords in the for the database
@@ -158,6 +160,8 @@ class Database {
         intro TEXT NOT NULL DEFAULT '', 
         body TEXT NOT NULL DEFAULT '', 
         tags ARRAY NOT NULL DEFAULT [], 
+        published DATE NOT NULL,
+        credits INTEGER DEFAULT 0,
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL, 
         userId INTEGER NOT NULL DEFAULT -1 
