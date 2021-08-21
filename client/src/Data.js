@@ -25,12 +25,12 @@ export default class Data {
   }
 
   /**
- * Capitalizes the first word or all words in a string
- * @param {string} string - the string to capitalize
- * @param {bool} firstOnly - true or false, whether to only capitalize first or all
- * @returns the altered string
- */
-    capitalize = (string, firstOnly = false) => {
+   * Capitalizes the first word or all words in a string
+   * @param {string} string - the string to capitalize
+   * @param {bool} firstOnly - true or false, whether to only capitalize first or all
+   * @returns the altered string
+   */
+  capitalize = (string, firstOnly = false) => {
     let strArray = string.split(' ');
     if (strArray.length <= 1 || firstOnly) {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -40,6 +40,15 @@ export default class Data {
       });
       return strArray.join(' ');
     }
+  }
+
+  /**
+   * Convert a follow-data string from the api to an array
+   * @param {string} string - the following/followers string to turn into array
+   * @returns array that was converted from the string
+   */
+  followStringToArray = (string) => {
+    return string.split(',').filter(entry => entry !== ' ');
   }
 
   /**

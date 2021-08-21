@@ -64,7 +64,7 @@ const ArticleDetails = props => {
           <h1>{ article.title }</h1> 
           <div className="article-header">
             <a href={`/users/${author.id}`}>{ `${author.firstName} ${author.lastName}` }</a>
-            <p>{'12/11-2007'/* TODO - Fetch and Format createdAtDate */}</p>
+            <p>{ article.published }</p>
           </div>
           <p className="article-intro">{ article.intro }</p>
           <p className="article-body">{ article.body }</p> 

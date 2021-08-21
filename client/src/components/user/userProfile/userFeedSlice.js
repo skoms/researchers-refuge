@@ -48,17 +48,16 @@ export const userFeedSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
+        const { user } = action.payload;
+        const followersArr = data.followStringToArray(user.followers);
+        const followingArr = data.followStringToArray(user.following);
         return {
           ...state,
           owner: {
-            ...action.payload.user,
-            followers: action.payload.user.followers.split(','),
-            following: action.payload.user.following.split(',')
-          },
-        }
-      } else {
-        return {
-          ...state
+            ...user,
+            followers: followersArr,
+            following: followingArr
+          }
         }
       }
     });

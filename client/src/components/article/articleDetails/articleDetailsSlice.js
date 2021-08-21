@@ -25,14 +25,26 @@ export const articleDetailsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getArticleInfo.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
+        const { article } = action.payload;
+        const { User, published } = article;
+        
+        const followersArr = data.followStringToArray(User.followers);
+        const followingArr = data.followStringToArray(User.following);
+
+        const match = published.match(/^(\d+)-(\d+)-(\d+)$/);
+        const formattedDate = `${match[3]}-${match[2]}-${match[1]}`;
+
         return {
           ...state,
-          article: action.payload.article,
+          article: {
+            ...article,
+            published: formattedDate
+          },
           author: {
-            ...action.payload.article.User,
-            id: action.payload.article.userId,
-            followers: action.payload.article.User.followers.split(',').filter(entry => entry !== ' '),
-            following: action.payload.article.User.following.split(',').filter(entry => entry !== ' ')
+            ...User,
+            id: article.userId,
+            followers: followersArr,
+            following: followingArr
           }
         }
       }

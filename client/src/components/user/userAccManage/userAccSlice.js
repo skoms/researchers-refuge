@@ -68,36 +68,44 @@ export const userAccSlice = createSlice({
       }
     },
     updateAccount: (state, action) => {
+      const user = {
+        ...state.authenticatedUser,
+        ...action.payload
+      };
+      Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
       return {
         ...state,
         loggedIn: action.payload ? true : false,
-        authenticatedUser: {
-          ...state.authenticatedUser,
-          ...action.payload
-        }
+        authenticatedUser: user
       }
     },
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.fulfilled, (state, action) => {
+      const { user } = action.payload;
+      const followersArr = data.followStringToArray(user.followers);
+      const followingArr = data.followStringToArray(user.following);
       return {
         ...state,
-        loggedIn: action.payload.user ? true : false,
+        loggedIn: user ? true : false,
         authenticatedUser: {
-          ...action.payload.user,
-          followers: action.payload.user.followers.split(',').filter(entry => entry !== ' '),
-          following: action.payload.user.following.split(',').filter(entry => entry !== ' ')
+          ...user,
+          followers: followersArr,
+          following: followingArr
         }
       }
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
-      return { 
+      const { user } = action.payload;
+      const followersArr = data.followStringToArray(user.followers);
+      const followingArr = data.followStringToArray(user.following);
+      return {
         ...state,
-        loggedIn: action.payload.user ? true : false,
+        loggedIn: user ? true : false,
         authenticatedUser: {
-          ...action.payload.user,
-          followers: action.payload.user.followers.split(',').filter(entry => entry !== ' '),
-          following: action.payload.user.following.split(',').filter(entry => entry !== ' ')
+          ...user,
+          followers: followersArr,
+          following: followingArr
         }
       }
     });
