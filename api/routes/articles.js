@@ -21,7 +21,7 @@ router.get('/', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
   const article = await Article.findByPk(req.params.id, { 
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId'], 
-    include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] } ] });
+    include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'] } ] });
   if (article) {
     res.status(200).json(article);
   } else {

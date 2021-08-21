@@ -6,6 +6,7 @@ import feedReducer from "../components/feed/FeedSlice";
 import userAccReducer from '../components/user/userAccManage//userAccSlice';
 import userFeedReducer from '../components/user/userProfile/userFeedSlice';
 import darkModeButtonReducer from "../components/darkmodeButton/darkModeButtonSlice";
+import articleDetailsReducer from '../components/article/articleDetails/articleDetailsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const store = configureStore({
     userAcc: userAccReducer,
     userFeed: userFeedReducer,
     darkModeButton: darkModeButtonReducer,
+    articleDetails: articleDetailsReducer,
   }
 });
