@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserArticles } from '../../user/userProfile/userFeedSlice';
 import { selectFeedArticles } from '../../feed/FeedSlice';
 import ArticleCard from './articleCard/ArticleCard';
+import Loading from '../../loading/Loading';
 
 const ArticleCards = (props) => {
   const ownersArticles = useSelector(selectUserArticles);
@@ -43,23 +43,26 @@ const ArticleCards = (props) => {
         }, 800);
     }
   }, true);
-  return didLoad && articles ? (
+  return (
       <div className='article-cards'>
-          {articles.map( card => 
-            <ArticleCard 
-              id={card.id}
-              key={card.id}
-              title={card.title}
-              topic={card.topic}
-              author={`${card.User.firstName} ${card.User.lastName}`}
-              authorId={card.userId}
-              intro={card.intro}
-            />
-          )}
+        { didLoad && articles 
+          ?
+          articles.map( card => 
+              <ArticleCard 
+                id={card.id}
+                key={card.id}
+                title={card.title}
+                topic={card.topic}
+                author={`${card.User.firstName} ${card.User.lastName}`}
+                authorId={card.userId}
+                intro={card.intro}
+              />
+            )
+          :
+          <Loading />
+        }
       </div>
-      )
-    :
-      <Fragment />
+  )
 }
 
 export default ArticleCards

@@ -16,6 +16,22 @@
   }
 }
 
+@keyframes loading-dots {
+  0% {
+    -webkit-transform: translateX(-4rem);
+    transform: translateX(-4rem);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(4rem);
+    transform: translateX(4rem);
+    opacity: 0;
+  }
+}
+
 @keyframes moving-gradient {
   from {
     background-position: 0% 50%;
@@ -130,6 +146,59 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #E8F7FF;
 }
+
+/* Loading Component */
+.loading-div {
+  position: relative;
+  height: 100%;
+}
+
+.darkmode .article-cards .loading-div,
+.darkmode .articles-published .article-cards .loading-div,
+.darkmode .articles-accredited .article-cards .loading-div {
+  background: none;
+}
+
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+}
+
+.loader .dot {
+  position: absolute;
+  padding: .5rem;
+  border-radius: 50%;
+  background: #1a3861;
+  -webkit-animation: loading-dots 1s ease-in-out 0s infinite;
+  animation: loading-dots 1s ease-in-out 0s infinite;
+}
+
+.darkmode .loader .dot {
+  background: #38B6FF;
+}
+
+.loader .dot:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.loader .dot:nth-child(2) {
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+}
+
+.loader .dot:nth-child(3) {
+  -webkit-animation-delay: 0.30s;
+  animation-delay: 0.30s;
+}
+
+.loader .dot:nth-child(4) {
+  -webkit-animation-delay: 0.45s;
+  animation-delay: 0.45s;
+}
+
+
 /* Button styling (primary - secondary) */
 button {
   border-radius: .75rem;
