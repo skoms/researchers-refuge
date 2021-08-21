@@ -4,11 +4,16 @@
 import InfoModule from "../../infoModule/InfoModule";
 import RelatedArticles from "./relatedArticles/RelatedArticles";
 import React, { Fragment } from 'react';
+import { useSelector } from "react-redux";
+import {
+  selectDarkModeOn
+} from '../../darkmodeButton/darkModeButtonSlice'
 
 // TEMPORARY VARIABLE
 let isOwner = true;
 
 const ArticleDetails = props => {
+  const darkModeOn = useSelector(selectDarkModeOn)
   //TODO - Replace this variable and hook up so that its the Author displayed
   const temporaryAuthor = {
     firstName: 'Author',
@@ -116,7 +121,7 @@ to do the task efficiently.</p>
           { parseInt(props.match.params.id, 10) !== 1 
           ?
             <a className="prev" href={`/articles/${parseInt(props.match.params.id, 10) - 1}`}>
-              { localStorage.getItem('darkmode') === 'true' 
+              { darkModeOn 
               ?
                 <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-left.png" alt="previous button"/>
               :
@@ -129,7 +134,7 @@ to do the task efficiently.</p>
           
 
           <a className="home" href='/'>
-            { localStorage.getItem('darkmode') === 'true' 
+            { darkModeOn 
               ?
                 <img src="https://img.icons8.com/ios/64/38B6FF/home-page.png" alt="home button"/>
               :
@@ -138,7 +143,7 @@ to do the task efficiently.</p>
           </a>
 
           <a className="next" href={`/articles/${parseInt(props.match.params.id, 10) + 1}`}>
-            { localStorage.getItem('darkmode') === 'true' 
+            { darkModeOn 
               ?
                 <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-right.png" alt="next button"/>
               :

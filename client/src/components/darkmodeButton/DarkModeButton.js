@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  selectDarkModeOn,
+  toggleDarkMode
+} from './darkModeButtonSlice'
 
 const DarkModeButton = () => {
-  const [darkmodeOn, setDarkmodeOn] = useState(() => (localStorage.getItem('darkmode') === 'true'));
+  const darkmodeOn = useSelector(selectDarkModeOn);
+  const dispatch = useDispatch();
 
   const toggleDarkmode = () => {
-    if (darkmodeOn) {
-      localStorage.setItem('darkmode', 'false');
-      setDarkmodeOn(false);
-    } else {
-      localStorage.setItem('darkmode', 'true');
-      setDarkmodeOn(true);
-    }
+    dispatch(toggleDarkMode());
+    localStorage.setItem('darkmode', darkmodeOn.toString());
     document.getElementsByTagName('body')[0].classList.toggle('darkmode');
   }
 
   window.addEventListener('load', () => {
-    if ( localStorage.getItem('darkmode') === 'true' ) {
+    if ( darkmodeOn ) {
       document.getElementsByTagName('body')[0].classList.add('darkmode');
     }
   });
