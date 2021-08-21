@@ -65,13 +65,13 @@ const MyProfileFeed = props => {
             <div className="stat">
               <p className="title">Followers:</p>
               <p className="data">
-                { owner.followers.split(',').length || 0 }
+                { owner.followers.length || 0 }
               </p>
             </div>
             <div className="stat">
               <p className="title">Following:</p>
               <p className="data">
-                { owner.following.split(',').length || 0 }
+                { owner.following.length || 0 }
               </p>
             </div>
           </div>

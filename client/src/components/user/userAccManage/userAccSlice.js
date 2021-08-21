@@ -8,7 +8,7 @@ const initialState = {
   status: 'idle',
   loggedIn: false,
   error: null,
-  authenticatedUser: Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null,
+  authenticatedUser: Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null
 };
 
 export const signIn = createAsyncThunk(
@@ -70,7 +70,7 @@ export const userAccSlice = createSlice({
     updateAccount: (state, action) => {
       const user = {
         ...state.authenticatedUser,
-        ...action.payload
+        ...action.payload,
       };
       Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
       return {
