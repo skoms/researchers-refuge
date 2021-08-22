@@ -17,7 +17,6 @@ const DarkModeButton = () => {
   }
 
   window.addEventListener('load', () => {
-    console.log('loaded');
     if ( darkmodeOn ) {
       document.getElementsByTagName('body')[0].classList.add('darkmode');
     }
