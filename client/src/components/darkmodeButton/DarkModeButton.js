@@ -11,11 +11,13 @@ const DarkModeButton = () => {
 
   const toggleDarkmode = () => {
     dispatch(toggleDarkMode());
-    localStorage.setItem('darkmode', darkmodeOn.toString());
+    // localStorage set to the opposit of the state, as the state 'darkMode' will at this point be the previous state
+    localStorage.setItem('darkmode', ( darkmodeOn === false ? true : false).toString());
     document.getElementsByTagName('body')[0].classList.toggle('darkmode');
   }
 
   window.addEventListener('load', () => {
+    console.log('loaded');
     if ( darkmodeOn ) {
       document.getElementsByTagName('body')[0].classList.add('darkmode');
     }
