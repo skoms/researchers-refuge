@@ -6,13 +6,13 @@ const asyncHandler = require('../middleware/async-handler');
 const authenticateLogin = require('../middleware/user-auth');
 
 // Import Article and User Model
-const { Article, User } = require('../models');
+const { Article, User, Topic } = require('../models');
 
 // GET finds and displays all the articles and basic info on their owners
 router.get('/', asyncHandler(async (req, res) => {
-  const articles = await Article.findAll(({
-    attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
-    include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] } ] }));
+  const articles = await Article.findAll({
+    attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
+    include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] } ] });
 
   res.status(200).json(articles);
 }));
@@ -47,10 +47,13 @@ router.get('/owner/:id', asyncHandler(async (req, res) => {
 // POST creates a new article and assigns the logged authenticated user as its owner
 router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
   req.body.userId = req.currentUser.id;
-  //TODO - Add way to check whether the topic is valid and save it to req.body
-  const article = await Article.create(req.body);
-
-  res.location(`/api/articles/${article.id}`).status(201).end();
+  const topic = Topic.findOne({ where: { name: req.body.topic } });
+  if (topic) {
+    const article = await Article.create(req.body);
+    res.location(`/api/articles/${article.id}`).status(201).end();
+  } else {
+    res.status(400).send(`Unable to find '${req.body.topic}'.`);
+  }
 }));
 
 // PUT updates the chosen article if the user is authenticated to do so

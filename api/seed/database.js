@@ -80,13 +80,12 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Topics
-          (name, relatedTags, articles, createdAt, updatedAt)
+          (name, relatedTags, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, datetime('now'), datetime('now'));
       `,
       topic.name,
-      topic.relatedTags,
-      topic.articles);
+      topic.relatedTags);
   }
 
   // Hashes the passwords in the for the database
@@ -180,7 +179,6 @@ class Database {
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name VARCHAR(255) NOT NULL DEFAULT '', 
         relatedTags ARRAY NOT NULL DEFAULT [], 
-        articles ARRAY NOT NULL DEFAULT [], 
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL
       );

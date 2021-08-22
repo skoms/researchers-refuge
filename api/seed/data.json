@@ -29,19 +29,16 @@
   ],
   "topics": [
     {
-      "name": "Technology",
-      "relatedTags": ["electronics", "tech", "computer", "software", "newtechnology", "techblogger", "techies", "techgadgets", "artificialintelligence", "technologythesedays", "technews", "techlover", "technologyrocks", "techtrends", "datascience", "machinelearning", "artificialintelligence", "deeplearning", "programming", "mathematics", "algorithm", "datascientist", "bigdata", "neuralnetworks"],
-      "articles": [1,3]
+      "name": "technology",
+      "relatedTags": ["electronics", "tech", "computer", "software", "newtechnology", "techblogger", "techies", "techgadgets", "artificialintelligence", "technologythesedays", "technews", "techlover", "technologyrocks", "techtrends", "datascience", "machinelearning", "artificialintelligence", "deeplearning", "programming", "mathematics", "algorithm", "datascientist", "bigdata", "neuralnetworks"]
     },
     {
-      "name": "Social Media",
-      "relatedTags": ["websitedesign", "marketingconsultant", "googleadwords", "agenciademarketing", "socialmediatip", "socialmediamarketer", "facebookads", "digitalagency", "socialmediamarketing", "marketing"],
-      "articles": [2]
+      "name": "social media",
+      "relatedTags": ["websitedesign", "marketingconsultant", "googleadwords", "agenciademarketing", "socialmediatip", "socialmediamarketer", "facebookads", "digitalagency", "socialmediamarketing", "marketing"]
     },
     {
-      "name": "Surveillance",
-      "relatedTags": [ "socialengineering", "hikvisioncamera", "component", "hikvisioncctv", "securityservices", "securitycompany", "securityguard", "contacttracing", "facialrecognition", "securitysystem", "privacy" ],
-      "articles": [4]
+      "name": "surveillance",
+      "relatedTags": [ "socialengineering", "hikvisioncamera", "component", "hikvisioncctv", "securityservices", "securitycompany", "securityguard", "contacttracing", "facialrecognition", "securitysystem", "privacy" ]
     }
   ],
   "articles": [

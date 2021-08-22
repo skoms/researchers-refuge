@@ -13,10 +13,13 @@ module.exports = (sequelize) => {
         notEmpty: {
           msg: 'Please provide a value for "name"'
         }
+      },
+      set(val) { // set to lowercase after validation to have more consistent data
+        if (val) {
+          const lowercased = val.toLowerCase();
+          this.setDataValue('name', lowercased);
+        }
       }
-    },
-    articles: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     relatedTags: {
       type: DataTypes.ARRAY(DataTypes.STRING),
