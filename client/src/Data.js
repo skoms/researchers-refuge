@@ -273,15 +273,6 @@ export default class Data {
    */
   async deleteArticle(id, user) {
     const res = await this.api(`/articles/${id}`, 'DELETE', null, true, user);
-    if ( res.status === 204 ) {
-      return { status: res.status };
-    } else if (res.status === 403 || res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
+    return this.responseReturnHandler(res);
   }
 }
