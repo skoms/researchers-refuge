@@ -8,6 +8,11 @@ const authenticateLogin = require('../middleware/user-auth');
 // Import Models
 const { Article, User, Topic, Category } = require('../models');
 
+// Import Op
+const { Sequelize } = require('../models');
+const { Op } = Sequelize;
+
+
 // GET finds and displays all the articles and basic info on their owners
 router.get('/', asyncHandler(async (req, res) => {
   const articles = await Article.findAll({
@@ -15,6 +20,21 @@ router.get('/', asyncHandler(async (req, res) => {
     include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] } ] });
 
   res.status(200).json(articles);
+}));
+
+// GET finds and sends back a specific articles by tag
+router.get('/tag/:tag', asyncHandler(async (req, res) => {
+  const articles = await Article.findAll({
+    attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
+    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    where: { tags: { [Op.substring]: req.params.tag } }
+  });
+
+  if( articles ) {
+    res.status(200).json(articles);
+  } else {
+    res.status(404).end();
+  }
 }));
 
 // GET finds specified article and basic info on its owner

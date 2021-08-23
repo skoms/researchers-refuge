@@ -8,6 +8,11 @@ const authenticateLogin = require('../middleware/user-auth');
 // Import Models
 const { Article, User, Topic, Category } = require('../models');
 
+// Import Op
+const { Sequelize } = require('../models');
+const { Op } = Sequelize;
+
+
 // GET finds and displays all topics
 router.get('/', asyncHandler(async (req, res) => {
   const topics = await Topic.findAll({
@@ -16,6 +21,21 @@ router.get('/', asyncHandler(async (req, res) => {
   });
 
   res.status(200).json(topics);
+}));
+
+// GET finds and sends back a specific topics by tag
+router.get('/tag/:tag', asyncHandler(async (req, res) => {
+  const topics = await Topic.findAll({
+    attributes: ['id', 'name', 'relatedTags'],
+    include: [ { model: Article, attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'] } ],
+    where: { relatedTags: { [Op.substring]: req.params.tag } }
+  });
+
+  if( topics ) {
+    res.status(200).json(topics);
+  } else {
+    res.status(404).end();
+  }
 }));
 
 // GET finds and displays a specific topic by name
