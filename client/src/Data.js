@@ -62,143 +62,28 @@ export default class Data {
   }
 
   /**
-   * Gets the user if credentials matches server
-   * @param {string} emailAddress - User's Email to log in
-   * @param {string} password - User's password to log in
-   * @returns a statusCode, and data if succeded, error message if failed
+   * Handles the validation of the response return
+   * @param {object} res - the response object from the fetch
+   * @param {boolean} returnData - whether or not to return the data
+   * @param {string} name - name of the propterty if 'returnData'
+   * @returns an object with the response
    */
-  async getUser(emailAddress, password) {
-    const res = await this.api('/users', 'GET', null, true, {emailAddress, password});
-    if ( res.status === 200 ) {
-      return res.json()
+  responseReturnHandler = (res, returnData = false, name = 'data') => {
+    if ( res.status === 201 || res.status ===  200 || res.status ===  204 ) {
+      if ( returnData ) {
+        return res.json()
         .then( data => {
           return {
             status: res.status,
-            user: data
+            [name]: data
           };
         });
-    } else if ( res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
-  }
-
-  /**
-   * Gets a specific user and returns it
-   * @param {integer} id - the ID of the user
-   * @returns status code, data on success, errors on failure
-   */
-  async getUserById(id) {
-    const res = await this.api(`/users/${id}`, 'GET');
-    if ( res.status === 200 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            user: data
-          };
-        });
-    } else if ( res.status === 404  || res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
-  }
-
-  /**
-   * Gets a specific article and returns it
-   * @param {integer} id - the ID of the article
-   * @returns status code, data on success, errors on failure
-   */
-  async getArticle(id) {
-    const res = await this.api(`/articles/${id}`, 'GET');
-    if ( res.status === 200 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            article: data
-          };
-        });
-    } else if ( res.status === 404  || res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
-  }
-
-  /**
-   * Gets a specific article and returns it
-   * @param {integer} id - the ID of the article
-   * @returns status code, data on success, errors on failure
-   */
-   async getArticlesByOwnerId(id) {
-    const res = await this.api(`/articles/owner/${id}`, 'GET');
-    if ( res.status === 200 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            articles: data
-          };
-        });
-    } else if ( res.status === 404  || res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    };
-  }
-
-  /**
-   * Gets all articles stored in the API
-   * @returns status code, data on success, errors on failure
-   */
-  async getArticles() {
-    const res = await this.api('/articles', 'GET');
-    if ( res.status === 200 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            articles: data
-          };
-        });
-    } else if ( res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
-  }
-
-  /**
-   * Creates and saves a user to the API
-   * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
-   * @returns status code, data on success, errors on failure
-   */
-  async createUser(user) {
-    const res = await this.api('/users', 'POST', user);
-    if ( res.status === 201 ) {
-      console.log('CREATE USER WORKED');
-      return {
-        status: res.status,
-      };
-    } else if ( res.status === 500 ) {
+      } else {
+        return {
+          status: res.status,
+        };
+      }
+    } else if ( res.status === 404 || res.status === 403 ||  res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
       return res.json()
@@ -219,6 +104,134 @@ export default class Data {
   }
 
   /**
+   * Gets the user if credentials matches server
+   * @param {string} emailAddress - User's Email to log in
+   * @param {string} password - User's password to log in
+   * @returns a statusCode, and data if succeded, error message if failed
+   */
+  async getUser(emailAddress, password) {
+    const res = await this.api('/users', 'GET', null, true, {emailAddress, password});
+    return this.responseReturnHandler(res, true, 'user');
+  }
+
+  /**
+   * Gets a specific user and returns it
+   * @param {integer} id - the ID of the user
+   * @returns status code, data on success, errors on failure
+   */
+  async getUserById(id) {
+    const res = await this.api(`/users/${id}`, 'GET');
+    return this.responseReturnHandler(res, true, 'user');
+  }
+
+  /**
+   * Gets a specific article and returns it
+   * @param {integer} id - the ID of the article
+   * @returns status code, data on success, errors on failure
+   */
+  async getArticle(id) {
+    const res = await this.api(`/articles/${id}`, 'GET');
+    return this.responseReturnHandler(res, true, 'article');
+  }
+
+  /**
+   * Gets all articles stored in the API
+   * @returns status code, data on success, errors on failure
+   */
+  async getArticles() {
+    const res = await this.api('/articles', 'GET');
+    return this.responseReturnHandler(res, true, 'articles');
+  }
+
+  /**
+   * Gets a specific article and returns it
+   * @param {integer} id - the ID of the article
+   * @returns status code, data on success, errors on failure
+   */
+   async getArticlesByOwnerId(id) {
+    const res = await this.api(`/articles/owner/${id}`, 'GET');
+    return this.responseReturnHandler(res, true, 'articles');
+  }
+
+  /**
+   * Gets articles specified by tag
+   * @param {string} tag - article tag
+   * @returns status code, data on success, errors on failure
+   */
+   async getArticlesByTag(tag) {
+    const res = await this.api(`/articles/tag/${tag}`, 'GET');
+    return this.responseReturnHandler(res, true, 'articles');
+  }
+
+  /**
+   * Gets a topic specified by id
+   * @param {integer} id - topic id
+   * @returns status code, data on success, errors on failure
+   */
+  async getTopicById(id) {
+    const res = await this.api(`/topics/id/${id}`, 'GET');
+    return this.responseReturnHandler(res, true, 'topic');
+  }
+
+  /**
+   * Gets topic specified by name
+   * @param {string} name - topic name
+   * @returns status code, data on success, errors on failure
+   */
+  async getTopicByName(name) {
+    const res = await this.api(`/topics/name/${name}`, 'GET');
+    return this.responseReturnHandler(res, true, 'topic');
+  }
+
+  /**
+   * Gets topics
+   * @returns status code, data on success, errors on failure
+   */
+  async getTopics() {
+    const res = await this.api(`/topics`, 'GET');
+    return this.responseReturnHandler(res, true, 'topics');
+  }
+
+  /**
+   * Gets topics specified by tag
+   * @param {string} tag - topic related tag
+   * @returns status code, data on success, errors on failure
+   */
+  async getTopicsByTag(tag) {
+    const res = await this.api(`/topics/tag/${tag}`, 'GET');
+    return this.responseReturnHandler(res, true, 'topics');
+  }
+
+  /**
+   * Gets a category specified by id
+   * @param {integer} id - category id
+   * @returns status code, data on success, errors on failure
+   */
+  async getCategoryById(id) {
+    const res = await this.api(`/categories/${id}`, 'GET');
+    return this.responseReturnHandler(res, true, 'category');
+  }
+
+  /**
+   * Gets all categories
+   * @returns status code, data on success, errors on failure
+   */
+  async getCategories() {
+    const res = await this.api(`/categories`, 'GET');
+    return this.responseReturnHandler(res, true, 'categories');
+  }
+
+  /**
+   * Creates and saves a user to the API
+   * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
+   * @returns status code, data on success, errors on failure
+   */
+  async createUser(user) {
+    const res = await this.api('/users', 'POST', user);
+    return this.responseReturnHandler(res);
+  }
+
+  /**
    * Creates and saves an article to the API
    * @param {object} article - the article object with properties: title, topic, intro, body, tags
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
@@ -226,22 +239,7 @@ export default class Data {
    */
   async createArticle(article, user) {
     const res = await this.api('/articles', 'POST', article, true, user);
-    if ( res.status === 201 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            article: data
-          }
-        })
-    } else if ( res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
+    return this.responseReturnHandler(res, true, 'article');
   }
 
   /**
@@ -250,24 +248,9 @@ export default class Data {
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns status code, data on success, errors on failure
    */
-   async followUnfollow({ id, user }) {
+  async followUnfollow({ id, user }) {
     const res = await this.api(`/users/${id}/follow`, 'PUT', null, true, user);
-    if ( res.status === 200) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            users: data
-          }
-        });
-    } else if ( res.status === 403 || res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
+    return this.responseReturnHandler(res, true, 'users');
   }
 
   /**
@@ -279,22 +262,7 @@ export default class Data {
    */
   async updateArticle(article, id, user) {
     const res = await this.api(`/articles/${id}`, 'PUT', article, true, user);
-    if ( res.status === 204 ) {
-      return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            article: data
-          }
-        })
-    } else if (res.status === 403 || res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      return {
-        status: res.status,
-        errors: res.message
-      };
-    }
+    return this.responseReturnHandler(res, true, 'article');
   }
 
   /**
