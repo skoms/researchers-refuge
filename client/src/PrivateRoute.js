@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { Context } from './Context';
+import { useSelector } from 'react-redux';
+import { selectAuthenticatedUser } from './components/user/userAccManage/userAccSlice';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-  const context = useContext(Context);
-  const user = context.authenticatedUser;
+  const user = useSelector(selectAuthenticatedUser);
   return (
     <Route
       {...rest}

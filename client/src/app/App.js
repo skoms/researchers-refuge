@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Provider } from '../Context';
 import PrivateRoute from '../PrivateRoute';
 
 //TODO - Import all the components to add in the Switch
@@ -22,7 +21,6 @@ import UnhandledError from '../components/error/unhandledError/UnhandledError';
 
 function App() {
   return (
-    <Provider>
       <div className="App">
         <Router>
           <Header />
@@ -44,8 +42,6 @@ function App() {
           <Footer />
         </Router>
       </div>
-    </Provider>
-    
   );
 }
 

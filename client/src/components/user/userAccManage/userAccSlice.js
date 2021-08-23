@@ -68,15 +68,23 @@ export const userAccSlice = createSlice({
       }
     },
     updateAccount: (state, action) => {
-      const user = {
-        ...state.authenticatedUser,
-        ...action.payload,
-      };
-      Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
-      return {
-        ...state,
-        loggedIn: action.payload ? true : false,
-        authenticatedUser: user
+      if ( action.payload === null ) {
+        return {
+          ...state,
+          loggedIn: action.payload ? true : false,
+          authenticatedUser: null
+        }
+      } else {
+        const user = {
+          ...state.authenticatedUser,
+          ...action.payload,
+        };
+        Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
+        return {
+          ...state,
+          loggedIn: action.payload ? true : false,
+          authenticatedUser: user
+        }
       }
     },
   },
