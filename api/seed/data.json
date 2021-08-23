@@ -27,8 +27,23 @@
       "imgURL": "https://placeimg.com/120/120/people"
     }
   ],
+  "categories": [
+    {
+      "name": "humanities and social science"
+    },
+    {
+      "name": "natural sciences"
+    },
+    {
+      "name": "formal sciences"
+    },
+    {
+      "name": "professions and applied sciences"
+    }
+  ],
   "topics": [
     {
+      "categoryId": 1,
       "name": "anthropology",
       "relatedTags": [
         "anthropological criminology",
@@ -89,12 +104,7 @@
         "anthropology of art",
         "anthropology of institutions",
         "anthropology of media",
-        "visual anthropology"
-      ]
-    },
-    {
-      "name": "archaeology",
-      "relatedTags": [
+        "visual anthropology",
         "aerial archaeology",
         "aviation archaeology",
         "anthracology",
@@ -175,6 +185,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "history",
       "relatedTags": [
         "african history",
@@ -247,6 +258,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "Linguistics and Languages",
       "relatedTags": [
         "classics (outline)",
@@ -286,6 +298,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "philosophy",
       "relatedTags": [
         "meta-philosophy",
@@ -354,6 +367,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "religion",
       "relatedTags": [
         "abrahamic religions",
@@ -399,7 +413,8 @@
       ]
     },
     {
-      "name": "culinary arts",
+      "categoryId": 1,
+      "name": "the arts",
       "relatedTags": [
         "acquired taste",
         "aftertaste",
@@ -424,12 +439,7 @@
         "gourmet",
         "palatability",
         "specialty foods",
-        "traditional food"
-      ]
-    },
-    {
-      "name": "literature",
-      "relatedTags": [
+        "traditional food",
         "poetry",
         "comparative literature",
         "english literature",
@@ -453,12 +463,7 @@
         "literary journalism",
         "poetry",
         "screenwriting",
-        "playwrighting"
-      ]
-    },
-    {
-      "name": "performing arts",
-      "relatedTags": [
+        "playwrighting",
         "music (outline)",
         "accompanying",
         "chamber music",
@@ -518,12 +523,7 @@
         "electronic game",
         "arcade game",
         "audio game",
-        "outline of video games"
-      ]
-    },
-    {
-      "name": "visual arts",
-      "relatedTags": [
+        "outline of video games",
         "craft",
         "fine arts",
         "forgery",
@@ -535,6 +535,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "economics",
       "relatedTags": [
         "agricultural economics",
@@ -597,6 +598,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "geography",
       "relatedTags": [
         "cartography (outline)",
@@ -638,7 +640,8 @@
       ]
     },
     {
-      "name": "area studies",
+      "categoryId": 1,
+      "name": "interdisciplinary studies",
       "relatedTags": [
         "african studies",
         "american studies",
@@ -665,12 +668,7 @@
         "australian studies",
         "pacific studies",
         "middle east studies",
-        "russian and eastern european studies"
-      ]
-    },
-    {
-      "name": "ethnic and cultural studies",
-      "relatedTags": [
+        "russian and eastern european studies",
         "cultural studies",
         "ethnic studies",
         "ethnology",
@@ -715,12 +713,7 @@
         "third gender",
         "transgender",
         "women's rights",
-        "women's studies"
-      ]
-    },
-    {
-      "name": "organizational studies",
-      "relatedTags": [
+        "women's studies",
         "business economics",
         "business ethics",
         "business studies",
@@ -737,6 +730,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "political science",
       "relatedTags": [
         "american politics",
@@ -764,6 +758,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "psychology",
       "relatedTags": [
         "abnormal psychology",
@@ -833,6 +828,7 @@
       ]
     },
     {
+      "categoryId": 1,
       "name": "sociology",
       "relatedTags": [
         "analytical sociology",
@@ -978,6 +974,7 @@
       ]
     },
     {
+      "categoryId": 2,
       "name": "biology",
       "relatedTags": [
         "aerobiology",
@@ -1085,6 +1082,7 @@
       ]
     },
     {
+      "categoryId": 2,
       "name": "chemistry",
       "relatedTags": [
         "agrochemistry",
@@ -1144,6 +1142,7 @@
       ]
     },
     {
+      "categoryId": 2,
       "name": "earth sciences",
       "relatedTags": [
         "edaphology",
@@ -1177,6 +1176,7 @@
       ]
     },
     {
+      "categoryId": 2,
       "name": "physics",
       "relatedTags": [
         "acoustics (outline)",
@@ -1299,6 +1299,7 @@
       ]
     },
     {
+      "categoryId": 2,
       "name": "space sciences",
       "relatedTags": [
         "aerospace engineering",
@@ -1346,12 +1347,7 @@
         "space archaeology",
         "space exploration",
         "space law",
-        "space nuclear power"
-      ]
-    },
-    {
-      "name": "astronomy",
-      "relatedTags": [
+        "space nuclear power",
         "astronomy (outline)",
         "archaeoastronomy",
         "astrometry",
@@ -1411,6 +1407,7 @@
       ]
     },
     {
+      "categoryId": 3,
       "name": "computer sciences",
       "relatedTags": [
         "theory of computation",
@@ -1512,6 +1509,7 @@
       ]
     },
     {
+      "categoryId": 3,
       "name": "logic",
       "relatedTags": [
         "mathematical logic",
@@ -1536,7 +1534,8 @@
       ]
     },
     {
-      "name": "pure mathematics",
+      "categoryId": 3,
+      "name": "mathematics",
       "relatedTags": [
         "algebra (outline)",
         "group theory",
@@ -1600,12 +1599,7 @@
         "model theory",
         "recursion theory",
         "modal logic",
-        "intuitionistic logic"
-      ]
-    },
-    {
-      "name": "applied mathematics",
-      "relatedTags": [
+        "intuitionistic logic",
         "approximation theory",
         "computational mathematics",
         "numerical analysis",
@@ -1638,12 +1632,7 @@
         "combinatorics (outline)",
         "coding theory",
         "graph theory",
-        "game theory"
-      ]
-    },
-    {
-      "name": "statistics",
-      "relatedTags": [
+        "game theory", 
         "mathematical statistics",
         "econometrics",
         "actuarial science",
@@ -1674,6 +1663,7 @@
       ]
     },
     {
+      "categoryId": 3,
       "name": "systems science",
       "relatedTags": [
         "network science",
@@ -1730,6 +1720,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "agriculture",
       "relatedTags": [
         "agroecology",
@@ -1757,6 +1748,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "architecture and design",
       "relatedTags": [
         "architecture (outline)",
@@ -1786,6 +1778,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "business",
       "relatedTags": [
         "accounting",
@@ -1818,6 +1811,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "divinity",
       "relatedTags": [
         "canon law",
@@ -1850,6 +1844,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "education",
       "relatedTags": [
         "comparative education",
@@ -1894,6 +1889,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "chemical engineering",
       "relatedTags": [
         "biocatalysts",
@@ -1917,6 +1913,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "materials science and engineering",
       "relatedTags": [
         "biomaterials",
@@ -1932,6 +1929,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "mechanical engineering",
       "relatedTags": [
         "aerospace engineering",
@@ -1958,6 +1956,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "civil engineering",
       "relatedTags": [
         "agricultural engineering",
@@ -1980,6 +1979,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "electrical engineering",
       "relatedTags": [
         "applied physics",
@@ -2003,6 +2003,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "environmental studies and forestry",
       "relatedTags": [
         "environmental management",
@@ -2023,6 +2024,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "family and consumer science",
       "relatedTags": [
         "consumer education",
@@ -2034,6 +2036,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "human physical performance and recreation",
       "relatedTags": [
         "biomechanics / sports biomechanics",
@@ -2069,6 +2072,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "journalism, media studies and communication",
       "relatedTags": [
         "journalism (outline)",
@@ -2114,6 +2118,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "law",
       "relatedTags": [
         "legal management",
@@ -2157,6 +2162,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "library and museum studies",
       "relatedTags": [
         "archival science",
@@ -2229,6 +2235,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "medicine",
       "relatedTags": [
         "alternative medicine",
@@ -2334,6 +2341,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "military sciences",
       "relatedTags": [
         "amphibious warfare",
@@ -2470,6 +2478,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "public administration",
       "relatedTags": [
         "civil service",
@@ -2496,12 +2505,7 @@
         "public policy school",
         "regulation",
         "public safety",
-        "public service"
-      ]
-    },
-    {
-      "name": "public policy",
-      "relatedTags": [
+        "public service",
         "agricultural policy",
         "commercial policy",
         "cultural policy",
@@ -2541,6 +2545,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "social work",
       "relatedTags": [
         "child welfare",
@@ -2556,6 +2561,7 @@
       ]
     },
     {
+      "categoryId": 4,
       "name": "transportation",
       "relatedTags": [
         "highway safety",
@@ -2575,7 +2581,7 @@
   "articles": [
     {
       "userId": 1,
-      "topicId": 17,
+      "topicId": 11,
       "title": "Do we see others online as human?",
       "topic": "psychology",
       "intro": "I sometimes wonder why many of us feel so free to be nasty to strangers.",
@@ -2586,7 +2592,7 @@
     },
     {
       "userId": 1,
-      "topicId": 44,
+      "topicId": 35,
       "title": "Reddit is now valued at more than $10 billion",
       "topic": "journalism, media studies and communication",
       "intro": "The company is still planning on going public.",
@@ -2597,7 +2603,7 @@
     },
     {
       "userId": 2,
-      "topicId": 25,
+      "topicId": 18,
       "title": "Windows 11 is getting updated snipping tool, calculator, and mail apps",
       "topic": "computer sciences",
       "intro": "More Windows 11 app updates are also on the way",
@@ -2608,7 +2614,7 @@
     },
     {
       "userId": 2,
-      "topicId": 25,
+      "topicId": 18,
       "title": "Google bans tracking tool that sold users’ location data",
       "topic": "computer sciences",
       "intro": "SafeGraph offered data for COVID-19 tracking.",

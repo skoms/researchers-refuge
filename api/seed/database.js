@@ -8,6 +8,7 @@ class Database {
     this.articles = seedData.articles;
     this.users = seedData.users;
     this.topics = seedData.topics;
+    this.categories = seedData.categories;
     this.enableLogging = enableLogging;
     this.context = new Context('ResearchersRefuge.db', enableLogging);
   }
@@ -80,12 +81,25 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Topics
-          (name, relatedTags, createdAt, updatedAt)
+          (categoryId, name, relatedTags, createdAt, updatedAt)
         VALUES
-          (?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, datetime('now'), datetime('now'));
       `,
+      topic.categoryId,
       topic.name,
       topic.relatedTags);
+  }
+
+  // Inserts categories into database
+  createCategory(category) {
+    return this.context
+      .execute(`
+        INSERT INTO Categories
+          (name, createdAt, updatedAt)
+        VALUES
+          (?, datetime('now'), datetime('now'));
+      `,
+      category.name);
   }
 
   // Hashes the passwords in the for the database
@@ -118,6 +132,13 @@ class Database {
   async createTopics(topics) {
     for (const topic of topics) {
       await this.createTopic(topic);
+    }
+  }
+
+  // Inserts all the categories given as argument to the database
+  async createCategories(categories) {
+    for (const category of categories) {
+      await this.createCategory(category);
     }
   }
 
@@ -180,13 +201,41 @@ class Database {
         name VARCHAR(255) NOT NULL DEFAULT '', 
         relatedTags ARRAY NOT NULL DEFAULT [], 
         createdAt DATETIME NOT NULL, 
-        updatedAt DATETIME NOT NULL
+        updatedAt DATETIME NOT NULL,
+        categoryId INTEGER NOT NULL DEFAULT -1
+          REFERENCES Categories (id) ON DELETE CASCADE ON UPDATE CASCADE
       );
     `);
 
     this.log('Creating the topic records...');
 
-    await this.createTopics(this.topics);
+    await this.createTopics(this.topics); 
+    
+
+    const categoryTableExists = await this.tableExists('Categories');
+
+    if (categoryTableExists) {
+      this.log('Dropping the Categories table...');
+
+      await this.context.execute(`
+        DROP TABLE IF EXISTS Categories;
+      `);
+    }
+
+    this.log('Creating the Categories table...');
+
+    await this.context.execute(`
+      CREATE TABLE Categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        name VARCHAR(255) NOT NULL DEFAULT '', 
+        createdAt DATETIME NOT NULL, 
+        updatedAt DATETIME NOT NULL
+      );
+    `);
+
+    this.log('Creating the category records...');
+
+    await this.createCategories(this.categories);
 
     const articleTableExists = await this.tableExists('Articles');
 

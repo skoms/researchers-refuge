@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Topic extends Model { }
-  Topic.init({
+  class Category extends Model { }
+  Category.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,29 +20,12 @@ module.exports = (sequelize) => {
           this.setDataValue('name', lowercased);
         }
       }
-    },
-    relatedTags: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Please provide a value for "tags"'
-        },
-        notEmpty: {
-          msg: 'Please provide a value for "tags"'
-        }
-      }
-    },
+    }
   }, { sequelize });
 
-  Topic.associate = (models) => {  
-    Topic.hasMany(models.Article);
-    Topic.belongsTo(models.Category, {
-      foreignKey: {
-        fieldName: 'categoryId',
-      }
-    });
+  Category.associate = (models) => {  
+    Category.hasMany(models.Topic);
   }
 
-  return Topic;
+  return Category;
 }
