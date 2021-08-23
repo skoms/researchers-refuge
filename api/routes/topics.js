@@ -5,8 +5,8 @@ const router = express.Router();
 const asyncHandler = require('../middleware/async-handler');
 const authenticateLogin = require('../middleware/user-auth');
 
-// Import Article and User Model
-const { Article, User, Topic } = require('../models');
+// Import Models
+const { Article, User, Topic, Category } = require('../models');
 
 // GET finds and displays all topics
 router.get('/', asyncHandler(async (req, res) => {
