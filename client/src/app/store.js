@@ -8,6 +8,8 @@ import userFeedReducer from '../components/user/userProfile/userFeedSlice';
 import darkModeButtonReducer from "../components/darkmodeButton/darkModeButtonSlice";
 import articleDetailsReducer from '../components/article/articleDetails/articleDetailsSlice';
 import topicsReducer from '../components/topics/topicsSlice';
+import searchResultsReducer from '../components/searchResults/searchResultsSlice';
+
 
 export const store = configureStore({
   reducer: {
@@ -19,5 +21,6 @@ export const store = configureStore({
     darkModeButton: darkModeButtonReducer,
     articleDetails: articleDetailsReducer,
     topics: topicsReducer,
+    searchResults: searchResultsReducer,
   }
 });

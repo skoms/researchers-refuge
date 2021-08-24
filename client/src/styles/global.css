@@ -59,7 +59,6 @@ body.darkmode {
 }
 
 .darkmode * {
-  background-color: #0D1117;
   color: #E8F7FF;
 }
 
@@ -69,9 +68,21 @@ h2 {
   margin: .5rem;
 }
 
+h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: .5rem;
+}
+
 h4 {
   font-size: 1.2rem;
-  font-weight: 800;
+  font-weight: 700;
+  margin: .5rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+  font-weight: 500;
   margin: .5rem;
 }
 
@@ -88,6 +99,7 @@ select:focus {
 
 .darkmode select {
   border: #112541 solid .15rem;
+  background: #0D1117;
 }
 
 .darkmode select:focus {
@@ -359,6 +371,7 @@ button:hover {
   border: none;
   border-radius: 0;
   box-shadow: none;
+  transition: unset;
 }
 
 .darkmode-button:hover {
@@ -375,6 +388,7 @@ button:hover {
   border: none;
   border-radius: 0;
   box-shadow: none;
+  transition: unset;
 }
 
 .header .my-profile-div a, .header .my-profile-div .signout-btn {
@@ -1791,7 +1805,7 @@ button:hover {
   text-align: center;
 }
 
-/* ============= Content Styling (Main Page) ======================== */
+/* ============= Content Styling (Error Page) ======================== */
 .error-div {
   margin: 7rem .5rem 2rem .5rem;
   height: 100%;
@@ -1856,6 +1870,80 @@ button:hover {
   color: brown;
   background: #27303d;
 }
+
+/* ============= Content Styling (Results Page) ======================== */
+.results-page-content {
+  margin: 5rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". info info info feed feed feed feed feed feed rec rec rec .";
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.results-page-content .results {
+  display: flex;
+  flex-direction: column;
+  padding: .3rem;
+  margin-right: -.7rem;
+  height: 23vh;
+  overflow: auto;
+  margin: 1rem 0 0 0;
+  background: #E8F7FF;
+  border-radius: .75rem;
+}
+
+.results-page-content .empty {
+  height: fit-content;
+}
+
+.results-page-content .empty h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.darkmode .results-page-content .results {
+  background: #161B22;
+}
+
+.darkmode .results-page-content .results h4,
+.darkmode .results-page-content .results h5 {
+  color: #38B6FF;
+  background: none;
+}
+
+.info-bar {
+  background-color: #64B5F7;
+  color: #E8F7FF;
+  margin: 0 0 .5rem 0;
+  border-radius: .75rem;
+  padding: .2rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.info-bar h4 {
+  margin: .2rem;
+}
+
+.darkmode .results-page-content .info-bar, .darkmode .results-page-content .info-bar * {
+  background: #27303D;
+  color: #38B6FF;
+}
+
+.results-page-content .results .article-cards {
+  width: 98%;
+}
+
+.darkmode .results-page-content .results .article-cards * {
+  background: #161B22;
+}
+
 
 /* ============== Small Screen Content Styling  ======================= */
 @media only screen and (max-width: 800px) {

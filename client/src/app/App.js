@@ -17,6 +17,7 @@ import MyProfile from '../components/user/userProfile/myProfile/MyProfile';
 import Forbidden from '../components/error/forbidden/Forbidden';
 import NotFound from '../components/error/notFound/NotFound';
 import UnhandledError from '../components/error/unhandledError/UnhandledError';
+import SearchResultsPage from '../components/searchResults/SearchResultsPage';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route exact path='/articles/:id' component={ArticleDetails} />
             <PrivateRoute exact path='/write-article' component={CreateArticle} />
             <PrivateRoute exact path='/update-article/:id' component={UpdateArticle} />
+            <Route exact path='/search/:term' component={SearchResultsPage} />
             <Route exact path='/forbidden' component={Forbidden} />
             <Route exact path='/error' component={UnhandledError} />
             <Route component={NotFound} />

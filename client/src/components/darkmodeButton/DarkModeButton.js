@@ -26,9 +26,9 @@ const DarkModeButton = () => {
       <button className="darkmode-button" onClick={toggleDarkmode}>
         { darkmodeOn 
         ?
-        <img src="https://img.icons8.com/material-rounded/24/ffffff/sun--v1.png" alt="darkmode button"/>
+        <img src="https://img.icons8.com/material-rounded/40/ffffff/sun--v1.png" alt="darkmode button"/>
         :
-          <img src="https://img.icons8.com/ios-filled/20/ffffff/crescent-moon.png" alt="darkmode button"/>
+          <img src="https://img.icons8.com/ios-filled/40/ffffff/crescent-moon.png" alt="darkmode button"/>
         }
       </button>
     </div>

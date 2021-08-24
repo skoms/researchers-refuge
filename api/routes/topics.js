@@ -16,11 +16,14 @@ const { Op } = Sequelize;
 // GET finds and displays all topics
 router.get('/', asyncHandler(async (req, res) => {
   const topics = await Topic.findAll({
-    attributes: ['id', 'name', 'relatedTags'],
-    include: [ { model: Article, attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'] } ],
-    include: [{
-      model: User,
-      attributes: ['firstName', 'lastName']
+    attributes: ['id', 'name', 'relatedTags', 'categoryId'],
+    include: [ { 
+      model: Article, 
+      attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'],
+      include: [{
+        model: User,
+        attributes: ['firstName', 'lastName']
+      }] 
     }]
   });
 
@@ -30,13 +33,42 @@ router.get('/', asyncHandler(async (req, res) => {
 // GET finds and sends back a specific topics by tag
 router.get('/tag/:tag', asyncHandler(async (req, res) => {
   const topics = await Topic.findAll({
-    attributes: ['id', 'name', 'relatedTags'],
-    include: [ { model: Article, attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'] } ],
-    include: [{
-      model: User,
-      attributes: ['firstName', 'lastName']
+    attributes: ['id', 'name', 'relatedTags', 'categoryId'],
+    include: [ { 
+      model: Article, 
+      attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'],
+      include: [{
+        model: User,
+        attributes: ['firstName', 'lastName']
+      }] 
     }],
     where: { relatedTags: { [Op.substring]: req.params.tag } }
+  });
+
+  if( topics ) {
+    res.status(200).json(topics);
+  } else {
+    res.status(404).end();
+  }
+}));
+
+// GET finds and sends back specific topics by query
+router.get('/query/:query', asyncHandler(async (req, res) => {
+  const topics = await Topic.findAll({
+    attributes: ['id', 'name', 'relatedTags', 'categoryId'],
+    include: [ { 
+      model: Article, 
+      attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'],
+      include: [{
+        model: User,
+        attributes: ['firstName', 'lastName']
+      }] 
+    }],
+    where: { 
+      [Op.or]: [
+      { name: { [Op.substring]: req.params.query } },
+      { relatedTags: { [Op.substring]: req.params.query } }
+    ]}
   });
 
   if( topics ) {
@@ -49,7 +81,7 @@ router.get('/tag/:tag', asyncHandler(async (req, res) => {
 // GET finds and displays a specific topic by name
 router.get('/name/:name', asyncHandler(async (req, res) => {
   const topic = await Topic.findOne({
-    attributes: ['id', 'name', 'relatedTags'],
+    attributes: ['id', 'name', 'relatedTags', 'categoryId'],
     include: [{ 
       model: Article, 
       attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'],
@@ -71,11 +103,14 @@ router.get('/name/:name', asyncHandler(async (req, res) => {
 // GET finds and displays a specific topic by ID
 router.get('/id/:id', asyncHandler(async (req, res) => {
   const topic = await Topic.findByPk(req.params.id, {
-    attributes: ['id', 'name', 'relatedTags'],
-    include: [ { model: Article, attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'] } ],
-    include: [{
-      model: User,
-      attributes: ['firstName', 'lastName']
+    attributes: ['id', 'name', 'relatedTags', 'categoryId'],
+    include: [ { 
+      model: Article, 
+      attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'],
+      include: [{
+        model: User,
+        attributes: ['firstName', 'lastName']
+      }] 
     }]
   });
 

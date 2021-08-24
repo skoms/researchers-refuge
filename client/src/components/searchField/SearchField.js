@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { 
-  update,
+  updateSearchTerm,
   selectSearchTerm
 } from './searchFieldSlice';
 
@@ -15,7 +15,7 @@ const SearchField = () => {
         id="search"
         type="text"
         value={searchTerm}
-        onChange={(e) => dispatch(update(e.target.value))}
+        onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
         placeholder="Search for articles or people"
       />
     </div>

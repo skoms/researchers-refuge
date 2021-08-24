@@ -107,6 +107,12 @@ export default class Data {
     }
   }
 
+
+
+
+
+  //! GET DATA API FUNCTIONS
+
   /**
    * Gets the user if credentials matches server
    * @param {string} emailAddress - User's Email to log in
@@ -126,6 +132,16 @@ export default class Data {
   async getUserById(id) {
     const res = await this.api(`/users/${id}`, 'GET');
     return this.responseReturnHandler(res, true, 'user');
+  }
+
+  /**
+   * Gets users matching the query
+   * @param {string} query - query string to search for
+   * @returns status code, data on success, errors on failure
+   */
+  async getUsersByQuery(query) {
+    const res = await this.api(`/users/query/${query}`, 'GET');
+    return this.responseReturnHandler(res, true, 'users');
   }
 
   /**
@@ -164,6 +180,16 @@ export default class Data {
    */
    async getArticlesByTag(tag) {
     const res = await this.api(`/articles/tag/${tag}`, 'GET');
+    return this.responseReturnHandler(res, true, 'articles');
+  }
+
+  /**
+   * Gets articles matching the query
+   * @param {string} query - query string to search for
+   * @returns status code, data on success, errors on failure
+   */
+  async getArticlesByQuery(query) {
+    const res = await this.api(`/articles/query/${query}`, 'GET');
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -207,6 +233,16 @@ export default class Data {
   }
 
   /**
+   * Gets topics matching the query
+   * @param {string} query - query string to search for
+   * @returns status code, data on success, errors on failure
+   */
+  async getTopicsByQuery(query) {
+    const res = await this.api(`/topics/query/${query}`, 'GET');
+    return this.responseReturnHandler(res, true, 'topics');
+  }
+
+  /**
    * Gets a category specified by id
    * @param {integer} id - category id
    * @returns status code, data on success, errors on failure
@@ -224,6 +260,22 @@ export default class Data {
     const res = await this.api(`/categories`, 'GET');
     return this.responseReturnHandler(res, true, 'categories');
   }
+
+  /**
+   * Gets categories matching the query
+   * @param {string} query - query string to search for
+   * @returns status code, data on success, errors on failure
+   */
+  async getCategoriesByQuery(query) {
+    const res = await this.api(`/categories/query/${query}`, 'GET');
+    return this.responseReturnHandler(res, true, 'categories');
+  }
+
+
+  
+
+
+  //! POST DATA API FUNCTIONS
 
   /**
    * Creates and saves a user to the API
@@ -245,6 +297,12 @@ export default class Data {
     const res = await this.api('/articles', 'POST', article, true, user);
     return this.responseReturnHandler(res, true, 'article');
   }
+
+
+
+
+
+  //! PUT DATA API FUNCTIONS
 
   /**
    * Updates the data on the user who wants to follow/unfollow and the target
@@ -268,6 +326,12 @@ export default class Data {
     const res = await this.api(`/articles/${id}`, 'PUT', article, true, user);
     return this.responseReturnHandler(res, true, 'article');
   }
+
+
+
+
+
+  //! DELETE DATA API FUNCTIONS
 
   /**
    * Deletes an article to the API

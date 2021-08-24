@@ -37,6 +37,28 @@ router.get('/tag/:tag', asyncHandler(async (req, res) => {
   }
 }));
 
+// GET finds and sends back specific articles by query
+router.get('/query/:query', asyncHandler(async (req, res) => {
+  const articles = await Article.findAll({
+    attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
+    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    where: { 
+      [Op.or]: [
+      { title: { [Op.substring]: req.params.query } },
+      { topic: { [Op.substring]: req.params.query } },
+      { intro: { [Op.substring]: req.params.query } },
+      { body:  { [Op.substring]: req.params.query } },
+      { tags:  { [Op.substring]: req.params.query } }
+    ]}
+  });
+
+  if( articles ) {
+    res.status(200).json(articles);
+  } else {
+    res.status(404).end();
+  }
+}));
+
 // GET finds specified article and basic info on its owner
 router.get('/:id', asyncHandler(async (req, res) => {
   const article = await Article.findByPk(req.params.id, { 

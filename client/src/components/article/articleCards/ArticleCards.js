@@ -4,10 +4,12 @@ import { selectUserArticles } from '../../user/userProfile/userFeedSlice';
 import { selectFeedArticles } from '../../feed/feedSlice';
 import ArticleCard from './articleCard/ArticleCard';
 import Loading from '../../loading/Loading';
+import { selectArticlesResults } from '../../searchResults/searchResultsSlice';
 
 const ArticleCards = (props) => {
   const ownersArticles = useSelector(selectUserArticles);
   const feedArticles = useSelector(selectFeedArticles);
+  const resultArticles = useSelector(selectArticlesResults);
   const [articles, setArticles] = useState([  ]);
   const [didLoad, setDidLoad] = useState(false);
 
@@ -23,13 +25,16 @@ const ArticleCards = (props) => {
       case 'feed':
         setArticles(feedArticles);
         break;
+      case 'results':
+        setArticles(resultArticles);
+        break;
       default:
         break;
     }
     if (!didLoad) {
       setDidLoad(true);
     }
-  }, [didLoad, props, ownersArticles, feedArticles])
+  }, [didLoad, props, ownersArticles, feedArticles, resultArticles])
 
   window.addEventListener('scroll', e => {
     let scrollbarTimeout;

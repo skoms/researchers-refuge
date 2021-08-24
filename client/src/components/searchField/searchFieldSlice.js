@@ -6,7 +6,7 @@ export const searchFieldSlice = createSlice({
     searchTerm: '',
   },
   reducers: {
-    update: (state, action) => {
+    updateSearchTerm: (state, action) => {
       return {
         ...state,
         searchTerm: action.payload
@@ -15,7 +15,7 @@ export const searchFieldSlice = createSlice({
   }
 })
 
-export const { update } = searchFieldSlice.actions;
+export const { updateSearchTerm } = searchFieldSlice.actions;
 
 export const selectSearchTerm = state => state.searchTerm;
 

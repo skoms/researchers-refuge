@@ -8,6 +8,10 @@ const authenticateLogin = require('../middleware/user-auth');
 // Import Models
 const { Article, User, Topic, Category } = require('../models');
 
+// Import Op
+const { Sequelize } = require('../models');
+const { Op } = Sequelize;
+
 // GET authenticated user info
 router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
   const user = await User.findOne({
@@ -17,12 +21,37 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
   res.status(200).json(user);
 }));
 
-// GET finds specified user
+// GET finds specified user by ID
 router.get('/:id', asyncHandler(async (req, res) => {
   const user = await User.findByPk(req.params.id, { 
     attributes: ['id', 'firstName', 'lastName', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL']});
   if (user) {
     res.status(200).json(user);
+  } else {
+    res.status(404).end();
+  }
+}));
+
+// GET find users by query
+router.get('/query/:query', asyncHandler(async (req, res) => {
+  const users = await User.findAll({ 
+    attributes: ['id', 'firstName', 'lastName', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],
+    where: { 
+      [Op.or]: [
+      {
+        firstName:  { 
+          [Op.substring]: req.params.query 
+        }
+      },
+      {
+        lastName:  { 
+          [Op.substring]: req.params.query 
+        }
+      }
+    ]}});
+
+  if (users) {
+    res.status(200).json(users);
   } else {
     res.status(404).end();
   }
