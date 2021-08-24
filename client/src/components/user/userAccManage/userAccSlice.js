@@ -91,29 +91,25 @@ export const userAccSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signIn.fulfilled, (state, action) => {
       const { user } = action.payload;
-      const followersArr = data.followStringToArray(user.followers);
-      const followingArr = data.followStringToArray(user.following);
       return {
         ...state,
         loggedIn: user ? true : false,
         authenticatedUser: {
           ...user,
-          followers: followersArr,
-          following: followingArr
+          followers: data.followStringToArray(user.followers),
+          following: data.followStringToArray(user.following)
         }
       }
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
       const { user } = action.payload;
-      const followersArr = data.followStringToArray(user.followers);
-      const followingArr = data.followStringToArray(user.following);
       return {
         ...state,
         loggedIn: user ? true : false,
         authenticatedUser: {
           ...user,
-          followers: followersArr,
-          following: followingArr
+          followers: data.followStringToArray(user.followers),
+          following: data.followStringToArray(user.following)
         }
       }
     });

@@ -10,16 +10,22 @@ import {
   signOut,
   updateAccount
 } from '../user/userAccManage/userAccSlice';
+import { getCategories, selectCategories } from '../topics/topicsSlice';
+import Data from '../../Data';
+import { Fragment } from 'react';
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false);
   const loggedIn = useSelector(selectLoggedIn);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
+  const data = new Data();
 
   useEffect(() => {
     if (!didLoad) {
       dispatch(updateAccount(Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null));
+      dispatch(getCategories());
       setDidLoad(true);
     }
   }, [authenticatedUser, didLoad, dispatch]);
@@ -28,12 +34,34 @@ const Header = () => {
     dispatch(signOut());
   }
 
+  const changeHandler = (e) => {
+    console.log(`${e.target.value} was selected`);
+  }
+
   return (
     <div className='header'>
       <a className='logo-home-a' href="/">
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
         <h2>Researchers' Refuge</h2>
       </a>
+      <div className='topic-select'>
+        <select name="topic-select" id="topic-select" onChange={changeHandler}>
+          <option className='default' value="">Home</option>
+          { didLoad && categories ?
+            categories.map( category => {
+              return (
+                <optgroup key={category.id} label={data.capitalize(category.name)}>
+                  {
+                    category.Topics.map(topic => <option key={topic.id} value={topic.name}>{data.capitalize(topic.name)}</option>)
+                  }
+                </optgroup>
+              )
+            })
+            :
+            <Fragment />
+          }
+        </select>
+      </div>
       <div className="search">
         <SearchField />
       </div>

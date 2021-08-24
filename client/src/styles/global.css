@@ -268,7 +268,7 @@ button:hover {
     repeat(6, 1fr)
     calc( 50vw - 38rem );
   grid-template-areas: 
-    ". name name search search profile profile .";
+    ". name select search search profile profile .";
   gap: 1.5rem;
   align-items: center;
 }
@@ -283,8 +283,8 @@ button:hover {
   align-items: center;
 }
 
-.darkmode .logo-home-a {
-  background: #161B22;
+.darkmode .logo-home-a, .darkmode .logo-home-a * {
+  background: none;
 }
 
 .logo-home-a h2 {
@@ -301,6 +301,21 @@ button:hover {
 
 .darkmode .logo-home-a img {
   transform: scale(0.8);
+}
+
+.header .topic-select {
+  grid-area: select;
+}
+
+.header .topic-select select {
+  padding: .3rem;
+  font-size: 1.1rem;
+  font-family: 'Times New Roman', Times, serif;
+  width: 100%;
+}
+
+.darkmode .header .topic-select {
+  background: none;
 }
 
 .header .search {

@@ -6,7 +6,7 @@ const data = new Data();
 //TODO - JUST TEMPORARY, Need to tailor the API more first (check project TODO)
 export const getFeedArticles = createAsyncThunk(
   'feed/getFeedArticles',
-  async (filter) => {
+  async (filter, topic = null) => {
     const response = await data.getArticles();
 
     return response;
@@ -16,6 +16,7 @@ export const feedSlice = createSlice({
   name: 'feed',
   initialState: {
     filter: 'popular',
+    topic: null,
     feedArticles: [  ],
   },
   reducers: {
@@ -23,6 +24,12 @@ export const feedSlice = createSlice({
       return {
         ...state,
         filter: action.payload
+      }
+    },
+    updateTopic: (state, action) => {
+      return {
+        ...state,
+        topic: action.payload
       }
     }
   },

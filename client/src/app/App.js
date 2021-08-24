@@ -21,27 +21,27 @@ import UnhandledError from '../components/error/unhandledError/UnhandledError';
 
 function App() {
   return (
-      <div className="App">
-        <Router>
-          <Header />
-          <main>
-            <Switch>
-              <Route exact path='/' component={MainPage} />
-              <Route exact path='/sign-up' component={UserRegistration} />
-              <Route exact path='/sign-in' component={UserLogin} />
-              <Route exact path='/users/:id' component={UserProfile} />
-              <PrivateRoute exact path='/my-profile' component={MyProfile} />
-              <Route exact path='/articles/:id' component={ArticleDetails} />
-              <PrivateRoute exact path='/write-article' component={CreateArticle} />
-              <PrivateRoute exact path='/update-article/:id' component={UpdateArticle} />
-              <Route exact path='/forbidden' component={Forbidden} />
-              <Route exact path='/error' component={UnhandledError} />
-              <Route component={NotFound} />
-            </Switch>
-          </main>
-          <Footer />
-        </Router>
-      </div>
+    <div className="App">
+      <Router>
+        <Header />
+        <main>
+          <Switch>
+            <Route exact path='/' component={MainPage} />
+            <Route exact path='/sign-up' component={UserRegistration} />
+            <Route exact path='/sign-in' component={UserLogin} />
+            <Route exact path='/users/:id' component={UserProfile} />
+            <PrivateRoute exact path='/my-profile' component={MyProfile} />
+            <Route exact path='/articles/:id' component={ArticleDetails} />
+            <PrivateRoute exact path='/write-article' component={CreateArticle} />
+            <PrivateRoute exact path='/update-article/:id' component={UpdateArticle} />
+            <Route exact path='/forbidden' component={Forbidden} />
+            <Route exact path='/error' component={UnhandledError} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 
