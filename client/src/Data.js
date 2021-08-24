@@ -43,12 +43,16 @@ export default class Data {
   }
 
   /**
-   * Convert a follow-data string from the api to an array
+   * Convert a follow-data string from the api to an array if it is a string, or just return the value if not
    * @param {string} string - the following/followers string to turn into array
    * @returns array that was converted from the string
    */
-  followStringToArray = (string) => {
-    return string.split(',').filter(entry => entry !== ' ');
+  isStringAndFollowStringToArray = (value) => {
+    if (typeof value === 'string') {
+      return value.split(',').filter(entry => entry !== ' ');
+    } else {
+      return value;
+    }
   }
 
   /**

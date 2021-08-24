@@ -78,6 +78,8 @@ export const userAccSlice = createSlice({
         const user = {
           ...state.authenticatedUser,
           ...action.payload,
+          followers: data.isStringAndFollowStringToArray(action.payload.followers),
+          following: data.isStringAndFollowStringToArray(action.payload.following)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -96,8 +98,8 @@ export const userAccSlice = createSlice({
         loggedIn: user ? true : false,
         authenticatedUser: {
           ...user,
-          followers: data.followStringToArray(user.followers),
-          following: data.followStringToArray(user.following)
+          followers: data.isStringAndFollowStringToArray(user.followers),
+          following: data.isStringAndFollowStringToArray(user.following)
         }
       }
     });
@@ -108,8 +110,8 @@ export const userAccSlice = createSlice({
         loggedIn: user ? true : false,
         authenticatedUser: {
           ...user,
-          followers: data.followStringToArray(user.followers),
-          following: data.followStringToArray(user.following)
+          followers: data.isStringAndFollowStringToArray(user.followers),
+          following: data.isStringAndFollowStringToArray(user.following)
         }
       }
     });
