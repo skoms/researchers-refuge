@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { updateFilter } from '../feed/FeedSlice';
+import { updateFilter } from '../feed/feedSlice';
 
 const MenuBar = () => {
   const dispatch = useDispatch();

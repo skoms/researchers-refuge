@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { selectUserArticles } from '../../user/userProfile/userFeedSlice';
-import { selectFeedArticles } from '../../feed/FeedSlice';
+import { selectFeedArticles } from '../../feed/feedSlice';
 import ArticleCard from './articleCard/ArticleCard';
 import Loading from '../../loading/Loading';
 
@@ -28,7 +28,6 @@ const ArticleCards = (props) => {
     }
     if (!didLoad) {
       setDidLoad(true);
-      console.log(props);
     }
   }, [didLoad, props, ownersArticles, feedArticles])
 

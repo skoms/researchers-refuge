@@ -10,6 +10,7 @@ import {
   signOut,
   updateAccount
 } from '../user/userAccManage/userAccSlice';
+import { updateTopic } from '../feed/feedSlice';
 import { getCategories, selectCategories } from '../topics/topicsSlice';
 import Data from '../../Data';
 import { Fragment } from 'react';
@@ -25,6 +26,7 @@ const Header = () => {
   useEffect(() => {
     if (!didLoad) {
       dispatch(updateAccount(Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null));
+      dispatch(updateTopic(Cookies.get('topic') ? Cookies.get('topic') : 'home'));
       dispatch(getCategories());
       setDidLoad(true);
     }
@@ -35,7 +37,7 @@ const Header = () => {
   }
 
   const changeHandler = (e) => {
-    console.log(`${e.target.value} was selected`);
+    dispatch(updateTopic(e.target.value));
   }
 
   return (
@@ -46,7 +48,7 @@ const Header = () => {
       </a>
       <div className='topic-select'>
         <select name="topic-select" id="topic-select" onChange={changeHandler}>
-          <option className='default' value="">Home</option>
+          <option className='default' value='home' >Home</option>
           { didLoad && categories ?
             categories.map( category => {
               return (

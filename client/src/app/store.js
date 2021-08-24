@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 //TODO - Import all the needed Reducers
 import searchFieldReducer from '../components/searchField/searchFieldSlice';
-import feedReducer from "../components/feed/FeedSlice";
+import feedReducer from "../components/feed/feedSlice";
 import userAccReducer from '../components/user/userAccManage//userAccSlice';
 import userFeedReducer from '../components/user/userProfile/userFeedSlice';
 import darkModeButtonReducer from "../components/darkmodeButton/darkModeButtonSlice";
