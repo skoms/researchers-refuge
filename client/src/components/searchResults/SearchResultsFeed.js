@@ -14,6 +14,7 @@ const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
   const [displayedUser, setDisplayedUser] = useState(0);
   const { term } = useParams();
+  const searchTerm = useSelector(selectSearchTerm);
   const users = useSelector(selectUsersResults);
   const topics = useSelector(selectTopicsResults);
   const articles = useSelector(selectArticlesResults);
@@ -28,8 +29,10 @@ const SearchResultsFeed = () => {
       dispatch(getResults(term));
       dispatch(updateSearchTerm(term));
       setDidLoad(true);
+    } else if (searchTerm !== '') {
+      dispatch(getResults(searchTerm));
     }
-  }, [didLoad, term, dispatch]);
+  }, [didLoad, term, dispatch, searchTerm]);
 
   const goToTopic = (e) => {
 
@@ -54,9 +57,9 @@ const SearchResultsFeed = () => {
 
   return didLoad ? (
     <div className='feed'>
-      { term ?
+      { searchTerm || term ?
         <div className='info-bar'>
-          <h4>Search results for: '{term}'</h4>
+          <h4>Search results for: '{searchTerm || term}'</h4>
         </div>
         :
         <Fragment />
@@ -89,7 +92,7 @@ const SearchResultsFeed = () => {
           <div className="points">
             { users.length > 1 ?
               users.map( (user, id) => 
-                <div className={`point ${id === displayedUser ? 'point-selected' : '' }`}></div>
+                <div key={id} className={`point ${id} ${id === displayedUser ? 'point-selected' : '' }`}></div>
               )
               :
               <Fragment />

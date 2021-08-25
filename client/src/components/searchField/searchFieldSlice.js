@@ -9,7 +9,7 @@ export const searchFieldSlice = createSlice({
     updateSearchTerm: (state, action) => {
       return {
         ...state,
-        searchTerm: action.payload
+        searchTerm: action.payload.replace(/[$-/:-?{-~!"^_`[\]]/, '')
       }
     },
   }
@@ -17,7 +17,7 @@ export const searchFieldSlice = createSlice({
 
 export const { updateSearchTerm } = searchFieldSlice.actions;
 
-export const selectSearchTerm = state => state.searchTerm;
+export const selectSearchTerm = state => state.searchField.searchTerm;
 
 export default searchFieldSlice.reducer;
 

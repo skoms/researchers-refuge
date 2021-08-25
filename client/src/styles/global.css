@@ -1994,6 +1994,10 @@ button:hover {
   width: 98%;
 }
 
+.results-page-content .results .article-card {
+  margin-bottom: 1.5rem;
+}
+
 .darkmode .results-page-content .results .article-cards * {
   background: #161B22;
 }
