@@ -1360,30 +1360,30 @@ button:hover {
   font-size: 1.2rem;
 }
 
-.my-profile-page .rec-ppl .rec-user {
+.rec-user {
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-template-areas: 
     "pic name"
     "pic occupation"
-    "pic follow";
+    "pic btns";
 }
 
 /* Grid Area Declarations */
-.my-profile-page .rec-user .profile-pic {
+.rec-user .profile-pic {
   grid-area: pic;
 }
 
-.my-profile-page .rec-user .full-name {
+.rec-user .full-name {
   grid-area: name;
 }
 
-.my-profile-page .rec-user .occupation {
+.rec-user .occupation {
   grid-area: occupation;
 }
 
-.my-profile-page .rec-user .button-primary {
-  grid-area: follow;
+.rec-user .buttons {
+  grid-area: btns;
 }
 /*---------------------------*/
 
@@ -1403,7 +1403,13 @@ button:hover {
 }
 
 .rec-user .button-primary {
-  width: 50%;
+  width: 40%;
+  height: 70%;
+  animation: none;
+}
+.rec-user .button-secondary {
+  margin-left: .3rem;
+  width: 40%;
   height: 70%;
   animation: none;
 }
@@ -1902,6 +1908,12 @@ button:hover {
   border-radius: .75rem;
 }
 
+.results-page-content .users {
+  overflow: unset;
+  height: 20vh;
+  min-height: 10rem;
+} 
+
 .results-page-content .empty {
   height: fit-content;
 }
@@ -1943,7 +1955,7 @@ button:hover {
 .results .user-results-main {
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
-  margin: .5rem 0;
+  margin: -.5rem 0 0 0;
   grid-template-areas: "prev user next";
   justify-content: space-between;
   align-items: center;
@@ -1961,10 +1973,23 @@ button:hover {
 }
 /*---------------------------*/
 
-.user-results-main button {
+.user-results-main .nav-btn {
   background: none;
   box-shadow: none;
   margin: none;
+}
+
+.user-card {
+  display: flex;
+  justify-content: center;
+}
+
+.user-card .rec-user {
+  border-radius: .75rem;
+  background: white;
+  padding: .3rem;
+  margin: 1rem 0 .5rem 0;
+  box-shadow: 0 2px 12px -3px #1a3861;
 }
 
 .points {

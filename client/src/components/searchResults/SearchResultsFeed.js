@@ -9,6 +9,7 @@ import Data from '../../Data'
 import ArticleCards from '../article/articleCards/ArticleCards'
 import { selectCategories } from '../topics/topicsSlice'
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
+import RecUser from '../recUser/RecUser'
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -68,7 +69,7 @@ const SearchResultsFeed = () => {
         <div className="results users">
           <h4>Users</h4>
           <div className="user-results-main">
-            <button className={`previous ${displayedUser === 0 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'prev')}>
+            <button className={`prev nav-btn ${displayedUser === 0 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'prev')}>
               { darkModeOn 
                 ?
                   <img src="https://img.icons8.com/ios/40/38B6FF/circled-chevron-left.png" alt="previous button"/>
@@ -77,9 +78,9 @@ const SearchResultsFeed = () => {
               }
             </button>
             <div key={users[displayedUser].id} className="user-card">
-              <img src={users[displayedUser].imgURL} alt="profile-pic" />
+              <RecUser user={users[displayedUser]} />
             </div>
-            <button className={`next ${displayedUser === users.length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
+            <button className={`next nav-btn ${displayedUser === users.length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
               { darkModeOn 
                 ?
                   <img src="https://img.icons8.com/ios/40/38B6FF/circled-chevron-right.png" alt="previous button"/>
@@ -88,7 +89,6 @@ const SearchResultsFeed = () => {
               }
             </button>
           </div>
-          <p>{`Showing user ${displayedUser + 1} out of ${users.length}`}</p>
           <div className="points">
             { users.length > 1 ?
               users.map( (user, id) => 
