@@ -1,7 +1,7 @@
 import React from 'react'
 
 import tempUsers from '../../data/people';
-import RecUser from '../recUser/RecUser';
+import ResultRecUser from '../resultRecUser/ResultRecUser';
 
 const RecPeople = () => {
   return (
@@ -9,7 +9,7 @@ const RecPeople = () => {
       <h2 className="title">People you may know</h2>
       {
         tempUsers.map( user => (
-          <RecUser user={user} />
+          <ResultRecUser user={user} />
         )).slice(0,5)
       }
     </div>

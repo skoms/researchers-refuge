@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RecUser = ({ user }) => {
+const ResultRecUser = ({ user }) => {
   return (
     <div key={user.id} className="rec-user">
       <a href={`/users/${user.id}`} className="profile-pic" ><img src={user.imgURL} alt="profilepic" /></a>
@@ -14,4 +14,4 @@ const RecUser = ({ user }) => {
   )
 }
 
-export default RecUser
+export default ResultRecUser

@@ -9,7 +9,7 @@ import Data from '../../Data'
 import ArticleCards from '../article/articleCards/ArticleCards'
 import { selectCategories } from '../topics/topicsSlice'
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
-import RecUser from '../recUser/RecUser'
+import ResultRecUser from '../resultRecUser/ResultRecUser'
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -78,7 +78,7 @@ const SearchResultsFeed = () => {
               }
             </button>
             <div key={users[displayedUser].id} className="user-card">
-              <RecUser user={users[displayedUser]} />
+              <ResultRecUser user={users[displayedUser]} />
             </div>
             <button className={`next nav-btn ${displayedUser === users.length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
               { darkModeOn 
