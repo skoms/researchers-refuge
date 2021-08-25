@@ -1909,6 +1909,14 @@ button:hover {
   border-radius: .75rem;
 }
 
+.results a {
+  text-decoration: none;
+}
+
+.results a:hover {
+  text-decoration: underline;
+}
+
 .results-page-content .users {
   overflow: unset;
   height: 20vh;
@@ -1991,14 +1999,6 @@ button:hover {
   padding: .3rem;
   margin: 1rem 0 .5rem 0;
   box-shadow: 0 2px 12px -3px #1a3861;
-}
-
-.user-card .rec-user a {
-  text-decoration: none;
-}
-
-.user-card .rec-user a:hover {
-  text-decoration: underline;
 }
 
 .darkmode .user-card .rec-user {
