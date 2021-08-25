@@ -1901,7 +1901,8 @@ button:hover {
   flex-direction: column;
   padding: .3rem;
   margin-right: -.7rem;
-  height: 23vh;
+  height: 27vh;
+  min-height: 12rem;
   overflow: auto;
   margin: 1rem 0 0 0;
   background: #E8F7FF;
@@ -1990,6 +1991,19 @@ button:hover {
   padding: .3rem;
   margin: 1rem 0 .5rem 0;
   box-shadow: 0 2px 12px -3px #1a3861;
+}
+
+.user-card .rec-user a {
+  text-decoration: none;
+}
+
+.user-card .rec-user a:hover {
+  text-decoration: underline;
+}
+
+.darkmode .user-card .rec-user {
+  background: #27303D;
+  box-shadow: 0 2px 12px -3px #3d84e7;
 }
 
 .points {
