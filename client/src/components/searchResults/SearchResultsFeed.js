@@ -11,6 +11,7 @@ import { selectCategories } from '../topics/topicsSlice'
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
+  const [displayedUser, setDisplayedUser] = useState(0);
   const { term } = useParams();
   const users = useSelector(selectUsersResults);
   const topics = useSelector(selectTopicsResults);
@@ -44,13 +45,28 @@ const SearchResultsFeed = () => {
       { users && users.length > 0 ?
         <div className="results users">
           <h4>Users</h4>
-          { 
-            users.map( user => 
-              <div key={user.id} className="user-card">
-                <img src={user.imgURL} alt="profile-pic" />
-              </div>
-            )
-          }      
+          <div className="user-results-main">
+            <button className="previous">
+              <img src="https://img.icons8.com/ios/40/000000/previous.png" alt='previous user'/>
+            </button>
+            <div key={users[displayedUser].id} className="user-card">
+              <img src={users[displayedUser].imgURL} alt="profile-pic" />
+            </div>
+            <button className="next">
+              <img src="https://img.icons8.com/ios/40/000000/next.png" alt='next user'/>
+            </button>
+          </div>
+          <p>{`Showing user ${displayedUser + 1} out of ${users.length}`}</p>
+          <div className="points">
+            { users.length > 1 ?
+              users.map( (user, id) => 
+                <div className={`point ${id === 0 ? 'point-selected' : '' }`}></div>
+              )
+              :
+              <Fragment />
+            }
+            <div className="dot"></div>
+          </div>
         </div>
         :
         <div className="empty results users">

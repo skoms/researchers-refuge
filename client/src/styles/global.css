@@ -82,7 +82,7 @@ h4 {
 
 h5 {
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 700;
   margin: .5rem;
 }
 
@@ -1934,6 +1934,40 @@ button:hover {
 .darkmode .results-page-content .info-bar, .darkmode .results-page-content .info-bar * {
   background: #27303D;
   color: #38B6FF;
+}
+
+.results .user-results-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-results-main button {
+  background: none;
+  box-shadow: none;
+  margin: none;
+}
+
+.points {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.points .point {
+  padding: .35rem;
+  border-radius: 50%;
+  margin: .5rem;
+  background: #1a3861;
+  opacity: .5;
+}
+
+.points .point-selected {
+  opacity: 1;
+}
+
+.darkmode .points .point {
+  background: #38B6FF;
 }
 
 .results-page-content .results .article-cards {
