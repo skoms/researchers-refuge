@@ -106,6 +106,10 @@ select:focus {
   border: #257aac solid .15rem;
 }
 
+.invisible {
+  display: none;
+}
+
 div .errors {
   margin-left: 1rem;
   justify-self: left;
@@ -1937,10 +1941,25 @@ button:hover {
 }
 
 .results .user-results-main {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  margin: .5rem 0;
+  grid-template-areas: "prev user next";
   justify-content: space-between;
   align-items: center;
 }
+
+/* Grid Area Declarations */
+.user-results-main .previous {
+  grid-area: prev;
+}
+.user-results-main .user-card {
+  grid-area: user;
+}
+.user-results-main .next {
+  grid-area: next;
+}
+/*---------------------------*/
 
 .user-results-main button {
   background: none;
@@ -1964,6 +1983,7 @@ button:hover {
 
 .points .point-selected {
   opacity: 1;
+  transform: scale(1.2);
 }
 
 .darkmode .points .point {
