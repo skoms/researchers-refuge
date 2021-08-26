@@ -58,6 +58,7 @@ const UserProfileFeed = props => {
     }
     if (!didLoad && owner) {
       getOwnersArticles(props.id);
+      console.log(owner.followers);
       dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id.toString())));
       setDidLoad(true);
     }
@@ -68,14 +69,8 @@ const UserProfileFeed = props => {
     await dispatch(followUser({ id: props.id, user: authenticatedUser }))
       .then(res => res.payload)
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           button.innerText = button.innerText === 'Follow' ? 'Unfollow' : 'Follow';
-          dispatch(updateOwner({
-            ...res.users.target,
-            followers: res.users.target.followers.split(','),
-            following: res.users.target.following.split(',')
-          }));
         }
       });
   }

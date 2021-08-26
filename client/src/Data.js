@@ -49,7 +49,7 @@ export default class Data {
    */
   isStringAndFollowStringToArray = (value) => {
     if (typeof value === 'string') {
-      return value.split(',').filter(entry => entry !== ' ');
+      return value.split(',').filter(entry => entry !== ' ' && entry !== '');
     } else {
       return value;
     }

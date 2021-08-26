@@ -31,14 +31,14 @@ const ResultRecUser = ({ user }) => {
         console.log(res);
         if (res.status === 200) {
           button.innerText = button.innerText === 'Follow' ? 'Unfollow' : 'Follow';
-          user = {
-            ...user,
-            followers: res.users.target.followers.split(','),
-            following: res.users.target.following.split(',')
-          }
         }
       });
   }
+
+  const view = () => {
+    history.push(`/users/${user.id}`);
+  }
+
   return (
     <div key={user.id} className="rec-user">
       <a href={`/users/${user.id}`} className="profile-pic" ><img src={user.imgURL} alt="profilepic" /></a>
@@ -46,7 +46,7 @@ const ResultRecUser = ({ user }) => {
       <p className="occupation">{user.occupation}</p>
       <div className="buttons">
         <button className='button-primary' onClick={followUnfollow}>{isFollowedByMe ? 'Unfollow' : 'Follow'}</button>
-        <button className='button-secondary'>View</button>
+        <button className='button-secondary' onClick={view}>View</button>
       </div>
     </div>
   )

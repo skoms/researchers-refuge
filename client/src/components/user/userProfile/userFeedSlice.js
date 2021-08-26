@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Data from "../../../Data";
+import { followUser } from "../userAccManage/userAccSlice";
 
 const data = new Data();
 
@@ -36,11 +37,15 @@ export const userFeedSlice = createSlice({
       }
     },
     updateOwner: (state, action) => {
+      const user = action.payload;
+      const followersArr = data.isStringAndFollowStringToArray(user.followers);
+      const followingArr = data.isStringAndFollowStringToArray(user.following);
       return {
         ...state,
         owner: {
-          ...state.owner,
-          ...action.payload
+          ...user,
+          followers: followersArr,
+          following: followingArr
         }
       }
     }
@@ -70,6 +75,21 @@ export const userFeedSlice = createSlice({
       } else {
         return {
           ...state
+        }
+      }
+    });
+    builder.addCase(followUser.fulfilled, (state, action) => {
+      const user = action.payload.users.target;
+      if (user.id === state.owner.id) {
+        const followersArr = data.isStringAndFollowStringToArray(user.followers);
+        const followingArr = data.isStringAndFollowStringToArray(user.following);
+        return {
+          ...state,
+          owner: {
+            ...user,
+            followers: followersArr,
+            following: followingArr
+          }
         }
       }
     });
