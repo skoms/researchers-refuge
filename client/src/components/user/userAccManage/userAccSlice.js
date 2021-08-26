@@ -52,7 +52,13 @@ export const followUser = createAsyncThunk(
   'userAcc/followUser',
   async (id, user) => {
     const response = await data.followUnfollow(id, user);
-    return response;
+    if (response.status === 200) {
+      return response;
+    } else {
+      return {
+        status: response.status
+      }
+    }
 });
 
 export const userAccSlice = createSlice({
@@ -116,18 +122,20 @@ export const userAccSlice = createSlice({
       }
     });
     builder.addCase(followUser.fulfilled, (state, action) => {
-      const updatedUser = action.payload.users.user;
-      const user = {
-        ...state.authenticatedUser,
-        ...updatedUser,
-        followers: data.isStringAndFollowStringToArray(updatedUser.followers),
-        following: data.isStringAndFollowStringToArray(updatedUser.following)
-      };
-      Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
-      return {
-        ...state,
-        loggedIn: action.payload ? true : false,
-        authenticatedUser: user
+      if (action.payload.status === 200) {
+        const updatedUser = action.payload.users.user;
+        const user = {
+          ...state.authenticatedUser,
+          ...updatedUser,
+          followers: data.isStringAndFollowStringToArray(updatedUser.followers),
+          following: data.isStringAndFollowStringToArray(updatedUser.following)
+        };
+        Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
+        return {
+          ...state,
+          loggedIn: action.payload ? true : false,
+          authenticatedUser: user
+        }
       }
     });
   }

@@ -12,8 +12,7 @@ import {
   getUserArticles,
   updateIsFollowedByMe,
   selectIsFollowedByMe,
-  selectOwner,
-  updateOwner
+  selectOwner
 } from '../userFeedSlice';
 
 const UserProfileFeed = props => {

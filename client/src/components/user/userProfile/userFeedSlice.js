@@ -79,16 +79,18 @@ export const userFeedSlice = createSlice({
       }
     });
     builder.addCase(followUser.fulfilled, (state, action) => {
-      const user = action.payload.users.target;
-      if (user.id === state.owner.id) {
-        const followersArr = data.isStringAndFollowStringToArray(user.followers);
-        const followingArr = data.isStringAndFollowStringToArray(user.following);
-        return {
-          ...state,
-          owner: {
-            ...user,
-            followers: followersArr,
-            following: followingArr
+      if (action.payload.status === 200) {
+        const user = action.payload.users.target;
+        if (user.id === state.owner.id) {
+          const followersArr = data.isStringAndFollowStringToArray(user.followers);
+          const followingArr = data.isStringAndFollowStringToArray(user.following);
+          return {
+            ...state,
+            owner: {
+              ...user,
+              followers: followersArr,
+              following: followingArr
+            }
           }
         }
       }

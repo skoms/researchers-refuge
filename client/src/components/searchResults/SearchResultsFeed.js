@@ -11,6 +11,7 @@ import { selectCategories } from '../topics/topicsSlice'
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
 import ResultRecUser from '../resultRecUser/ResultRecUser'
 import { updateTopic } from '../feed/feedSlice'
+import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -26,6 +27,7 @@ const SearchResultsFeed = () => {
   const articles = useSelector(selectArticlesResults);
   const categories = useSelector(selectCategories);
   const darkModeOn = useSelector(selectDarkModeOn);
+  const authenticatedUser = useSelector(selectAuthenticatedUser);
   
   
 
@@ -61,6 +63,14 @@ const SearchResultsFeed = () => {
     }
   }
 
+  const filteredUsers = () => {
+    if (authenticatedUser) {
+      return users.filter(user => authenticatedUser.id !== user.id);
+    } else {
+      return users;
+    }
+  }
+
   return didLoad ? (
     <div className='feed'>
       { searchTerm || term ?
@@ -82,10 +92,10 @@ const SearchResultsFeed = () => {
                   <img src="https://img.icons8.com/ios/40/000000/circled-chevron-left.png" alt="previous button"/>
               }
             </button>
-            <div key={users[displayedUser].id} className="user-card">
-              <ResultRecUser key={displayedUser} type='res' user={users[displayedUser]} />
+            <div key={filteredUsers()[displayedUser].id} className="user-card">
+              <ResultRecUser key={displayedUser} type='res' user={filteredUsers()[displayedUser]} />
             </div>
-            <button className={`next nav-btn ${displayedUser === users.length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
+            <button className={`next nav-btn ${displayedUser === filteredUsers().length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
               { darkModeOn 
                 ?
                   <img src="https://img.icons8.com/ios/40/38B6FF/circled-chevron-right.png" alt="previous button"/>
@@ -95,8 +105,8 @@ const SearchResultsFeed = () => {
             </button>
           </div>
           <div className="points">
-            { users.length > 1 ?
-              users.map( (user, id) => 
+            { filteredUsers().length > 1 ?
+              filteredUsers().map( (user, id) => 
                 <div key={id} className={`point ${id} ${id === displayedUser ? 'point-selected' : '' }`}></div>
               )
               :

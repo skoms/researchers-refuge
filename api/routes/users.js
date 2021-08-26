@@ -38,16 +38,8 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
     attributes: ['id', 'firstName', 'lastName', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],
     where: { 
       [Op.or]: [
-      {
-        firstName:  { 
-          [Op.substring]: req.params.query 
-        }
-      },
-      {
-        lastName:  { 
-          [Op.substring]: req.params.query 
-        }
-      }
+      { firstName: { [Op.substring]: req.params.query } },
+      { lastName: { [Op.substring]: req.params.query } }
     ]}});
 
   if (users) {
@@ -99,7 +91,8 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
     attributes: [ 'id', 'followers' ],
     where: { id: req.params.id } });
   
-  if (user.emailAddress === req.currentUser.emailAddress) {
+  if (user.emailAddress === req.currentUser.emailAddress 
+      && user.id !== target.id) {
     // Programatically checks and updates for both follow and unfollow, making sure you cant follow more than once
     const following = user.following.split(',');
     const followers = target.followers.split(',');
