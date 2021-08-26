@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Loading from '../loading/Loading'
 import { selectSearchTerm, updateSearchTerm } from '../searchField/searchFieldSlice'
 import { getResults, selectArticlesResults, selectTopicsResults, selectUsersResults } from './searchResultsSlice'
@@ -10,19 +10,23 @@ import ArticleCards from '../article/articleCards/ArticleCards'
 import { selectCategories } from '../topics/topicsSlice'
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
 import ResultRecUser from '../resultRecUser/ResultRecUser'
+import { updateTopic } from '../feed/feedSlice'
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
   const [displayedUser, setDisplayedUser] = useState(0);
   const { term } = useParams();
+  const dispatch = useDispatch();
+  const data = new Data();
+  const history = useHistory();
+
   const searchTerm = useSelector(selectSearchTerm);
   const users = useSelector(selectUsersResults);
   const topics = useSelector(selectTopicsResults);
   const articles = useSelector(selectArticlesResults);
   const categories = useSelector(selectCategories);
   const darkModeOn = useSelector(selectDarkModeOn);
-  const dispatch = useDispatch();
-  const data = new Data();
+  
   
 
   useEffect(() => {
@@ -36,7 +40,8 @@ const SearchResultsFeed = () => {
   }, [didLoad, term, dispatch, searchTerm]);
 
   const goToTopic = (e) => {
-
+    dispatch(updateTopic(e.target.innerHTML.toLowerCase()));
+    history.push('/');
   }
 
   const nextPrevButton = (e, name) => {
@@ -118,7 +123,7 @@ const SearchResultsFeed = () => {
                     <ul>
                       {
                         categoryTopics.map( topic => 
-                          <li key={topic.id}><a href="/" onClick={goToTopic}>{data.capitalize(topic.name)}</a></li>
+                          <li key={topic.id}><button onClick={goToTopic}>{data.capitalize(topic.name)}</button></li>
                         )
                       }
                     </ul>

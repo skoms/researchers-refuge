@@ -10,7 +10,7 @@ import {
   signOut,
   updateAccount
 } from '../user/userAccManage/userAccSlice';
-import { updateTopic } from '../feed/feedSlice';
+import { selectTopic, updateTopic } from '../feed/feedSlice';
 import { getCategories, selectCategories } from '../topics/topicsSlice';
 import Data from '../../Data';
 import { Fragment } from 'react';
@@ -20,6 +20,7 @@ const Header = () => {
   const loggedIn = useSelector(selectLoggedIn);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const categories = useSelector(selectCategories);
+  const topic = useSelector(selectTopic);
   const dispatch = useDispatch();
   const data = new Data();
 
@@ -47,7 +48,7 @@ const Header = () => {
         <h2>Researchers' Refuge</h2>
       </a>
       <div className='topic-select'>
-        <select name="topic-select" id="topic-select" onChange={changeHandler}>
+        <select name="topic-select" id="topic-select" value={topic} onChange={changeHandler}>
           <option className='default' value='home' >Home</option>
           { didLoad && categories ?
             categories.map( category => {

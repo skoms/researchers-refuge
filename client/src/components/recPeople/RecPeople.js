@@ -9,7 +9,7 @@ const RecPeople = () => {
       <h2 className="title">People you may know</h2>
       {
         tempUsers.map( user => (
-          <ResultRecUser user={user} />
+          <ResultRecUser key={user.id} user={user} />
         )).slice(0,5)
       }
     </div>

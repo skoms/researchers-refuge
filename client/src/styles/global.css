@@ -707,6 +707,11 @@ button:hover {
   color: #38B6FF;
 }
 
+.article-card button {
+  box-shadow: none;
+  opacity: 1;
+}
+
 .article-card span {
   color: rgb(91, 116, 163);
   text-align: center;
@@ -1910,11 +1915,11 @@ button:hover {
   border-radius: .75rem;
 }
 
-.users a, .topics a {
+.users a {
   text-decoration: none;
 }
 
-.users a:hover, .topics a:hover {
+.users a:hover {
   text-decoration: underline;
 }
 
@@ -2029,6 +2034,16 @@ button:hover {
 
 .darkmode .points .point {
   background: #38B6FF;
+}
+
+.results-page-content .topics button {
+  background: none;
+  box-shadow: none;
+  opacity: .3;
+}
+
+.results-page-content .topics button:hover {
+  opacity: 1;
 }
 
 .results-page-content .results .article-cards {

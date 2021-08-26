@@ -8,7 +8,7 @@ const ResultRecUser = ({ user }) => {
       <p className="occupation">{user.occupation}</p>
       <div className="buttons">
         <button className='button-primary'>Follow</button>
-        <button className='button-secondary'>View Profile</button>
+        <button className='button-secondary'>View</button>
       </div>
     </div>
   )
