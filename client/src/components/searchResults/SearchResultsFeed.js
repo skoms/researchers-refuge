@@ -83,7 +83,7 @@ const SearchResultsFeed = () => {
               }
             </button>
             <div key={users[displayedUser].id} className="user-card">
-              <ResultRecUser user={users[displayedUser]} />
+              <ResultRecUser key={displayedUser} type='res' user={users[displayedUser]} />
             </div>
             <button className={`next nav-btn ${displayedUser === users.length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
               { darkModeOn 

@@ -115,6 +115,21 @@ export const userAccSlice = createSlice({
         }
       }
     });
+    builder.addCase(followUser.fulfilled, (state, action) => {
+      const updatedUser = action.payload.users.user;
+      const user = {
+        ...state.authenticatedUser,
+        ...updatedUser,
+        followers: data.isStringAndFollowStringToArray(updatedUser.followers),
+        following: data.isStringAndFollowStringToArray(updatedUser.following)
+      };
+      Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
+      return {
+        ...state,
+        loggedIn: action.payload ? true : false,
+        authenticatedUser: user
+      }
+    });
   }
 });
 

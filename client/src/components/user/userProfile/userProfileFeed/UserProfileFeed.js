@@ -5,8 +5,7 @@ import { useHistory } from 'react-router';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { 
   followUser,
-  selectAuthenticatedUser,
-  updateAccount
+  selectAuthenticatedUser
 } from '../../userAccManage/userAccSlice';
 import {
   getUserInfo,
@@ -72,11 +71,6 @@ const UserProfileFeed = props => {
         console.log(res);
         if (res.status === 200) {
           button.innerText = button.innerText === 'Follow' ? 'Unfollow' : 'Follow';
-          dispatch(updateAccount({
-            ...res.users.user,
-            followers: res.users.user.followers.split(','),
-            following: res.users.user.following.split(',')
-          }));
           dispatch(updateOwner({
             ...res.users.target,
             followers: res.users.target.followers.split(','),

@@ -49,8 +49,8 @@ export const userFeedSlice = createSlice({
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         const { user } = action.payload;
-        const followersArr = data.followStringToArray(user.followers);
-        const followingArr = data.followStringToArray(user.following);
+        const followersArr = data.isStringAndFollowStringToArray(user.followers);
+        const followingArr = data.isStringAndFollowStringToArray(user.following);
         return {
           ...state,
           owner: {

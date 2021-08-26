@@ -1,6 +1,6 @@
 const tempUsers = [ 
   {
-    id: 1,
+    id: 3,
     firstName: 'firstName',
     lastName: 'lastName',
     emailAddress: 'email@example.com',
@@ -9,7 +9,7 @@ const tempUsers = [
     mostActiveField: 'example field',
     articles: 1234,
     credits: 4321,
-    followers: [2,3,4,5,6,7],
+    followers: [1,2,3,4,5,6,7],
     following: [2,3,4,5,6],
     imgURL: "https://placeimg.com/120/120/people",
   },
