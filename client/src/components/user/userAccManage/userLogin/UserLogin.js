@@ -41,7 +41,7 @@ const UserLogin = () => {
         if (res.status === 200) {
           history.push(from);
         } else if (res.status === 401) {
-          setErrors(res.message);
+          setErrors(res.errors);
         } else if (res.status === 500) {
           history.push('/error')
         }
@@ -66,7 +66,7 @@ const UserLogin = () => {
           ?
             <ul>
               {
-                errors.map( error => <li className='error'>{error}</li>)
+                errors.map( (error, i) => <li key={i} className='error'>{error}</li>)
               }
             </ul>
           :

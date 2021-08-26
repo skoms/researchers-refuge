@@ -98,26 +98,31 @@ export const userAccSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.fulfilled, (state, action) => {
-      const { user } = action.payload;
-      return {
-        ...state,
-        loggedIn: user ? true : false,
-        authenticatedUser: {
-          ...user,
-          followers: data.isStringAndFollowStringToArray(user.followers),
-          following: data.isStringAndFollowStringToArray(user.following)
+      if (action.payload.status === 200) {
+        const { user } = action.payload;
+        return {
+          ...state,
+          loggedIn: user ? true : false,
+          authenticatedUser: {
+            ...user,
+            followers: data.isStringAndFollowStringToArray(user.followers),
+            following: data.isStringAndFollowStringToArray(user.following)
+          }
         }
       }
+      
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
-      const { user } = action.payload;
-      return {
-        ...state,
-        loggedIn: user ? true : false,
-        authenticatedUser: {
-          ...user,
-          followers: data.isStringAndFollowStringToArray(user.followers),
-          following: data.isStringAndFollowStringToArray(user.following)
+      if (action.payload.status === 201) {
+        const { user } = action.payload;
+        return {
+          ...state,
+          loggedIn: user ? true : false,
+          authenticatedUser: {
+            ...user,
+            followers: data.isStringAndFollowStringToArray(user.followers),
+            following: data.isStringAndFollowStringToArray(user.following)
+          }
         }
       }
     });

@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
 
   // If the user didn't pass, send status code and message
   if (!authenticated) {
-    res.status(401).json({ message: 'Access Denied' });
+    res.status(401).json({ message: ['Access Denied:', 'Wrong email and/or password'] });
   } else {
     next();
   }

@@ -7,24 +7,76 @@
       "password": "admin",
       "occupation": "Administrator",
       "mostActiveField": "Management",
-      "articles": 294,
+      "articles": 2,
       "credits": 9001,
       "followers": [2,3,4,5,6],
       "following": [2,3,4,5,6],
       "imgURL": "https://img.icons8.com/ios-filled/120/38B6FF/microsoft-admin.png"
     },
     {
-      "firstName": "Andy",
-      "lastName": "Mothafuckin Jones",
-      "emailAddress": "andy@jones.com",
-      "password": "andyjones",
-      "occupation": "Driver",
-      "mostActiveField": "Racing",
+      "firstName": "Dean",
+      "lastName": "'MF' Jones",
+      "emailAddress": "dean@jones.com",
+      "password": "deanjones",
+      "occupation": "Negotiator",
+      "mostActiveField": "Crime",
+      "articles": 2,
+      "credits": 1337,
+      "followers": [1,3,4,5,6],
+      "following": [1,3,4,5,6],
+      "imgURL": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffwcdn.pl%2Ffph%2F65%2F49%2F686549%2F535533_1.2.jpg&f=1&nofb=1"
+    },
+    {
+      "firstName": "Zurawicz",
+      "lastName": "Johansson",
+      "emailAddress": "zura.johansson@hotmail.com",
+      "password": "zura123",
+      "occupation": "Web Developer",
+      "mostActiveField": "Computer Science",
+      "articles": 0,
+      "credits": 0,
+      "followers": [1,2,4,5,6],
+      "following": [1,2,4,5,6],
+      "imgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+    },
+    {
+      "firstName": "Yerkes",
+      "lastName": "Bengtsson",
+      "emailAddress": "yerbeng@gmail.com",
+      "password": "yerkes123",
+      "occupation": "Therapist",
+      "mostActiveField": "Psychology",
+      "articles": 3,
+      "credits": 99,
+      "followers": [1,2,3,5,6],
+      "following": [1,2,3,5,6],
+      "imgURL": "https://randomuser.me/api/portraits/men/78.jpg"
+    },
+    {
+      "firstName": "Lara",
+      "lastName": "Thompson",
+      "emailAddress": "lara19@gmail.com",
+      "password": "lara19",
+      "occupation": "CTO",
+      "mostActiveField": "Computer Science",
       "articles": 3,
       "credits": 1337,
-      "followers": [2,3,4,5,6,7,8,9,10],
-      "following": [2,3,4,5,6],
-      "imgURL": "https://placeimg.com/120/120/people"
+      "followers": [1,2,3,4,6],
+      "following": [1,2,3,4,6],
+      "imgURL": "https://randomuser.me/api/portraits/women/79.jpg"
+    },
+    {
+      "firstName": "Zuga",
+      "lastName": "Pyotrovna",
+      "emailAddress": "zuga@hotmail.com",
+      "password": "zuga123",
+      "occupation": "Environmental Activist",
+      "mostActiveField": "Environmental Studies And Forestry",
+      "articles": 3,
+      "credits": 1337,
+      "followers": [1,2,3,4,5],
+      "following": [1,2,3,4,5],
+      "imgURL": "https://randomuser.me/api/portraits/women/84.jpg"
     }
   ],
   "categories": [
@@ -2623,6 +2675,42 @@
       "corona","safegraph"],
       "credits": 100,
       "published": "2021-08-20"
+    },
+    {
+      "userId": 6,
+      "topicId": 32,
+      "title": "Environmental Microbiology & GIS",
+      "topic": "environmental studies and forestry",
+      "intro": "Environmental microbiology is a growing niche area related to environmental biology, but dealing with the biology of lifeforms too small to see with the naked eye.",
+      "body": "Environmental microbiology is a growing niche area related to environmental biology, but dealing with the biology of lifeforms too small to see with the naked eye. Environmental microbiologists examine microbes as they relate to the environment - their effects on the landscape and how they are affected by it. This will include the spread of viruses and bacteria, and the distribution of algae, fungi and parasitical organisms. Some of these have profound implications to human health and others provide vital services to the environment. Every form of life that shares the ecology with us performs a function for local ecologies.Environmental microbiology is less concerned with the makeup and form of these lifeforms as it is with the distribution and relationship with the wider environment. Therefore, Geographic Information Systems is a necessary tool for the discipline. Those wishing to become GIS specialists within the field of microbiology in the U.S. have no specific options to study the method at undergraduate level. It is advisable to apply for an environmental microbiology program based on the availability of GIS as an elective or minor subject - where it is offered, it is important to take as an elective or minor it if you expect to work with geographic data. Those who wish to go into GIS specialism need to go on to further study to narrow their area of expertise. With GIS, environmental microbiologists can work quickly and efficiently with the geographic data elements with which they sometimes work. In this, they are able to assist ecologist, health professionals and others in monitoring trends over a small or large area such as plotting the outbreak of disease (1, p50-9) or mapping distribution of microbial life (2). In this field, it allows specialists to examine local, regional, national or global trends to assist decision makers in plotting conservation strategies or where to allocation resources. Learn more GIS specialists.",
+      "tags": ["environment","microbiology","niche","virus","bacteria",
+      "gis","geographic information system"],
+      "credits": 100,
+      "published": "2019-07-01"
+    },
+    {
+      "userId": 6,
+      "topicId": 32,
+      "title": "Deserts as Ecosystems and Why They Need Protecting",
+      "topic": "environmental studies and forestry",
+      "intro": "What is a Desert? Deserts conjure up specific ideas about topography: typically, that they are dry and sandy dunes or rock, or a mixture of both. But deserts are far more than this and there are multiple types.",
+      "body": "How we define the desert biome are not about the types of rock, or the amount of sand, or even the temperature because there are both cold and hot deserts. The simple explanation is that deserts are topographic landscapes that receive little precipitation in a typical year. The threshold is 10 inches, or 25cm. But more than simply having low rainfall, a desert is “arid”. This means a high rate of water loss through plant reclamation (called transpiration) and through evaporation. These two aspects are combined into something called evapotranspiration. This is the amount of water that the landscape would lose when available (1). For deserts, evapotranspiration ratio exceeds average annual rainfall by anything from 2:1 to 33:1. The higher the ratio, the less available moisture there is. The coarse nature of the soil means most moisture seeps through the top soil rapidly. Furthermore, what precipitation a desert does experience is erratic. The average rainfall is just that. A desert may receive far more than the “average” in one year and not experience any rainfall the year before and the year after. Deserts will differ depending on their climate and location and their overall aridity can influence many things, not least of all the ecology, food chain, plant and animal types. High evaporation leaves behind higher salt levels, affecting further which plants can grow and the individual size and the numbers of herbivores that may feed on them and, in turn, carnivores. Some experience vast temperature fluctuations, especially hot deserts which may reach unbearable heat during the day and extreme cold at night (2). This is because the rock and sand absorb heat during the day and releases it at night. There may also be an extreme variation between warm and cool seasons, including extreme winds and storms due to the mixing of cold and warm air.",
+      "tags": ["environment","desert","ecosystem","evapotranspiration","coastal desert",
+      "eremology","archaeology"],
+      "credits": 100,
+      "published": "2020-01-17"
+    },
+    {
+      "userId": 3,
+      "topicId": 18,
+      "title": "Accessibility 101 for web GUI developers",
+      "topic": "computer science",
+      "intro": "If you’re a web developer who creates graphical user interfaces (GUI) for your applications, then you’re probably familiar with accessibility but possibly daunted by all it entails.",
+      "body": "Four core principles of accessibility Accessible user interfaces follow these four basic principles: Perceivable information and user interface: Users with disabilities can view and understand all the content on your site. Operable user interface and navigation: Users with disabilities are able to navigate your GUI and use all the necessary functions. Understandable information and user interface: All information is presented in a clearly structured and predictable way and provides clear guidance and help for correcting mistakes. Robust content and reliable interpretation: Your GUI needs to be compatible with current and future tools (for example, different browsers, assistive technologies, and other user agents). Because this is a very technical requirement, we will not focus on this principle in this article. Now that you know the four main principles, let’s look at some tips for creating accessible GUIs. While these don’t align 1:1 with the principles above, the most important thing is that whatever you add to your GUI, check that it does comply with at least the first 3 principles! Disclaimer: Making a GUI accessible for blind persons (who navigate your GUI with a screen reader) is a complex task which requires measures that go far beyond what I discuss in this article. Instead, I focus mainly on users with limited vision, mobility, and physical impairments. However, it’s important to design your GUI also for “screen readability” from the start in order to be future-proof.",
+      "tags": ["colors","shapes","contrast","checkbox","accesibility",
+      "gui","web", "developers"],
+      "credits": 100,
+      "published": "2021-02-03"
     }
   ]
 }
