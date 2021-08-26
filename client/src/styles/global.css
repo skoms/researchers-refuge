@@ -1901,7 +1901,8 @@ button:hover {
   flex-direction: column;
   padding: .3rem;
   margin-right: -.7rem;
-  height: 27vh;
+  height: fit-content;
+  max-height: 27vh;
   min-height: 12rem;
   overflow: auto;
   margin: 1rem 0 0 0;
@@ -1909,22 +1910,23 @@ button:hover {
   border-radius: .75rem;
 }
 
-.results a {
+.users a, .topics a {
   text-decoration: none;
 }
 
-.results a:hover {
+.users a:hover, .topics a:hover {
   text-decoration: underline;
 }
 
 .results-page-content .users {
   overflow: unset;
-  height: 20vh;
+  max-height: 20vh;
   min-height: 10rem;
 } 
 
 .results-page-content .empty {
   height: fit-content;
+  min-height: 0;
 }
 
 .results-page-content .empty h4 {
