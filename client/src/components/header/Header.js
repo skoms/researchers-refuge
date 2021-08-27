@@ -10,19 +10,15 @@ import {
   signOut,
   updateAccount
 } from '../user/userAccManage/userAccSlice';
-import { selectTopic, updateTopic } from '../feed/feedSlice';
-import { getCategories, selectCategories } from '../topics/topicsSlice';
-import Data from '../../Data';
-import { Fragment } from 'react';
+import { updateTopic } from '../feed/feedSlice';
+import { getCategories } from '../topics/topicsSlice';
+import TopicSelect from '../topicSelect/TopicSelect';
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false);
   const loggedIn = useSelector(selectLoggedIn);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
-  const categories = useSelector(selectCategories);
-  const topic = useSelector(selectTopic);
   const dispatch = useDispatch();
-  const data = new Data();
 
   useEffect(() => {
     if (!didLoad) {
@@ -37,34 +33,13 @@ const Header = () => {
     dispatch(signOut());
   }
 
-  const changeHandler = (e) => {
-    dispatch(updateTopic(e.target.value));
-  }
-
   return (
     <div className='header'>
       <a className='logo-home-a' href="/">
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
         <h2>Researchers' Refuge</h2>
       </a>
-      <div className='topic-select'>
-        <select name="topic-select" id="topic-select" value={topic} onChange={changeHandler}>
-          <option className='default' value='home' >Home</option>
-          { didLoad && categories ?
-            categories.map( category => {
-              return (
-                <optgroup key={category.id} label={data.capitalize(category.name)}>
-                  {
-                    category.Topics.map(topic => <option key={topic.id} value={topic.name}>{data.capitalize(topic.name)}</option>)
-                  }
-                </optgroup>
-              )
-            })
-            :
-            <Fragment />
-          }
-        </select>
-      </div>
+      <TopicSelect />
       <div className="search">
         <SearchField />
       </div>

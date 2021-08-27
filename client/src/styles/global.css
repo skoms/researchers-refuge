@@ -2055,8 +2055,13 @@ button:hover {
 }
 
 .darkmode .results-page-content .results .article-cards * {
-  background: #161B22;
+  background: none;
 }
+
+.darkmode .results-page-content .results .article-card:hover {
+  background: #27303D;
+}
+
 
 
 /* ============== Small Screen Content Styling  ======================= */

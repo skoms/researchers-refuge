@@ -91,6 +91,7 @@ router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
   req.body.userId = req.currentUser.id;
   const topic = Topic.findOne({ where: { name: req.body.topic } });
   if (topic) {
+    req.body.topicId = topic.id;
     const article = await Article.create(req.body);
     res.location(`/api/articles/${article.id}`).status(201).end();
   } else {

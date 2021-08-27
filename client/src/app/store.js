@@ -9,6 +9,7 @@ import darkModeButtonReducer from "../components/darkmodeButton/darkModeButtonSl
 import articleDetailsReducer from '../components/article/articleDetails/articleDetailsSlice';
 import topicsReducer from '../components/topics/topicsSlice';
 import searchResultsReducer from '../components/searchResults/searchResultsSlice';
+import manageArticleReducer from '../components/article/manageArticle/manageArticleSlice';
 
 
 export const store = configureStore({
@@ -20,6 +21,7 @@ export const store = configureStore({
     userFeed: userFeedReducer,
     darkModeButton: darkModeButtonReducer,
     articleDetails: articleDetailsReducer,
+    manageArticle: manageArticleReducer,
     topics: topicsReducer,
     searchResults: searchResultsReducer,
   }
