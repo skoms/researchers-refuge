@@ -905,7 +905,7 @@ button:hover {
 .create-update-article-form {
   grid-area: form;
   display: grid; 
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: .5fr repeat(4, 1fr) .5fr;
   grid-template-areas: 
     '. h1 h1 h1 h1 .'
     '. title title title title .'
@@ -914,6 +914,7 @@ button:hover {
     '. date topic tags tags .'
     '. btn btn btn btn .';
   grid-gap: .5rem;
+  max-width: 50rem;
   background: linear-gradient(90deg, #E8F7FF, #a6d7ff, #cce4ff, #a6f9ff );
   background-size: 400% 400%;
   animation: moving-gradient 30s ease infinite;

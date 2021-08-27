@@ -89,7 +89,7 @@ router.get('/owner/:id', asyncHandler(async (req, res) => {
 // POST creates a new article and assigns the logged authenticated user as its owner
 router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
   req.body.userId = req.currentUser.id;
-  const topic = Topic.findOne({ where: { name: req.body.topic } });
+  const topic = await Topic.findOne({ where: { name: req.body.topic } });
   if (topic) {
     req.body.topicId = topic.id;
     const article = await Article.create(req.body);

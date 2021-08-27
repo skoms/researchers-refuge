@@ -11,7 +11,6 @@ const initialState = {
     published: null,
     tags: null,
     topic: null,
-    author: null,
   }
 }
 
@@ -54,7 +53,7 @@ export const manageArticleSlice = createSlice({
         ...state,
         article: {
           ...state.article,
-          [payload.key]: payload.value
+          [payload.key]: payload.key !== 'tags' ? payload.value : [...payload.value.split(',')]
         }
       }
     },

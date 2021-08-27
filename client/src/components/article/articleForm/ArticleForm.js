@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TopicSelect from '../../topicSelect/TopicSelect'
-import { selectArticle, updateArticleStateByKey } from '../manageArticle/manageArticleSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { 
+  selectArticle, 
+  updateArticleStateByKey,
+  updateArticle,
+  postArticle
+} from '../manageArticle/manageArticleSlice'
+import { useParams } from 'react-router'
+import { selectAuthenticatedUser } from '../../user/userAccManage/userAccSlice'
+import { selectTopic } from '../../feed/feedSlice'
+
 
 //TODO - Connect and set up the form to actually send in the information filled into it as well as automatically assign author when creating and update where needed
 //TODO - Fetch information about the article when 'isUpdate' to fill in all the temporary placeholders
@@ -11,15 +20,34 @@ import { useDispatch, useSelector } from 'react-redux'
 const ArticleForm = props => {
   const dispatch = useDispatch();
   const article = useSelector(selectArticle);
+  const topic = useSelector(selectTopic);
+  const { id } = useParams();
+  const user = useSelector(selectAuthenticatedUser);
+
+  useEffect(() => {
+    dispatch(updateArticleStateByKey({ key: 'topic', value: topic }));
+  }, [topic, dispatch])
 
   const onChangeHandler = (e) => {
-    console.log({ key: e.target.id, value: e.target.value });
     dispatch(updateArticleStateByKey({ key: e.target.id, value: e.target.value }));
+  }
+
+  const submit = (e) => {
+    e.preventDefault();
+    const invalidInputs = Object.keys(article).filter( key => !article[key]);
+    if (invalidInputs.length > 0) {
+      return;
+    }
+    if ( props.isUpdate ) {
+      dispatch(updateArticle({ article: article, id: id, user: user }));
+    } else {
+      dispatch(postArticle({ article: article, user: user }));
+    }
   }
 
   return (
     <div className='create-update-article-div'>
-      <form className="create-update-article-form">
+      <form className="create-update-article-form" onSubmit={submit}>
         <h1 className='h1'>{ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE</h1>
         <div className='form-input title'>
           <input id="title" name="title" type="text" value={ article.title || '' } onChange={onChangeHandler}/>
