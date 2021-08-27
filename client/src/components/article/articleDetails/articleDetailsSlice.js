@@ -28,8 +28,8 @@ export const articleDetailsSlice = createSlice({
         const { article } = action.payload;
         const { User, published } = article;
 
-        const followersArr = data.followStringToArray(User.followers);
-        const followingArr = data.followStringToArray(User.following);
+        const followersArr = data.isStringAndFollowStringToArray(User.followers);
+        const followingArr = data.isStringAndFollowStringToArray(User.following);
         const formattedDate = data.formatDate(published)
 
         return {

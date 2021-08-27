@@ -809,8 +809,7 @@ button:hover {
 /* Article */
 .article-div {
   grid-area: article;
-  width: fit-content;
-  min-width: 10rem;
+  width: 100%;
   font-size: 1.2rem;
   margin-bottom: 3rem;
   padding: 1rem;
@@ -984,9 +983,20 @@ button:hover {
   margin: .4rem 0 .2rem 0;
 }
 
+.create-update-article-form .invalid label {
+  font-weight: 900;
+  color: #ff2323;
+}
+
 .darkmode .create-update-article-form .form-input label {
   background: none;
   color: #38B6FF;
+}
+
+.darkmode .create-update-article-form .invalid label {
+  background: none;
+  font-weight: 900;
+  color: #ff3838;
 }
 
 .create-update-article-form .form-input input, 
@@ -996,6 +1006,16 @@ button:hover {
   border-radius: .25rem;
   background: #e8f7ff7e;
   box-shadow: 0 2px 8px -3px #1a3861;
+  height: 2rem;
+}
+
+.create-update-article-form .invalid input, 
+.create-update-article-form .invalid textarea,
+.create-update-article-form .invalid select  {
+  border: none;
+  border-radius: .25rem;
+  background: #d35b5b96;
+  box-shadow: 0 2px 8px 1px #bb0000;
   height: 2rem;
 }
 
@@ -1010,6 +1030,14 @@ button:hover {
   background: #161b2293;
   box-shadow: 0 2px 8px -3px #38B6FF;
 }
+
+.darkmode .create-update-article-form .invalid input, 
+.darkmode .create-update-article-form .invalid textarea,
+.darkmode .create-update-article-form .invalid select  {
+  background: #380e1093;
+  box-shadow: 0 2px 8px -3px #dd3939;
+}
+
  .create-update-article-form .form-input input:focus, .create-update-article-form .form-input textarea:focus {
   border: #162d41 solid .1rem;
   margin: -.1rem;

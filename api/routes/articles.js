@@ -93,7 +93,7 @@ router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
   if (topic) {
     req.body.topicId = topic.id;
     const article = await Article.create(req.body);
-    res.location(`/api/articles/${article.id}`).status(201).end();
+    res.status(201).json(article);
   } else {
     res.status(400).send(`Unable to find '${req.body.topic}'.`);
   }
