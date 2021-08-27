@@ -72,6 +72,6 @@ export const manageArticleSlice = createSlice({
 });
 
 export const selectArticle = state => state.manageArticle.article;
-export const { updateStateArticle, updateStateArticleByKey } = manageArticleSlice.actions;
+export const { updateStateArticle, updateArticleStateByKey } = manageArticleSlice.actions;
 
 export default manageArticleSlice.reducer;

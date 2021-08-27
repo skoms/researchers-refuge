@@ -5,7 +5,7 @@ import { selectCategories } from '../topics/topicsSlice';
 import Data from '../../Data';
 
 
-const TopicSelect = () => {
+const TopicSelect = ({ use }) => {
   const dispatch = useDispatch();
   const topic = useSelector(selectTopic);
   const categories = useSelector(selectCategories);
@@ -17,8 +17,8 @@ const TopicSelect = () => {
 
   return (
     <div className='topic-select'>
-      <select name="topic-select" id="topic-select" value={topic} onChange={changeHandler}>
-        <option className='default' value='home' >Home</option>
+      <select name="topic-select" id="topic" value={topic} onChange={changeHandler}>
+        { use === 'header' && <option className='default' value='home' >Home</option> }
         { categories ?
           categories.map( category => {
             return (

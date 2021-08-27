@@ -39,7 +39,7 @@ const Header = () => {
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
         <h2>Researchers' Refuge</h2>
       </a>
-      <TopicSelect />
+      <TopicSelect use='header' />
       <div className="search">
         <SearchField />
       </div>

@@ -911,7 +911,7 @@ button:hover {
     '. title title title title .'
     '. intro intro intro intro .'
     '. body body body body .'
-    '. date date tags tags .'
+    '. date topic tags tags .'
     '. btn btn btn btn .';
   grid-gap: .5rem;
   background: linear-gradient(90deg, #E8F7FF, #a6d7ff, #cce4ff, #a6f9ff );
@@ -944,6 +944,9 @@ button:hover {
 }
 .create-update-article-form .date {
   grid-area: date;
+}
+.create-update-article-form .topic {
+  grid-area: topic;
 }
 .create-update-article-form .tags {
   grid-area: tags;
@@ -985,7 +988,9 @@ button:hover {
   color: #38B6FF;
 }
 
-.create-update-article-form .form-input input, .create-update-article-form .form-input textarea {
+.create-update-article-form .form-input input, 
+.create-update-article-form .form-input textarea,
+.create-update-article-form .form-input select  {
   border: none;
   border-radius: .25rem;
   background: #e8f7ff7e;
@@ -998,7 +1003,9 @@ button:hover {
   height: 20rem;
 }
 
-.darkmode .create-update-article-form .form-input input, .darkmode .create-update-article-form .form-input textarea {
+.darkmode .create-update-article-form .form-input input, 
+.darkmode .create-update-article-form .form-input textarea,
+.darkmode .create-update-article-form .form-input select  {
   background: #161b2293;
   box-shadow: 0 2px 8px -3px #38B6FF;
 }
@@ -1016,6 +1023,11 @@ button:hover {
 
 .darkmode .date input::-webkit-calendar-picker-indicator {
   filter: invert(1);
+}
+
+.create-update-article-form .topic-select select {
+  width: 100%;
+  min-width: none;
 }
 
 .create-update-article-form .form-buttons {
