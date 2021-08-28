@@ -806,6 +806,47 @@ button:hover {
   color: #38B6FF;
 }
 
+/* Delete Confirmation Mod*/
+.delete-confirmation {
+  position: absolute;
+  display: flex;
+  margin: -1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  z-index: 1;
+}
+
+.delete-confirmation .pop-up {
+  background: #E8F7FF;
+  padding: .5rem 0 0 0;
+  border-radius: .75rem;
+  width: 15rem;
+  height: 5rem;
+  font-size: 1.5rem;
+}
+
+.delete-confirmation .pop-up .button-primary {
+  width: 5rem;
+  margin: .8rem .3rem;
+  font-size: 1.2rem;
+}
+
+.delete-confirmation .pop-up .button-secondary {
+  width: 3rem;
+  margin: .8rem .3rem;
+  font-size: 1rem;
+}
+
+.darkmode .delete-confirmation .pop-up,
+.darkmode .delete-confirmation .pop-up p {
+  background: #161B22;
+  color: #38B6FF;
+}
+
+
 /* Article */
 .article-div {
   grid-area: article;
@@ -822,10 +863,15 @@ button:hover {
   background: #27303d;
 }
 
+.article-div .owner-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .article-div .button-primary {
   line-height: 2rem;
   font-size: 1.1rem;
-  margin-left: 1rem;
+  margin: 0 1rem;
   background: linear-gradient(#64B5F7, #38B6FF);
 }
 
@@ -847,6 +893,10 @@ button:hover {
 .article-header, .article-intro, .article-body {
   margin: 1rem;
   text-indent: 2rem;
+}
+
+.article-div p {
+  margin-top: .3rem;
 }
 
 .article-header {

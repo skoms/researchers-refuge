@@ -30,6 +30,14 @@ export const updateArticle = createAsyncThunk(
   }
 );
 
+export const deleteArticle = createAsyncThunk(
+  'manageArticle/deleteArticle',
+  async ({id, user}) => {
+    const response = await data.deleteArticle(id, user);
+    return response;
+  }
+)
+
 export const getArticleIfOwner = createAsyncThunk(
   'manageArticle/getArticle',
   async ({id, userId}) => {
