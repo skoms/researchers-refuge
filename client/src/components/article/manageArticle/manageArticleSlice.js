@@ -30,11 +30,15 @@ export const updateArticle = createAsyncThunk(
   }
 );
 
-export const getArticle = createAsyncThunk(
+export const getArticleIfOwner = createAsyncThunk(
   'manageArticle/getArticle',
-  async (id) => {
+  async ({id, userId}) => {
     const response = await data.getArticle(id);
-    return response;
+    if ( response.article.userId === userId ){
+      return response;
+    } else {
+      return { status: 401 }
+    }
   }
 );
 
@@ -59,7 +63,7 @@ export const manageArticleSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getArticle.fulfilled, (state, { payload }) => {
+    builder.addCase(getArticleIfOwner.fulfilled, (state, { payload }) => {
       if (payload.status === 200) {
         return {
           ...state,

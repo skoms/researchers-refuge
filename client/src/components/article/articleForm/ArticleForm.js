@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TopicSelect from '../../topicSelect/TopicSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { 
   selectArticle, 
   updateArticleStateByKey,
   updateArticle,
-  postArticle
+  postArticle,
+  getArticleIfOwner
 } from '../manageArticle/manageArticleSlice'
 import { useParams } from 'react-router'
 import { selectAuthenticatedUser } from '../../user/userAccManage/userAccSlice'
@@ -20,6 +21,7 @@ import { useHistory } from 'react-router-dom'
 
 const ArticleForm = props => {
   const dispatch = useDispatch();
+  const [didLoad, setDidLoad] = useState(false);
   const article = useSelector(selectArticle);
   const topic = useSelector(selectTopic);
   const { id } = useParams();
@@ -27,8 +29,32 @@ const ArticleForm = props => {
   const user = useSelector(selectAuthenticatedUser);
 
   useEffect(() => {
+    const getArticleInfo = async (id, userId) => {
+      await dispatch(getArticleIfOwner({id, userId}))
+        .then(res => res.payload)
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            console.log(`${res.article.userId} ${res.article.userId}`);
+            Object.keys(res.article).forEach( key => {
+              dispatch(updateArticleStateByKey({ key: key, value: res.article[key] }));
+            });
+          } else {
+            history.push('/forbidden');
+          }
+        });
+    }
     dispatch(updateArticleStateByKey({ key: 'topic', value: topic }));
-  }, [topic, dispatch])
+    if (!didLoad && props.isUpdate && user) {
+      getArticleInfo(id, user.id);
+      setDidLoad(true);
+    }
+    return () => { // Clean up the state-stored data
+      ['title', 'intro', 'body', 'published', 'tags', 'topic'].forEach( key => {
+        dispatch(updateArticleStateByKey({ key: key, value: '' }));
+      }); // Done this way to avoid having to add 'article' as a dependency
+    };
+  }, [topic, dispatch, didLoad, id, props.isUpdate, user, history]);
 
   const onChangeHandler = (e) => {
     dispatch(updateArticleStateByKey({ key: e.target.id, value: e.target.value }));
