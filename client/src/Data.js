@@ -324,7 +324,7 @@ export default class Data {
    */
   async updateArticle(article, id, user) {
     const res = await this.api(`/articles/${id}`, 'PUT', article, true, user);
-    return this.responseReturnHandler(res, true, 'article');
+    return this.responseReturnHandler(res);
   }
 
 

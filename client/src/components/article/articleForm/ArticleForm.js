@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import TopicSelect from '../../topicSelect/TopicSelect'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { useHistory } from 'react-router-dom'
+
+import TopicSelect from '../../topicSelect/TopicSelect'
 import { 
   selectArticle, 
   updateArticleStateByKey,
@@ -8,16 +11,8 @@ import {
   postArticle,
   getArticleIfOwner
 } from '../manageArticle/manageArticleSlice'
-import { useParams } from 'react-router'
 import { selectAuthenticatedUser } from '../../user/userAccManage/userAccSlice'
-import { selectTopic } from '../../feed/feedSlice'
-import { useHistory } from 'react-router-dom'
-
-
-//TODO - Connect and set up the form to actually send in the information filled into it as well as automatically assign author when creating and update where needed
-//TODO - Fetch information about the article when 'isUpdate' to fill in all the temporary placeholders
-//TODO - set up all the required buttons such as 'Submit(create/update)' 'cancel' etc. 
-
+import { selectTopic, updateTopic } from '../../feed/feedSlice'
 
 const ArticleForm = props => {
   const dispatch = useDispatch();
@@ -28,32 +23,36 @@ const ArticleForm = props => {
   const history = useHistory();
   const user = useSelector(selectAuthenticatedUser);
 
+  const forEachKeyToUpdate = (callback) => {
+    const keys = ['title', 'intro', 'body', 'published', 'tags', 'topic']
+    keys.forEach(callback);
+  };
+
   useEffect(() => {
     const getArticleInfo = async (id, userId) => {
       await dispatch(getArticleIfOwner({id, userId}))
         .then(res => res.payload)
         .then(res => {
-          console.log(res);
           if (res.status === 200) {
-            console.log(`${res.article.userId} ${res.article.userId}`);
-            Object.keys(res.article).forEach( key => {
-              dispatch(updateArticleStateByKey({ key: key, value: res.article[key] }));
+            forEachKeyToUpdate( key => {
+              if (key === 'topic') {
+                dispatch(updateTopic(res.article.topic));
+              } else {
+                dispatch(updateArticleStateByKey({ key: key, value: res.article[key] }));
+              }
             });
           } else {
             history.push('/forbidden');
           }
         });
     }
+
     dispatch(updateArticleStateByKey({ key: 'topic', value: topic }));
-    if (!didLoad && props.isUpdate && user) {
-      getArticleInfo(id, user.id);
+
+    if (!didLoad) {
+      props.isUpdate && user && getArticleInfo(id, user.id);
       setDidLoad(true);
     }
-    return () => { // Clean up the state-stored data
-      ['title', 'intro', 'body', 'published', 'tags', 'topic'].forEach( key => {
-        dispatch(updateArticleStateByKey({ key: key, value: '' }));
-      }); // Done this way to avoid having to add 'article' as a dependency
-    };
   }, [topic, dispatch, didLoad, id, props.isUpdate, user, history]);
 
   const onChangeHandler = (e) => {
@@ -61,7 +60,7 @@ const ArticleForm = props => {
   }
 
   const fieldsAreValid = () => {
-    Object.keys(article).forEach( input => {
+    forEachKeyToUpdate( input => {
       const target = document.querySelector(`#${input}-input-div`);
       target.classList.remove('invalid');
     });
@@ -85,6 +84,12 @@ const ArticleForm = props => {
         dispatch(updateArticle({ article: article, id: id, user: user }))
           .then(res => res.payload)
           .then(res => {
+            console.log(res);
+            if (res.status === 204) {
+              history.push(`/articles/${id}`)
+            } else if (res.status === 403) {
+              history.push('/forbidden');
+            }
           })
       } else {
         dispatch(postArticle({ article: article, user: user }))
@@ -92,13 +97,20 @@ const ArticleForm = props => {
           .then(res => {
             if (res.status === 201) {
               history.push(`/articles/${res.article.id}`)
+            } else if (res.status === 403) {
+              history.push('/forbidden');
             }
           })
       }
     }
   }
 
-  return (
+  const cancel = (e) => {
+    e.preventDefault();
+    history.push('/');
+  }
+
+  return didLoad && (
     <div className='create-update-article-div'>
       <form className="create-update-article-form" onSubmit={submit}>
         <h1 className='h1'>{ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE</h1>
@@ -129,7 +141,7 @@ const ArticleForm = props => {
         
         <div className='form-buttons'>
           <button className="button-primary" type="submit">{ props.isUpdate ? 'Update' : 'Create' }</button>
-          <button className="button-secondary">Cancel</button>
+          <button className="button-secondary" onClick={cancel}>Cancel</button>
         </div>
       </form>
     </div>
