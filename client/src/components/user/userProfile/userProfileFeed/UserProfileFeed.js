@@ -87,7 +87,13 @@ const UserProfileFeed = props => {
             </button>
           </div>
           <div className="name-and-occupation">
-            <h2 className="full-name">{`${owner.firstName} ${owner.lastName}`}</h2>
+            <span className="full-name">
+              <h2 className="full-name">
+                { `${owner.firstName} ${owner.lastName}` }
+              </h2>
+              {owner.accessLevel === 'admin' ? 
+                <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
+            </span>
             <p className="occupation">{ owner.occupation || '' }</p>
           </div>
           <div className="stats">

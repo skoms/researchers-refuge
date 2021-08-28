@@ -15,7 +15,7 @@ const { Op } = Sequelize;
 // GET authenticated user info
 router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
   const user = await User.findOne({
-    attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],
+    attributes: { exclude: ['password'] },
     where: { emailAddress: req.currentUser.emailAddress }
   });
   res.status(200).json(user);
@@ -24,7 +24,7 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
 // GET finds specified user by ID
 router.get('/:id', asyncHandler(async (req, res) => {
   const user = await User.findByPk(req.params.id, { 
-    attributes: ['id', 'firstName', 'lastName', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL']});
+    attributes:  { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] }});
   if (user) {
     res.status(200).json(user);
   } else {
@@ -35,7 +35,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 // GET find users by query
 router.get('/query/:query', asyncHandler(async (req, res) => {
   const users = await User.findAll({ 
-    attributes: ['id', 'firstName', 'lastName', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],
+    attributes:  { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] },
     where: { 
       [Op.or]: [
       { firstName: { [Op.substring]: req.params.query } },
@@ -68,7 +68,11 @@ router.post('/', asyncHandler(async (req, res) => {
 // PUT updates the chosen user if authenticated to do so
 router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
   const owner = await User.findOne({ where: { id: req.params.id } });
-  if (owner.emailAddress === req.currentUser.emailAddress) {
+
+  const isOwner = owner.emailAddress === req.currentUser.emailAddress;
+  const isAdmin = req.currentUser.accessLevel === 'admin';
+
+  if (isOwner || isAdmin) {
     await User.update(req.body, { where: { id: req.params.id } })
       .then(response => {
         if (!response.name) {
@@ -91,8 +95,9 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
     attributes: [ 'id', 'followers' ],
     where: { id: req.params.id } });
   
-  if (user.emailAddress === req.currentUser.emailAddress 
-      && user.id !== target.id) {
+  const isOnline = user.emailAddress === req.currentUser.emailAddress;
+
+  if (isOnline && user.id !== target.id) {
     // Programatically checks and updates for both follow and unfollow, making sure you cant follow more than once
     const following = user.following.split(',');
     const followers = target.followers.split(',');
@@ -109,10 +114,10 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
 
     // If it returns any data it was fail, so we check if theres any return
     if (!userRes.name && !targetRes.name) {
-      const user = await User.findOne({ attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'], 
+      const user = await User.findOne({ attributes: { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] }, 
         where: { emailAddress: req.currentUser.emailAddress },
       });
-      const target = await User.findOne({ attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'],  
+      const target = await User.findOne({ attributes: { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] },  
         where: { id: req.params.id } });
       res.status(200).json({ user, target });
     }

@@ -104,7 +104,10 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
   const article = await Article.findOne({ where: { id: req.params.id } });
   const owner = await User.findOne({ where: { id: article.userId }});
 
-  if (owner.emailAddress === req.currentUser.emailAddress) {
+  const isOwner = owner.emailAddress === req.currentUser.emailAddress;
+  const isAdmin = req.currentUser.accessLevel === 'admin';
+
+  if (isOwner || isAdmin) {
     await Article.update(req.body, { where: { id: req.params.id } })
       .then(response => {
         if (!response.name) {
@@ -121,7 +124,10 @@ router.delete('/:id', authenticateLogin, asyncHandler(async (req, res) => {
   const article = await Article.findOne({ where: { id: req.params.id } });
   const owner = await User.findOne({ where: { id: article.userId }});
   
-  if (owner.emailAddress === req.currentUser.emailAddress) {
+  const isOwner = owner.emailAddress === req.currentUser.emailAddress;
+  const isAdmin = req.currentUser.accessLevel === 'admin';
+
+  if (isOwner || isAdmin) {
     await Article.destroy({ where: { id: req.params.id } })
       .then(res.status(204).end());
   } else {

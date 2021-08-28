@@ -123,7 +123,8 @@ router.get('/id/:id', asyncHandler(async (req, res) => {
 
 // POST creates a new topic ( Admin Only )
 router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
-  if (req.currentUser.id === 1) {
+  const isAdmin = req.currentUser.accessLevel === 'admin';
+  if (isAdmin) {
     const topic = await Topic.create(req.body);
     res.location(`/api/topics/${topic.id}`).status(201).end();
   } else {
@@ -133,7 +134,8 @@ router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
 
 // PUT updates the chosen topic ( Admin Only )
 router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
-  if (req.currentUser.emailAddress === 'root@admin.com') {
+  const isAdmin = req.currentUser.accessLevel === 'admin';
+  if (isAdmin) {
     await Topic.update(req.body, { where: { id: req.params.id } })
       .then(response => {
         if (!response.name) {
@@ -147,7 +149,8 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
 
 // DELETE deletes the chosen topic ( Admin Only )
 router.delete('/:id', authenticateLogin, asyncHandler(async (req, res) => {
-  if (req.currentUser.emailAddress === 'root@admin.com') {
+  const isAdmin = req.currentUser.accessLevel === 'admin';
+  if (isAdmin) {
     await Topic.destroy({ where: { id: req.params.id } })
       .then(res.status(204).end());
   } else {

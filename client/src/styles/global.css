@@ -1168,7 +1168,7 @@ button:hover {
     repeat(12, 1fr);
   grid-template-areas: 
     "header header header header header header header header header header header header"
-    ". follow . . . name-occupation name-occupation . . . . ."
+    ". follow . . name-occ name-occ name-occ name-occ . . . ."
     ". stats stats stats stats stats stats stats stats stats stats  .";
   gap: .5rem;
   justify-items: center;
@@ -1184,7 +1184,7 @@ button:hover {
 }
 
 .user-profile-info-header .name-and-occupation {
-  grid-area: name-occupation;
+  grid-area: name-occ;
 }
 
 .user-profile-info-header .stats {
@@ -1229,8 +1229,15 @@ button:hover {
 }
 
 .user-profile-info-header .full-name {
+  display: flex;
+  align-items: center;
   margin-top: 1rem;
   color: #1b4469;
+}
+
+.user-profile-info-header .full-name img {
+  height: 1.5rem;
+  margin-bottom: -.5rem;
 }
 
 .darkmode .user-profile-info-header .full-name {
