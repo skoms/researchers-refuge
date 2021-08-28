@@ -119,11 +119,11 @@ const ArticleForm = props => {
           <label htmlFor="title">Title</label>
         </div>
         <div className='form-input intro' id='intro-input-div'>
-          <input id="intro" name="intro" type="text" value={ article.intro || '' } onChange={onChangeHandler}/>
+          <input id="intro" name="intro" type="text" value={ article.intro || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
           <label htmlFor="intro">Intro</label>
         </div>
         <div className='form-input body' id='body-input-div'>
-          <textarea id="body" name="body"  rows='20' cols='60' value={ article.body || '' } onChange={onChangeHandler}/>
+          <textarea id="body" name="body"  rows='20' cols='60' value={ article.body || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
           <label htmlFor="body">Body</label>
         </div>
         <div className='form-input date' id='published-input-div'>

@@ -1,8 +1,9 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown';
 import { useDispatch } from 'react-redux';
-import { updateTopic } from '../../../feed/feedSlice';
-import Data from '../../../../Data'
 import { useHistory } from 'react-router';
+import Data from '../../../../Data'
+import { updateTopic } from '../../../feed/feedSlice';
 
 const data = new Data();
 
@@ -21,7 +22,7 @@ const ArticleCard = props => {
         <a href={`/users/${props.authorId}`}><span>{props.author}</span></a>
       </div>
       <a href={`/articles/${props.id}`}><h2>{props.title}</h2></a>
-      <a href={`/articles/${props.id}`}><p>{props.intro}</p></a>
+      <a href={`/articles/${props.id}`}><ReactMarkdown>{props.intro}</ReactMarkdown></a>
     </div>
   )
 }
