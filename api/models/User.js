@@ -102,6 +102,9 @@ module.exports = (sequelize) => {
     imgURL: {
       type: DataTypes.STRING,
     },
+    accessLevel: {
+      type: DataTypes.STRING,
+    },
   }, { sequelize });
 
   User.associate = (models) => {  
