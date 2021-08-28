@@ -538,7 +538,15 @@ button:hover {
 }
 
 .info-mod .full-name {
+  display: flex;
+  align-items: center;
   font-weight: 900;
+}
+
+.info-mod .full-name img {
+  height: 1rem;
+  width: 1rem;
+  margin: 0;
 }
 
 .darkmode .full-name {

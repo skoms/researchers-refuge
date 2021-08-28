@@ -10,7 +10,8 @@ const InfoModule = props => {
     credits,
     followers,
     following,
-    imgURL
+    imgURL,
+    accessLevel
   } = props.user;
 
   return (
@@ -19,7 +20,11 @@ const InfoModule = props => {
         src={ imgURL || "https://img.icons8.com/ios-glyphs/75/ffffff/user--v1.png" }
         className={ imgURL ? '' : 'placeholder' } 
       />
-      <p className='full-name'>{`${firstName} ${lastName}`}</p>
+      <span className="full-name">
+        <p className='full-name'>{ `${firstName} ${lastName}` }</p>
+        {accessLevel === 'admin' ? 
+          <img src="https://img.icons8.com/ios-glyphs/16/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
+      </span>
       <p className='occupation'>{occupation}</p>
       <p className="bio">Loves to be placeholders for ambitious projects!</p>
       <table>

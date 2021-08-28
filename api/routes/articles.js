@@ -63,7 +63,7 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
 router.get('/:id', asyncHandler(async (req, res) => {
   const article = await Article.findByPk(req.params.id, { 
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
-    include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress', 'occupation', 'mostActiveField', 'articles', 'credits', 'followers', 'following', 'imgURL'] } ] });
+    include: [ { model: User, attributes: { exclude: ['emailAddress', 'password', 'createdAt', 'updatedAt'] } } ] });
   if (article) {
     res.status(200).json(article);
   } else {
@@ -75,7 +75,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 router.get('/owner/:id', asyncHandler(async (req, res) => {
   const articles = await Article.findAll(({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
-    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress', 'accessLevel']}],
     where: { userId: req.params.id }
   }));
 
