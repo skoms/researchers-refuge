@@ -105,6 +105,9 @@ module.exports = (sequelize) => {
     accessLevel: {
       type: DataTypes.STRING,
     },
+    accreditedArticles: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
   }, { sequelize });
 
   User.associate = (models) => {  

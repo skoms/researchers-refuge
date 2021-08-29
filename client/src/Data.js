@@ -47,9 +47,13 @@ export default class Data {
    * @param {string} string - the following/followers string to turn into array
    * @returns array that was converted from the string
    */
-  isStringAndFollowStringToArray = (value) => {
-    if (typeof value === 'string') {
-      return value.split(',').filter(entry => entry !== ' ' && entry !== '');
+  isStringAndStringToArray = (value) => {
+    if (typeof value !== 'object') {
+      if (value.length === 1 || typeof value === 'number') {
+        return [value];
+      } else {
+        return value.split(',').filter(entry => entry !== ' ' && entry !== '');
+      }
     } else {
       return value;
     }

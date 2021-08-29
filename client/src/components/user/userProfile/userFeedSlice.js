@@ -38,8 +38,8 @@ export const userFeedSlice = createSlice({
     },
     updateOwner: (state, action) => {
       const user = action.payload;
-      const followersArr = data.isStringAndFollowStringToArray(user.followers);
-      const followingArr = data.isStringAndFollowStringToArray(user.following);
+      const followersArr = data.isStringAndStringToArray(user.followers);
+      const followingArr = data.isStringAndStringToArray(user.following);
       return {
         ...state,
         owner: {
@@ -54,14 +54,16 @@ export const userFeedSlice = createSlice({
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         const { user } = action.payload;
-        const followersArr = data.isStringAndFollowStringToArray(user.followers);
-        const followingArr = data.isStringAndFollowStringToArray(user.following);
+        const followersArr = data.isStringAndStringToArray(user.followers);
+        const followingArr = data.isStringAndStringToArray(user.following);
+        const accreditedArticlesArr = data.isStringAndStringToArray(user.accreditedArticles);
         return {
           ...state,
           owner: {
             ...user,
             followers: followersArr,
-            following: followingArr
+            following: followingArr,
+            accreditedArticles: accreditedArticlesArr
           }
         }
       }
@@ -82,8 +84,8 @@ export const userFeedSlice = createSlice({
       if (action.payload.status === 200) {
         const user = action.payload.users.target;
         if (user.id === state.owner.id) {
-          const followersArr = data.isStringAndFollowStringToArray(user.followers);
-          const followingArr = data.isStringAndFollowStringToArray(user.following);
+          const followersArr = data.isStringAndStringToArray(user.followers);
+          const followingArr = data.isStringAndStringToArray(user.following);
           return {
             ...state,
             owner: {

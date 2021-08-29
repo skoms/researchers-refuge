@@ -84,8 +84,9 @@ export const userAccSlice = createSlice({
         const user = {
           ...state.authenticatedUser,
           ...action.payload,
-          followers: data.isStringAndFollowStringToArray(action.payload.followers),
-          following: data.isStringAndFollowStringToArray(action.payload.following)
+          followers: data.isStringAndStringToArray(action.payload.followers),
+          following: data.isStringAndStringToArray(action.payload.following),
+          accreditedArticles: data.isStringAndStringToArray(action.payload.accreditedArticles)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -105,8 +106,9 @@ export const userAccSlice = createSlice({
           loggedIn: user ? true : false,
           authenticatedUser: {
             ...user,
-            followers: data.isStringAndFollowStringToArray(user.followers),
-            following: data.isStringAndFollowStringToArray(user.following)
+            followers: data.isStringAndStringToArray(user.followers),
+            following: data.isStringAndStringToArray(user.following),
+            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles)
           }
         }
       }
@@ -120,8 +122,9 @@ export const userAccSlice = createSlice({
           loggedIn: user ? true : false,
           authenticatedUser: {
             ...user,
-            followers: data.isStringAndFollowStringToArray(user.followers),
-            following: data.isStringAndFollowStringToArray(user.following)
+            followers: data.isStringAndStringToArray(user.followers),
+            following: data.isStringAndStringToArray(user.following),
+            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles)
           }
         }
       }
@@ -132,8 +135,9 @@ export const userAccSlice = createSlice({
         const user = {
           ...state.authenticatedUser,
           ...updatedUser,
-          followers: data.isStringAndFollowStringToArray(updatedUser.followers),
-          following: data.isStringAndFollowStringToArray(updatedUser.following)
+          followers: data.isStringAndStringToArray(updatedUser.followers),
+          following: data.isStringAndStringToArray(updatedUser.following),
+          accreditedArticles: data.isStringAndStringToArray(updatedUser.accreditedArticles)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
