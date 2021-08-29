@@ -120,36 +120,48 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // PUT updates an articles credits (accredits or discredits article) 
-router.put('/accredit-discredit/:id', authenticateLogin, asyncHandler(async (req, res) => {
+router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
   const article = await Article.findOne({ where: { id: req.params.id } });
   const creditor = await User.findOne({ where: {emailAddress: req.currentUser.emailAddress} });
 
-  const accreditedArticles = creditor.accreditedArticles.split(',');
+  const accreditedArticles = typeof creditor.accreditedArticles === 'string' ? creditor.accreditedArticles.split(',') : [creditor.accreditedArticles];
 
-  const isAccrediting = !accreditedArticles.includes(article.id);
+  const isAccrediting = !accreditedArticles.includes(article.id.toString());
 
+  let updatedCredits;
   if (isAccrediting) {
-    req.body = { credits: article.credits + 1 }
+    updatedCredits = article.credits + 1 
   } else {
-    req.body = { credits: article.credits - 1 }
+    updatedCredits = article.credits - 1 
   }
 
   if (article) {
-    await Article.update(req.body, { where: { id: req.params.id } })
+    await Article.update(
+      { credits: updatedCredits }, 
+      { where: { id: req.params.id } })
       .then( async (response) => {
         if (!response.name) {
           let updatedAccreditedArticles
           if (isAccrediting) {
             updatedAccreditedArticles = [...accreditedArticles, article.id];
           } else {
-            updatedAccreditedArticles = accreditedArticles.filter( id => id !== article.id);
+            updatedAccreditedArticles = accreditedArticles.filter( id => id !== article.id.toString());
           }
           await User.update(
             { accreditedArticles: updatedAccreditedArticles },
             { where: { id: creditor.id } })
             .then(response => {
               if (!response.name) {
-                res.status(204).end()
+                res.status(200).json({ 
+                  user: {
+                    ...creditor,
+                    accreditedArticles: updatedAccreditedArticles
+                  }, 
+                  article: {
+                    ...article,
+                    credits: updatedCredits
+                  } 
+                })
               }
             });
         }

@@ -51,6 +51,8 @@ export default class Data {
     if (typeof value !== 'object') {
       if (value.length === 1 || typeof value === 'number') {
         return [value];
+      } else if (value === '') {
+        return [];
       } else {
         return value.split(',').filter(entry => entry !== ' ' && entry !== '');
       }
@@ -329,6 +331,17 @@ export default class Data {
   async updateArticle(article, id, user) {
     const res = await this.api(`/articles/${id}`, 'PUT', article, true, user);
     return this.responseReturnHandler(res);
+  }
+
+  /**
+   * Accredits/Discredits an article
+   * @param {integer} id - The ID of the article one wants to accredit/discredit
+   * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
+   * @returns status code, data on success, errors on failure
+   */
+  async accreditDiscredit(id, user) {
+    const res = await this.api(`/articles/${id}`, 'PUT', null, true, user);
+    return this.responseReturnHandler(res, true, 'data');
   }
 
 
