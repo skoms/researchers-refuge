@@ -57,6 +57,7 @@ const ArticleCards = (props) => {
                 key={card.id}
                 title={card.title}
                 topic={card.topic}
+                credits={card.credits}
                 topicId={card.topicId}
                 author={`${card.User.firstName} ${card.User.lastName}`}
                 authorId={card.userId}

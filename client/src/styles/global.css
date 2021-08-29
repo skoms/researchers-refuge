@@ -694,10 +694,61 @@ button:hover {
   border-radius: .75rem;
   padding: .3rem 0;
   width: 99%;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(7, 2fr);
+  grid-template-areas: 
+    "credits head head head head head head head"
+    "credits title title title title title title title"
+    "credits intro intro intro intro intro intro intro";
 }
+
+/* Grid Area Declarations*/
+.article-card .credits {
+  grid-area: credits;
+}
+.article-card-headline {
+  grid-area: head;
+}
+.article-card .title {
+  grid-area: title;
+}
+.article-card .intro {
+  grid-area: intro;
+}
+/*-----------------------*/
 
 .article-cards a {
   text-decoration: none;
+}
+
+.article-card .credits {
+  background: #fff;
+  padding: .2rem;
+  margin: 0 0 0 .2rem;
+  width: fit-content;
+  border-radius: .75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.article-card .credits button {
+  margin: .3rem 0;
+}
+
+.darkmode .article-card .credits, 
+.darkmode .article-card .credits * {
+  background: #27303D;
+}
+
+.article-card .credits span {
+  color: #38B6FF;
+  background: #fff;
+  border-radius: .75;
+}
+
+.article-card .credits img {
+  margin-bottom: -.1rem;
 }
 
 .article-card-headline {
@@ -717,6 +768,7 @@ button:hover {
 
 .article-card button {
   box-shadow: none;
+  background: none;
   opacity: 1;
 }
 
