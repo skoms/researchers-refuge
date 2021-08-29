@@ -50,7 +50,7 @@ export default class Data {
   isStringAndStringToArray = (value) => {
     if (typeof value !== 'object') {
       if (value.length === 1 || typeof value === 'number') {
-        return [value];
+        return [value.toString()];
       } else if (value === '') {
         return [];
       } else {
@@ -339,8 +339,8 @@ export default class Data {
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns status code, data on success, errors on failure
    */
-  async accreditDiscredit(id, user) {
-    const res = await this.api(`/articles/${id}`, 'PUT', null, true, user);
+  async accreditDiscredit(id, user, credit) {
+    const res = await this.api(`/articles/credit/${id}`, 'PUT', credit, true, user);
     return this.responseReturnHandler(res, true, 'data');
   }
 

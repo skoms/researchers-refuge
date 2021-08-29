@@ -39,9 +39,9 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Users
-          (firstName, lastName, emailAddress, password, occupation, mostActiveField, articles, credits, followers, following, imgURL, accessLevel, accreditedArticles, createdAt, updatedAt)
+          (firstName, lastName, emailAddress, password, occupation, mostActiveField, articles, credits, followers, following, imgURL, accessLevel, accreditedArticles, discreditedArticles, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       user.firstName,
       user.lastName,
@@ -55,7 +55,8 @@ class Database {
       user.following,
       user.imgURL,
       user.accessLevel,
-      user.accreditedArticles);
+      user.accreditedArticles,
+      user.discreditedArticles);
   }
 
   // Inserts article into database
@@ -174,6 +175,7 @@ class Database {
         imgURL VARCHAR(255) DEFAULT 'https://placeimg.com/120/120/people', 
         accessLevel VARCHAR(255) DEFAULT 'none',
         accreditedArticles ARRAY DEFAULT [],
+        discreditedArticles ARRAY DEFAULT [],
         createdAt DATETIME NOT NULL, 
         updatedAt DATETIME NOT NULL
       );

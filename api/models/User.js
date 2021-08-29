@@ -106,7 +106,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     accreditedArticles: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    },
+    discreditedArticles: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
     },
   }, { sequelize });
 

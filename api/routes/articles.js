@@ -12,6 +12,20 @@ const { Article, User, Topic, Category } = require('../models');
 const { Sequelize } = require('../models');
 const { Op } = Sequelize;
 
+// Helper function
+const isStringAndStringToArray = (value) => {
+  if (typeof value !== 'object') {
+    if (value.length === 1 || typeof value === 'number') {
+      return [value.toString()];
+    } else if (value === '') {
+      return [];
+    } else {
+      return value.split(',').filter(entry => entry !== ' ' && entry !== '');
+    }
+  } else {
+    return value;
+  }
+}
 
 // GET finds and displays all the articles and basic info on their owners
 router.get('/', asyncHandler(async (req, res) => {
@@ -124,16 +138,38 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
   const article = await Article.findOne({ where: { id: req.params.id } });
   const creditor = await User.findOne({ where: {emailAddress: req.currentUser.emailAddress} });
 
-  const accreditedArticles = typeof creditor.accreditedArticles === 'string' ? creditor.accreditedArticles.split(',') : [creditor.accreditedArticles];
+  const accreditedArticles = isStringAndStringToArray(creditor.accreditedArticles);
+  const alreadyAccredited = accreditedArticles.includes(article.id.toString());
 
-  const isAccrediting = !accreditedArticles.includes(article.id.toString());
+  const discreditedArticles = isStringAndStringToArray(creditor.discreditedArticles);
+  const alreadyDiscredited = discreditedArticles.includes(article.id.toString());
+
+  const isAccrediting = req.body.credit === 'accredit';
 
   let updatedCredits;
-  if (isAccrediting) {
+  if (isAccrediting && alreadyDiscredited) {
+    updatedCredits = article.credits + 2 
+  } else if (isAccrediting && !alreadyAccredited) {
     updatedCredits = article.credits + 1 
-  } else {
+  } else if (!isAccrediting && alreadyDiscredited) {
+    updatedCredits = article.credits + 1 
+  } else if (isAccrediting && alreadyAccredited) {
     updatedCredits = article.credits - 1 
+  } else if (!isAccrediting && !alreadyAccredited) {
+    updatedCredits = article.credits - 1 
+  } else if (!isAccrediting && alreadyAccredited) {
+    updatedCredits = article.credits - 2 
   }
+
+  console.log(`
+    Request: ${req.body.credit}
+    accreditedArticles: ${accreditedArticles}
+    alreadyAccredited: ${alreadyAccredited}
+    discreditedArticles: ${discreditedArticles}
+    alreadyDiscredited: ${alreadyDiscredited}
+    Previous Credits: ${article.credits}
+    Updated Credits: ${updatedCredits}
+    `);
 
   if (article) {
     await Article.update(
@@ -141,27 +177,36 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
       { where: { id: req.params.id } })
       .then( async (response) => {
         if (!response.name) {
-          let updatedAccreditedArticles
-          if (isAccrediting) {
-            updatedAccreditedArticles = [...accreditedArticles, article.id];
-          } else {
+          let updatedAccreditedArticles;
+          let updatedDiscretitedArticles;
+
+          if (isAccrediting && !alreadyAccredited) {
+            updatedAccreditedArticles = [...accreditedArticles, article.id.toString()];
+          } else if (isAccrediting && alreadyAccredited) {
+            updatedAccreditedArticles = accreditedArticles.filter( id => id !== article.id.toString());
+          } else if (!isAccrediting && alreadyAccredited) {
             updatedAccreditedArticles = accreditedArticles.filter( id => id !== article.id.toString());
           }
+
+          if (!isAccrediting && !alreadyDiscredited) {
+            updatedDiscretitedArticles = [...discreditedArticles, article.id.toString()];
+          } else if (!isAccrediting && alreadyDiscredited) {
+            updatedDiscretitedArticles = discreditedArticles.filter( id => id !== article.id.toString());
+          } else if (isAccrediting && alreadyDiscredited) {
+            updatedDiscretitedArticles = discreditedArticles.filter( id => id !== article.id.toString());
+          }
+
           await User.update(
-            { accreditedArticles: updatedAccreditedArticles },
+            { 
+              accreditedArticles: updatedAccreditedArticles,
+              discreditedArticles: updatedDiscretitedArticles 
+            },
             { where: { id: creditor.id } })
-            .then(response => {
+            .then( async (response) => {
               if (!response.name) {
-                res.status(200).json({ 
-                  user: {
-                    ...creditor,
-                    accreditedArticles: updatedAccreditedArticles
-                  }, 
-                  article: {
-                    ...article,
-                    credits: updatedCredits
-                  } 
-                })
+                const updatedUser = await User.findOne({ where: {emailAddress: req.currentUser.emailAddress} });
+                const updatedArticle = await Article.findOne({ where: { id: req.params.id } });
+                res.status(200).json({ user: updatedUser, article: updatedArticle });
               }
             });
         }

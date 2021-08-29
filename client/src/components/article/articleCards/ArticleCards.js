@@ -53,6 +53,7 @@ const ArticleCards = (props) => {
           ?
           articles.map( card => 
               <ArticleCard 
+                type={props.type}
                 id={card.id}
                 key={card.id}
                 title={card.title}
