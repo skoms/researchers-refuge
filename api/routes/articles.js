@@ -119,6 +119,46 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
   }
 }));
 
+// PUT updates an articles credits (accredits or discredits article) 
+router.put('/accredit-discredit/:id', authenticateLogin, asyncHandler(async (req, res) => {
+  const article = await Article.findOne({ where: { id: req.params.id } });
+  const creditor = await User.findOne({ where: {emailAddress: req.currentUser.emailAddress} });
+
+  const accreditedArticles = creditor.accreditedArticles.split(',');
+
+  const isAccrediting = !accreditedArticles.includes(article.id);
+
+  if (isAccrediting) {
+    req.body = { credits: article.credits + 1 }
+  } else {
+    req.body = { credits: article.credits - 1 }
+  }
+
+  if (article) {
+    await Article.update(req.body, { where: { id: req.params.id } })
+      .then( async (response) => {
+        if (!response.name) {
+          let updatedAccreditedArticles
+          if (isAccrediting) {
+            updatedAccreditedArticles = [...accreditedArticles, article.id];
+          } else {
+            updatedAccreditedArticles = accreditedArticles.filter( id => id !== article.id);
+          }
+          await User.update(
+            { accreditedArticles: updatedAccreditedArticles },
+            { where: { id: creditor.id } })
+            .then(response => {
+              if (!response.name) {
+                res.status(204).end()
+              }
+            });
+        }
+      });
+  } else {
+    res.status(403).end();
+  }
+}));
+
 // DELETE deletes the chosen article if the user is authenticated to do so
 router.delete('/:id', authenticateLogin, asyncHandler(async (req, res) => {
   const article = await Article.findOne({ where: { id: req.params.id } });
