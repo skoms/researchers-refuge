@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import Data from '../../../../Data'
+import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { updateTopic } from '../../../feed/feedSlice';
 import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
 import { accreditDiscredit } from '../articleCardsSlice';
@@ -13,6 +14,11 @@ const ArticleCard = props => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(selectAuthenticatedUser);
+  const darkModeOn = useSelector(selectDarkModeOn);
+
+  const inactiveColor = darkModeOn ? '161B22' : 'CECECE';
+  const accreditColor = '00A300';
+  const discreditColor = 'DD3939';
 
   const [creditedStatus, setCreditedStatus] = useState();
 
@@ -52,7 +58,7 @@ const ArticleCard = props => {
       <div className="credits">
         <button className="accredit" onClick={accredit}>
           <img 
-            src={`https://img.icons8.com/ios-filled/16/${creditedStatus === 'accredited' ? '00A300' : '161B22'}/checkmark--v1.png`}
+            src={`https://img.icons8.com/ios-filled/16/${creditedStatus === 'accredited' ? accreditColor : inactiveColor }/checkmark--v1.png`}
             alt='accredit button'
           />
         </button>
@@ -62,7 +68,7 @@ const ArticleCard = props => {
         </div>
         <button className="discredit" onClick={discredit}>
           <img 
-            src={`https://img.icons8.com/fluency-systems-filled/16/${creditedStatus === 'discredited' ? 'DD3939' : '161B22'}/x.png`} 
+            src={`https://img.icons8.com/fluency-systems-filled/16/${creditedStatus === 'discredited' ? discreditColor : inactiveColor }/x.png`} 
             alt='discredit button'
           />
         </button>
