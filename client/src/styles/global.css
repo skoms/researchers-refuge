@@ -695,7 +695,7 @@ button:hover {
   padding: .3rem 0;
   width: 99%;
   display: grid;
-  grid-template-columns: 1.5fr repeat(7, 2fr);
+  grid-template-columns: repeat(8, 2fr);
   grid-template-areas: 
     "credits head head head head head head head"
     "credits title title title title title title title"
@@ -723,13 +723,14 @@ button:hover {
 
 .article-card .credits {
   background: #fff;
-  padding: .2rem;
+  padding: .2rem 0;
   margin: 0 0 0 .2rem;
-  width: fit-content;
+  width: 100%;
   border-radius: .75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  z-index: 1;
 }
 
 .article-card .credits button {

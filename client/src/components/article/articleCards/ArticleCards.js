@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUserArticles } from '../../user/userProfile/userFeedSlice';
 import { selectFeedArticles } from '../../feed/feedSlice';
 import ArticleCard from './articleCard/ArticleCard';
 import Loading from '../../loading/Loading';
 import { selectArticlesResults } from '../../searchResults/searchResultsSlice';
+import { selectArticles, updateArticles } from './articleCardsSlice';
 
 const ArticleCards = (props) => {
+  const dispatch = useDispatch();
   const ownersArticles = useSelector(selectUserArticles);
   const feedArticles = useSelector(selectFeedArticles);
   const resultArticles = useSelector(selectArticlesResults);
-  const [articles, setArticles] = useState([  ]);
+  const articles = useSelector(selectArticles);
   const [didLoad, setDidLoad] = useState(false);
 
   useEffect(()=> {
     switch (props.type) {
       case 'ownersArticles':
-        setArticles(ownersArticles);
+        dispatch(updateArticles(ownersArticles));
         break;
       case 'accreditedArticles':
         //TODO - Hook up this one too ( has to be done after implementing credit system and tracking )
-        setArticles([  ])
+        dispatch(updateArticles([  ]));
         break;
       case 'feed':
-        setArticles(feedArticles);
+        dispatch(updateArticles(feedArticles));
         break;
       case 'results':
-        setArticles(resultArticles);
+        dispatch(updateArticles(resultArticles));
         break;
       default:
         break;
@@ -34,7 +36,7 @@ const ArticleCards = (props) => {
     if (!didLoad) {
       setDidLoad(true);
     }
-  }, [didLoad, props, ownersArticles, feedArticles, resultArticles])
+  }, [didLoad, ownersArticles, feedArticles, resultArticles, dispatch, props.type])
 
   window.addEventListener('scroll', e => {
     let scrollbarTimeout;

@@ -1,35 +1,58 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import Data from '../../../../Data'
 import { updateTopic } from '../../../feed/feedSlice';
+import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
+import { accreditDiscredit } from '../articleCardsSlice';
 
 const data = new Data();
 
 const ArticleCard = props => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector(selectAuthenticatedUser);
 
-  const [creditedStatus, setCreditedStatus] = useState('');
+  const [creditedStatus, setCreditedStatus] = useState();
+
+  useEffect(() => {
+    if (user.accreditedArticles.includes(props.id.toString())) {
+      setCreditedStatus('accredited');
+    } else if (user.discreditedArticles.includes(props.id.toString())) {
+      setCreditedStatus('discredited');
+    }
+  }, [user, props.id]);
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));
     history.push('/');
   }
 
-  const accredit = (e) => {
+  const accredit = () => {
+    dispatch(accreditDiscredit({ id: props.id, user: user, credit: {credit : 'accredit'}}));
     if (creditedStatus !== 'accredited') {
       setCreditedStatus('accredited');
+    } else {
+      setCreditedStatus('');
+    }
+  }
+
+  const discredit = () => {
+    dispatch(accreditDiscredit({ id: props.id, user: user, credit: {credit : 'discredit'}}));
+    if (creditedStatus !== 'discredited') {
+      setCreditedStatus('discredited');
+    } else {
+      setCreditedStatus('');
     }
   }
 
   return (
     <div className='article-card'>
       <div className="credits">
-        <button className="accredit">
+        <button className="accredit" onClick={accredit}>
           <img 
-            src={`https://img.icons8.com/ios-filled/${creditedStatus === 'accredited' ? '24' : '16'}/${creditedStatus === 'accredited' ? '00A300' : '161B22'}/checkmark--v1.png`}
+            src={`https://img.icons8.com/ios-filled/16/${creditedStatus === 'accredited' ? '00A300' : '161B22'}/checkmark--v1.png`}
             alt='accredit button'
           />
         </button>
@@ -37,9 +60,9 @@ const ArticleCard = props => {
           <img src="https://img.icons8.com/ios/16/38B6FF/rating.png" alt='credits'/>
           <span>{props.credits}</span>
         </div>
-        <button className="discredit">
+        <button className="discredit" onClick={discredit}>
           <img 
-            src={`https://img.icons8.com/fluency-systems-filled/${creditedStatus === 'discredited' ? '24' : '16'}/${creditedStatus === 'discredited' ? 'DD3939' : '161B22'}/x.png`} 
+            src={`https://img.icons8.com/fluency-systems-filled/16/${creditedStatus === 'discredited' ? 'DD3939' : '161B22'}/x.png`} 
             alt='discredit button'
           />
         </button>

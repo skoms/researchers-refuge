@@ -10,6 +10,7 @@ import articleDetailsReducer from '../components/article/articleDetails/articleD
 import topicsReducer from '../components/topics/topicsSlice';
 import searchResultsReducer from '../components/searchResults/searchResultsSlice';
 import manageArticleReducer from '../components/article/manageArticle/manageArticleSlice';
+import articleCardsReducer from '../components/article/articleCards/articleCardsSlice';
 
 
 export const store = configureStore({
@@ -24,5 +25,6 @@ export const store = configureStore({
     manageArticle: manageArticleReducer,
     topics: topicsReducer,
     searchResults: searchResultsReducer,
+    articleCards: articleCardsReducer,
   }
 });
