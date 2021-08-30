@@ -40,12 +40,16 @@ export const userFeedSlice = createSlice({
       const user = action.payload;
       const followersArr = data.isStringAndStringToArray(user.followers);
       const followingArr = data.isStringAndStringToArray(user.following);
+      const accreditedArticlesArr = data.isStringAndStringToArray(user.accreditedArticles);
+      const discreditedArticlesArr = data.isStringAndStringToArray(user.discreditedArticles);
       return {
         ...state,
         owner: {
           ...user,
           followers: followersArr,
-          following: followingArr
+          following: followingArr,
+          accreditedArticles: accreditedArticlesArr,
+          discreditedArticles: discreditedArticlesArr
         }
       }
     }
@@ -57,13 +61,15 @@ export const userFeedSlice = createSlice({
         const followersArr = data.isStringAndStringToArray(user.followers);
         const followingArr = data.isStringAndStringToArray(user.following);
         const accreditedArticlesArr = data.isStringAndStringToArray(user.accreditedArticles);
+        const discreditedArticlesArr = data.isStringAndStringToArray(user.discreditedArticles);
         return {
           ...state,
           owner: {
             ...user,
             followers: followersArr,
             following: followingArr,
-            accreditedArticles: accreditedArticlesArr
+            accreditedArticles: accreditedArticlesArr,
+            discreditedArticles: discreditedArticlesArr
           }
         }
       }
@@ -86,12 +92,16 @@ export const userFeedSlice = createSlice({
         if (user.id === state.owner.id) {
           const followersArr = data.isStringAndStringToArray(user.followers);
           const followingArr = data.isStringAndStringToArray(user.following);
+          const accreditedArticlesArr = data.isStringAndStringToArray(user.accreditedArticles);
+          const discreditedArticlesArr = data.isStringAndStringToArray(user.discreditedArticles);
           return {
             ...state,
             owner: {
               ...user,
               followers: followersArr,
-              following: followingArr
+              following: followingArr,
+              accreditedArticles: accreditedArticlesArr,
+              discreditedArticles: discreditedArticlesArr
             }
           }
         }
