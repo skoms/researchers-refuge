@@ -170,6 +170,15 @@ export default class Data {
   }
 
   /**
+   * Gets all articles by users this user follows
+   * @returns status code, data on success, errors on failure
+   */
+  async getFollowingArticles(user) {
+    const res = await this.api('/articles/following', 'GET', null, true, user);
+    return this.responseReturnHandler(res, true, 'articles');
+  }
+
+  /**
    * Gets a specific article and returns it
    * @param {integer} id - the ID of the article
    * @returns status code, data on success, errors on failure

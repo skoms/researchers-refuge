@@ -14,9 +14,13 @@ const initialState = {
 //TODO - SET UP FILTER TO SORT THE ORDER OF THE ARTICLES
 export const getFeedArticles = createAsyncThunk(
   'feed/getFeedArticles',
-  async ({filter, topic = 'home'}) => {
+  async ({filter, topic = 'home', user = null}) => {
     let response;
-    if (topic === 'home') {
+    if (filter === 'following' && user !== null) {
+      response = await data.getFollowingArticles(user);
+      console.log(response);
+      return response;
+    } else if (topic === 'home') {
       response = await data.getArticles();
       return response;
     } else {

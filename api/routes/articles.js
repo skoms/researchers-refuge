@@ -73,6 +73,25 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
   }
 }));
 
+// GET gets articles by researchers the user follow (sorted by most recent)
+router.get('/following', authenticateLogin, asyncHandler(async (req, res) => {
+  const user = await User.findOne({ where: { emailAddress: req.currentUser.emailAddress }});
+  const following = isStringAndStringToArray(user.following);
+
+  const articles = await Article.findAll({
+    attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
+    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    where: { userId: { [Op.in]: following } },
+    order: [['published', 'DESC']]
+  });
+
+  if( articles ) {
+    res.status(200).json(articles);
+  } else {
+    res.status(404).end();
+  }
+}));
+
 // GET finds specified article and basic info on its owner
 router.get('/:id', asyncHandler(async (req, res) => {
   const article = await Article.findByPk(req.params.id, { 

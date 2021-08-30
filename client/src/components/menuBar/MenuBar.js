@@ -24,7 +24,7 @@ const MenuBar = () => {
         <button onClick={select} className='selected' value='popular'>Popular</button>
         <button onClick={select} value='new'>New</button>
         <button onClick={select} value='top'>Top</button>
-        <button onClick={select} value='bytopic'>By Topic</button>
+        <button onClick={select} value='following'>Following</button>
       </div>
       <a href="/write-article">
         <button>Write New Article</button>
