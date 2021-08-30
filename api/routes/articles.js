@@ -161,16 +161,6 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
     updatedCredits = article.credits - 2 
   }
 
-  console.log(`
-    Request: ${req.body.credit}
-    accreditedArticles: ${accreditedArticles}
-    alreadyAccredited: ${alreadyAccredited}
-    discreditedArticles: ${discreditedArticles}
-    alreadyDiscredited: ${alreadyDiscredited}
-    Previous Credits: ${article.credits}
-    Updated Credits: ${updatedCredits}
-    `);
-
   if (article) {
     await Article.update(
       { credits: updatedCredits }, 
@@ -204,8 +194,13 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
             { where: { id: creditor.id } })
             .then( async (response) => {
               if (!response.name) {
-                const updatedUser = await User.findOne({ where: {emailAddress: req.currentUser.emailAddress} });
-                const updatedArticle = await Article.findOne({ where: { id: req.params.id } });
+                const updatedUser = await User.findOne({ 
+                  attributes: { exclude: ['password', 'createdAt'] }, 
+                  where: { emailAddress: req.currentUser.emailAddress } 
+                });
+                const updatedArticle = await Article.findOne({ 
+                  where: { id: req.params.id } 
+                });
                 res.status(200).json({ user: updatedUser, article: updatedArticle });
               }
             });

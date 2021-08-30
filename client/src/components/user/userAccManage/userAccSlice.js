@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import Data from "../../../Data";
 
+import { accreditDiscredit } from "../../article/articleCards/articleCardsSlice";
+
 const data = new Data();
 
 const initialState = {
@@ -86,7 +88,8 @@ export const userAccSlice = createSlice({
           ...action.payload,
           followers: data.isStringAndStringToArray(action.payload.followers),
           following: data.isStringAndStringToArray(action.payload.following),
-          accreditedArticles: data.isStringAndStringToArray(action.payload.accreditedArticles)
+          accreditedArticles: data.isStringAndStringToArray(action.payload.accreditedArticles),
+          discreditedArticles: data.isStringAndStringToArray(action.payload.discreditedArticles)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -108,7 +111,8 @@ export const userAccSlice = createSlice({
             ...user,
             followers: data.isStringAndStringToArray(user.followers),
             following: data.isStringAndStringToArray(user.following),
-            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles)
+            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles),
+            discreditedArticles: data.isStringAndStringToArray(user.discreditedArticles)
           }
         }
       }
@@ -124,7 +128,8 @@ export const userAccSlice = createSlice({
             ...user,
             followers: data.isStringAndStringToArray(user.followers),
             following: data.isStringAndStringToArray(user.following),
-            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles)
+            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles),
+            discreditedArticles: data.isStringAndStringToArray(user.discreditedArticles)
           }
         }
       }
@@ -137,13 +142,31 @@ export const userAccSlice = createSlice({
           ...updatedUser,
           followers: data.isStringAndStringToArray(updatedUser.followers),
           following: data.isStringAndStringToArray(updatedUser.following),
-          accreditedArticles: data.isStringAndStringToArray(updatedUser.accreditedArticles)
+          accreditedArticles: data.isStringAndStringToArray(updatedUser.accreditedArticles),
+          discreditedArticles: data.isStringAndStringToArray(updatedUser.discreditedArticles)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
           ...state,
           loggedIn: action.payload ? true : false,
           authenticatedUser: user
+        }
+      }
+    });
+    builder.addCase(accreditDiscredit.fulfilled, (state, action) => {
+      const { status } = action.payload;
+      if (status === 200) {
+        const { user } = action.payload.data;
+        const updatedUser = {
+          ...state.authenticatedUser,
+          ...user,
+          accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles),
+          discreditedArticles: data.isStringAndStringToArray(user.discreditedArticles)
+        };
+        Cookies.set('authenticatedUser', JSON.stringify(updatedUser), { sameSite: 'Strict' });
+        return {
+          ...state,
+          authenticatedUser: updatedUser
         }
       }
     });
