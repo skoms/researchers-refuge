@@ -95,7 +95,6 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
     }
   }
   
-
   if( articles ) {
     res.status(200).json(articles.slice(0,3));
   } else {

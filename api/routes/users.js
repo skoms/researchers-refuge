@@ -59,7 +59,6 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
     });
     if (topics) {
       const topicNames = topics.map( topic => topic.name );
-      console.log(topicNames);
       users = await User.findAll({
         attributes: ['id', 'firstName', 'lastName'],
         where: {

@@ -151,6 +151,16 @@ export default class Data {
   }
 
   /**
+   * Gets recommended users from looking at previously accretited articles and their topic
+   * @param {object} user - logged in user
+   * @returns status code, data on success, errors on failure
+   */
+  async getRecommendedUsers(user) {
+    const res = await this.api(`/users/recommend`, 'GET', null, true, user);
+    return this.responseReturnHandler(res, true, 'users');
+  }
+
+  /**
    * Gets a specific article and returns it
    * @param {integer} id - the ID of the article
    * @returns status code, data on success, errors on failure
@@ -209,6 +219,16 @@ export default class Data {
   }
 
   /**
+   * Gets recommended articles from looking at previously accretited articles and their topic
+   * @param {object} user - logged in user
+   * @returns status code, data on success, errors on failure
+   */
+  async getRecommendedArticles(user) {
+    const res = await this.api(`/articles/recommend`, 'GET', null, true, user);
+    return this.responseReturnHandler(res, true, 'articles');
+  }
+
+  /**
    * Gets a topic specified by id
    * @param {integer} id - topic id
    * @returns status code, data on success, errors on failure
@@ -254,6 +274,16 @@ export default class Data {
    */
   async getTopicsByQuery(query) {
     const res = await this.api(`/topics/query/${query}`, 'GET');
+    return this.responseReturnHandler(res, true, 'topics');
+  }
+
+  /**
+   * Gets recommended topics from looking at previously accretited articles and their topic
+   * @param {object} user - logged in user
+   * @returns status code, data on success, errors on failure
+   */
+   async getRecommendedTopics(user) {
+    const res = await this.api(`/topics/recommend`, 'GET', null, true, user);
     return this.responseReturnHandler(res, true, 'topics');
   }
 
