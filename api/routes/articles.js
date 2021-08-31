@@ -60,6 +60,49 @@ router.get('/filter/:filter', asyncHandler(async (req, res) => {
   res.status(200).json(articles);
 }));
 
+// GET finds and displays recommended topics
+router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
+  let articles;
+  const user = await User.findOne({ 
+    where: { emailAddress: req.currentUser.emailAddress } 
+  });
+
+  const accreditedArticles = user.accreditedArticles.split(',').filter( entry => entry !== ' ' );
+  const discreditedArticles = user.discreditedArticles.split(',').filter( entry => entry !== ' ' );
+
+  const accreditedOnes = await Article.findAll({
+    attributes: ['topicId'],
+    where: { id: { [Op.in]: accreditedArticles } }
+  });
+  if (accreditedOnes) {
+    const articleTopicIds = accreditedOnes.map( article => article.topicId );
+    const topics = await Topic.findAll({
+      attributes: ['id'],
+      where: { id: { [Op.in]: articleTopicIds } }
+    });
+    if (topics) {
+      const topicIds = topics.map( topic => topic.id );
+      articles = await Article.findAll({
+        attributes: ['id', 'title'],
+        where: {
+          [Op.and]:[
+            { topicId: { [Op.in]: topicIds } },
+            { id: { [Op.notIn]: accreditedArticles } },
+            { id: { [Op.notIn]: discreditedArticles } }
+          ]
+        }
+      })
+    }
+  }
+  
+
+  if( articles ) {
+    res.status(200).json(articles.slice(0,3));
+  } else {
+    res.status(404).end();
+  }
+}));
+
 // GET finds and sends back a specific articles by tag
 router.get('/tag/:tag', asyncHandler(async (req, res) => {
   const articles = await Article.findAll({
@@ -82,12 +125,13 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
     where: { 
       [Op.or]: [
-      { title: { [Op.substring]: req.params.query } },
-      { topic: { [Op.substring]: req.params.query } },
-      { intro: { [Op.substring]: req.params.query } },
-      { body:  { [Op.substring]: req.params.query } },
-      { tags:  { [Op.substring]: req.params.query } }
-    ]}
+        { title: { [Op.substring]: req.params.query } },
+        { topic: { [Op.substring]: req.params.query } },
+        { intro: { [Op.substring]: req.params.query } },
+        { body:  { [Op.substring]: req.params.query } },
+        { tags:  { [Op.substring]: req.params.query } }
+      ]
+    }
   });
 
   if( articles ) {

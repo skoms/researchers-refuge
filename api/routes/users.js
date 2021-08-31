@@ -12,6 +12,22 @@ const { Article, User, Topic, Category } = require('../models');
 const { Sequelize } = require('../models');
 const { Op } = Sequelize;
 
+// Helper function
+const isStringAndStringToArray = (value) => {
+  if (typeof value !== 'object') {
+    if (value.length === 1 || typeof value === 'number') {
+      return [value.toString()];
+    } else if (value === '') {
+      return [];
+    } else {
+      return value.split(',').filter(entry => entry !== ' ' && entry !== '');
+    }
+  } else {
+    return value;
+  }
+}
+
+
 // GET authenticated user info
 router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
   const user = await User.findOne({
@@ -19,6 +35,48 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
     where: { emailAddress: req.currentUser.emailAddress }
   });
   res.status(200).json(user);
+}));
+
+// GET finds and displays recommended users
+router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
+  let users;
+  const user = await User.findOne({ 
+    where: { emailAddress: req.currentUser.emailAddress } 
+  });
+
+  const following = isStringAndStringToArray(user.following);
+  const accreditedArticles = isStringAndStringToArray(user.accreditedArticles);
+
+  const accreditedOnes = await Article.findAll({
+    attributes: ['topicId'],
+    where: { id: { [Op.in]: accreditedArticles } }
+  });
+  if (accreditedOnes) {
+    const articleTopicIds = accreditedOnes.map( article => article.topicId );
+    const topics = await Topic.findAll({
+      attributes: ['name'],
+      where: { id: { [Op.in]: articleTopicIds } }
+    });
+    if (topics) {
+      const topicNames = topics.map( topic => topic.name );
+      console.log(topicNames);
+      users = await User.findAll({
+        attributes: ['id', 'firstName', 'lastName'],
+        where: {
+          [Op.and]:[
+            { mostActiveField: { [Op.in]: topicNames } },
+            { id: { [Op.notIn]: following } }
+          ]
+        }
+      })
+    }
+  }
+
+  if( users ) {
+    res.status(200).json(users.slice(0,3));
+  } else {
+    res.status(404).end();
+  }
 }));
 
 // GET finds specified user by ID
@@ -31,6 +89,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
     res.status(404).end();
   }
 }));
+
 
 // GET find users by query
 router.get('/query/:query', asyncHandler(async (req, res) => {

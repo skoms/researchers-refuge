@@ -435,6 +435,7 @@ button:hover {
 .header .sign-buttons {
   justify-self: right;
   display: flex;
+  align-items: center;
   grid-area: profile;
   margin: 0 .7rem;
   text-decoration: none;

@@ -19,12 +19,7 @@ const ArticleCards = (props) => {
 
   useEffect(()=> {
     const getRecentlyAccredited = async () => {
-      const sortedByMostRecent = [];
-      for (let i = (props.recentlyAccredited.length - 1); i >= 0; i--) {
-        const id = props.recentlyAccredited[i];
-        sortedByMostRecent.push(id);
-      }
-      const slicedAndSorted = sortedByMostRecent.slice(0,5);
+      const slicedAndSorted = props.recentlyAccredited.reverse().slice(0,5);
       if (slicedAndSorted.length > 0) {
         const returnArray = await Promise.all(
           slicedAndSorted.map(async (id) => {

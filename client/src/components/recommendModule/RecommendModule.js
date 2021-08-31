@@ -1,12 +1,16 @@
 import React from 'react'
+import { useSelector, useEffect } from 'react-redux'
+import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 
 const RecommendModule = () => {
-  return (
+  const user = useSelector(selectAuthenticatedUser);
+
+  return user !== null && (
     <div className='rec-mod'>
       <table className='table-spacing'>
         <tbody>
           <tr>
-            <th>Recommended Fields</th>
+            <th>Recommended Topics</th>
           </tr>
           <tr>
             <td>Recommendation</td>

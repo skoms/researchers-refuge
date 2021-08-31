@@ -23,11 +23,13 @@ const ArticleCard = props => {
   const [creditedStatus, setCreditedStatus] = useState();
 
   useEffect(() => {
-    if (user.accreditedArticles.includes(props.id.toString())) {
-      setCreditedStatus('accredited');
-    } else if (user.discreditedArticles.includes(props.id.toString())) {
-      setCreditedStatus('discredited');
-    }
+    if (user) {
+      if (user.accreditedArticles.includes(props.id.toString())) {
+        setCreditedStatus('accredited');
+      } else if (user.discreditedArticles.includes(props.id.toString())) {
+        setCreditedStatus('discredited');
+      }
+    }  
   }, [user, props.id]);
 
   const goToTopic = (e) => {

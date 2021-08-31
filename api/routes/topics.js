@@ -12,6 +12,21 @@ const { Article, User, Topic, Category } = require('../models');
 const { Sequelize } = require('../models');
 const { Op } = Sequelize;
 
+// Helper function
+const isStringAndStringToArray = (value) => {
+  if (typeof value !== 'object') {
+    if (value.length === 1 || typeof value === 'number') {
+      return [value.toString()];
+    } else if (value === '') {
+      return [];
+    } else {
+      return value.split(',').filter(entry => entry !== ' ' && entry !== '');
+    }
+  } else {
+    return value;
+  }
+}
+
 
 // GET finds and displays all topics
 router.get('/', asyncHandler(async (req, res) => {
@@ -115,7 +130,34 @@ router.get('/id/:id', asyncHandler(async (req, res) => {
   });
 
   if( topic ) {
-    res.status(200).json(topics);
+    res.status(200).json(topic);
+  } else {
+    res.status(404).end();
+  }
+}));
+
+// GET finds and displays recommended topics
+router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
+  let topics;
+  const user = await User.findOne({ 
+    where: { emailAddress: req.currentUser.emailAddress } 
+  });
+  const accreditedArticles = isStringAndStringToArray(user.accreditedArticles);
+  const articles = await Article.findAll({
+    attributes: ['topicId'],
+    where: { id: { [Op.in]: accreditedArticles } }
+  });
+  if (articles) {
+    const articleIds = articles.map( article => article.topicId );
+    topics = await Topic.findAll({
+      attributes: ['id', 'name'],
+      where: { id: { [Op.in]: articleIds } }
+    });
+  }
+  
+
+  if( topics ) {
+    res.status(200).json(topics.slice(0,3));
   } else {
     res.status(404).end();
   }
