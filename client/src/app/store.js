@@ -11,6 +11,7 @@ import topicsReducer from '../components/topics/topicsSlice';
 import searchResultsReducer from '../components/searchResults/searchResultsSlice';
 import manageArticleReducer from '../components/article/manageArticle/manageArticleSlice';
 import articleCardsReducer from '../components/article/articleCards/articleCardsSlice';
+import recommendModuleReducer from '../components/recommendModule/recommendModuleSlice';
 
 
 export const store = configureStore({
@@ -26,5 +27,6 @@ export const store = configureStore({
     topics: topicsReducer,
     searchResults: searchResultsReducer,
     articleCards: articleCardsReducer,
+    recommendModule: recommendModuleReducer,
   }
 });

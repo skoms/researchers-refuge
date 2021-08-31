@@ -156,7 +156,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getRecommendedUsers(user) {
-    const res = await this.api(`/users/recommend`, 'GET', null, true, user);
+    const res = await this.api(`/users/recommended`, 'GET', null, true, user);
     return this.responseReturnHandler(res, true, 'users');
   }
 
@@ -224,7 +224,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getRecommendedArticles(user) {
-    const res = await this.api(`/articles/recommend`, 'GET', null, true, user);
+    const res = await this.api(`/articles/recommended`, 'GET', null, true, user);
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -283,7 +283,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getRecommendedTopics(user) {
-    const res = await this.api(`/topics/recommend`, 'GET', null, true, user);
+    const res = await this.api(`/topics/recommended`, 'GET', null, true, user);
     return this.responseReturnHandler(res, true, 'topics');
   }
 

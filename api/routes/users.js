@@ -39,8 +39,8 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
 
 // GET finds and displays recommended users
 router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
-  let users;
   const user = await User.findOne({ 
+    attributes: ['accreditedArticles', 'following'],
     where: { emailAddress: req.currentUser.emailAddress } 
   });
 
@@ -51,25 +51,23 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
     attributes: ['topicId'],
     where: { id: { [Op.in]: accreditedArticles } }
   });
-  if (accreditedOnes) {
-    const articleTopicIds = accreditedOnes.map( article => article.topicId );
-    const topics = await Topic.findAll({
-      attributes: ['name'],
-      where: { id: { [Op.in]: articleTopicIds } }
-    });
-    if (topics) {
-      const topicNames = topics.map( topic => topic.name );
-      users = await User.findAll({
-        attributes: ['id', 'firstName', 'lastName'],
-        where: {
-          [Op.and]:[
-            { mostActiveField: { [Op.in]: topicNames } },
-            { id: { [Op.notIn]: following } }
-          ]
-        }
-      })
+
+  const articleTopicIds = accreditedOnes.map( article => article.topicId );
+  const topics = await Topic.findAll({
+    attributes: ['name'],
+    where: { id: { [Op.in]: articleTopicIds } }
+  });
+
+  const topicNames = topics.map( topic => topic.name );
+  const users = await User.findAll({
+    attributes: ['id', 'firstName', 'lastName'],
+    where: {
+      [Op.and]:[
+        { mostActiveField: { [Op.in]: topicNames } },
+        { id: { [Op.notIn]: following } }
+      ]
     }
-  }
+  })
 
   if( users ) {
     res.status(200).json(users.slice(0,3));

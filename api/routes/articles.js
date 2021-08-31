@@ -62,8 +62,8 @@ router.get('/filter/:filter', asyncHandler(async (req, res) => {
 
 // GET finds and displays recommended topics
 router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
-  let articles;
   const user = await User.findOne({ 
+    attributes: ['accreditedArticles', 'discreditedArticles'],
     where: { emailAddress: req.currentUser.emailAddress } 
   });
 
@@ -74,26 +74,24 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
     attributes: ['topicId'],
     where: { id: { [Op.in]: accreditedArticles } }
   });
-  if (accreditedOnes) {
-    const articleTopicIds = accreditedOnes.map( article => article.topicId );
-    const topics = await Topic.findAll({
-      attributes: ['id'],
-      where: { id: { [Op.in]: articleTopicIds } }
-    });
-    if (topics) {
-      const topicIds = topics.map( topic => topic.id );
-      articles = await Article.findAll({
-        attributes: ['id', 'title'],
-        where: {
-          [Op.and]:[
-            { topicId: { [Op.in]: topicIds } },
-            { id: { [Op.notIn]: accreditedArticles } },
-            { id: { [Op.notIn]: discreditedArticles } }
-          ]
-        }
-      })
+
+  const articleTopicIds = accreditedOnes.map( article => article.topicId );
+  const topics = await Topic.findAll({
+    attributes: ['id'],
+    where: { id: { [Op.in]: articleTopicIds } }
+  });
+
+  const topicIds = topics.map( topic => topic.id );
+  const articles = await Article.findAll({
+    attributes: ['id', 'title'],
+    where: {
+      [Op.and]:[
+        { topicId: { [Op.in]: topicIds } },
+        { id: { [Op.notIn]: accreditedArticles } },
+        { id: { [Op.notIn]: discreditedArticles } }
+      ]
     }
-  }
+  })
   
   if( articles ) {
     res.status(200).json(articles.slice(0,3));

@@ -619,6 +619,15 @@ button:hover {
   padding: .3rem;
 }
 
+.rec-mod td:hover {
+  cursor: pointer;
+  opacity: .5;
+}
+
+.rec-mod a {
+  text-decoration: none;
+}
+
 .darkmode .rec-mod td {
   background: #161B22;
   color: #E8F7FF;

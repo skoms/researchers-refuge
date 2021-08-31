@@ -138,8 +138,8 @@ router.get('/id/:id', asyncHandler(async (req, res) => {
 
 // GET finds and displays recommended topics
 router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
-  let topics;
   const user = await User.findOne({ 
+    attributes: ['accreditedArticles'],
     where: { emailAddress: req.currentUser.emailAddress } 
   });
   const accreditedArticles = isStringAndStringToArray(user.accreditedArticles);
@@ -147,14 +147,11 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
     attributes: ['topicId'],
     where: { id: { [Op.in]: accreditedArticles } }
   });
-  if (articles) {
-    const articleIds = articles.map( article => article.topicId );
-    topics = await Topic.findAll({
-      attributes: ['id', 'name'],
-      where: { id: { [Op.in]: articleIds } }
-    });
-  }
-  
+  const articleTopicIds = articles.map( article => article.topicId );
+  const topics = await Topic.findAll({
+    attributes: ['id', 'name'],
+    where: { id: { [Op.in]: articleTopicIds } }
+  });
 
   if( topics ) {
     res.status(200).json(topics.slice(0,3));
