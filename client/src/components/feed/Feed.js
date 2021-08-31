@@ -23,9 +23,7 @@ const Feed = () => {
   return (
     <div className='feed'>
       <MenuBar />
-      { didLoad ?
-          <ArticleCards type='feed' /> : <Loading />
-      }
+      { didLoad ? <ArticleCards type='feed' /> : <Loading /> }
     </div>
   )
 }

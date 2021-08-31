@@ -164,8 +164,8 @@ export default class Data {
    * Gets all articles stored in the API
    * @returns status code, data on success, errors on failure
    */
-  async getArticles() {
-    const res = await this.api('/articles', 'GET');
+  async getArticlesWithFilter(filter) {
+    const res = await this.api(`/articles/filter/${filter}`, 'GET');
     return this.responseReturnHandler(res, true, 'articles');
   }
 
