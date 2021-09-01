@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTopic, updateTopic } from '../feed/feedSlice';
 import { selectCategories } from '../topics/topicsSlice';
@@ -15,9 +15,13 @@ const TopicSelect = ({ use }) => {
     dispatch(updateTopic(e.target.value));
   }
 
+  useEffect(() => {
+    document.getElementById('topic-select').value = topic;
+  }, [topic])
+
   return (
     <div className='topic-select'>
-      <select name="topic-select" id="topic" value={topic} onChange={changeHandler}>
+      <select name="topic-select" id="topic-select" value={topic} onChange={changeHandler}>
         { use === 'header' && <option className='default' value='home' >Home</option> }
         { categories ?
           categories.map( category => {
