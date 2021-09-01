@@ -40,9 +40,7 @@ const Header = () => {
         <h2>Researchers' Refuge</h2>
       </a>
       <TopicSelect use='header' />
-      <div className="search">
-        <SearchField />
-      </div>
+      <SearchField />
       { didLoad && loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />

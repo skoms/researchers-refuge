@@ -15,6 +15,10 @@ const TopicSelect = ({ use }) => {
     dispatch(updateTopic(e.target.value));
   }
 
+  const clearTopic = () => {
+    dispatch(updateTopic('home'));
+  }
+
   useEffect(() => {
     document.getElementById('topic-select').value = topic;
   }, [topic])
@@ -37,6 +41,9 @@ const TopicSelect = ({ use }) => {
           <Fragment />
         }
       </select>  
+      <button onClick={clearTopic}>
+        <img src={`https://img.icons8.com/fluency-systems-filled/20/DD3939/x.png`} alt='clear topic button' />
+      </button>
     </div>
   )
 }

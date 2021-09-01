@@ -281,10 +281,10 @@ button:hover {
   display: grid;
   grid-template-columns: 
     calc( 50vw - 38rem )
-    repeat(6, 1fr)
+    repeat(12, 1fr)
     calc( 50vw - 38rem );
   grid-template-areas: 
-    ". name select search search profile profile .";
+    ". name name name search search search search select select profile profile profile .";
   gap: 1.5rem;
   align-items: center;
 }
@@ -323,11 +323,22 @@ button:hover {
   grid-area: select;
 }
 
+.header .topic-select {
+  margin-left: -2rem;
+  display: flex;
+}
+
 .header .topic-select select {
   padding: .3rem;
-  font-size: 1.1rem;
+  font-size: .9rem;
   font-family: 'Times New Roman', Times, serif;
   width: 100%;
+}
+
+.header .topic-select button {
+  background: none;
+  box-shadow: none;
+  
 }
 
 .darkmode .header .topic-select {
@@ -335,16 +346,36 @@ button:hover {
 }
 
 .header .search {
-  justify-self: center;
   grid-area: search;
+  position: relative;
+}
+
+.search .search-button {
+  position: absolute;
+  background: #15458a;
+  box-shadow: none;
+  border-radius:  0 .75rem .75rem 0;
+  padding: .1rem .8rem 0 .8rem;
+  opacity: 1;
+  right: 5%;
+}
+
+.darkmode .search-button {
+  background: #27303D;
 }
 
 .search input {
   border: none;
+  width: 80%;
   padding: .3rem .8rem;
   border-radius: .75rem;
   color: #112541;
   background-color: #E8F7FF;
+}
+
+.darkmode .search input {
+  background-color: #112541;
+  color: #38B6FF;
 }
 
 .search input:focus {
