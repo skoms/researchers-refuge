@@ -19,7 +19,6 @@ const ResultRecUser = ({ user }) => {
 
   useEffect(() => {
     if (!didLoad && user) {
-      console.log(user);
       setIsFollowedByMe(user.followers.includes(authenticatedUser.id));
       setDidLoad(true);
     }
@@ -27,14 +26,14 @@ const ResultRecUser = ({ user }) => {
 
   const followUnfollow = async (e) => {
     const button = e.target;
-    await dispatch(followUser({ id: user.id, user: authenticatedUser }))
+    const response = await dispatch(followUser({ id: user.id, user: authenticatedUser }))
       .then(res => res.payload)
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           button.innerText = button.innerText === 'Follow' ? 'Unfollow' : 'Follow';
         }
       });
+    return response;
   }
 
   const view = () => {

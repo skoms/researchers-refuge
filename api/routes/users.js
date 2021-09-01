@@ -40,7 +40,7 @@ router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
 // GET finds and displays recommended users
 router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
   const user = await User.findOne({ 
-    attributes: ['accreditedArticles', 'following'],
+    attributes: ['id', 'accreditedArticles', 'following', 'occupation'],
     where: { emailAddress: req.currentUser.emailAddress } 
   });
 
@@ -60,11 +60,16 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
 
   const topicNames = topics.map( topic => topic.name );
   const users = await User.findAll({
-    attributes: ['id', 'firstName', 'lastName'],
+    attributes: ['id', 'firstName', 'lastName', 'followers', 'occupation', 'imgURL'],
     where: {
       [Op.and]:[
-        { mostActiveField: { [Op.in]: topicNames } },
-        { id: { [Op.notIn]: following } }
+        { [Op.or]: [
+          { mostActiveField: { [Op.in]: topicNames } },
+          { occupation: { [Op.eq]: user.occupation } }
+          ]
+        },
+        { id: { [Op.notIn]: following } },
+        { id: { [Op.not]: user.id } }
       ]
     }
   })

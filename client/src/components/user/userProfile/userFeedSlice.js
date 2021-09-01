@@ -89,7 +89,7 @@ export const userFeedSlice = createSlice({
     builder.addCase(followUser.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         const user = action.payload.users.target;
-        if (user.id === state.owner.id) {
+        if (state.owner && user.id === state.owner.id) {
           const followersArr = data.isStringAndStringToArray(user.followers);
           const followingArr = data.isStringAndStringToArray(user.following);
           const accreditedArticlesArr = data.isStringAndStringToArray(user.accreditedArticles);
