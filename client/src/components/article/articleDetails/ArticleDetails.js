@@ -3,7 +3,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useParams } from "react-router";
 
 import InfoModule from "../../infoModule/InfoModule";
@@ -24,6 +24,7 @@ const ArticleDetails = props => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   const [didLoad, setDidLoad] = useState(false);
 
@@ -33,7 +34,7 @@ const ArticleDetails = props => {
         .then(res => res.payload)
         .then(res => {
           if (res.status === 404) {
-            history.push('/not-found');
+            history.push({ pathname: '/not-found', state: { from: location.pathname }});
           }
         });
     }
@@ -41,7 +42,7 @@ const ArticleDetails = props => {
       loadData(id);
       setDidLoad(true);
     }
-  }, [didLoad, id, dispatch, history]);
+  }, [didLoad, id, dispatch, history, location.pathname]);
 
   const togglePopUp = () => {
     const confirmationBox = document.querySelector('.invisibility-container');
@@ -68,13 +69,13 @@ const ArticleDetails = props => {
       .then(res => res.payload)
       .then(res => {
         if (res.status === 204) {
-          history.push('/');
+          history.push({ pathname: '/', state: { from: location.pathname }});
         } else if (res.status === 403) {
-          history.push('/forbidden');
+          history.push({ pathname: '/forbidden', state: { from: location.pathname }});
         }
       })
       .catch(() => {
-        history.push('error');
+        history.push({ pathname: '/error', state: { from: location.pathname }});
       });
   }
 

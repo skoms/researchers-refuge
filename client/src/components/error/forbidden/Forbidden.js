@@ -1,6 +1,13 @@
 import React from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 
 const Forbidden = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
+  const goBack = () => {
+    history.push(from);
+  }
   return (
     <div className='error-div'>
       { localStorage.getItem('darkmode') === 'true' 
@@ -11,6 +18,7 @@ const Forbidden = () => {
       }
       <h1 className="status-code">403</h1>
       <p className="error-message">You do not have the required clearance level to enter.</p>
+      <button className='button-secondary' onClick={goBack}>Go Back</button>
     </div>
   )
 }

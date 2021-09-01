@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import {
   signIn
 } from '../userAccSlice';
@@ -16,6 +16,7 @@ const UserLogin = () => {
 
   const history = useHistory();
   const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
   const dispatch = useDispatch();
 
 
@@ -34,7 +35,6 @@ const UserLogin = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    const { from } = location.state || { from: { pathname: '/' } };
     await dispatch(signIn({ emailAddress, password }))
       .then(res => res.payload)
       .then(res => {
@@ -43,11 +43,11 @@ const UserLogin = () => {
         } else if (res.status === 401) {
           setErrors(res.errors);
         } else if (res.status === 500) {
-          history.push('/error')
+          history.push({ pathname: '/error', state: { from: location.pathname }})
         }
       })
       .catch((err) => {
-        history.push('/error');
+        history.push({ pathname: '/error', state: { from: location.pathname }});
         console.error(err);
       });
   }
@@ -85,7 +85,7 @@ const UserLogin = () => {
           <button className="button-primary" type="submit" onSubmit={submit}>Sign In</button>
           <button className="button-secondary" onClick={cancel}>Cancel</button>
         </div>
-        <p>Don't have a user account yet? Click here to <a href="/sign-up">sign up</a>!</p>
+        <p>Don't have a user account yet? Click here to <Link to={{pathname: '/sign-up', state: { from: from }}}>sign up</Link>!</p>
       </form>
     </div>
   )

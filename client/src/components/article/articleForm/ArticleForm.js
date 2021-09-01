@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import TopicSelect from '../../topicSelect/TopicSelect'
 import { 
@@ -21,6 +21,7 @@ const ArticleForm = props => {
   const topic = useSelector(selectTopic);
   const { id } = useParams();
   const history = useHistory();
+  const location = useLocation();
   const user = useSelector(selectAuthenticatedUser);
 
   const forEachKeyToUpdate = (callback) => {
@@ -42,7 +43,7 @@ const ArticleForm = props => {
               }
             });
           } else {
-            history.push('/forbidden');
+            history.push({ pathname: '/forbidden', state: { from: location.pathname }});
           }
         });
     }
@@ -53,7 +54,7 @@ const ArticleForm = props => {
       props.isUpdate && user && getArticleInfo(id, user.id);
       setDidLoad(true);
     }
-  }, [topic, dispatch, didLoad, id, props.isUpdate, user, history]);
+  }, [topic, dispatch, didLoad, id, props.isUpdate, user, history, location.pathname]);
 
   const onChangeHandler = (e) => {
     dispatch(updateArticleStateByKey({ key: e.target.id, value: e.target.value }));
@@ -86,9 +87,9 @@ const ArticleForm = props => {
           .then(res => {
             console.log(res);
             if (res.status === 204) {
-              history.push(`/articles/${id}`)
+              history.push({ pathname: `/articles/${id}`, state: { from: location.pathname }})
             } else if (res.status === 403) {
-              history.push('/forbidden');
+              history.push({ pathname: '/forbidden', state: { from: location.pathname }});
             }
           })
       } else {
@@ -96,9 +97,9 @@ const ArticleForm = props => {
           .then(res => res.payload)
           .then(res => {
             if (res.status === 201) {
-              history.push(`/articles/${res.article.id}`)
+              history.push({ pathname: `/articles/${res.article.id}`, state: { from: location.pathname }})
             } else if (res.status === 403) {
-              history.push('/forbidden');
+              history.push({ pathname: '/forbidden', state: { from: location.pathname }});
             }
           })
       }
@@ -107,7 +108,7 @@ const ArticleForm = props => {
 
   const cancel = (e) => {
     e.preventDefault();
-    history.push('/');
+    history.push({ pathname: '/', state: { from: location.pathname }});
   }
 
   return didLoad && (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import Data from '../../../../Data'
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { updateTopic } from '../../../feed/feedSlice';
@@ -13,6 +14,7 @@ const data = new Data();
 const ArticleCard = props => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const user = useSelector(selectAuthenticatedUser);
   const darkModeOn = useSelector(selectDarkModeOn);
 
@@ -34,7 +36,7 @@ const ArticleCard = props => {
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));
-    history.push('/');
+    history.push({ pathname: '/', state: { from: location.pathname }});
   }
 
   const accredit = () => {

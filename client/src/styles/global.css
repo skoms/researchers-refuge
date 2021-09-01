@@ -2002,7 +2002,9 @@ button:hover {
     ". pic pic pic pic ."
     ". status status status status ."
     ". message message message message ."
-    ". stack stack stack stack .";
+    ". stack stack stack stack ."
+    ". . . . . ."
+    ". . btn btn . .";
   gap: .5rem;
   justify-items: center;
   color: #1a3861;
@@ -2025,6 +2027,9 @@ button:hover {
 }
 .error-div .error-stack {
   grid-area: stack;
+}
+.error-div .button-secondary {
+  grid-area: btn;
 }
 /*---------------------------*/
 

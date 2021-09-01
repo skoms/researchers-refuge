@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import Loading from '../loading/Loading'
 import { selectSearchTerm, updateSearchTerm } from '../searchField/searchFieldSlice'
 import { getResults, selectArticlesResults, selectTopicsResults, selectUsersResults } from './searchResultsSlice'
@@ -20,6 +20,7 @@ const SearchResultsFeed = () => {
   const dispatch = useDispatch();
   const data = new Data();
   const history = useHistory();
+  const location = useLocation();
 
   const searchTerm = useSelector(selectSearchTerm);
   const users = useSelector(selectUsersResults);
@@ -43,7 +44,7 @@ const SearchResultsFeed = () => {
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));
-    history.push('/');
+    history.push({ pathname: `/`, state: { from: location.pathname }});
   }
 
   const nextPrevButton = (e, name) => {

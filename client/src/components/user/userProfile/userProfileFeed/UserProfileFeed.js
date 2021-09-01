@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { 
   followUser,
@@ -20,6 +21,7 @@ const UserProfileFeed = props => {
   const isFollowedByMe = useSelector(selectIsFollowedByMe);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
   
   const owner = useSelector(selectOwner);
@@ -36,19 +38,19 @@ const UserProfileFeed = props => {
         .then(res => res.payload)
         .then(res => {
           if (res.status === 404) {
-            history.push('/not-found');
+            history.push({ pathname: '/not-found', state: { from: location.pathname }});
           }
         })
         .catch(err => {
           console.error(err);
-          history.push('/error')
+          history.push({ pathname: '/error', state: { from: location.pathname }})
         });
     }
     const getOwnersArticles = async (id) => {
       await dispatch(getUserArticles(id))
         .catch(err => {
           console.error(err);
-          history.push('/error')
+          history.push({ pathname: '/error', state: { from: location.pathname }})
         });
     }
     if (fetching === false) {
@@ -60,7 +62,7 @@ const UserProfileFeed = props => {
       dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id.toString())));
       setDidLoad(true);
     }
-  }, [didLoad, owner, dispatch, history, props, authenticatedUser.id, fetching])
+  }, [didLoad, owner, dispatch, history, props, authenticatedUser.id, fetching, location.pathname])
 
   const followUnfollow = async (e) => {
     const button = e.target;

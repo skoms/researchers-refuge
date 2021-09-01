@@ -6,12 +6,14 @@ import {
   selectAuthenticatedUser, 
   followUser,
 } from '../user/userAccManage/userAccSlice';
+import { useLocation } from 'react-router-dom';
 
 const ResultRecUser = ({ user }) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const [isFollowedByMe, setIsFollowedByMe] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
 
 
@@ -36,7 +38,7 @@ const ResultRecUser = ({ user }) => {
   }
 
   const view = () => {
-    history.push(`/users/${user.id}`);
+    history.push({ pathname: `/users/${user.id}`, state: { from: location.pathname }});
   }
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 import { getUserArticles } from '../userFeedSlice';
@@ -10,20 +11,17 @@ const MyProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
   
   const [owner, setOwner] = useState(authenticatedUser);
-
-  if (authenticatedUser.id === parseInt(props.id)) {
-    history.push('/my-profile')
-  }
 
   useEffect(() => {
     const getOwnersArticles = async (id) => {
       await dispatch(getUserArticles(id))
         .catch(err => {
           console.error(err);
-          history.push('/error')
+          history.push({ pathname: '/error', state: { from: location.pathname }})
         });
     }
     setOwner(authenticatedUser);
@@ -31,7 +29,7 @@ const MyProfileFeed = props => {
       getOwnersArticles(authenticatedUser.id);
       setDidLoad(true);
     }
-  }, [didLoad, owner, dispatch, history, authenticatedUser])
+  }, [didLoad, owner, dispatch, history, authenticatedUser, location.pathname])
 
   return owner !== null ? (
       <div className="user-profile-div">
