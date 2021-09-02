@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ResultRecUser from '../resultRecUser/ResultRecUser';
@@ -18,16 +19,16 @@ const RecPeople = () => {
     }
   }, [didLoad, user, dispatch]);
 
-  return (
-    <div className='rec-ppl'>
-      <h2 className="title">People you may know</h2>
-      { recPeople &&
-        recPeople.map( recUser => (
-          <ResultRecUser key={recUser.id} type='rec' user={recUser} />
-        )).slice(0,5)
-      }
-    </div>
-  )
+  return didLoad && recPeople && recPeople.length > 0 ?
+      <div className='rec-ppl'>
+        <h2 className="title">People you may know</h2>
+        { recPeople &&
+          recPeople.map( recUser => (
+            <ResultRecUser key={recUser.id} type='rec' user={recUser} />
+          )).slice(0,5)
+        }
+      </div>
+      : <Fragment />
 }
 
 export default RecPeople

@@ -590,7 +590,7 @@ button:hover {
 }
 
 .info-mod .bio {
-  margin: .5rem 0;
+  margin: .5rem .5rem;
 }
 
 .info-mod table {
@@ -1270,7 +1270,7 @@ button:hover {
     repeat(12, 1fr);
   grid-template-areas: 
     "header header header header header header header header header header header header"
-    ". follow . . name-occ name-occ name-occ name-occ . . . ."
+    ". follow . name-occ-bio name-occ-bio name-occ-bio name-occ-bio name-occ-bio name-occ-bio . . ."
     ". stats stats stats stats stats stats stats stats stats stats  .";
   gap: .5rem;
   justify-items: center;
@@ -1285,8 +1285,8 @@ button:hover {
   grid-area: header;
 }
 
-.user-profile-info-header .name-and-occupation {
-  grid-area: name-occ;
+.user-profile-info-header .name-occupation-and-bio {
+  grid-area: name-occ-bio;
 }
 
 .user-profile-info-header .stats {
@@ -1330,6 +1330,12 @@ button:hover {
   transition: all .3s;
 }
 
+.user-profile-info-header .name-occupation-and-bio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .user-profile-info-header .full-name {
   display: flex;
   align-items: center;
@@ -1348,6 +1354,7 @@ button:hover {
 
 .user-profile-info-header .occupation{
   color: #bdbdbd;
+  margin: -.3rem 0 .3rem 0;
 }
 
 .darkmode .user-profile-info-header .occupation {

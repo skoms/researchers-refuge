@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
+import Data from '../../../../Data';
 import { 
   followUser,
   selectAuthenticatedUser
@@ -22,6 +23,7 @@ const UserProfileFeed = props => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const data = new Data();
   const [didLoad, setDidLoad] = useState(false);
   
   const owner = useSelector(selectOwner);
@@ -88,7 +90,7 @@ const UserProfileFeed = props => {
               { isFollowedByMe ? 'Unfollow' : 'Follow' }
             </button>
           </div>
-          <div className="name-and-occupation">
+          <div className="name-occupation-and-bio">
             <span className="full-name">
               <h2 className="full-name">
                 { `${owner.firstName} ${owner.lastName}` }
@@ -97,11 +99,12 @@ const UserProfileFeed = props => {
                 <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
             </span>
             <p className="occupation">{ owner.occupation || '' }</p>
+            <p className="bio">{ owner.bio || '' }</p>
           </div>
           <div className="stats">
             <div className="stat">
               <p className="title">Most active field:</p>
-              <p className="data">{ owner.mostActiveField || 'None' }</p>
+              <p className="data">{ data.capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
             <div className="stat most-active-field">
               <p className="title">Articles:</p>

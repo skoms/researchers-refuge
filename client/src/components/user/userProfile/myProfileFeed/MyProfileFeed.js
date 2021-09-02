@@ -43,7 +43,7 @@ const MyProfileFeed = props => {
             <button className='button-primary'>Edit Profile</button>
               
           </div>
-          <div className="name-and-occupation">
+          <div className="name-occupation-and-bio">
             <span className="full-name">
               <h2 className="full-name">
                 { `${owner.firstName} ${owner.lastName}` }
@@ -53,6 +53,7 @@ const MyProfileFeed = props => {
             </span>
             
             <p className="occupation">{ owner.occupation || '' }</p>
+            <p className="bio">{ owner.bio || '' }</p>
           </div>
           <div className="stats">
             <div className="stat">

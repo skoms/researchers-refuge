@@ -5,6 +5,7 @@ const InfoModule = props => {
     firstName,
     lastName,
     occupation,
+    bio,
     mostActiveField,
     articles,
     credits,
@@ -26,7 +27,7 @@ const InfoModule = props => {
           <img src="https://img.icons8.com/ios-glyphs/16/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
       </span>
       <p className='occupation'>{occupation}</p>
-      <p className="bio">Loves to be placeholders for ambitious projects!</p>
+      <p className="bio">{bio}</p>
       <table>
         <tbody>
           <tr>
