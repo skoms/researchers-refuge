@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectTopic, updateTopic } from '../feed/feedSlice';
 import { selectCategories } from '../topics/topicsSlice';
 import Data from '../../Data';
+import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 
 
 const TopicSelect = ({ use }) => {
   const dispatch = useDispatch();
   const topic = useSelector(selectTopic);
   const categories = useSelector(selectCategories);
+  const darkModeOn = useSelector(selectDarkModeOn);
   const data = new Data();
   
   const changeHandler = (e) => {
@@ -41,9 +43,13 @@ const TopicSelect = ({ use }) => {
           <Fragment />
         }
       </select>  
-      <button onClick={clearTopic}>
-        <img src={`https://img.icons8.com/fluency-systems-filled/20/DD3939/x.png`} alt='clear topic button' />
-      </button>
+      { topic !== 'home' ?
+        <button onClick={clearTopic}>
+          <img src={`https://img.icons8.com/fluency-systems-filled/20/${ darkModeOn ? 'DD3939' : '15458A' }/x.png`} alt='clear topic button' />
+        </button>
+        : <Fragment />
+      }
+      
     </div>
   )
 }

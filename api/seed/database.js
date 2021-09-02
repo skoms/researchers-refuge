@@ -39,15 +39,16 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Users
-          (firstName, lastName, emailAddress, password, occupation, mostActiveField, articles, credits, followers, following, imgURL, accessLevel, accreditedArticles, discreditedArticles, createdAt, updatedAt)
+          (firstName, lastName, emailAddress, password, occupation, bio, mostActiveField, articles, credits, followers, following, imgURL, accessLevel, accreditedArticles, discreditedArticles, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       user.firstName,
       user.lastName,
       user.emailAddress,
       user.password,
       user.occupation,
+      user.bio,
       user.mostActiveField,
       user.articles,
       user.credits,
@@ -167,12 +168,13 @@ class Database {
         emailAddress VARCHAR(255) NOT NULL DEFAULT '' UNIQUE, 
         password VARCHAR(255) NOT NULL DEFAULT '', 
         occupation VARCHAR(255) DEFAULT '', 
+        bio VARCHAR(255) DEFAULT '', 
         mostActiveField VARCHAR(255) DEFAULT '', 
         articles INTEGER DEFAULT 0, 
         credits INTEGER DEFAULT 0, 
         followers ARRAY DEFAULT [], 
         following ARRAY DEFAULT [],
-        imgURL VARCHAR(255) DEFAULT 'https://placeimg.com/120/120/people', 
+        imgURL VARCHAR(255) DEFAULT 'https://img.icons8.com/ios-glyphs/120/000000/test-account.png', 
         accessLevel VARCHAR(255) DEFAULT 'none',
         accreditedArticles ARRAY DEFAULT [],
         discreditedArticles ARRAY DEFAULT [],

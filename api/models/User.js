@@ -78,6 +78,9 @@ module.exports = (sequelize) => {
         }
       }
     },
+    bio: {
+      type: DataTypes.STRING,
+    },
     mostActiveField: {
       type: DataTypes.STRING,
       set(val) { // set to lowercase after validation to have more consistent data
