@@ -13,7 +13,7 @@ import manageArticleReducer from '../components/article/manageArticle/manageArti
 import articleCardsReducer from '../components/article/articleCards/articleCardsSlice';
 import recommendModuleReducer from '../components/recommendModule/recommendModuleSlice';
 import recPeopleReducer from '../components/recPeople/recPeopleSlice';
-
+import relatedArticlesReducer from '../components/article/articleDetails/relatedArticles/relatedArticlesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -30,5 +30,6 @@ export const store = configureStore({
     articleCards: articleCardsReducer,
     recommendModule: recommendModuleReducer,
     recPeople: recPeopleReducer,
+    relatedArticles: relatedArticlesReducer,
   }
 });

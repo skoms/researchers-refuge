@@ -743,6 +743,21 @@ button:hover {
     "credits intro intro intro intro intro intro intro";
 }
 
+.article-card-related {
+  background-color: #E8F7FF;
+  margin: 0 .1rem .5rem .1rem;
+  border: none;
+  border-radius: .75rem;
+  padding: .3rem 0;
+  width: 99%;
+  display: grid;
+  grid-template-columns: repeat(8, 2fr);
+  grid-template-areas: 
+    "head head head head head head head head"
+    "title title title title title title title title"
+    "intro intro intro intro intro intro intro intro";
+}
+
 /* Grid Area Declarations*/
 .article-card .credits {
   grid-area: credits;

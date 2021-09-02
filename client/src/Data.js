@@ -203,8 +203,8 @@ export default class Data {
    * @param {string} tag - article tag
    * @returns status code, data on success, errors on failure
    */
-   async getArticlesByTag(tag) {
-    const res = await this.api(`/articles/tag/${tag}`, 'GET');
+   async getArticlesByTag(tag, id) {
+    const res = await this.api(`/articles/tag/${tag}?id=${id}`, 'GET');
     return this.responseReturnHandler(res, true, 'articles');
   }
 

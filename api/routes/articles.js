@@ -105,7 +105,11 @@ router.get('/tag/:tag', asyncHandler(async (req, res) => {
   const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
-    where: { tags: { [Op.substring]: req.params.tag } }
+    where: { [Op.and]: [
+        { tags: { [Op.substring]: req.params.tag } },
+        { id: { [Op.not]: req.query.id} },
+      ] 
+    }
   });
 
   if( articles ) {

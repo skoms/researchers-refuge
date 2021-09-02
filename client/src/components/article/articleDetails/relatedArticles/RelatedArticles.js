@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ArticleCard from '../../articleCards/articleCard/ArticleCard';
-import dataCells from "../../../../data/articles";
+import { useDispatch, useSelector } from 'react-redux';
+import { getRelatedArticles, selectRelatedArticles } from './relatedArticlesSlice';
+import Data from '../../../../Data';
+import { Fragment } from 'react';
 
 //TODO - Replace sample data used here and connect to API
 
-const RelatedArticles = () => {
-  return (
+const RelatedArticles = ({ article }) => {
+  const [didLoad, setDidLoad] = useState(false);
+  const dispatch = useDispatch();
+
+  const relatedArticles = useSelector(selectRelatedArticles);
+  
+  useEffect(() => {
+    const data = new Data();
+    if (!didLoad) {
+      dispatch(getRelatedArticles({
+        tags: [...data.isStringAndStringToArray(article.tags)],
+        id: article.id
+      }));
+      setDidLoad(true);
+    }
+  }, [didLoad, dispatch, article])
+  return didLoad && relatedArticles && relatedArticles.length > 0 ? (
     <div className='related-articles'>
       <h2>Related Articles</h2>
       {
-        dataCells.map(card => 
+        relatedArticles.map(card => 
           <ArticleCard 
             id={card.id}
             key={card.id}
@@ -17,11 +35,12 @@ const RelatedArticles = () => {
             topic={card.topic}
             author={card.author}
             intro={card.intro}
+            credits={undefined}
           />
         )
       }
     </div>
-  )
+  ) : <Fragment />
 }
 
 export default RelatedArticles

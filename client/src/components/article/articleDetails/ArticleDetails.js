@@ -100,7 +100,7 @@ const ArticleDetails = props => {
 
       <div className="article-details-sidebar">
         { didLoad && author ? <InfoModule user={author} /> : <Loading /> }
-        <RelatedArticles />
+        { didLoad && article ? <RelatedArticles article={article} /> : <Loading /> }
       </div>
       
       { didLoad && author && article ? (

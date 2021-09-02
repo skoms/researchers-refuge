@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Fragment } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -58,25 +59,29 @@ const ArticleCard = props => {
   }
 
   return (
-    <div className='article-card'>
-      <div className="credits">
-        <button className="accredit" onClick={accredit}>
-          <img 
-            src={`https://img.icons8.com/ios-filled/16/${creditedStatus === 'accredited' ? accreditColor : inactiveColor }/checkmark--v1.png`}
-            alt='accredit button'
-          />
-        </button>
-        <div className="credits-num">
-          <img src="https://img.icons8.com/ios/16/38B6FF/rating.png" alt='credits'/>
-          <span>{props.credits}</span>
+    <div className={`${props.credits === undefined ? 'article-card-related' : ''} article-card `}>
+      { props.credits !== undefined ? 
+        <div className="credits">
+          <button className="accredit" onClick={accredit}>
+            <img 
+              src={`https://img.icons8.com/ios-filled/16/${creditedStatus === 'accredited' ? accreditColor : inactiveColor }/checkmark--v1.png`}
+              alt='accredit button'
+            />
+          </button>
+          <div className="credits-num">
+            <img src="https://img.icons8.com/ios/16/38B6FF/rating.png" alt='credits'/>
+            <span>{props.credits}</span>
+          </div>
+          <button className="discredit" onClick={discredit}>
+            <img 
+              src={`https://img.icons8.com/fluency-systems-filled/16/${creditedStatus === 'discredited' ? discreditColor : inactiveColor }/x.png`} 
+              alt='discredit button'
+            />
+          </button>
         </div>
-        <button className="discredit" onClick={discredit}>
-          <img 
-            src={`https://img.icons8.com/fluency-systems-filled/16/${creditedStatus === 'discredited' ? discreditColor : inactiveColor }/x.png`} 
-            alt='discredit button'
-          />
-        </button>
-      </div>
+        : <Fragment />
+      }
+      
       <div className="article-card-headline">
         <button onClick={goToTopic}><span>{data.capitalize(props.topic, false)}</span></button>
         <a href={`/users/${props.authorId}`}><span>{props.author}</span></a>
