@@ -34,7 +34,7 @@ const RecommendModule = () => {
 
   return user !== null && didLoad && (
     <div className='rec-mod'>
-      { recommendedTopics ?
+      { recommendedTopics && recommendedTopics.length > 0 ?
         <table className='table-spacing'>
             <tbody>
             <tr>
@@ -53,7 +53,7 @@ const RecommendModule = () => {
         </table>
       : <Fragment />
       }
-      { recommendedArticles ?
+      { recommendedArticles && recommendedArticles.length > 0 ?
         <table className='table-spacing'>
             <tbody>
             <tr>
@@ -74,7 +74,7 @@ const RecommendModule = () => {
         </table>
       : <Fragment />
       }
-      { recommendedUsers ?
+      { recommendedUsers && recommendedUsers.length > 0 ?
         <table className='table-spacing'>
             <tbody>
             <tr>
