@@ -65,7 +65,10 @@ const ArticleForm = props => {
       const target = document.querySelector(`#${input}-input-div`);
       target.classList.remove('invalid');
     });
-    const invalidInputs = Object.keys(article).filter( key => !article[key]);
+    const invalidInputs = Object.keys(article).filter( key => 
+      ['title', 'intro', 'body', 'published', 'tags', 'topic'].includes(key) 
+      && !article[key]
+    );
     if (invalidInputs.length > 0) {
       console.log(invalidInputs);
       invalidInputs.forEach( input => {
@@ -126,6 +129,7 @@ const ArticleForm = props => {
         <div className='form-input body' id='body-input-div'>
           <textarea id="body" name="body"  rows='20' cols='60' value={ article.body || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
           <label htmlFor="body">Body</label>
+          <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Markdown Cheat Sheet</a>
         </div>
         <div className='form-input date' id='published-input-div'>
           <input id="published" name="date" type="date" value={ article.published || '' } onChange={onChangeHandler}/>

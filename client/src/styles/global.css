@@ -338,7 +338,6 @@ button:hover {
 .header .topic-select button {
   background: none;
   box-shadow: none;
-  
 }
 
 .darkmode .header .topic-select {
@@ -1217,6 +1216,16 @@ button:hover {
   outline: none;
 }
 
+#body-input-div {
+  position: relative;
+}
+
+#body-input-div a {
+  position: absolute;
+  top: .5rem;
+  right: .3rem;
+}
+
 .darkmode .date input::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
@@ -1224,6 +1233,10 @@ button:hover {
 .create-update-article-form .topic-select select {
   width: 100%;
   min-width: none;
+}
+
+.create-update-article-form .topic-select button {
+  display: none;
 }
 
 .create-update-article-form .form-buttons {
