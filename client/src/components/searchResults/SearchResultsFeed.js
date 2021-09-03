@@ -81,7 +81,7 @@ const SearchResultsFeed = () => {
         :
         <Fragment />
       }
-      { users && users.length > 0 ?
+      { users && filteredUsers() && filteredUsers().length > 0 ?
         <div className="results users">
           <h4>Users</h4>
           <div className="user-results-main">
