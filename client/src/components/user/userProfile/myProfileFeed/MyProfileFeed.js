@@ -5,9 +5,10 @@ import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
+import EditProfile from '../editProfile/EditProfile';
 import { getUserArticles } from '../userFeedSlice';
 
-const MyProfileFeed = ({ toggleEdit }) => {
+const MyProfileFeed = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -31,10 +32,21 @@ const MyProfileFeed = ({ toggleEdit }) => {
     }
   }, [didLoad, owner, dispatch, history, authenticatedUser, location.pathname])
 
+  const toggleEdit = () => {
+    const editProfilePopup = document.querySelector('.invisibility-container');
+    if ( editProfilePopup.classList.contains('invisible') ) {
+      editProfilePopup.classList.remove('invisible');
+    } else {
+      editProfilePopup.classList.add('invisible');
+    }
+  }
+
   return owner !== null ? (
       <div className="user-profile-div">
 
-        
+        <div className="invisibility-container invisible">
+          <EditProfile toggleEdit={toggleEdit} />
+        </div>
 
         <div className="user-profile-info-header">
           <div className="header-img-div">

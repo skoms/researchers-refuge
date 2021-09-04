@@ -15,7 +15,7 @@ import { getArticleInfo, selectArticle, selectAuthor } from "./articleDetailsSli
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import { deleteArticle } from '../manageArticle/manageArticleSlice';
 
-const ArticleDetails = props => {
+const ArticleDetails = () => {
   const darkModeOn = useSelector(selectDarkModeOn);
   const article = useSelector(selectArticle);
   const author = useSelector(selectAuthor);

@@ -268,7 +268,7 @@ button:hover {
   padding: .6rem 0;
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 200;
 }
 
 .darkmode .header, .darkmode .footer {
@@ -1672,11 +1672,23 @@ button:hover {
 }
 
 /* Edit Profile Module */
+.edit-popup {
+  position: fixed;
+  display: flex;
+  margin: -1rem;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw - 19rem);
+  max-width: 74rem;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
 #edit-profile-div {
-  position: absolute;
-  top: 20vh;
-  left: 30vw;
+  position: relative;
   width: 40vw;
+  min-width: 40rem;
   max-height: 60vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr) .5fr;
@@ -1696,6 +1708,7 @@ button:hover {
   align-items: center;
   text-align: center;
   justify-items: center;
+  z-index: 10;  
 }
 
 .darkmode #edit-profile-div {
@@ -1797,13 +1810,13 @@ button:hover {
     '. bio bio bio bio .'
     '. btn btn btn btn .';
   grid-gap: .5rem;
-  max-width: 30rem;
+  min-width: 30rem;
   padding: .5rem 0 .5rem 0;
   border-radius: .75rem;
   justify-items: center;
 }
 
-/* Grid Area Declarations */
+/* Grid Area Declarations ( User Profile ) */
 .edit-user-form .h1 {
   grid-area: h1;
 }
@@ -1949,6 +1962,37 @@ button:hover {
   min-width: 5rem;
   min-height: 2rem;
 }
+
+#edit-account {
+  grid-template-areas: 
+    '. h1 h1 h1 h1 .'
+    '. email email email email .'
+    '. oldPass oldPass oldPass oldPass .'
+    '. pass pass confPass confPass .'
+    '. btn btn btn btn .';
+}
+
+/* Grid Area Declarations ( User Account ) */
+.edit-user-form .h1 {
+  grid-area: h1;
+}
+.edit-user-form .email {
+  grid-area: email;
+}
+.edit-user-form .oldPass {
+  grid-area: oldPass;
+}
+.edit-user-form .pass {
+  grid-area: pass;
+}
+.edit-user-form .confPass {
+  grid-area: confPass;
+}
+.edit-user-form .form-buttons {
+  grid-area: btn;
+}
+/*---------------------------*/
+
 
 /*---------------------------*/
 
