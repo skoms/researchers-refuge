@@ -7,7 +7,7 @@ import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 import { getUserArticles } from '../userFeedSlice';
 
-const MyProfileFeed = props => {
+const MyProfileFeed = ({ toggleEdit }) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,6 +33,9 @@ const MyProfileFeed = props => {
 
   return owner !== null ? (
       <div className="user-profile-div">
+
+        
+
         <div className="user-profile-info-header">
           <div className="header-img-div">
             <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
@@ -40,7 +43,7 @@ const MyProfileFeed = props => {
               src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
               alt="profilepic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
             />
-            <button className='button-primary'>Edit Profile</button>
+            <button className='button-primary' onClick={toggleEdit}>Edit Profile</button>
               
           </div>
           <div className="name-occupation-and-bio">

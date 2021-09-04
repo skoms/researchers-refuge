@@ -1671,6 +1671,51 @@ button:hover {
   color: #bdbdbd;
 }
 
+/* Edit Profile Module */
+#edit-profile-div {
+  position: absolute;
+  top: 20vh;
+  left: 30vw;
+  width: 40vw;
+  height: 60vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) .5fr;
+  grid-template-rows: .5fr repeat(3, 1fr);
+  grid-template-areas: 
+    "edit-header edit-header edit-header edit-header ."
+    "sidebar main main main ."
+    "sidebar main main main ."
+    "sidebar main main main .";
+  gap: 1rem;
+  background: linear-gradient(-45deg, #cfd0ff, #a6d7ff, #cce4ff, #a6f9ff );
+  background-size: 400% 400%;
+  animation: moving-gradient 15s ease infinite;
+  box-shadow: 0 2px 12px -3px #112541;
+  padding: 1rem;
+  border-radius: .75rem;
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+}
+
+.darkmode #edit-profile-div {
+  background: linear-gradient(-45deg, #2b2b55, #162d41, #23364d, #19393b );
+  background-size: 400% 400%;
+  animation: moving-gradient 15s ease infinite;
+}
+
+/* Grid area declarations */
+#edit-profile-div .edit-header {
+  grid-area: edit-header;
+}
+#edit-profile-div .edit-sidebar {
+  grid-area: sidebar;
+}
+#edit-profile-div .edit-main {
+  grid-area: main;
+}
+/*---------------------------*/
+
 /* ============== Content Styling (SignIn Page) ======================= */
 .user-login-div {
   margin: 7rem .5rem 2rem .5rem;

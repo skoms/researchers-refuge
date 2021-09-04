@@ -18,6 +18,7 @@ import Forbidden from '../components/error/forbidden/Forbidden';
 import NotFound from '../components/error/notFound/NotFound';
 import UnhandledError from '../components/error/unhandledError/UnhandledError';
 import SearchResultsPage from '../components/searchResults/SearchResultsPage';
+import EditProfile from '../components/user/userProfile/editProfile/EditProfile';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route exact path='/search/:term' component={SearchResultsPage} />
             <Route exact path='/forbidden' component={Forbidden} />
             <Route exact path='/error' component={UnhandledError} />
+            <Route exact path='/edit' component={EditProfile} />
             <Route component={NotFound} />
           </Switch>
         </main>
