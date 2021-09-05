@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
-import { updateTopic } from '../../../feed/feedSlice';
+import { selectTopic, updateTopic } from '../../../feed/feedSlice';
 import TopicSelect from '../../../topicSelect/TopicSelect';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 
@@ -11,6 +11,7 @@ const EditProfile = ({ toggleEdit }) => {
   const [form, setForm] = useState('My Profile');
   const darkModeOn = useSelector(selectDarkModeOn);
   const user = useSelector(selectAuthenticatedUser);
+  const topic = useSelector(selectTopic);
 
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -58,8 +59,25 @@ const EditProfile = ({ toggleEdit }) => {
         break;
     }
   }
-  const submit = () => {
-
+  const submit = (e) => {
+    e.preventDefault();
+    const updatedData = {  };
+    if (form === 'My Profile') {
+      if (user.firstName !== firstName) updatedData.firstName = firstName;
+      if (user.lastName !== lastName) updatedData.lastName = lastName;
+      if (user.occupation !== occupation) updatedData.occupation = occupation;
+      if (user.mostActiveField !== topic) updatedData.mostActiveField = topic;
+      if (user.bio !== bio) updatedData.bio = bio;
+    } else if (form === 'My Account') {
+      if (user.emailAddress !== email && oldPassword === user.password) updatedData.emailAddress = email;
+      if (user.password !== newPassword && newPassword === confirmPassword && oldPassword === user.password) {
+        const passwordIsValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/.test(newPassword);
+        if (passwordIsValid) {
+          updatedData.password = newPassword
+        }
+      };
+    } 
+    console.log(updatedData);
   }
   const cancel = (e) => {
     e.preventDefault();
