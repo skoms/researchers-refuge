@@ -29,6 +29,7 @@ const TopicSelect = ({ use }) => {
     <div className='topic-select'>
       <select name="topic-select" id="topic-select" value={topic} onChange={changeHandler}>
         { use === 'header' && <option className='default' value='home' >Home</option> }
+        { use === 'ArticleForm' && <option className='default' value='none' >None</option> }
         { categories ?
           categories.map( category => {
             return (
@@ -43,7 +44,7 @@ const TopicSelect = ({ use }) => {
           <Fragment />
         }
       </select>  
-      { topic !== 'home' ?
+      { topic !== 'home' && use !== 'ArticleForm' ?
         <button onClick={clearTopic}>
           <img src={`https://img.icons8.com/fluency-systems-filled/20/${ darkModeOn ? 'DD3939' : '15458A' }/x.png`} alt='clear topic button' />
         </button>

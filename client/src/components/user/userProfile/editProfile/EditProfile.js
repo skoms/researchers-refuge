@@ -1,20 +1,62 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
+import { updateTopic } from '../../../feed/feedSlice';
 import TopicSelect from '../../../topicSelect/TopicSelect';
+import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 
 const EditProfile = ({ toggleEdit }) => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState('My Profile');
   const darkModeOn = useSelector(selectDarkModeOn);
-  const tempUser = {
-    title: '',
-    intro: '',
-  }
+  const user = useSelector(selectAuthenticatedUser);
+
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [occupation, setOccupation] = useState(user.occupation);
+  const [bio, setBio] = useState(user.bio);
+  const [email, setEmail] = useState(user.emailAddress);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  useEffect(() => {
+    dispatch(updateTopic(user.mostActiveField || 'none'));
+  }, [user, dispatch]);
+
   const selectForm = (e) => {
     setForm(e.target.innerHTML);
   }
-  const onChangeHandler = () => {
-
+  const onChangeHandler = (e) => {
+    switch (e.target.name) {
+      case 'firstName':
+        setFirstName(e.target.value);
+        break;
+      case 'lastName':
+        setLastName(e.target.value);
+        break;    
+      case 'occupation':
+        setOccupation(e.target.value);
+        break;
+      case 'bio':
+        setBio(e.target.value);
+        break; 
+      case 'email':
+        setEmail(e.target.value);
+        break;
+      case 'oldPass':
+        setOldPassword(e.target.value);
+        break;    
+      case 'pass':
+        setNewPassword(e.target.value);
+        break;
+      case 'confPass':
+        setConfirmPassword(e.target.value);
+        break;
+      default:
+        break;
+    }
   }
   const submit = () => {
 
@@ -42,15 +84,15 @@ const EditProfile = ({ toggleEdit }) => {
             <form className="edit-user-form" onSubmit={submit}>
               <h1 className='h1'>My Profile</h1>
               <div className='form-input firstName' id='firstName-input-div'>
-                <input id="firstName" name="firstName" type="text" value={ tempUser.firstName || '' } onChange={onChangeHandler}/>
+                <input id="firstName" name="firstName" type="text" value={ firstName } onChange={onChangeHandler}/>
                 <label htmlFor="firstName">First Name</label>
               </div>
               <div className='form-input lastName' id='lastName-input-div'>
-                <input id="lastName" name="lastName" type="text" value={ tempUser.lastName || '' } onChange={onChangeHandler}/>
+                <input id="lastName" name="lastName" type="text" value={ lastName } onChange={onChangeHandler}/>
                 <label htmlFor="lastName">Last Name</label>
               </div>
               <div className='form-input occupation' id='occupation-input-div'>
-                <input id="occupation" name="occupation" type="text" value={ tempUser.occupation || '' } onChange={onChangeHandler}/>
+                <input id="occupation" name="occupation" type="text" value={ occupation } onChange={onChangeHandler}/>
                 <label htmlFor="occupation">Occupation</label>
               </div>
               <div className="form-input mostActiveField" id='mostActiveField-input-div'>
@@ -58,7 +100,7 @@ const EditProfile = ({ toggleEdit }) => {
                 <label htmlFor="mostActiveField">Most Active Field: </label>
               </div>
               <div className='form-input bio' id='bio-input-div'>
-                <input id="bio" name="bio" type="text" value={ tempUser.bio || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
+              <textarea id="bio" name="bio"  rows='20' cols='60' value={ bio } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
                 <label htmlFor="bio">Bio</label>
                 <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Markdown Cheat Sheet</a>
               </div>
@@ -72,19 +114,19 @@ const EditProfile = ({ toggleEdit }) => {
             <form className="edit-user-form" id='edit-account' onSubmit={submit}>
               <h1 className='h1'>My Account</h1>
               <div className='form-input email' id='email-input-div'>
-                <input id="email" name="email" type="text" value={ tempUser.email || '' } onChange={onChangeHandler}/>
+                <input id="email" name="email" type="text" value={ email } onChange={onChangeHandler}/>
                 <label htmlFor="email">Email</label>
               </div>
               <div className='form-input oldPass' id='oldPass-input-div'>
-                <input id="oldPass" name="oldPass" type="text" value={ tempUser.oldPass || '' } onChange={onChangeHandler}/>
+                <input id="oldPass" name="oldPass" type="password" value={ oldPassword } onChange={onChangeHandler}/>
                 <label htmlFor="oldPass">Current Password</label>
               </div>
               <div className='form-input pass' id='pass-input-div'>
-                <input id="pass" name="pass" type="text" value={ tempUser.pass || '' } onChange={onChangeHandler}/>
+                <input id="pass" name="pass" type="password" value={ newPassword } onChange={onChangeHandler}/>
                 <label htmlFor="pass">New Password</label>
               </div>
               <div className='form-input confPass' id='confPass-input-div'>
-                <input id="confPass" name="confPass" type="text" value={ tempUser.confPass || '' } onChange={onChangeHandler}/>
+                <input id="confPass" name="confPass" type="password" value={ confirmPassword } onChange={onChangeHandler}/>
                 <label htmlFor="confPass">Confirm Password</label>
               </div>
               <div className='form-buttons'>
