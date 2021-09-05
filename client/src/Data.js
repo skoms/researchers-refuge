@@ -361,6 +361,18 @@ export default class Data {
   }
 
   /**
+   * Updates and saves an user to the API
+   * @param {integer} id - The ID of the user one wants to update
+   * @param {object} updatedData - the object with updated data
+   * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password ( for authentification )
+   * @returns status code, data on success, errors on failure
+   */
+   async updateUser(id, updatedData, user) {
+    const res = await this.api(`/users/${id}`, 'PUT', updatedData, true, user);
+    return this.responseReturnHandler(res);
+  }
+
+  /**
    * Updates and saves an article to the API
    * @param {object} article - the article object with properties: title, topic, intro, body, tags
    * @param {integer} id - The ID of the article one wants to update
