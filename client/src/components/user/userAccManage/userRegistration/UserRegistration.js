@@ -1,10 +1,11 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 import { useDispatch } from 'react-redux';
 import {
   signUp
 } from '../userAccSlice';
+import Data from '../../../../Data';
 
 //TODO - Add onChange to each field to verify input
 //TODO - Add onClick on 'cancel' button to take them back whence they came
@@ -12,18 +13,12 @@ import {
 
 const UserRegistration = () => {
   const dispatch = useDispatch();
+  const data = new Data();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
-
-  /* Name regex to also include international names written in the latin alphabet */
-  const nameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/;
-  /* A simple email regex to do the trick */
-  const emailRegex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
-  /* password: 8-20 characters, at least 1 uppercase, 1 lowercase and one digit */
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
 
   const [passwordsMatch, setPasswordsMatch] = useState();
   const [initiatedFocus, setInitiatedFocus] = useState(false);
@@ -49,29 +44,12 @@ const UserRegistration = () => {
     }
   }
 
-  const fieldIsValid = (regex, targetValue, targetQuery) => {
-    const fitsRequirements = regex.test(targetValue);
-    const { classList } = document.querySelector(targetQuery);
-    if ( fitsRequirements ) {
-      classList.contains('missmatch') && classList.remove('missmatch');
-      !classList.contains('match') && classList.add('match');
-      return true;
-    } else if (targetValue === '') {
-      classList.contains('missmatch') && classList.remove('missmatch');
-      classList.contains('match') && classList.remove('match');
-    } else {
-      !classList.contains('missmatch') && classList.add('missmatch');
-      classList.contains('match') && classList.remove('match');
-      return false;
-    }
-  }
-
   const isReadyToSubmit = () => {
     const isReady = ( 
-      fieldIsValid(nameRegex, firstName, '.first-name') &&
-      fieldIsValid(nameRegex, lastName, '.last-name') &&
-      fieldIsValid(emailRegex, emailAddress, '.email') &&
-      fieldIsValid(passwordRegex, password, '.pass') &&
+      data.validateField('name', firstName, '.first-name') &&
+      data.validateField('name', lastName, '.last-name') &&
+      data.validateField('email', emailAddress, '.email') &&
+      data.validateField('password', password, '.pass') &&
       passwordsMatch
     );
     const button = document.querySelector('#sign-up-btn');
@@ -93,19 +71,19 @@ const UserRegistration = () => {
     switch (name) {
       case 'firstName':
         setFirstName(value);
-        fieldIsValid(nameRegex, value, '.first-name');
+        data.validateField('name', value, '.first-name');
         break;
       case 'lastName':
         setLastName(value);
-        fieldIsValid(nameRegex, value, '.last-name');
+        data.validateField('name', value, '.last-name');
         break;
       case 'emailAddress':
         setEmailAddress(value);
-        fieldIsValid(emailRegex, value, '.email');
+        data.validateField('email', value, '.email');
         break;
       case 'password':
         setPassword(value);
-        fieldIsValid(passwordRegex, value, '.pass');
+        data.validateField('password', value, '.pass');
         break;
       case 'confirmPassword':
         passMatchCheck(value);
@@ -113,6 +91,7 @@ const UserRegistration = () => {
       default:
         break;
     }
+    isReadyToSubmit();
   }
 
   const cancel = (e) => {
@@ -149,11 +128,6 @@ const UserRegistration = () => {
       })
   }
 
-  useEffect(() => {
-    isReadyToSubmit();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [firstName, lastName, emailAddress, password, passwordsMatch])
-
   return (
     <div className='user-registration-div'>
       <form className='user-registration-form' onSubmit={submit}>
@@ -164,28 +138,28 @@ const UserRegistration = () => {
 
         <div className="form-input first-name">
           <label htmlFor="firstName">
-            First Name { firstName && ( fieldIsValid(nameRegex, firstName, '.first-name') ? smallCheckmark : smallCross ) }
+            First Name { firstName && ( data.validateField('name', firstName, '.first-name') ? smallCheckmark : smallCross ) }
           </label>
           <input id="firstName" name="firstName" type="text" onChange={change}/>
         </div>
 
         <div className="form-input last-name">
           <label htmlFor="lastName">
-            Last Name { lastName && ( fieldIsValid(nameRegex, lastName, '.last-name') ? smallCheckmark : smallCross ) }
+            Last Name { lastName && ( data.validateField('name', lastName, '.last-name') ? smallCheckmark : smallCross ) }
           </label>
           <input id="lastName" name="lastName" type="text" onChange={change}/>
         </div>
 
         <div className="form-input email">
           <label htmlFor="emailAddress">
-            Email { emailAddress && (fieldIsValid(emailRegex, emailAddress, '.email') ? smallCheckmark : smallCross ) }
+            Email { emailAddress && (data.validateField('email', emailAddress, '.email') ? smallCheckmark : smallCross ) }
           </label>
           <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
         </div>
 
         <div className="form-input pass">
             <label htmlFor="password">
-            Password { password && ( fieldIsValid(passwordRegex, password, '.pass') ? smallCheckmark : smallCross ) }
+            Password { password && ( data.validateField('password', password, '.pass') ? smallCheckmark : smallCross ) }
             </label>
             <input id="password" name="password" type="password" onChange={change}/>
         </div>
