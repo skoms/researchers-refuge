@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import Data from '../../../../Data';
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { selectTopic, updateTopic } from '../../../feed/feedSlice';
 import TopicSelect from '../../../topicSelect/TopicSelect';
@@ -7,6 +8,7 @@ import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 
 const EditProfile = ({ toggleEdit }) => {
   const dispatch = useDispatch();
+  const data = new Data();
 
   const [form, setForm] = useState('My Profile');
   const darkModeOn = useSelector(selectDarkModeOn);
@@ -33,24 +35,29 @@ const EditProfile = ({ toggleEdit }) => {
     switch (e.target.name) {
       case 'firstName':
         setFirstName(e.target.value);
+        data.validateField('name', e.target.value, '#firstName-input-div')
         break;
       case 'lastName':
         setLastName(e.target.value);
+        data.validateField('name', e.target.value, '#lastName-input-div')
         break;    
       case 'occupation':
         setOccupation(e.target.value);
+        data.validateField('name', e.target.value, '#occupation-input-div')
         break;
       case 'bio':
         setBio(e.target.value);
         break; 
       case 'email':
         setEmail(e.target.value);
+        data.validateField('name', e.target.value, '#email-input-div')
         break;
       case 'oldPass':
         setOldPassword(e.target.value);
         break;    
       case 'pass':
         setNewPassword(e.target.value);
+        data.validateField('name', e.target.value, '#pass-input-div')
         break;
       case 'confPass':
         setConfirmPassword(e.target.value);
@@ -63,18 +70,29 @@ const EditProfile = ({ toggleEdit }) => {
     e.preventDefault();
     const updatedData = {  };
     if (form === 'My Profile') {
-      if (user.firstName !== firstName) updatedData.firstName = firstName;
-      if (user.lastName !== lastName) updatedData.lastName = lastName;
-      if (user.occupation !== occupation) updatedData.occupation = occupation;
+      if (user.firstName !== firstName && 
+          data.validateField('name', firstName, '#firstName-input-div')) updatedData.firstName = firstName;
+
+      if (user.lastName !== lastName && 
+          data.validateField('name', lastName, '#lastName-input-div')) updatedData.lastName = lastName;
+
+      if (user.occupation !== occupation && 
+          data.validateField('occupation', occupation, '#occupation-input-div')) updatedData.occupation = occupation;
+
       if (user.mostActiveField !== topic) updatedData.mostActiveField = topic;
+
       if (user.bio !== bio) updatedData.bio = bio;
+
     } else if (form === 'My Account') {
-      if (user.emailAddress !== email && oldPassword === user.password) updatedData.emailAddress = email;
-      if (user.password !== newPassword && newPassword === confirmPassword && oldPassword === user.password) {
-        const passwordIsValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/.test(newPassword);
-        if (passwordIsValid) {
-          updatedData.password = newPassword
-        }
+      if (user.emailAddress !== email && 
+          oldPassword === user.password && 
+          data.validateField('email', email, '#email-input-div')) updatedData.emailAddress = email;
+
+      if (user.password !== newPassword && 
+          newPassword === confirmPassword && 
+          oldPassword === user.password && 
+          data.validateField('password', newPassword, '#pass-input-div')) {
+          updatedData.password = newPassword;
       };
     } 
     console.log(updatedData);

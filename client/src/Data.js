@@ -71,6 +71,36 @@ export default class Data {
     return `${match[3]}-${match[2]}-${match[1]}`;
   }
 
+  validateField = (type, data, targetQuery = null) => {
+    let regex;
+    if (type === 'name' || type === 'occupation') {
+      regex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/;
+    } else if (type === 'email') {
+      regex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
+    } else if (type === 'password') {
+      regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
+    }
+
+    const isValid = regex.test(data);
+    if (targetQuery === null) {
+      return isValid;
+    } else {
+      const { classList } = document.querySelector(targetQuery);
+      if ( isValid ) {
+        classList.contains('missmatch') && classList.remove('missmatch');
+        !classList.contains('match') && classList.add('match');
+        return true;
+      } else if (data === '') {
+        classList.contains('missmatch') && classList.remove('missmatch');
+        classList.contains('match') && classList.remove('match');
+      } else {
+        !classList.contains('missmatch') && classList.add('missmatch');
+        classList.contains('match') && classList.remove('match');
+        return false;
+      }
+    }
+  }
+
   /**
    * Handles the validation of the response return
    * @param {object} res - the response object from the fetch
