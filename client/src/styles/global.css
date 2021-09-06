@@ -1998,6 +1998,10 @@ button:hover {
 }
 /*---------------------------*/
 
+/* Image Uploader */
+.image-uploader-div {
+  margin-top: 5rem;
+}
 
 /* ============== Content Styling (SignIn Page) ======================= */
 .user-login-div {

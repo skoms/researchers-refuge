@@ -7,7 +7,7 @@ const articlesRoute = require('./articles');
 const topicsRoute = require('./topics');
 const categoriesRoute = require('./categories');
 
-// Separate the routes into seperate files for better modularity and readability
+// Separate the routes into separate files for better modularity and readability
 router.use('/users', usersRoute);
 router.use('/articles', articlesRoute);
 router.use('/topics', topicsRoute);
