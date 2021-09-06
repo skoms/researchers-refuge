@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
+import Data from '../../../../Data';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 import EditProfile from '../editProfile/EditProfile';
@@ -14,6 +15,7 @@ const MyProfileFeed = () => {
   const history = useHistory();
   const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
+  const data = new Data();
   
   const [owner, setOwner] = useState(authenticatedUser);
 
@@ -53,7 +55,7 @@ const MyProfileFeed = () => {
             <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
             <img 
               src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
-              alt="profilepic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
+              alt="profile pic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
             />
             <button className='button-primary' onClick={toggleEdit}>Edit Profile</button>
               
@@ -61,19 +63,19 @@ const MyProfileFeed = () => {
           <div className="name-occupation-and-bio">
             <span className="full-name">
               <h2 className="full-name">
-                { `${owner.firstName} ${owner.lastName}` }
+                { `${data.capitalize(owner.firstName)} ${data.capitalize(owner.lastName)}` }
               </h2>
               {owner.accessLevel === 'admin' ? 
                 <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
             </span>
             
-            <p className="occupation">{ owner.occupation || '' }</p>
+            <p className="occupation">{ data.capitalize(owner.occupation) || '' }</p>
             <p className="bio">{ owner.bio || '' }</p>
           </div>
           <div className="stats">
             <div className="stat">
               <p className="title">Most active field:</p>
-              <p className="data">{ owner.mostActiveField || 'None' }</p>
+              <p className="data">{ data.capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
             <div className="stat most-active-field">
               <p className="title">Articles:</p>

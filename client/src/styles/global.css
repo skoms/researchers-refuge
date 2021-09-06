@@ -1875,20 +1875,9 @@ button:hover {
   margin: .4rem 0 .2rem 0;
 }
 
-.edit-user-form .invalid label {
-  font-weight: 900;
-  color: #ff2323;
-}
-
 .darkmode .edit-user-form .form-input label {
   background: none;
   color: #38B6FF;
-}
-
-.darkmode .edit-user-form .invalid label {
-  background: none;
-  font-weight: 900;
-  color: #ff3838;
 }
 
 .edit-user-form .form-input input, 
@@ -1898,16 +1887,6 @@ button:hover {
   border-radius: .25rem;
   background: #e8f7ff7e;
   box-shadow: 0 2px 8px -3px #1a3861;
-  height: 2rem;
-}
-
-.edit-user-form .invalid input, 
-.edit-user-form .invalid textarea,
-.edit-user-form .invalid select  {
-  border: none;
-  border-radius: .25rem;
-  background: #d35b5b96;
-  box-shadow: 0 2px 8px 1px #bb0000;
   height: 2rem;
 }
 
@@ -1921,13 +1900,6 @@ button:hover {
 .darkmode .edit-user-form .form-input select  {
   background: #161b2293;
   box-shadow: 0 2px 8px -3px #38B6FF;
-}
-
-.darkmode .edit-user-form .invalid input, 
-.darkmode .edit-user-form .invalid textarea,
-.darkmode .edit-user-form .invalid select  {
-  background: #380e1093;
-  box-shadow: 0 2px 8px -3px #dd3939;
 }
 
  .edit-user-form .form-input input:focus, .edit-user-form .form-input textarea:focus {
@@ -1949,11 +1921,33 @@ button:hover {
   min-height: 2rem;
 }
 
+.edit-user-form .mismatch input,
+.darkmode .edit-user-form .mismatch input {
+  background: rgba(240, 128, 128, 0.644);
+}
+
+.edit-user-form .mismatch label,
+.darkmode .edit-user-form .mismatch label {
+  color: rgb(212, 31, 31);
+  font-weight: 900;
+}
+
+.edit-user-form .match input,
+.darkmode .edit-user-form .match input {
+  background:rgba(80, 236, 148, 0.658);
+}
+
+.edit-user-form .match label,
+.darkmode .edit-user-form .match label {
+  color: rgb(31, 173, 13);
+  font-weight: 900;
+}
+
 #edit-account {
   grid-template-areas: 
     '. h1 h1 h1 h1 .'
-    '. email email email email .'
     '. oldPass oldPass oldPass oldPass .'
+    '. email email email email .'
     '. pass pass confPass confPass .'
     '. btn btn btn btn .';
 }
@@ -1979,7 +1973,29 @@ button:hover {
 }
 /*---------------------------*/
 
+#edit-account .oldPass span {
+  font-size: .9rem;
+  color: #38B6FF;
+  opacity: .5;
+}
 
+#edit-account .mismatch input {
+  background: rgba(240, 128, 128, 0.644);
+}
+
+#edit-account .mismatch label {
+  color: rgb(212, 31, 31);
+  font-weight: 900;
+}
+
+#edit-account .match input {
+  background:rgba(80, 236, 148, 0.658);
+}
+
+#edit-account .match label {
+  color: rgb(31, 173, 13);
+  font-weight: 900;
+}
 /*---------------------------*/
 
 
@@ -2263,11 +2279,11 @@ button:hover {
   width: 100%;
 }
 
-.user-registration-div .missmatch input {
+.user-registration-div .mismatch input {
   background: rgba(240, 128, 128, 0.644);
 }
 
-.user-registration-div .missmatch label {
+.user-registration-div .mismatch label {
   color: rgb(212, 31, 31);
   font-weight: 900;
 }

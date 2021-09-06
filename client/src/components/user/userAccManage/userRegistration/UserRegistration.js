@@ -35,11 +35,11 @@ const UserRegistration = () => {
     const { classList } =  document.querySelector('.confirm-pass');
     if ( password === value ) {
       setPasswordsMatch(true);
-      classList.contains('missmatch') && classList.remove('missmatch');
+      classList.contains('mismatch') && classList.remove('mismatch');
       !classList.contains('match') && classList.add('match');
     } else {
       setPasswordsMatch(false);
-      !classList.contains('missmatch') && classList.add('missmatch');
+      !classList.contains('mismatch') && classList.add('mismatch');
       classList.contains('match') && classList.remove('match');
     }
   }

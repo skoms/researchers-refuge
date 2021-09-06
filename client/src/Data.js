@@ -87,14 +87,14 @@ export default class Data {
     } else {
       const { classList } = document.querySelector(targetQuery);
       if ( isValid ) {
-        classList.contains('missmatch') && classList.remove('missmatch');
+        classList.contains('mismatch') && classList.remove('mismatch');
         !classList.contains('match') && classList.add('match');
         return true;
       } else if (data === '') {
-        classList.contains('missmatch') && classList.remove('missmatch');
+        classList.contains('mismatch') && classList.remove('mismatch');
         classList.contains('match') && classList.remove('match');
       } else {
-        !classList.contains('missmatch') && classList.add('missmatch');
+        !classList.contains('mismatch') && classList.add('mismatch');
         classList.contains('match') && classList.remove('match');
         return false;
       }
