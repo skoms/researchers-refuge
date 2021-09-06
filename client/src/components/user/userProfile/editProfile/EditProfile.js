@@ -17,7 +17,7 @@ const EditProfile = ({ toggleEdit }) => {
   const darkModeOn = useSelector(selectDarkModeOn);
   const user = useSelector(selectAuthenticatedUser);
   const topic = useSelector(selectTopic);
-
+  
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [occupation, setOccupation] = useState(user.occupation);

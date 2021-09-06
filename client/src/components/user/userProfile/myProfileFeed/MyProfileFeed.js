@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
@@ -70,7 +71,7 @@ const MyProfileFeed = () => {
             </span>
             
             <p className="occupation">{ data.capitalize(owner.occupation) || '' }</p>
-            <p className="bio">{ owner.bio || '' }</p>
+            <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
           <div className="stats">
             <div className="stat">

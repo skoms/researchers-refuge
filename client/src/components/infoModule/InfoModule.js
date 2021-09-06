@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown';
 
 const InfoModule = props => {
   const {
@@ -27,7 +28,7 @@ const InfoModule = props => {
           <img src="https://img.icons8.com/ios-glyphs/16/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
       </span>
       <p className='occupation'>{occupation}</p>
-      <p className="bio">{bio}</p>
+      <ReactMarkdown className="bio">{bio}</ReactMarkdown>
       <table>
         <tbody>
           <tr>

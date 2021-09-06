@@ -16,6 +16,7 @@ import {
   selectIsFollowedByMe,
   selectOwner
 } from '../userFeedSlice';
+import ReactMarkdown from 'react-markdown';
 
 const UserProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -99,7 +100,7 @@ const UserProfileFeed = props => {
                 <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
             </span>
             <p className="occupation">{ owner.occupation || '' }</p>
-            <p className="bio">{ owner.bio || '' }</p>
+            <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
           <div className="stats">
             <div className="stat">
