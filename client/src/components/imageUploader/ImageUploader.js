@@ -5,10 +5,12 @@ import Data from '../../Data';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 import { updateAccount } from '../user/userAccManage/userAccSlice';
 
+
 const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader }) => {
   const CLOUDINARY_UPLOAD_PRESET = 'x0qt5efx';
   const CLOUDINARY_CLOUD_NAME = 'skoms-cloud';
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/skoms-cloud/image/upload';
+  const CLOUDINARY_DELETE_URL = 'https://api.cloudinary.com/v1_1/skoms-cloud/image/destroy';
 
   const user = useSelector(selectAuthenticatedUser);
   const history = useHistory();
@@ -36,6 +38,15 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
       const updatedData = {
         [`${purpose}ImgURL`]: response
       }
+      const formData = new FormData();
+      let imageId = user[purpose === 'header' ? 'headerImgURL' : 'profileImgURL'].match(/.*\/(.*)\.jpe?g|png$/gi)[0];
+      formData.append('public_id', imageId);
+
+      const deleteRes = await fetch(CLOUDINARY_DELETE_URL, { method:"delete", body: formData })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+
       await data.updateUser(user.id, updatedData, user)
         .then(res => {
           if (res.status === 204) {
