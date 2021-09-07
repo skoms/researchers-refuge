@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import Data from '../../../../Data';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
+import ImageUploader from '../../../imageUploader/ImageUploader';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 import EditProfile from '../editProfile/EditProfile';
 import { getUserArticles } from '../userFeedSlice';
@@ -36,7 +37,7 @@ const MyProfileFeed = () => {
   }, [didLoad, owner, dispatch, history, authenticatedUser, location.pathname])
 
   const toggleEdit = () => {
-    const editProfilePopup = document.querySelector('.invisibility-container');
+    const editProfilePopup = document.querySelector('.invisibility-container-edit');
     if ( editProfilePopup.classList.contains('invisible') ) {
       editProfilePopup.classList.remove('invisible');
     } else {
@@ -44,19 +45,44 @@ const MyProfileFeed = () => {
     }
   }
 
+  const toggleHeaderUploader = () => {
+    const headerImgPopup = document.querySelector('.invisibility-container-header');
+    if ( headerImgPopup.classList.contains('invisible') ) {
+      headerImgPopup.classList.remove('invisible');
+    } else {
+      headerImgPopup.classList.add('invisible');
+    }
+  }
+
+  const toggleProfileUploader = () => {
+    const profilePicPopup = document.querySelector('.invisibility-container-profile');
+    if ( profilePicPopup.classList.contains('invisible') ) {
+      profilePicPopup.classList.remove('invisible');
+    } else {
+      profilePicPopup.classList.add('invisible');
+    }
+  }
+
   return owner !== null ? (
       <div className="user-profile-div">
 
-        <div className="invisibility-container invisible">
+        <div className="invisibility-container-edit invisible">
           <EditProfile toggleEdit={toggleEdit} />
+        </div>
+        <div className="invisibility-container-header invisible">
+          <ImageUploader toggleHeaderUploader={toggleHeaderUploader} purpose='header' />
+        </div>
+        <div className="invisibility-container-profile invisible">
+          <ImageUploader toggleProfileUploader={toggleProfileUploader} purpose='profile' />
         </div>
 
         <div className="user-profile-info-header">
           <div className="header-img-div">
-            <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
+            <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img" onClick={toggleHeaderUploader} />
             <img 
               src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
               alt="profile pic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
+              onClick={toggleProfileUploader}
             />
             <button className='button-primary' onClick={toggleEdit}>Edit Profile</button>
               

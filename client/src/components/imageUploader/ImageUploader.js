@@ -5,7 +5,7 @@ import Data from '../../Data';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 import { updateAccount } from '../user/userAccManage/userAccSlice';
 
-const ImageUploader = ({ purpose }) => {
+const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader }) => {
   const CLOUDINARY_UPLOAD_PRESET = 'x0qt5efx';
   const CLOUDINARY_CLOUD_NAME = 'skoms-cloud';
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/skoms-cloud/image/upload';
@@ -48,12 +48,17 @@ const ImageUploader = ({ purpose }) => {
         .catch((err) => {
           history.push('/error');
         });
+      purpose === 'header' && toggleHeaderUploader();
+      purpose === 'profile' && toggleProfileUploader();
     }
   }
   return (
-    <div className='image-uploader-div'>
+    <div className="upload-popup" onClick={ purpose === 'header' ? toggleHeaderUploader : toggleProfileUploader }>
+      <div className='image-uploader-div'>
+        <h2>{ purpose === 'header' ? 'Header Image' : 'Profile Image' }</h2>
         <input type="file" name="file-input" id="file-input" multiple={false} onChange={onImageSelected}/>
         <button className='button-primary' onClick={uploadImage}>Upload</button>
+      </div>
     </div>
   )
 }

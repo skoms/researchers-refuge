@@ -1678,8 +1678,7 @@ button:hover {
   margin: -1rem;
   justify-content: center;
   align-items: center;
-  width: calc(100vw - 19rem);
-  max-width: 74rem;
+  width: 100vw;
   height: 100vh;
   backdrop-filter: blur(5px);
   z-index: 2;
@@ -1999,6 +1998,18 @@ button:hover {
 /*---------------------------*/
 
 /* Image Uploader */
+.upload-popup {
+  position: fixed;
+  display: flex;
+  margin: -1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
 .image-uploader-div {
   position: fixed;
   top: calc(50vh - 4rem);
@@ -2011,8 +2022,12 @@ button:hover {
   width: fit-content;
   padding: 3rem 2.5rem 3rem 3rem;
   border-radius: .75rem;
+  text-align: center;
 }
 
+.image-uploader-div h2 {
+  font-weight: 500;
+}
 
 .darkmode .image-uploader-div {
   background: #27303D;
