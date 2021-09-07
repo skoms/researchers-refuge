@@ -2000,8 +2000,75 @@ button:hover {
 
 /* Image Uploader */
 .image-uploader-div {
-  margin-top: 5rem;
+  position: fixed;
+  top: calc(50vh - 4rem);
+  left: calc(50vw - 5rem);
+  display: flex;
+  background: #38B6FF;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: fit-content;
+  padding: 3rem 2.5rem 3rem 3rem;
+  border-radius: .75rem;
 }
+
+
+.darkmode .image-uploader-div {
+  background: #27303D;
+}
+
+.image-uploader-div input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.image-uploader-div input {
+  max-width: 9.5rem;
+}
+
+.image-uploader-div input::before {
+  color: #c9c9c9;
+  content: 'Select an image';
+  display: inline-block;
+  border: 1px solid #E8F7FF;
+  border-radius: .75rem;
+  padding: .25rem .5rem;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.darkmode .image-uploader-div input::before {
+  color: #257aac;
+  border: 1px solid #38B6FF;
+}
+
+.image-uploader-div input:hover::before {
+  border-color: #bdbdbd;
+  color: #E8F7FF;
+}
+
+.darkmode .image-uploader-div input:hover::before {
+  border-color: #1a3861;
+  color: #38B6FF;
+}
+
+.image-uploader-div input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.image-uploader-div .button-primary {
+  background: linear-gradient( -75deg, #64B5F7, #9cd8fa);
+  margin-top: .5rem;
+  height: 1.6rem;
+  width: 8.68rem;
+  font-size: 1.1rem;
+}
+
 
 /* ============== Content Styling (SignIn Page) ======================= */
 .user-login-div {

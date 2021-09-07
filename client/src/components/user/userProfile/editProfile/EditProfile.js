@@ -126,7 +126,7 @@ const EditProfile = ({ toggleEdit }) => {
       .catch((err) => {
         Cookies.set('error', err);
         history.push('/error');
-      });;
+      });
     dispatch(updateTopic('home'));
   }
   const cancel = (e) => {
