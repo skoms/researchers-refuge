@@ -42,7 +42,7 @@ const ResultRecUser = ({ user }) => {
 
   return (
     <div key={user.id} className="rec-user">
-      <a href={`/users/${user.id}`} className="profile-pic" ><img src={user.imgURL} alt="profilepic" /></a>
+      <a href={`/users/${user.id}`} className="profile-pic" ><img src={user.profileImgURL} alt="profile-pic" /></a>
       <a href={`/users/${user.id}`} className="full-name"><p>{`${user.firstName} ${user.lastName}`}</p></a>
       <p className="occupation">{user.occupation}</p>
       <div className="buttons">

@@ -12,15 +12,15 @@ const InfoModule = props => {
     credits,
     followers,
     following,
-    imgURL,
+    profileImgURL,
     accessLevel
   } = props.user;
 
   return (
     <div className='info-mod'>
       <img alt='your profile'
-        src={ imgURL || "https://img.icons8.com/ios-glyphs/75/ffffff/user--v1.png" }
-        className={ imgURL ? '' : 'placeholder' } 
+        src={ profileImgURL || "https://img.icons8.com/ios-glyphs/75/ffffff/user--v1.png" }
+        className={ profileImgURL ? '' : 'placeholder' } 
       />
       <span className="full-name">
         <p className='full-name'>{ `${firstName} ${lastName}` }</p>

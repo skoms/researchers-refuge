@@ -82,10 +82,10 @@ const UserProfileFeed = props => {
       <div className="user-profile-div">
         <div className="user-profile-info-header">
           <div className="header-img-div">
-            <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img"/>
+            <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" } alt="header"  className="header-img"/>
             <img 
-              src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
-              alt="profilepic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
+              src={ owner.profileImgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
+              alt="profile-pic" className={`profile-pic ${owner.profileImgURL ? "" : "placeholder"}`} 
             />
             <button className='button-primary' onClick={followUnfollow} >
               { isFollowedByMe ? 'Unfollow' : 'Follow' }
@@ -147,7 +147,7 @@ const UserProfileFeed = props => {
               <select name="topic-select" id="topic-select">
                 <option className='default' value="">Select a topic</option>
                 <option value="Astrology">Astrology</option>
-                <option value="Techology">Techology</option>
+                <option value="Technology">Technology</option>
                 <option value="Psychology">Psychology</option>
                 <option value="Archeology">Archeology</option>
                 <option value="Physics">Physics</option>

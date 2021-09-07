@@ -47,8 +47,8 @@ const Header = () => {
           <a href='/'><button className='signout-btn' onClick={LogOut}>Sign Out</button></a>
           <a href="/my-profile">My Profile</a>
           <img alt='your profile'
-            src={ authenticatedUser.imgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
-            className={ authenticatedUser.imgURL ? '' : 'placeholder' } 
+            src={ authenticatedUser.profileImgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
+            className={ authenticatedUser.profileImgURL ? '' : 'placeholder' } 
           />
         </div>
       :

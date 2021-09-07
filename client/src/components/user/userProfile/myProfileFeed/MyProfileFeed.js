@@ -78,10 +78,10 @@ const MyProfileFeed = () => {
 
         <div className="user-profile-info-header">
           <div className="header-img-div">
-            <img src="https://placeimg.com/1000/150/tech" alt="header"  className="header-img" onClick={toggleHeaderUploader} />
+            <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" }  alt="header"  className="header-img" onClick={toggleHeaderUploader} />
             <img 
-              src={ owner.imgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
-              alt="profile pic" className={`profile-pic ${owner.imgURL ? "" : "placeholder"}`} 
+              src={ owner.profileImgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
+              alt="profile pic" className={`profile-pic ${owner.profileImgURL ? "" : "placeholder"}`} 
               onClick={toggleProfileUploader}
             />
             <button className='button-primary' onClick={toggleEdit}>Edit Profile</button>
@@ -144,7 +144,7 @@ const MyProfileFeed = () => {
               <select name="topic-select" id="topic-select">
                 <option className='default' value="">Select a topic</option>
                 <option value="Astrology">Astrology</option>
-                <option value="Techology">Techology</option>
+                <option value="Technology">Technology</option>
                 <option value="Psychology">Psychology</option>
                 <option value="Archeology">Archeology</option>
                 <option value="Physics">Physics</option>

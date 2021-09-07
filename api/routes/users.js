@@ -60,7 +60,7 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
 
   const topicNames = topics.map( topic => topic.name );
   const users = await User.findAll({
-    attributes: ['id', 'firstName', 'lastName', 'followers', 'occupation', 'imgURL'],
+    attributes: ['id', 'firstName', 'lastName', 'followers', 'occupation', 'profileImgURL', 'headerImgURL'],
     where: {
       [Op.and]:[
         { [Op.or]: [
