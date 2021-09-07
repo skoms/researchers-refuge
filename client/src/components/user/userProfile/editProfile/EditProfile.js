@@ -135,11 +135,11 @@ const EditProfile = ({ toggleEdit }) => {
     toggleEdit();
   }
   return (
-    <div className="edit-popup">
+    <div className="edit-popup" onClick={(e) => toggleEdit(e)}>
       <div id='edit-profile-div'>
         <div className="edit-header"> 
           <h2>Edit Profile</h2>
-          <button className='exit-button' onClick={() => {
+          <button className='exit-button' onClick={(e) => {
             dispatch(updateTopic('home'));
             toggleEdit()
           }}>
@@ -203,7 +203,7 @@ const EditProfile = ({ toggleEdit }) => {
               </div>
               <div className='form-buttons'>
                 <button className="button-primary" type="submit">Update</button>
-                <button className="button-secondary" onClick={cancel}>Cancel</button>
+                <button className="button-secondary cancel" onClick={cancel}>Cancel</button>
               </div>
             </form>
           }

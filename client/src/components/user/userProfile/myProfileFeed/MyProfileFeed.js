@@ -36,30 +36,40 @@ const MyProfileFeed = () => {
     }
   }, [didLoad, owner, dispatch, history, authenticatedUser, location.pathname])
 
-  const toggleEdit = () => {
-    const editProfilePopup = document.querySelector('.invisibility-container-edit');
-    if ( editProfilePopup.classList.contains('invisible') ) {
-      editProfilePopup.classList.remove('invisible');
-    } else {
-      editProfilePopup.classList.add('invisible');
+  const toggleEdit = (e = null) => {
+    if ((e !== null && e.target.className === 'edit-popup') || e === null) {
+      const editProfilePopup = document.querySelector('.invisibility-container-edit');
+      if ( editProfilePopup.classList.contains('invisible') ) {
+        editProfilePopup.classList.remove('invisible');
+      } else {
+        editProfilePopup.classList.add('invisible');
+      }
     }
   }
 
-  const toggleHeaderUploader = () => {
-    const headerImgPopup = document.querySelector('.invisibility-container-header');
-    if ( headerImgPopup.classList.contains('invisible') ) {
-      headerImgPopup.classList.remove('invisible');
-    } else {
-      headerImgPopup.classList.add('invisible');
+  const toggleHeaderUploader = (e = null) => {
+    if ((e !== null 
+      && (e.target.className === 'upload-popup' || e.target.className === 'header-img'))
+      || e === null) {
+      const headerImgPopup = document.querySelector('.invisibility-container-header');
+      if ( headerImgPopup.classList.contains('invisible') ) {
+        headerImgPopup.classList.remove('invisible');
+      } else {
+        headerImgPopup.classList.add('invisible');
+      }
     }
   }
 
-  const toggleProfileUploader = () => {
-    const profilePicPopup = document.querySelector('.invisibility-container-profile');
-    if ( profilePicPopup.classList.contains('invisible') ) {
-      profilePicPopup.classList.remove('invisible');
-    } else {
-      profilePicPopup.classList.add('invisible');
+  const toggleProfileUploader = (e = null) => {
+    if ((e !== null 
+      && (e.target.className === 'upload-popup' || e.target.classList.contains('profile-pic')))
+      || e === null) {
+      const profilePicPopup = document.querySelector('.invisibility-container-profile');
+      if ( profilePicPopup.classList.contains('invisible') ) {
+        profilePicPopup.classList.remove('invisible');
+      } else {
+        profilePicPopup.classList.add('invisible');
+      } 
     }
   }
 
@@ -84,7 +94,7 @@ const MyProfileFeed = () => {
               alt="profile pic" className={`profile-pic ${owner.profileImgURL ? "" : "placeholder"}`} 
               onClick={toggleProfileUploader}
             />
-            <button className='button-primary' onClick={toggleEdit}>Edit Profile</button>
+            <button className='button-primary' onClick={() => toggleEdit()}>Edit Profile</button>
               
           </div>
           <div className="name-occupation-and-bio">

@@ -32,7 +32,6 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
       .then(data => data.url)
       .catch(err => console.log(err))
 
-    console.log(response);
     if (response) {
       const updatedData = {
         [`${purpose}ImgURL`]: response
@@ -41,15 +40,16 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
         .then(res => {
           if (res.status === 204) {
             dispatch(updateAccount({ ...user, ...updatedData }));
+            purpose === 'header' && toggleHeaderUploader();
+            purpose === 'profile' && toggleProfileUploader();
           } else {
             history.push('/forbidden');
           }
         })
         .catch((err) => {
+          console.log(err);
           history.push('/error');
         });
-      purpose === 'header' && toggleHeaderUploader();
-      purpose === 'profile' && toggleProfileUploader();
     }
   }
   return (
