@@ -39,9 +39,9 @@ class Database {
     return this.context
       .execute(`
         INSERT INTO Users
-          (firstName, lastName, emailAddress, password, occupation, bio, mostActiveField, articles, credits, followers, following, imgURL, accessLevel, accreditedArticles, discreditedArticles, createdAt, updatedAt)
+          (firstName, lastName, emailAddress, password, occupation, bio, mostActiveField, articles, credits, followers, following, profileImgURL, headerImgURL, accessLevel, accreditedArticles, discreditedArticles, createdAt, updatedAt)
         VALUES
-          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
+          (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'));
       `,
       user.firstName,
       user.lastName,
@@ -54,7 +54,8 @@ class Database {
       user.credits,
       user.followers,
       user.following,
-      user.imgURL,
+      user.profileImgURL,
+      user.headerImgURL,
       user.accessLevel,
       user.accreditedArticles,
       user.discreditedArticles);
@@ -174,7 +175,8 @@ class Database {
         credits INTEGER DEFAULT 0, 
         followers ARRAY DEFAULT [], 
         following ARRAY DEFAULT [],
-        imgURL VARCHAR(255) DEFAULT 'https://img.icons8.com/ios-glyphs/120/000000/test-account.png', 
+        profileImgURL VARCHAR(255) DEFAULT 'https://img.icons8.com/ios-glyphs/120/000000/test-account.png', 
+        headerImgURL VARCHAR(255) DEFAULT 'https://placeimg.com/1000/150/tech', 
         accessLevel VARCHAR(255) DEFAULT 'none',
         accreditedArticles ARRAY DEFAULT [],
         discreditedArticles ARRAY DEFAULT [],

@@ -12,7 +12,8 @@
       "credits": 9001,
       "followers": [2,3,4,5,6],
       "following": [2,3,4,5,6],
-      "imgURL": "https://img.icons8.com/ios-filled/120/38B6FF/microsoft-admin.png",
+      "profileImgURL": "https://img.icons8.com/ios-filled/120/38B6FF/microsoft-admin.png",
+      "headerImgURL": "https://placeimg.com/1000/150/tech",
       "accessLevel": "admin",
       "accreditedArticles": [],
       "discreditedArticles": []
@@ -29,7 +30,8 @@
       "credits": 1337,
       "followers": [1,3,4,5,6],
       "following": [1,3,4,5,6],
-      "imgURL": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffwcdn.pl%2Ffph%2F65%2F49%2F686549%2F535533_1.2.jpg&f=1&nofb=1",
+      "profileImgURL": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffwcdn.pl%2Ffph%2F65%2F49%2F686549%2F535533_1.2.jpg&f=1&nofb=1",
+      "headerImgURL": "https://placeimg.com/1000/150/tech",
       "accessLevel": "none",
       "accreditedArticles": [],
       "discreditedArticles": []
@@ -46,7 +48,8 @@
       "credits": 0,
       "followers": [1,2,4,5,6],
       "following": [1,2,4,5,6],
-      "imgURL": "https://randomuser.me/api/portraits/men/75.jpg",
+      "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg",
+      "headerImgURL": "https://placeimg.com/1000/150/tech",
       "accessLevel": "none",
       "accreditedArticles": [],
       "discreditedArticles": []
@@ -63,7 +66,8 @@
       "credits": 99,
       "followers": [1,2,3,5,6],
       "following": [1,2,3,5,6],
-      "imgURL": "https://randomuser.me/api/portraits/men/78.jpg",
+      "profileImgURL": "https://randomuser.me/api/portraits/men/78.jpg",
+      "headerImgURL": "https://placeimg.com/1000/150/tech",
       "accessLevel": "none",
       "accreditedArticles": [],
       "discreditedArticles": []
@@ -80,7 +84,8 @@
       "credits": 1337,
       "followers": [1,2,3,4,6],
       "following": [1,2,3,4,6],
-      "imgURL": "https://randomuser.me/api/portraits/women/79.jpg",
+      "profileImgURL": "https://randomuser.me/api/portraits/women/79.jpg",
+      "headerImgURL": "https://placeimg.com/1000/150/tech",
       "accessLevel": "none",
       "accreditedArticles": [],
       "discreditedArticles": []
@@ -97,7 +102,8 @@
       "credits": 1337,
       "followers": [1,2,3,4,5],
       "following": [1,2,3,4,5],
-      "imgURL": "https://randomuser.me/api/portraits/women/84.jpg",
+      "profileImgURL": "https://randomuser.me/api/portraits/women/84.jpg",
+      "headerImgURL": "https://placeimg.com/1000/150/tech",
       "accessLevel": "none",
       "accreditedArticles": [],
       "discreditedArticles": []

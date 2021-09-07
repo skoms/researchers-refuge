@@ -102,7 +102,10 @@ module.exports = (sequelize) => {
     following: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
     },
-    imgURL: {
+    profileImgURL: {
+      type: DataTypes.STRING,
+    },
+    headerImgURL: {
       type: DataTypes.STRING,
     },
     accessLevel: {
