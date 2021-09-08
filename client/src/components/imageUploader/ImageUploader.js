@@ -22,24 +22,19 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
   const uploadImage = async () => {
     const formData = new FormData();
 
-    const eager = (
-      purpose === 'header' ? 
-        'c_scale,w_900|h_200,w_900,c_crop,g_south' : 
-        'c_scale,w_120|h_120,w_120,c_crop,g_south'
-    );
+    const upload_preset = purpose === 'header' ? 'header' : 'profile';
     const publicId = `${user.id}_${purpose === 'header' ? 'header' : 'profile'}`;
     const timestamp = Math.floor(Date.now() / 1000);
 
     formData.append('file', image)
     formData.append('api_key', dictionary.API_KEY)
     formData.append('cloud_name', dictionary.CLOUD_NAME)
-    formData.append('eager', eager)
     formData.append('public_id', publicId)
     formData.append('timestamp', timestamp)
-    formData.append('upload_preset', dictionary.UPLOAD_PRESET)
+    formData.append('upload_preset', upload_preset)
 
     const shaSignature = crypto.createHash('sha1');
-    shaSignature.update(`eager=${eager}&public_id=${publicId}&timestamp=${timestamp}&upload_preset=${dictionary.UPLOAD_PRESET}${dictionary.SECRET}`);
+    shaSignature.update(`public_id=${publicId}&timestamp=${timestamp}&upload_preset=${upload_preset}${dictionary.SECRET}`);
 
     formData.append('signature', shaSignature.digest('hex'))
 
