@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown';
+import Data from '../../Data';
 
 const InfoModule = props => {
+  const data = new Data();
   const {
     firstName,
     lastName,
@@ -23,17 +25,17 @@ const InfoModule = props => {
         className={ profileImgURL ? '' : 'placeholder' } 
       />
       <span className="full-name">
-        <p className='full-name'>{ `${firstName} ${lastName}` }</p>
+        <p className='full-name'>{ `${data.capitalize(firstName)} ${data.capitalize(lastName)}` }</p>
         {accessLevel === 'admin' ? 
           <img src="https://img.icons8.com/ios-glyphs/16/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
       </span>
-      <p className='occupation'>{occupation}</p>
+      <p className='occupation'>{data.capitalize(occupation)}</p>
       <ReactMarkdown className="bio">{bio}</ReactMarkdown>
       <table>
         <tbody>
           <tr>
             <th>Active in:</th>
-            <td>{ mostActiveField || '' }</td>
+            <td>{ data.capitalize(mostActiveField) || '' }</td>
           </tr>
           <tr>
             <th>Articles:</th>
