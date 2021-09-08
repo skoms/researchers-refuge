@@ -34,23 +34,26 @@ const UserRegistration = () => {
     !initiatedFocus && setInitiatedFocus(true);
     const { classList } =  document.querySelector('.confirm-pass');
     if ( password === value ) {
-      setPasswordsMatch(true);
       classList.contains('mismatch') && classList.remove('mismatch');
       !classList.contains('match') && classList.add('match');
+      return true
     } else {
-      setPasswordsMatch(false);
       !classList.contains('mismatch') && classList.add('mismatch');
       classList.contains('match') && classList.remove('match');
+      return false
     }
   }
 
-  const isReadyToSubmit = () => {
+  const isReadyToSubmit = (target = null) => {
     const isReady = ( 
       data.validateField('name', firstName, '.first-name') &&
       data.validateField('name', lastName, '.last-name') &&
       data.validateField('email', emailAddress, '.email') &&
       data.validateField('password', password, '.pass') &&
-      passwordsMatch
+      ( target ? 
+        (target.name !== 'confirmPassword' ? passwordsMatch : passMatchCheck(target.value)) 
+        : passwordsMatch
+      )
     );
     const button = document.querySelector('#sign-up-btn');
     const { classList } = button;
@@ -86,12 +89,12 @@ const UserRegistration = () => {
         data.validateField('password', value, '.pass');
         break;
       case 'confirmPassword':
-        passMatchCheck(value);
+        setPasswordsMatch(passMatchCheck(value));
         break;
       default:
         break;
     }
-    isReadyToSubmit();
+    isReadyToSubmit(e.target);
   }
 
   const cancel = (e) => {
