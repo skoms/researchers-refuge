@@ -1,0 +1,7 @@
+{
+  "API_KEY": 982371282869997,
+  "CLOUD_NAME" : "skoms-cloud",
+  "SECRET" : "qZ58FnGmh75ghXnUNdy21sUyKww",
+  "UPLOAD_PRESET" : "x0qt5efx",
+  "UPLOAD_URL" : "https://api.cloudinary.com/v1_1/skoms-cloud/image/upload"
+}

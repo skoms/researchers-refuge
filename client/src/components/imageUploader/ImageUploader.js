@@ -4,14 +4,11 @@ import { useHistory } from 'react-router-dom';
 import Data from '../../Data';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 import { updateAccount } from '../user/userAccManage/userAccSlice';
+const crypto = require('crypto');
+const dictionary = require('../../.secret/dictionary.json');
 
 
 const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader }) => {
-  const CLOUDINARY_UPLOAD_PRESET = 'x0qt5efx';
-  const CLOUDINARY_CLOUD_NAME = 'skoms-cloud';
-  const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/skoms-cloud/image/upload';
-  const CLOUDINARY_DELETE_URL = 'https://api.cloudinary.com/v1_1/skoms-cloud/image/destroy';
-
   const user = useSelector(selectAuthenticatedUser);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -23,13 +20,30 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
     setImage(e.target.files[0]);
   }
   const uploadImage = async () => {
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append("file", image)
-    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET)
-    formData.append("cloud_name", CLOUDINARY_CLOUD_NAME)
+    const eager = (
+      purpose === 'header' ? 
+        'c_scale,w_900|h_200,w_900,c_crop,g_south' : 
+        'c_scale,w_120|h_120,w_120,c_crop,g_south'
+    );
+    const publicId = `${user.id}_${purpose === 'header' ? 'header' : 'profile'}`;
+    const timestamp = Math.floor(Date.now() / 1000);
 
-    const response = await fetch(CLOUDINARY_UPLOAD_URL, { method:"post", body: formData })
+    formData.append('file', image)
+    formData.append('api_key', dictionary.API_KEY)
+    formData.append('cloud_name', dictionary.CLOUD_NAME)
+    formData.append('eager', eager)
+    formData.append('public_id', publicId)
+    formData.append('timestamp', timestamp)
+    formData.append('upload_preset', dictionary.UPLOAD_PRESET)
+
+    const shaSignature = crypto.createHash('sha1');
+    shaSignature.update(`eager=${eager}&public_id=${publicId}&timestamp=${timestamp}&upload_preset=${dictionary.UPLOAD_PRESET}${dictionary.SECRET}`);
+
+    formData.append('signature', shaSignature.digest('hex'))
+
+    const response = await fetch(dictionary.UPLOAD_URL, { method:"post", body: formData })
       .then(res => res.json())
       .then(data => data.url)
       .catch(err => console.log(err))
@@ -38,14 +52,6 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
       const updatedData = {
         [`${purpose}ImgURL`]: response
       }
-      const formData = new FormData();
-      let imageId = user[purpose === 'header' ? 'headerImgURL' : 'profileImgURL'].match(/.*\/(.*)\.jpe?g|png$/gi)[0];
-      formData.append('public_id', imageId);
-
-      const deleteRes = await fetch(CLOUDINARY_DELETE_URL, { method:"delete", body: formData })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
 
       await data.updateUser(user.id, updatedData, user)
         .then(res => {
