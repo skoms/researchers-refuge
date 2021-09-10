@@ -106,10 +106,6 @@ select:focus {
   border: #257aac solid .15rem;
 }
 
-.invisible {
-  display: none;
-}
-
 div .errors {
   margin-left: 1rem;
   justify-self: left;
@@ -382,17 +378,53 @@ button:hover {
 }
 
 .header .my-profile-div {
+  position: relative;
   justify-self: right;
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   grid-area: profile;
   margin: 0 .7rem;
   text-decoration: none;
 }
 
-.header .my-profile-div img {
-  height: 30px;
-  width: 30px;
+.profile-and-menu-div {
+  display: flex;
+}
+
+.header .my-profile-div .profile-pic {
+  height: 2rem;
+  width: 2rem;
+}
+
+.header .menu-toggle-button {
+  margin: 0 .5rem;
+}
+
+.header-dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: #161B22 solid .05rem;
+  border-radius: .75rem 0 .75rem .75rem;
+  background: #E8F7FF;
+  z-index: 3;
+  bottom: -4.5rem;
+  right: 2.5rem;
+  padding: .7rem .3rem;
+}
+
+.darkmode .header-dropdown {
+  border: #257aac solid .05rem;
+  background: #161B22;
+}
+
+.header-dropdown hr {
+  width: 80%;
+  border: none;
+  border-top: #38B6FF .05rem solid;
 }
 
 .darkmode .my-profile-div {
@@ -429,15 +461,21 @@ button:hover {
   border: none;
   box-shadow: none;
   padding: none;
-  color: #E8F7FF;
+  color: #1a3861;
   opacity: 1;
-  font-weight: 500;
   line-height: 1rem;
   background: none;
   margin: 0 .7rem 0 .3rem;
-  font-weight: 900;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Times New Roman', Times, serif;
   text-decoration: none;
   transition: all .3s;
+}
+
+.darkmode .header .my-profile-div a, 
+.darkmode .header .my-profile-div .signout-btn {
+  color: #E8F7FF;
 }
 
 .header .my-profile-div .signout-btn {
@@ -2747,7 +2785,9 @@ button:hover {
 
 
   /* ============= Content Styling (Article Page) ===================== */
+  
+}
 
-
-
+.invisible {
+  display: none;
 }
