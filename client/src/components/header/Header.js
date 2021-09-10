@@ -13,11 +13,16 @@ import {
 import { updateTopic } from '../feed/feedSlice';
 import { getCategories } from '../topics/topicsSlice';
 import TopicSelect from '../topicSelect/TopicSelect';
+import { useHistory } from 'react-router-dom';
+import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false);
+  const [dropdownActive, setDropdownActive] = useState(false);
   const loggedIn = useSelector(selectLoggedIn);
+  const darkModeOn = useSelector(selectDarkModeOn);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,6 +33,10 @@ const Header = () => {
       setDidLoad(true);
     }
   }, [authenticatedUser, didLoad, dispatch]);
+
+  const toggleDropdown = () => {
+    setDropdownActive(!dropdownActive);
+  }
 
   const LogOut = () => {
     dispatch(signOut());
@@ -44,12 +53,30 @@ const Header = () => {
       { didLoad && loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />
-          <a href='/'><button className='signout-btn' onClick={LogOut}>Sign Out</button></a>
-          <a href="/my-profile">My Profile</a>
-          <img alt='your profile'
-            src={ authenticatedUser.profileImgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
-            className={ authenticatedUser.profileImgURL ? '' : 'placeholder' } 
-          />
+
+          <div className='profile-and-menu-div'>
+            { 
+              <img 
+                src={`https://img.icons8.com/material-outlined/24/${!dropdownActive ? 'ffffff' : (darkModeOn ? '38B6FF' : '161B22') }/menu--v1.png`} 
+                className='menu-toggle-button'
+                alt='menu toggle button'
+                onClick={toggleDropdown}
+              />
+            }
+
+            <img 
+              src={ authenticatedUser.profileImgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
+              className={ `profile-pic ${authenticatedUser.profileImgURL ? '' : 'placeholder'}` } 
+              alt='your profile'
+              onClick={() => history.push('/my-profile')}
+            />
+          </div>
+          
+          <div className={`header-dropdown ${!dropdownActive && 'invisible'}`}>
+            <a href="/my-profile">My Profile</a>
+            <hr />
+            <button className='signout-btn' onClick={LogOut}>Sign Out</button>
+          </div>
         </div>
       :
         <div className='sign-buttons'>
