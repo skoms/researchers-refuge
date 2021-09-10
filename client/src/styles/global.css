@@ -2761,11 +2761,14 @@ button:hover {
 /* ============== Small Screen Content Styling  ======================= */
 @media only screen and (max-width: 800px) {
   /* ============= Base Styling ======================================= */
+  body {
+    font-size: 18px;
+  }
 
 
 
   /* ============= Header and Footer Styling ========================== */
-  
+  /* ====== Header ====== */
   .header {
     top: 0;
     width: 100vw;
@@ -2775,7 +2778,7 @@ button:hover {
       1fr
       repeat(6, 1fr);
     grid-template-areas: 
-      "name search search search select select profile";
+      "name search . select select . profile";
     gap: .2rem;
     align-items: center;
   }
@@ -2784,12 +2787,47 @@ button:hover {
     margin: 0 .3rem 0 0;
   }
 
+  /* Header logo */
   .logo-home-a {
     margin: 0;
   }
 
   .logo-home-a h2 {
     display: none;
+  }
+
+  /* Header search */
+  .header .search {
+    position: relative;
+  }
+
+  .header .toggle-mobile-search {
+    background: none;
+    box-shadow: none;
+  }
+
+  .mobile-search {
+    position: absolute;
+    bottom: -3rem;
+    left: -24vw;
+    width: 110vw;
+    padding: .2rem 0 .5rem 0;
+    background: #38B6FF;
+  }
+
+  .darkmode .mobile-search {
+    background: #161B22;
+  }
+
+  /* Header dropdown */
+  .header-dropdown {
+    bottom: -200%;
+    width: fit-content;
+  }
+
+  /* ====== Footer ====== */
+  .footer {
+    width: 100vw;
   }
 
 

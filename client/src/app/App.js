@@ -21,6 +21,7 @@ import SearchResultsPage from '../components/searchResults/SearchResultsPage';
 import ImageUploader from '../components/imageUploader/ImageUploader';
 
 
+
 function App() {
   return (
     <div className="App">

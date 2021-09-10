@@ -15,13 +15,17 @@ import { getCategories } from '../topics/topicsSlice';
 import TopicSelect from '../topicSelect/TopicSelect';
 import { useHistory } from 'react-router-dom';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
+import { selectIsMobile, updateWidth } from '../../app/screenWidthSlice';
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false);
   const [dropdownActive, setDropdownActive] = useState(false);
+
   const loggedIn = useSelector(selectLoggedIn);
+  const isMobile = useSelector(selectIsMobile);
   const darkModeOn = useSelector(selectDarkModeOn);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -33,6 +37,13 @@ const Header = () => {
       setDidLoad(true);
     }
   }, [authenticatedUser, didLoad, dispatch]);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => dispatch(updateWidth()));
+    return () => {
+        window.removeEventListener('resize', () => dispatch(updateWidth()));
+    }
+  }, [ dispatch ]);
 
   const toggleDropdown = () => {
     setDropdownActive(!dropdownActive);
@@ -48,8 +59,8 @@ const Header = () => {
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
         <h2>Researchers' Refuge</h2>
       </a>
+      <SearchField isMobile={isMobile}/>
       <TopicSelect use='header' />
-      <SearchField />
       { didLoad && loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />
