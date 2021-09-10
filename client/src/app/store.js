@@ -14,10 +14,12 @@ import articleCardsReducer from '../components/article/articleCards/articleCards
 import recommendModuleReducer from '../components/recommendModule/recommendModuleSlice';
 import recPeopleReducer from '../components/recPeople/recPeopleSlice';
 import relatedArticlesReducer from '../components/article/articleDetails/relatedArticles/relatedArticlesSlice';
+import screenWidthReducer from './screenWidthSlice';
 
 export const store = configureStore({
   reducer: {
     //TODO - Add all the reducers
+    screenWidth: screenWidthReducer,
     searchField: searchFieldReducer,
     feed: feedReducer,
     userAcc: userAccReducer,

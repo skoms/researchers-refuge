@@ -2765,7 +2765,32 @@ button:hover {
 
 
   /* ============= Header and Footer Styling ========================== */
+  
+  .header {
+    top: 0;
+    width: 100vw;
+    display: grid;
+    display: grid;
+    grid-template-columns: 
+      1fr
+      repeat(6, 1fr);
+    grid-template-areas: 
+      "name search search search select select profile";
+    gap: .2rem;
+    align-items: center;
+  }
 
+  .header .my-profile-div {
+    margin: 0 .3rem 0 0;
+  }
+
+  .logo-home-a {
+    margin: 0;
+  }
+
+  .logo-home-a h2 {
+    display: none;
+  }
 
 
   /* ============= Content Styling (Main Page) ======================== */
