@@ -2891,8 +2891,65 @@ button:hover {
 
 
 
-  /* ============= Content Styling (Article Page) ===================== */
-  
+  /* ============= Content Styling (Article Details Page) ===================== */
+  .content-article-details {
+    margin: 4.5rem .5rem 2rem .5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Article div */
+  .article-div {
+    padding: 1rem 0;
+    margin-bottom: .2rem;
+  }
+
+  /* Info Mod */
+  .info-mod {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 
+      'img table'
+      'name table'
+      'occupation table'
+      'bio bio';
+    justify-items: center;
+  }
+
+  .info-mod img {
+    grid-area: img;
+  }
+  .info-mod .full-name {
+    grid-area: name;
+  }
+  .info-mod .occupation {
+    grid-area: occupation;
+  }
+  .info-mod table {
+    grid-area: table;
+  }
+  .info-mod .bio {
+    grid-area: bio;
+  }
+
+  /* Related Articles */
+  .related-articles {
+    padding: 0;
+    margin: 0;
+    height: 20vh;
+    width: 98%;
+    border: none;
+  }
+
+  /* Delete confirmation */
+  .delete-confirmation {
+    margin: 0;
+    left: 0;
+    top: 0;
+  }
 }
 
 .invisible {

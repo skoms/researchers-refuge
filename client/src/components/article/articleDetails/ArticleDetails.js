@@ -14,12 +14,14 @@ import { selectDarkModeOn } from '../../darkmodeButton/darkModeButtonSlice'
 import { getArticleInfo, selectArticle, selectAuthor } from "./articleDetailsSlice";
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import { deleteArticle } from '../manageArticle/manageArticleSlice';
+import { selectIsMobile } from '../../../app/screenWidthSlice';
 
 const ArticleDetails = () => {
   const darkModeOn = useSelector(selectDarkModeOn);
   const article = useSelector(selectArticle);
   const author = useSelector(selectAuthor);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
+  const isMobile = useSelector(selectIsMobile);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -97,11 +99,6 @@ const ArticleDetails = () => {
           </div>
         </div>
       </div>
-
-      <div className="article-details-sidebar">
-        { didLoad && author ? <InfoModule user={author} /> : <Loading /> }
-        { didLoad && article ? <RelatedArticles article={article} /> : <Loading /> }
-      </div>
       
       { didLoad && author && article ? (
         <div className="article-div"> 
@@ -165,6 +162,15 @@ const ArticleDetails = () => {
           <Loading />
         </div>
       )}
+
+      { !isMobile &&
+        <div className="article-details-sidebar">
+          { didLoad && author ? <InfoModule user={author} /> : <Loading /> }
+          { didLoad && article ? <RelatedArticles article={article} /> : <Loading /> }
+        </div>
+      }
+      { isMobile && didLoad && author && <InfoModule user={author} /> }
+      { isMobile && didLoad && article && <RelatedArticles article={article} /> }
     </div>
   )
 }
