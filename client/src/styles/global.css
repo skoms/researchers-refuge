@@ -2775,8 +2775,7 @@ button:hover {
     display: grid;
     display: grid;
     grid-template-columns: 
-      1fr
-      repeat(6, 1fr);
+      1fr 1fr 1fr 1fr 1fr .5fr 1.5fr;
     grid-template-areas: 
       "name search . select select . profile";
     gap: .2rem;
@@ -2817,6 +2816,17 @@ button:hover {
 
   .darkmode .mobile-search {
     background: #161B22;
+  }
+
+  /* Sign buttons */
+  .header .sign-buttons {
+    margin-left: 0;
+  }
+
+  .header .sign-buttons a button,
+  .darkmode .header .sign-buttons a button {
+    box-shadow: none;
+    background: none;
   }
 
   /* Header dropdown */

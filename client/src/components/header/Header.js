@@ -93,10 +93,14 @@ const Header = () => {
         <div className='sign-buttons'>
           <DarkModeButton />
           <a href="/sign-in">
-            <button>Sign In</button>
+            <button>
+              {!isMobile ? 'Sign In' : <img src='https://img.icons8.com/ios-filled/24/ffffff/login-rounded-right.png' alt='sign in button'/>}
+            </button>
           </a>
           <a href="/sign-up">
-            <button>Sign Up</button>
+            <button>
+              {!isMobile ? 'Sign Up' : <img src='https://img.icons8.com/material-rounded/24/ffffff/edit-user-male.png' alt='sign up button'/>}
+            </button>
           </a>
         </div>
       }
