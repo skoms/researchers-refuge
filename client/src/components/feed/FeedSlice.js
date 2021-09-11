@@ -19,7 +19,6 @@ export const getFeedArticles = createAsyncThunk(
       const response = await data.getFollowingArticles(user);
       return response;
     } else if (topic === 'home') {
-      console.log(filter);
       const response = await data.getArticlesWithFilter(filter);
       return response;
     } else {

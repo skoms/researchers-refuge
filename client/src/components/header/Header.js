@@ -13,7 +13,7 @@ import {
 import { updateTopic } from '../feed/feedSlice';
 import { getCategories } from '../topics/topicsSlice';
 import TopicSelect from '../topicSelect/TopicSelect';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 import { selectIsMobile, updateWidth } from '../../app/screenWidthSlice';
 
@@ -27,6 +27,7 @@ const Header = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
 
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const Header = () => {
         <h2>Researchers' Refuge</h2>
       </a>
       <SearchField isMobile={isMobile}/>
-      <TopicSelect use='header' />
+      {location.pathname === '/' && <TopicSelect use='header' />}
       { didLoad && loggedIn ?
         <div className='my-profile-div'>
           <DarkModeButton />

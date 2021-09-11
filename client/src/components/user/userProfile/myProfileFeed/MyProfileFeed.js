@@ -10,6 +10,7 @@ import ImageUploader from '../../../imageUploader/ImageUploader';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 import EditProfile from '../editProfile/EditProfile';
 import { getUserArticles } from '../userFeedSlice';
+import { updateTopic } from '../../../feed/feedSlice';
 
 const MyProfileFeed = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -43,6 +44,7 @@ const MyProfileFeed = () => {
         editProfilePopup.classList.remove('invisible');
       } else {
         editProfilePopup.classList.add('invisible');
+        dispatch(updateTopic('home'));
       }
     }
   }

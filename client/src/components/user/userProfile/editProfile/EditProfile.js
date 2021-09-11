@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Data from '../../../../Data';
@@ -26,10 +26,6 @@ const EditProfile = ({ toggleEdit }) => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  useEffect(() => {
-    dispatch(updateTopic(user.mostActiveField || 'none'));
-  }, [user, dispatch]);
 
   const selectForm = (e) => {
     setForm(e.target.innerHTML);
