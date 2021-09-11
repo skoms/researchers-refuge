@@ -274,7 +274,6 @@ button:hover {
 .header {
   top: 0;
   display: grid;
-  display: grid;
   grid-template-columns: 
     calc( 50vw - 38rem )
     repeat(12, 1fr)
@@ -411,9 +410,10 @@ button:hover {
   border-radius: .75rem 0 .75rem .75rem;
   background: #E8F7FF;
   z-index: 3;
-  bottom: -4.5rem;
+  top: 2rem;
   right: 2.5rem;
   padding: .7rem .3rem;
+  height: fit-content;
 }
 
 .darkmode .header-dropdown {
@@ -731,12 +731,12 @@ button:hover {
   color: #38B6FF;
 }
 
-.menu-bar .selected {
+.menu-bar .menu-bar-filters .selected {
   color: #E8F7FF;
   background-color: rgb(0, 36, 104);
 }
 
-.darkmode .menu-bar .selected {
+.darkmode .menu-bar .menu-bar-filters .selected {
   background: #38B6FF;
   color: #27303d;
 }
@@ -2807,7 +2807,7 @@ button:hover {
 
   .mobile-search {
     position: absolute;
-    bottom: -3rem;
+    top: 2.9rem;
     left: -24vw;
     width: 110vw;
     padding: .2rem 0 .5rem 0;
@@ -2838,12 +2838,46 @@ button:hover {
   /* ====== Footer ====== */
   .footer {
     width: 100vw;
+    height: .6rem;
+    font-size: .8rem;
   }
 
 
   /* ============= Content Styling (Main Page) ======================== */
+  .main-page-content {
+    margin: 4.5rem .5rem 2rem .5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+  }
 
+  /* menu bar */
+  .menu-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: .2rem;
+  }
 
+  .menu-bar img {
+    margin: 0 .3rem -.2rem 0;
+  }
+
+  /* Article cards */
+  .main-page-content .article-cards {
+    padding-right: 0;
+    max-height: 80vh;
+    margin: 0;
+  }
+
+  .main-page-content .article-card {
+    margin: .3rem 0;
+  }
+
+  .main-page-content .article-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
 
   /* ============= Content Styling (Userprofile Page) ================= */
 
