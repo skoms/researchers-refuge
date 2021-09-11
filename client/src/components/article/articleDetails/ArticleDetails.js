@@ -103,7 +103,7 @@ const ArticleDetails = () => {
       { didLoad && author && article ? (
         <div className="article-div"> 
         
-          { authenticatedUser.id === author.id ? 
+          { authenticatedUser && authenticatedUser.id === author.id ? 
             <div className="owner-buttons">
               <a href={`/update-article/${id}`}>
                 <button className='button-primary'>Edit Article</button>

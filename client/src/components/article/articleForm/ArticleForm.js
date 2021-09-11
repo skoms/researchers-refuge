@@ -140,8 +140,8 @@ const ArticleForm = props => {
           <label htmlFor="topic">Topic: </label>
         </div>
         <div className='form-input tags' id='tags-input-div'>
-          <input id="tags" name="tags" type="text" value={ article.tags || '' } onChange={onChangeHandler}/>
-          <label htmlFor="tags">Tags: (One or more separated by ',')</label>
+          <input id="tags" name="tags" type="text" value={ article.tags || '' } onChange={onChangeHandler} placeholder="One or more separated by ','"/>
+          <label htmlFor="tags">Tags:</label>
         </div>
         
         <div className='form-buttons'>

@@ -1299,7 +1299,7 @@ button:hover {
 }
 
 .create-update-article-form .form-buttons .button-secondary {
-  min-width: 4rem;
+  min-width: 4.5rem;
   width: 15%;
 }
 
@@ -2891,7 +2891,7 @@ button:hover {
 
 
 
-  /* ============= Content Styling (Article Details Page) ===================== */
+  /* ============= Content Styling (Article Details Page) ============= */
   .content-article-details {
     margin: 4.5rem .5rem 2rem .5rem;
     height: 100%;
@@ -2949,6 +2949,18 @@ button:hover {
     margin: 0;
     left: 0;
     top: 0;
+  }
+
+  /* ============= Content Styling (Create/UpdateArticle Page) ======== */
+  .create-update-article-form {
+    grid-template-areas: 
+      '. h1 h1 h1 h1 .'
+      '. title title title title .'
+      '. intro intro intro intro .'
+      '. body body body body .'
+      '. date date topic topic.'
+      '. tags tags tags tags .'
+      '. btn btn btn btn .';
   }
 }
 
