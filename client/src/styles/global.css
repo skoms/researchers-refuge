@@ -2777,7 +2777,7 @@ button:hover {
     grid-template-columns: 
       1fr 1fr 1fr 1fr 1fr .5fr 1.5fr;
     grid-template-areas: 
-      "name search . select select . profile";
+      "name search . select select select profile";
     gap: .2rem;
     align-items: center;
   }
@@ -2801,6 +2801,7 @@ button:hover {
   }
 
   .header .toggle-mobile-search {
+    padding-left: 0;
     background: none;
     box-shadow: none;
   }
@@ -2821,10 +2822,12 @@ button:hover {
   /* Sign buttons */
   .header .sign-buttons {
     margin-left: 0;
+    margin-right: .25rem;
   }
 
   .header .sign-buttons a button,
   .darkmode .header .sign-buttons a button {
+    margin: 0;
     box-shadow: none;
     background: none;
   }
@@ -3000,8 +3003,12 @@ button:hover {
     justify-items: center;
   }
 
+  .results-page-content .results {
+    margin-top: .5rem;
+  }
+
   .results-page-content .article-cards .article-card {
-    font-size: .8rem;
+    font-size: .9rem;
     width: 98%;
     border-bottom: #257aac .1rem solid;
     border-top: #257aac .1rem solid;
@@ -3012,7 +3019,7 @@ button:hover {
   }
 
   .results-page-content .article-cards .article-card h2 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
