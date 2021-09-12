@@ -19,10 +19,10 @@ const ResultRecUser = ({ user }) => {
 
   useEffect(() => {
     if (!didLoad && user) {
-      setIsFollowedByMe(user.followers.includes(authenticatedUser.id));
+      authenticatedUser && setIsFollowedByMe(user.followers.includes(authenticatedUser.id));
       setDidLoad(true);
     }
-  }, [didLoad, user, dispatch, authenticatedUser.id])
+  }, [didLoad, user, dispatch, authenticatedUser])
 
   const followUnfollow = async (e) => {
     const button = e.target;

@@ -7,16 +7,18 @@ import {
   selectLoggedIn,
 } from '../user/userAccManage/userAccSlice';
 import SearchResultsFeed from './SearchResultsFeed'
+import { selectIsMobile } from '../../app/screenWidthSlice';
 
 const SearchResultsPage = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const loggedIn = useSelector(selectLoggedIn);
+  const isMobile = useSelector(selectIsMobile);
 
   return (
     <div className='results-page-content'>
-      { loggedIn ? <InfoModule user={authenticatedUser} /> :<Fragment /> }
+      { !isMobile && loggedIn ? <InfoModule user={authenticatedUser} /> :<Fragment /> }
       <SearchResultsFeed />
-      <RecommendModule />
+      { !isMobile && <RecommendModule />}
     </div>
   )
 }
