@@ -2992,7 +2992,7 @@ button:hover {
       '. btn btn btn btn .';
   }
 
-  /* ============= Content Styling (Create/UpdateArticle Page) ======== */
+  /* ============= Content Styling (Search Results Page) ======== */
   .results-page-content {
     grid-template-columns: .5rem repeat(2, 1fr) .5rem;
     grid-template-areas: ". feed feed .";
@@ -3002,8 +3002,13 @@ button:hover {
 
   .results-page-content .article-cards .article-card {
     font-size: .8rem;
+    width: 98%;
     border-bottom: #257aac .1rem solid;
     border-top: #257aac .1rem solid;
+  }
+
+  .results-page-content .article-cards .article-card .credits {
+    background: #27303D;
   }
 
   .results-page-content .article-cards .article-card h2 {

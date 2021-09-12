@@ -143,7 +143,6 @@ const SearchResultsFeed = () => {
               :
               <Fragment />
             }
-            <div className="dot"></div>
           </div>
         </div>
         :
