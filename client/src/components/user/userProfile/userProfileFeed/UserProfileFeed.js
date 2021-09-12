@@ -31,7 +31,7 @@ const UserProfileFeed = props => {
 
   const [fetching, setFetching] = useState(false);
 
-  if (authenticatedUser.id === parseInt(props.id)) {
+  if (authenticatedUser && authenticatedUser.id === parseInt(props.id)) {
     history.push('/my-profile')
   }
 
@@ -62,10 +62,10 @@ const UserProfileFeed = props => {
     }
     if (!didLoad && owner) {
       getOwnersArticles(props.id);
-      dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id.toString())));
+      authenticatedUser && dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id.toString())));
       setDidLoad(true);
     }
-  }, [didLoad, owner, dispatch, history, props, authenticatedUser.id, fetching, location.pathname])
+  }, [didLoad, owner, dispatch, history, props, authenticatedUser, fetching, location.pathname])
 
   const followUnfollow = async (e) => {
     const button = e.target;
