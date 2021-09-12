@@ -168,7 +168,7 @@ const UserRegistration = () => {
         </div>
         <div className="form-input confirm-pass">
           <label htmlFor="confirmPassword">
-            Confirm Password { initiatedFocus && ( passwordsMatch ? smallCheckmark : smallCross ) }
+            Confirmation { initiatedFocus && ( passwordsMatch ? smallCheckmark : smallCross ) }
           </label>
           <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
           

@@ -2884,11 +2884,40 @@ button:hover {
   
 
   /* ============= Content Styling (SignIn Page) ====================== */
+  .user-login-div {
+    grid-template-columns: .5rem repeat(4, 1fr) .5rem;
+    grid-template-areas: 
+      ". form form form form .";
+  }
 
 
 
   /* ============= Content Styling (SignUp Page) ====================== */
+  .user-registration-div {
+    margin-top: 5rem;
+    grid-template-columns: .5rem repeat(2, 1fr) .5rem;
+    grid-template-areas: 
+      ". form form .";
+  }
 
+  .user-registration-form {
+    grid-template-columns: .5rem repeat(4, 1fr) .5rem;
+    grid-template-areas: 
+      ". title title title title ."
+      ". errors errors errors errors ."
+      ". first first last last ."
+      ". email email email email ."
+      ". pass pass confirm-pass confirm-pass ."
+      ". btn btn btn btn ."
+      ". login-p login-p login-p login-p .";
+  }
+
+  .user-registration-div .mismatch label {
+    font-weight: 500;
+  }
+  .user-registration-div .match label {
+    font-weight: 500;
+  }
 
 
   /* ============= Content Styling (Article Details Page) ============= */
