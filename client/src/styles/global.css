@@ -3002,19 +3002,10 @@ button:hover {
   }
 
   .edit-popup {
-    position: fixed;
-    display: flex;
     left: 0;
     margin: 0;
     margin-top: -5rem;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    z-index: 2;
-}
+  }
 
   .edit-user-form {
     grid-template-columns: .1fr repeat(2, 1fr) .1fr;
@@ -3038,6 +3029,19 @@ button:hover {
         '. pass pass .'
         '. confPass confPass .'
         '. btn btn.';
+  }
+
+  .upload-popup {
+    left: 0;
+    margin: 0;
+    margin-top: -5rem;
+  }
+
+  .image-uploader-div {
+    top: calc(50vh - 6.5rem);
+    left: calc(50vw - 7.5rem);
+    width: 9rem;
+    padding: 3rem;
   }
 
   /* ============= Content Styling (SignIn Page) ====================== */
