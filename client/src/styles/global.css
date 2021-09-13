@@ -2881,7 +2881,7 @@ button:hover {
     box-shadow: none;
   }
 
-  /* ============= Content Styling (Userprofile Page) ================= */
+  /* ============= Content Styling (User profile Page) ================= */
   .user-profile-page {
     margin: 6rem .5rem 2rem .5rem;
     grid-template-columns: .5rem repeat(4, 1fr) .5rem;
@@ -2983,6 +2983,61 @@ button:hover {
     min-width: 6rem;
     right: -4%;
     bottom: 0%;
+  }
+
+  /* Edit Profile Pop-Up */
+  #edit-profile-div {
+    width: unset;
+    min-width: 50vw;
+    max-width: 80vw;
+    min-height: 75vh;
+    grid-template-columns: .25fr 1.5fr;
+    grid-template-rows: .5fr repeat(3, 1fr);
+    grid-template-areas:
+        "edit-header main"
+        "sidebar main"
+        "sidebar main"
+        "sidebar main";
+    gap: .5rem;
+  }
+
+  .edit-popup {
+    position: fixed;
+    display: flex;
+    left: 0;
+    margin: 0;
+    margin-top: -5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 2;
+}
+
+  .edit-user-form {
+    grid-template-columns: .1fr repeat(2, 1fr) .1fr;
+    grid-template-areas:
+        '. h1 h1 .'
+        '. firstName firstName .'
+        '. lastName lastName .'
+        '. occupation occupation .'
+        '. mostActiveField mostActiveField .'
+        '. bio bio .'
+        '. btn btn .';
+    grid-gap: .2rem;
+    min-width: 40vw;
+  }
+
+  #edit-account {
+    grid-template-areas:
+        '. h1 h1 .'
+        '. oldPass oldPass .'
+        '. email email .'
+        '. pass pass .'
+        '. confPass confPass .'
+        '. btn btn.';
   }
 
   /* ============= Content Styling (SignIn Page) ====================== */
