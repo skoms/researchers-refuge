@@ -103,25 +103,25 @@ const UserProfileFeed = props => {
             <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
           <div className="stats">
-            <div className="stat">
+            <div className="stat most-active-field">
               <p className="title">Most active field:</p>
               <p className="data">{ data.capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
-            <div className="stat most-active-field">
+            <div className="stat articles">
               <p className="title">Articles:</p>
               <p className="data">{ owner.articles || 0 }</p>
             </div>
-            <div className="stat">
+            <div className="stat credits">
               <p className="title">Credits:</p>
               <p className="data">{ owner.credits || 0 }</p>
             </div>
-            <div className="stat">
+            <div className="stat followers">
               <p className="title">Followers:</p>
               <p className="data">
                 { owner.followers.length || 0 }
               </p>
             </div>
-            <div className="stat">
+            <div className="stat following">
               <p className="title">Following:</p>
               <p className="data">
                 { owner.following.length || 0 }

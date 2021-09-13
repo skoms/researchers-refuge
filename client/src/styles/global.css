@@ -2883,8 +2883,56 @@ button:hover {
   }
 
   /* ============= Content Styling (Userprofile Page) ================= */
+  .user-profile-page {
+    margin: 6rem .5rem 2rem .5rem;
+    grid-template-columns: .5rem repeat(4, 1fr) .5rem;
+  }
 
-  
+  .user-profile-div {
+    max-width: 95vw;
+  }
+
+  /* User Profile info header */
+  .user-profile-info-header {
+    grid-template-columns: .5rem repeat(2, 1fr) .5rem;
+    grid-template-areas:
+        "header header header header"
+        ". name-occ-bio name-occ-bio ."
+        ". stats stats .";
+  }
+
+  .user-profile-info-header .stats {
+    margin-bottom: 0;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      'active active'
+      'articles credits'
+      'followers following';
+    gap: .5rem
+  }
+
+  .stats .stat {
+    justify-content: space-between;
+  }
+
+  /* stats grid declaration */
+  .stats .most-active-field {
+    grid-area: active;
+  }
+  .stats .articles {
+    grid-area: articles;
+  }
+  .stats .credits {
+    grid-area: credits;
+  }
+  .stats .followers {
+    grid-area: followers;
+  }
+  .stats .following {
+    grid-area: following;
+  }
 
   /* ============= Content Styling (SignIn Page) ====================== */
   .user-login-div {
