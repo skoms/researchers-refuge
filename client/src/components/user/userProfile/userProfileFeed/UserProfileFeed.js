@@ -131,30 +131,6 @@ const UserProfileFeed = props => {
         </div>
         <div className="articles-published">
           <h2 className="title">Articles Published:</h2>
-          {/* Connect sorting feature for the articles */}
-          <div className="sort-nav">
-            <div>
-              <label htmlFor='order-select'>Sort by: </label>
-              <select name="order-select" id="order-select">
-                <option value="Newest">Newest</option>
-                <option value="Oldest">Oldest</option>
-                <option value="Most Credits">Most Credits</option>
-                <option value="Least Credits">Least Credits</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='topic-select'>Topic: </label>
-              <select name="topic-select" id="topic-select">
-                <option className='default' value="">Select a topic</option>
-                <option value="Astrology">Astrology</option>
-                <option value="Technology">Technology</option>
-                <option value="Psychology">Psychology</option>
-                <option value="Archeology">Archeology</option>
-                <option value="Physics">Physics</option>
-              </select>
-            </div>
-            
-          </div>
           <ArticleCards type='ownersArticles' />
         </div>
         <div className="articles-accredited">

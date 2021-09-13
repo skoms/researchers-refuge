@@ -112,25 +112,25 @@ const MyProfileFeed = () => {
             <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
           <div className="stats">
-            <div className="stat">
+            <div className="stat most-active-field">
               <p className="title">Most active field:</p>
               <p className="data">{ data.capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
-            <div className="stat most-active-field">
+            <div className="stat articles">
               <p className="title">Articles:</p>
               <p className="data">{ owner.articles || 0 }</p>
             </div>
-            <div className="stat">
+            <div className="stat credits">
               <p className="title">Credits:</p>
               <p className="data">{ owner.credits || 0 }</p>
             </div>
-            <div className="stat">
+            <div className="stat followers">
               <p className="title">Followers:</p>
               <p className="data">
                 { owner.followers.length || 0 }
               </p>
             </div>
-            <div className="stat">
+            <div className="stat following">
               <p className="title">Following:</p>
               <p className="data">
                 { owner.following.length || 0 }
@@ -140,30 +140,6 @@ const MyProfileFeed = () => {
         </div>
         <div className="articles-published">
           <h2 className="title">Articles Published:</h2>
-          {/* Connect sorting feature for the articles */}
-          <div className="sort-nav">
-            <div>
-              <label htmlFor='order-select'>Sort by: </label>
-              <select name="order-select" id="order-select">
-                <option value="Newest">Newest</option>
-                <option value="Oldest">Oldest</option>
-                <option value="Most Credits">Most Credits</option>
-                <option value="Least Credits">Least Credits</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='topic-select'>Topic: </label>
-              <select name="topic-select" id="topic-select">
-                <option className='default' value="">Select a topic</option>
-                <option value="Astrology">Astrology</option>
-                <option value="Technology">Technology</option>
-                <option value="Psychology">Psychology</option>
-                <option value="Archeology">Archeology</option>
-                <option value="Physics">Physics</option>
-              </select>
-            </div>
-            
-          </div>
           <ArticleCards type='ownersArticles' />
         </div>
         <div className="articles-accredited">
