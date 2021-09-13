@@ -2771,6 +2771,8 @@ button:hover {
   .header {
     top: 0;
     width: 100vw;
+    min-height: 4vh;
+    max-height: 7vh;
     display: grid;
     display: grid;
     grid-template-columns: 
@@ -2840,15 +2842,15 @@ button:hover {
   /* ====== Footer ====== */
   .footer {
     width: 100vw;
-    height: .6rem;
+    max-height: 5vh;
     font-size: .8rem;
   }
 
 
   /* ============= Content Styling (Main Page) ======================== */
   .main-page-content {
-    margin: 4.5rem .5rem 2rem .5rem;
-    height: 100%;
+    margin: 11vh .5rem 0 .5rem;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -2867,8 +2869,8 @@ button:hover {
 
   /* Article cards */
   .main-page-content .article-cards {
-    padding-right: 0;
-    max-height: 80vh;
+    padding: 0;
+    height: 77vh;
     margin: 0;
   }
 
