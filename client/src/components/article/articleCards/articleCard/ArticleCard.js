@@ -24,16 +24,18 @@ const ArticleCard = props => {
   const discreditColor = 'DD3939';
 
   const [creditedStatus, setCreditedStatus] = useState();
+  const [didLoad, setDidLoad] = useState(false)
 
   useEffect(() => {
-    if (user) {
+    if (!didLoad && user) {
       if (user.accreditedArticles.includes(props.id.toString())) {
         setCreditedStatus('accredited');
       } else if (user.discreditedArticles.includes(props.id.toString())) {
         setCreditedStatus('discredited');
       }
+      setDidLoad(true);
     }  
-  }, [user, props.id]);
+  }, [didLoad, user, props.id]);
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));

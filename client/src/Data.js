@@ -17,11 +17,8 @@ export default class Data {
       url: 'http://localhost:5000/api' + path,
       params,
       headers: { },
+      data: body || {}
     };
-
-    if (body) {
-      options.body = JSON.stringify(body);
-    }
 
     if (requiresAuth) {
       const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
