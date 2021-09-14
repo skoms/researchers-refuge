@@ -30,8 +30,8 @@ const isStringAndStringToArray = (value) => {
 }
 
 // GET finds and displays all the articles based on filter and basic info on their owners
-router.get('/filter/:filter', asyncHandler(async (req, res) => {
-  const { filter } = req.params;
+router.get('/filter', asyncHandler(async (req, res) => {
+  const { filter } = req.query;
   let articles;
   if (filter === 'top') {
     articles = await Article.findAll({
@@ -95,12 +95,12 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // GET finds and sends back a specific articles by tag
-router.get('/tag/:tag', asyncHandler(async (req, res) => {
+router.get('/tag', asyncHandler(async (req, res) => {
   const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
     where: { [Op.and]: [
-        { tags: { [Op.substring]: req.params.tag } },
+        { tags: { [Op.substring]: req.query.tag } },
         { id: { [Op.not]: req.query.id} },
       ] 
     }
@@ -114,17 +114,17 @@ router.get('/tag/:tag', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and sends back specific articles by query
-router.get('/query/:query', asyncHandler(async (req, res) => {
+router.get('/query', asyncHandler(async (req, res) => {
   const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
     where: { 
       [Op.or]: [
-        { title: { [Op.substring]: req.params.query } },
-        { topic: { [Op.substring]: req.params.query } },
-        { intro: { [Op.substring]: req.params.query } },
-        { body:  { [Op.substring]: req.params.query } },
-        { tags:  { [Op.substring]: req.params.query } }
+        { title: { [Op.substring]: req.query.query } },
+        { topic: { [Op.substring]: req.query.query } },
+        { intro: { [Op.substring]: req.query.query } },
+        { body:  { [Op.substring]: req.query.query } },
+        { tags:  { [Op.substring]: req.query.query } }
       ]
     }
   });
@@ -156,8 +156,8 @@ router.get('/following', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // GET finds specified article and basic info on its owner
-router.get('/:id', asyncHandler(async (req, res) => {
-  const article = await Article.findByPk(req.params.id, { 
+router.get('/', asyncHandler(async (req, res) => {
+  const article = await Article.findByPk(req.query.id, { 
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
     include: [ { model: User, attributes: { exclude: ['emailAddress', 'password', 'createdAt', 'updatedAt'] } } ] });
   if (article) {
@@ -168,11 +168,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and displays all the articles and basic info on their owners
-router.get('/owner/:id', asyncHandler(async (req, res) => {
+router.get('/owner', asyncHandler(async (req, res) => {
   const articles = await Article.findAll(({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress', 'accessLevel']}],
-    where: { userId: req.params.id }
+    where: { userId: req.query.id }
   }));
 
   if (articles) {
@@ -196,15 +196,15 @@ router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // PUT updates the chosen article if the user is authenticated to do so
-router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
-  const article = await Article.findOne({ where: { id: req.params.id } });
+router.put('/', authenticateLogin, asyncHandler(async (req, res) => {
+  const article = await Article.findOne({ where: { id: req.query.id } });
   const owner = await User.findOne({ where: { id: article.userId }});
 
   const isOwner = owner.emailAddress === req.currentUser.emailAddress;
   const isAdmin = req.currentUser.accessLevel === 'admin';
 
   if (isOwner || isAdmin) {
-    await Article.update(req.body, { where: { id: req.params.id } })
+    await Article.update(req.body, { where: { id: req.query.id } })
       .then(response => {
         if (!response.name) {
           res.status(204).end()
@@ -216,8 +216,8 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // PUT updates an articles credits (accredits or discredits article) 
-router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
-  const article = await Article.findOne({ where: { id: req.params.id } });
+router.put('/credit', authenticateLogin, asyncHandler(async (req, res) => {
+  const article = await Article.findOne({ where: { id: req.query.id } });
   const creditor = await User.findOne({ where: {emailAddress: req.currentUser.emailAddress} });
 
   const accreditedArticles = isStringAndStringToArray(creditor.accreditedArticles);
@@ -246,7 +246,7 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
   if (article) {
     await Article.update(
       { credits: updatedCredits }, 
-      { where: { id: req.params.id } })
+      { where: { id: req.query.id } })
       .then( async (response) => {
         if (!response.name) {
           let updatedAccreditedArticles;
@@ -281,7 +281,7 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
                   where: { emailAddress: req.currentUser.emailAddress } 
                 });
                 const updatedArticle = await Article.findOne({ 
-                  where: { id: req.params.id } 
+                  where: { id: req.query.id } 
                 });
                 res.status(200).json({ user: updatedUser, article: updatedArticle });
               }
@@ -294,15 +294,15 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // DELETE deletes the chosen article if the user is authenticated to do so
-router.delete('/:id', authenticateLogin, asyncHandler(async (req, res) => {
-  const article = await Article.findOne({ where: { id: req.params.id } });
+router.delete('/', authenticateLogin, asyncHandler(async (req, res) => {
+  const article = await Article.findOne({ where: { id: req.query.id } });
   const owner = await User.findOne({ where: { id: article.userId }});
   
   const isOwner = owner.emailAddress === req.currentUser.emailAddress;
   const isAdmin = req.currentUser.accessLevel === 'admin';
 
   if (isOwner || isAdmin) {
-    await Article.destroy({ where: { id: req.params.id } })
+    await Article.destroy({ where: { id: req.query.id } })
       .then(res.status(204).end());
   } else {
     res.status(403).end();

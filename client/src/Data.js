@@ -5,16 +5,17 @@ export default class Data {
    * More Modular version of the 'fetch' adapted to our use
    * @param {string} path - the path in the api to make the request to
    * @param {string} method - what type of request to make (GET, POST, PUT, DELETE)
+   * @param {object} params - extra parameters for the request (like query)
    * @param {object} body - request body object (for POST or PUT requests)
    * @param {boolean} requiresAuth - to specify whether or not the path requires authentication
    * @param {object} credentials - login credentials (only used when 'requiresAuth' is true)
-   * @param {object} params - extra parameters for the request (like query)
    * @returns returns a promise of the fetch request
    */
-  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
+  api(path, method = 'GET', params = null, body = null, requiresAuth = false, credentials = null) {
     const options = {
       method,
       url: 'http://localhost:5000/api' + path,
+      params,
       headers: { },
       data: body || {}
     };
@@ -154,7 +155,7 @@ export default class Data {
    * @returns a statusCode, and data if succeded, error message if failed
    */
   async getUser(emailAddress, password) {
-    const res = await this.api('/users', 'GET', null, true, {emailAddress, password});
+    const res = await this.api('/users/me', 'GET', null, null, true, {emailAddress, password});
     return this.responseReturnHandler(res, true, 'user');
   }
 
@@ -164,7 +165,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getUserById(id) {
-    const res = await this.api(`/users/${id}`, 'GET');
+    const res = await this.api('/users', 'GET', { id });
     return this.responseReturnHandler(res, true, 'user');
   }
 
@@ -174,7 +175,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getUsersByQuery(query) {
-    const res = await this.api(`/users/query/${query}`, 'GET');
+    const res = await this.api(`/users/query`, 'GET', { query });
     return this.responseReturnHandler(res, true, 'users');
   }
 
@@ -184,7 +185,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getRecommendedUsers(user) {
-    const res = await this.api(`/users/recommended`, 'GET', null, true, user);
+    const res = await this.api(`/users/recommended`, 'GET', null, null, true, user);
     return this.responseReturnHandler(res, true, 'users');
   }
 
@@ -194,7 +195,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getArticle(id) {
-    const res = await this.api(`/articles/${id}`, 'GET');
+    const res = await this.api(`/articles`, 'GET', { id });
     return this.responseReturnHandler(res, true, 'article');
   }
 
@@ -203,7 +204,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getArticlesWithFilter(filter) {
-    const res = await this.api(`/articles/filter/${filter}`, 'GET');
+    const res = await this.api(`/articles/filter`, 'GET', { filter });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -212,7 +213,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getFollowingArticles(user) {
-    const res = await this.api('/articles/following', 'GET', null, true, user);
+    const res = await this.api('/articles/following', 'GET', null, null, true, user);
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -222,7 +223,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getArticlesByOwnerId(id) {
-    const res = await this.api(`/articles/owner/${id}`, 'GET');
+    const res = await this.api(`/articles/owner`, 'GET', { id });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -232,7 +233,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getArticlesByTag(tag, id) {
-    const res = await this.api(`/articles/tag/${tag}?id=${id}`, 'GET');
+    const res = await this.api(`/articles/tag`, 'GET', { tag, id });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -242,7 +243,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getArticlesByQuery(query) {
-    const res = await this.api(`/articles/query/${query}`, 'GET');
+    const res = await this.api(`/articles/query`, 'GET', { query });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -252,7 +253,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getRecommendedArticles(user) {
-    const res = await this.api(`/articles/recommended`, 'GET', null, true, user);
+    const res = await this.api(`/articles/recommended`, 'GET', null, null, true, user);
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -262,7 +263,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicById(id) {
-    const res = await this.api(`/topics/id/${id}`, 'GET');
+    const res = await this.api(`/topics/id`, 'GET', { id });
     return this.responseReturnHandler(res, true, 'topic');
   }
 
@@ -272,7 +273,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicByName(name) {
-    const res = await this.api(`/topics/name/${name}`, 'GET');
+    const res = await this.api(`/topics/name`, 'GET', { name });
     return this.responseReturnHandler(res, true, 'topic');
   }
 
@@ -291,7 +292,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicsByTag(tag) {
-    const res = await this.api(`/topics/tag/${tag}`, 'GET');
+    const res = await this.api(`/topics/tag`, 'GET', { tag });
     return this.responseReturnHandler(res, true, 'topics');
   }
 
@@ -301,7 +302,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicsByQuery(query) {
-    const res = await this.api(`/topics/query/${query}`, 'GET');
+    const res = await this.api(`/topics/query`, 'GET', { query });
     return this.responseReturnHandler(res, true, 'topics');
   }
 
@@ -311,7 +312,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getRecommendedTopics(user) {
-    const res = await this.api(`/topics/recommended`, 'GET', null, true, user);
+    const res = await this.api(`/topics/recommended`, 'GET', null, null, true, user);
     return this.responseReturnHandler(res, true, 'topics');
   }
 
@@ -321,7 +322,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getCategoryById(id) {
-    const res = await this.api(`/categories/${id}`, 'GET');
+    const res = await this.api(`/categories`, 'GET', { id });
     return this.responseReturnHandler(res, true, 'category');
   }
 
@@ -340,7 +341,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getCategoriesByQuery(query) {
-    const res = await this.api(`/categories/query/${query}`, 'GET');
+    const res = await this.api(`/categories/query`, 'GET', { query });
     return this.responseReturnHandler(res, true, 'categories');
   }
 
@@ -384,7 +385,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async followUnfollow({ id, user }) {
-    const res = await this.api(`/users/${id}/follow`, 'PUT', null, true, user);
+    const res = await this.api(`/users/follow`, 'PUT', { id }, null, true, user);
     return this.responseReturnHandler(res, true, 'users');
   }
 
@@ -396,7 +397,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async updateUser(id, updatedData, user) {
-    const res = await this.api(`/users/${id}`, 'PUT', updatedData, true, user);
+    const res = await this.api(`/users`, 'PUT', { id }, updatedData, true, user);
     return this.responseReturnHandler(res);
   }
 
@@ -408,7 +409,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async updateArticle(article, id, user) {
-    const res = await this.api(`/articles/${id}`, 'PUT', article, true, user);
+    const res = await this.api(`/articles`, 'PUT', { id }, article, true, user);
     return this.responseReturnHandler(res);
   }
 
@@ -419,7 +420,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async accreditDiscredit(id, user, credit) {
-    const res = await this.api(`/articles/credit/${id}`, 'PUT', credit, true, user);
+    const res = await this.api(`/articles/credit`, 'PUT', { id }, credit, true, user);
     return this.responseReturnHandler(res, true, 'data');
   }
 
@@ -436,7 +437,7 @@ export default class Data {
    * @returns status code 204 on success, errors on failure
    */
   async deleteArticle(id, user) {
-    const res = await this.api(`/articles/${id}`, 'DELETE', null, true, user);
+    const res = await this.api(`/articles`, 'DELETE', { id }, null, true, user);
     return this.responseReturnHandler(res);
   }
 }

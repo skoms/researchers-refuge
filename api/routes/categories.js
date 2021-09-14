@@ -21,8 +21,8 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // GET finds specified category and basic info on its owner
-router.get('/:id', asyncHandler(async (req, res) => {
-  const category = await Category.findByPk(req.params.id, {
+router.get('/', asyncHandler(async (req, res) => {
+  const category = await Category.findByPk(req.query.id, {
     attributes: ['id', 'name'], 
     include: [{ model: Topic, attributes: ['categoryId','id', 'name', 'relatedTags'] }]});
   if (category) {
@@ -33,7 +33,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and sends back specific categories by query
-router.get('/query/:query', asyncHandler(async (req, res) => {
+router.get('/query', asyncHandler(async (req, res) => {
   const categories = await Category.findAll({
     attributes: ['id', 'name'], 
     include: [{ 
@@ -48,7 +48,7 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
         }],
       }],
     }],
-    where: { name: { [Op.substring]: req.params.query } }
+    where: { name: { [Op.substring]: req.query.query } }
   });
 
   if( categories ) {

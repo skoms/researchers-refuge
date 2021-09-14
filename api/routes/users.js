@@ -27,9 +27,19 @@ const isStringAndStringToArray = (value) => {
   }
 }
 
+// GET finds specified user by ID
+router.get('/', asyncHandler(async (req, res) => {
+  const user = await User.findByPk(req.query.id, { 
+    attributes:  { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] }});
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).end();
+  }
+}));
 
 // GET authenticated user info
-router.get('/', authenticateLogin, asyncHandler(async (req, res) => {
+router.get('/me', authenticateLogin, asyncHandler(async (req, res) => {
   const user = await User.findOne({
     attributes: { exclude: ['password'] },
     where: { emailAddress: req.currentUser.emailAddress }
@@ -81,26 +91,14 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
   }
 }));
 
-// GET finds specified user by ID
-router.get('/:id', asyncHandler(async (req, res) => {
-  const user = await User.findByPk(req.params.id, { 
-    attributes:  { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] }});
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(404).end();
-  }
-}));
-
-
 // GET find users by query
-router.get('/query/:query', asyncHandler(async (req, res) => {
+router.get('/query', asyncHandler(async (req, res) => {
   const users = await User.findAll({ 
     attributes:  { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] },
     where: { 
       [Op.or]: [
-      { firstName: { [Op.substring]: req.params.query } },
-      { lastName: { [Op.substring]: req.params.query } }
+      { firstName: { [Op.substring]: req.query.query } },
+      { lastName: { [Op.substring]: req.query.query } }
     ]}});
 
   if (users) {
@@ -127,14 +125,14 @@ router.post('/', asyncHandler(async (req, res) => {
 }));
 
 // PUT updates the chosen user if authenticated to do so
-router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
-  const owner = await User.findOne({ where: { id: req.params.id } });
+router.put('/', authenticateLogin, asyncHandler(async (req, res) => {
+  const owner = await User.findOne({ where: { id: req.query.id } });
 
   const isOwner = owner.emailAddress === req.currentUser.emailAddress;
   const isAdmin = req.currentUser.accessLevel === 'admin';
 
   if (isOwner || isAdmin) {
-    await User.update(req.body, { where: { id: req.params.id } })
+    await User.update(req.body, { where: { id: req.query.id } })
       .then(response => {
         if (!response.name) {
           res.status(204).end()
@@ -146,7 +144,7 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // PUT updates 'followers' for the target and 'following' for the follow/unfollow, and returns both Users to update them
-router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
+router.put('/follow', authenticateLogin, asyncHandler(async (req, res) => {
   // Fetches the two users from the API
   const user = await User.findOne({
     attributes: [ 'id', 'following', 'emailAddress' ],
@@ -154,7 +152,7 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
   });
   const target = await User.findOne({ 
     attributes: [ 'id', 'followers' ],
-    where: { id: req.params.id } });
+    where: { id: req.query.id } });
   
   const isOnline = user.emailAddress === req.currentUser.emailAddress;
 
@@ -171,7 +169,7 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
       { where: { emailAddress: req.currentUser.emailAddress } });
     const targetRes = await User.update(
       { followers: updatedFollowers }, 
-      { where: { id: req.params.id } });
+      { where: { id: req.query.id } });
 
     // If it returns any data it was fail, so we check if theres any return
     if (!userRes.name && !targetRes.name) {
@@ -179,7 +177,7 @@ router.put('/:id/follow', authenticateLogin, asyncHandler(async (req, res) => {
         where: { emailAddress: req.currentUser.emailAddress },
       });
       const target = await User.findOne({ attributes: { exclude: ['emailAddress','password', 'createdAt', 'updatedAt'] },  
-        where: { id: req.params.id } });
+        where: { id: req.query.id } });
       res.status(200).json({ user, target });
     }
   } else {

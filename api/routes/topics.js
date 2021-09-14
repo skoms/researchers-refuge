@@ -46,7 +46,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and sends back a specific topics by tag
-router.get('/tag/:tag', asyncHandler(async (req, res) => {
+router.get('/tag', asyncHandler(async (req, res) => {
   const topics = await Topic.findAll({
     attributes: ['id', 'name', 'relatedTags', 'categoryId'],
     include: [ { 
@@ -57,7 +57,7 @@ router.get('/tag/:tag', asyncHandler(async (req, res) => {
         attributes: ['firstName', 'lastName']
       }] 
     }],
-    where: { relatedTags: { [Op.substring]: req.params.tag } }
+    where: { relatedTags: { [Op.substring]: req.query.tag } }
   });
 
   if( topics ) {
@@ -68,7 +68,7 @@ router.get('/tag/:tag', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and sends back specific topics by query
-router.get('/query/:query', asyncHandler(async (req, res) => {
+router.get('/query', asyncHandler(async (req, res) => {
   const topics = await Topic.findAll({
     attributes: ['id', 'name', 'relatedTags', 'categoryId'],
     include: [ { 
@@ -81,8 +81,8 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
     }],
     where: { 
       [Op.or]: [
-      { name: { [Op.substring]: req.params.query } },
-      { relatedTags: { [Op.substring]: req.params.query } }
+      { name: { [Op.substring]: req.query.query } },
+      { relatedTags: { [Op.substring]: req.query.query } }
     ]}
   });
 
@@ -94,7 +94,7 @@ router.get('/query/:query', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and displays a specific topic by name
-router.get('/name/:name', asyncHandler(async (req, res) => {
+router.get('/name', asyncHandler(async (req, res) => {
   const topic = await Topic.findOne({
     attributes: ['id', 'name', 'relatedTags', 'categoryId'],
     include: [{ 
@@ -105,7 +105,7 @@ router.get('/name/:name', asyncHandler(async (req, res) => {
         attributes: ['firstName', 'lastName']
       }]
     }],
-    where: { name: req.params.name }
+    where: { name: req.query.name }
   });
 
   if( topic ) {
@@ -116,8 +116,8 @@ router.get('/name/:name', asyncHandler(async (req, res) => {
 }));
 
 // GET finds and displays a specific topic by ID
-router.get('/id/:id', asyncHandler(async (req, res) => {
-  const topic = await Topic.findByPk(req.params.id, {
+router.get('/id', asyncHandler(async (req, res) => {
+  const topic = await Topic.findByPk(req.query.id, {
     attributes: ['id', 'name', 'relatedTags', 'categoryId'],
     include: [ { 
       model: Article, 
@@ -172,10 +172,10 @@ router.post('/', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // PUT updates the chosen topic ( Admin Only )
-router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
+router.put('/', authenticateLogin, asyncHandler(async (req, res) => {
   const isAdmin = req.currentUser.accessLevel === 'admin';
   if (isAdmin) {
-    await Topic.update(req.body, { where: { id: req.params.id } })
+    await Topic.update(req.body, { where: { id: req.query.id } })
       .then(response => {
         if (!response.name) {
           res.status(204).end()
@@ -187,10 +187,10 @@ router.put('/:id', authenticateLogin, asyncHandler(async (req, res) => {
 }));
 
 // DELETE deletes the chosen topic ( Admin Only )
-router.delete('/:id', authenticateLogin, asyncHandler(async (req, res) => {
+router.delete('/', authenticateLogin, asyncHandler(async (req, res) => {
   const isAdmin = req.currentUser.accessLevel === 'admin';
   if (isAdmin) {
-    await Topic.destroy({ where: { id: req.params.id } })
+    await Topic.destroy({ where: { id: req.query.id } })
       .then(res.status(204).end());
   } else {
     res.status(403).end();
