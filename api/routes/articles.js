@@ -67,21 +67,15 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
     where: { emailAddress: req.currentUser.emailAddress } 
   });
 
-  const accreditedArticles = user.accreditedArticles.split(',').filter( entry => entry !== ' ' );
-  const discreditedArticles = user.discreditedArticles.split(',').filter( entry => entry !== ' ' );
-
+  const accreditedArticles = isStringAndStringToArray(user.accreditedArticles);
+  const discreditedArticles = isStringAndStringToArray(user.discreditedArticles);
+  
   const accreditedOnes = await Article.findAll({
     attributes: ['topicId'],
     where: { id: { [Op.in]: accreditedArticles } }
   });
 
-  const articleTopicIds = accreditedOnes.map( article => article.topicId );
-  const topics = await Topic.findAll({
-    attributes: ['id'],
-    where: { id: { [Op.in]: articleTopicIds } }
-  });
-
-  const topicIds = topics.map( topic => topic.id );
+  const topicIds = new Set(accreditedOnes.map( article => article.topicId ));
   const articles = await Article.findAll({
     attributes: ['id', 'title'],
     where: {
@@ -92,7 +86,7 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
       ]
     }
   })
-  
+
   if( articles ) {
     res.status(200).json(articles.slice(0,3));
   } else {

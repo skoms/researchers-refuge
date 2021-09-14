@@ -1,27 +1,34 @@
+import axios  from 'axios';
+
 export default class Data {
   /**
    * More Modular version of the 'fetch' adapted to our use
    * @param {string} path - the path in the api to make the request to
-   * @param {string} method - what type of repuest to make (GET, POST, PUT, DELETE)
+   * @param {string} method - what type of request to make (GET, POST, PUT, DELETE)
    * @param {object} body - request body object (for POST or PUT requests)
-   * @param {boolean} requiresAuth - to specify whether or not the path requires authentification
+   * @param {boolean} requiresAuth - to specify whether or not the path requires authentication
    * @param {object} credentials - login credentials (only used when 'requiresAuth' is true)
+   * @param {object} params - extra parameters for the request (like query)
    * @returns returns a promise of the fetch request
    */
-  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
-    const URL = 'http://localhost:5000/api' + path;
+  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null, params = null) {
     const options = {
       method,
-      headers: { 'Content-Type': 'application/json; charset=utf-8' }
+      url: 'http://localhost:5000/api' + path,
+      params,
+      headers: { },
     };
+
     if (body) {
       options.body = JSON.stringify(body);
     }
+
     if (requiresAuth) {
       const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
-    return fetch(URL, options);
+
+    return axios(options);
   }
 
   /**
@@ -111,13 +118,10 @@ export default class Data {
   responseReturnHandler = (res, returnData = false, name = 'data') => {
     if ( res.status === 201 || res.status ===  200 || res.status ===  204 ) {
       if ( returnData ) {
-        return res.json()
-        .then( data => {
-          return {
-            status: res.status,
-            [name]: data
-          };
-        });
+        return {
+          status: res.status,
+          [name]: res.data
+        };
       } else {
         return {
           status: res.status,
@@ -126,20 +130,18 @@ export default class Data {
     } else if ( res.status === 404 || res.status === 403 ||  res.status === 500 ) {
       return { status: res.status };
     } else if ( res.status > 299 ) {
-      return res.json()
-        .then( data => {
-          if ( typeof data.message === 'string' ) {
-            return {
-              status: res.status,
-              errors: [data.message] // this is done because we want to ensure the return of 'errors' is of type: 'array'
-            };
-          } else {
-            return {
-              status: res.status,
-              errors: data.message
-            };
-          }
-        });
+      
+      if ( typeof res.data.message === 'string' ) {
+        return {
+          status: res.status,
+          errors: [res.data.message] // this is done because we want to ensure the return of 'errors' is of type: 'array'
+        };
+      } else {
+        return {
+          status: res.status,
+          errors: res.data.message
+        };
+      }
     }
   }
 
