@@ -16,14 +16,10 @@ export default class Data {
       method,
       url: 'http://localhost:5000/api' + path,
       params,
-      headers: { },
+      auth: requiresAuth ? 
+        { username: credentials.emailAddress, password: credentials.password } : {},
       data: body || {}
     };
-
-    if (requiresAuth) {
-      const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
-      options.headers['Authorization'] = `Basic ${encodedCredentials}`;
-    }
 
     return axios(options);
   }
