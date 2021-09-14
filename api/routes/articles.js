@@ -242,16 +242,6 @@ router.put('/credit/:id', authenticateLogin, asyncHandler(async (req, res) => {
   } else if (!isAccrediting && alreadyAccredited) {
     updatedCredits = article.credits - 2 
   }
-  console.dir(req.body);
-  console.log(`
-
-    isAccrediting: ${isAccrediting}  
-    alreadyAccredited: ${alreadyAccredited} 
-    alreadyDiscredited: ${alreadyDiscredited} 
-
-    prevCredits: ${article.credits}
-    newCredits: ${updatedCredits}
-    `);
 
   if (article) {
     await Article.update(

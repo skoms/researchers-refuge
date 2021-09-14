@@ -11,11 +11,10 @@ export default class Data {
    * @param {object} params - extra parameters for the request (like query)
    * @returns returns a promise of the fetch request
    */
-  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null, params = null) {
+  api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const options = {
       method,
       url: 'http://localhost:5000/api' + path,
-      params,
       headers: { },
       data: body || {}
     };
