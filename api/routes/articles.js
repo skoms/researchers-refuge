@@ -191,13 +191,13 @@ router.get('/', asyncHandler(async (req, res) => {
 // GET finds and displays all the articles and basic info on their owners
 router.get('/owner', asyncHandler(async (req, res) => {
   const { id, page } = req.query;
-  const articles = await Article.findAll(({
+  const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress', 'accessLevel']}],
     where: { userId: id },
     limit: 10,
     offset: page !== 0 ? ((page - 1) * 10) : 0
-  }));
+  });
 
   if (articles) {
     res.status(200).json(articles);
@@ -274,7 +274,7 @@ router.put('/credit', authenticateLogin, asyncHandler(async (req, res) => {
       .then( async (response) => {
         if (!response.name) {
           let updatedAccreditedArticles;
-          let updatedDiscretitedArticles;
+          let updatedDiscreditedArticles;
 
           if (isAccrediting && !alreadyAccredited) {
             updatedAccreditedArticles = [...accreditedArticles, article.id.toString()];
@@ -285,17 +285,17 @@ router.put('/credit', authenticateLogin, asyncHandler(async (req, res) => {
           }
 
           if (!isAccrediting && !alreadyDiscredited) {
-            updatedDiscretitedArticles = [...discreditedArticles, article.id.toString()];
+            updatedDiscreditedArticles = [...discreditedArticles, article.id.toString()];
           } else if (!isAccrediting && alreadyDiscredited) {
-            updatedDiscretitedArticles = discreditedArticles.filter( id => id !== article.id.toString());
+            updatedDiscreditedArticles = discreditedArticles.filter( id => id !== article.id.toString());
           } else if (isAccrediting && alreadyDiscredited) {
-            updatedDiscretitedArticles = discreditedArticles.filter( id => id !== article.id.toString());
+            updatedDiscreditedArticles = discreditedArticles.filter( id => id !== article.id.toString());
           }
 
           await User.update(
             { 
               accreditedArticles: updatedAccreditedArticles,
-              discreditedArticles: updatedDiscretitedArticles 
+              discreditedArticles: updatedDiscreditedArticles 
             },
             { where: { id: creditor.id } })
             .then( async (response) => {
