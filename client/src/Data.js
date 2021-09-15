@@ -170,13 +170,13 @@ export default class Data {
    * @param {string} query - query string to search for
    * @returns status code, data on success, errors on failure
    */
-  async getUsersByQuery(query) {
-    const res = await this.api(`/users/query`, 'GET', { query });
+  async getUsersByQuery(query, page = 0) {
+    const res = await this.api(`/users/query`, 'GET', { query, page });
     return this.responseReturnHandler(res, true, 'users');
   }
 
   /**
-   * Gets recommended users from looking at previously accretited articles and their topic
+   * Gets recommended users from looking at previously accredited articles and their topic
    * @param {object} user - logged in user
    * @returns status code, data on success, errors on failure
    */
@@ -199,8 +199,8 @@ export default class Data {
    * Gets all articles stored in the API
    * @returns status code, data on success, errors on failure
    */
-  async getArticlesWithFilter(filter) {
-    const res = await this.api(`/articles/filter`, 'GET', { filter });
+  async getArticlesWithFilter(filter, page = 0) {
+    const res = await this.api(`/articles/filter`, 'GET', { filter, page });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -208,8 +208,8 @@ export default class Data {
    * Gets all articles by users this user follows
    * @returns status code, data on success, errors on failure
    */
-  async getFollowingArticles(user) {
-    const res = await this.api('/articles/following', 'GET', null, null, true, user);
+  async getFollowingArticles(user, page = 0) {
+    const res = await this.api('/articles/following', 'GET', { page }, null, true, user);
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -218,8 +218,8 @@ export default class Data {
    * @param {integer} id - the ID of the article
    * @returns status code, data on success, errors on failure
    */
-   async getArticlesByOwnerId(id) {
-    const res = await this.api(`/articles/owner`, 'GET', { id });
+   async getArticlesByOwnerId(id, page = 0) {
+    const res = await this.api(`/articles/owner`, 'GET', { id, page });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -228,8 +228,8 @@ export default class Data {
    * @param {string} tag - article tag
    * @returns status code, data on success, errors on failure
    */
-   async getArticlesByTag(tag, id) {
-    const res = await this.api(`/articles/tag`, 'GET', { tag, id });
+   async getArticlesByTag(tag, id, page = 0) {
+    const res = await this.api(`/articles/tag`, 'GET', { tag, id, page });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
@@ -238,13 +238,13 @@ export default class Data {
    * @param {string} query - query string to search for
    * @returns status code, data on success, errors on failure
    */
-  async getArticlesByQuery(query) {
-    const res = await this.api(`/articles/query`, 'GET', { query });
+  async getArticlesByQuery(query, page = 0) {
+    const res = await this.api(`/articles/query`, 'GET', { query, page });
     return this.responseReturnHandler(res, true, 'articles');
   }
 
   /**
-   * Gets recommended articles from looking at previously accretited articles and their topic
+   * Gets recommended articles from looking at previously accredited articles and their topic
    * @param {object} user - logged in user
    * @returns status code, data on success, errors on failure
    */

@@ -31,29 +31,37 @@ const isStringAndStringToArray = (value) => {
 
 // GET finds and displays all the articles based on filter and basic info on their owners
 router.get('/filter', asyncHandler(async (req, res) => {
-  const { filter } = req.query;
+  const { filter, page } = req.query;
   let articles;
   if (filter === 'top') {
     articles = await Article.findAll({
-      include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] }],
-      order: [['credits', 'DESC']]
+      include: [ { model: User, attributes: ['firstName', 'lastName'] }],
+      order: [['credits', 'DESC']],
+      limit: 10,
+      offset: page !== 0 ? ((page - 1) * 10) : 0
     });
   } else if (filter === 'new') {
     articles = await Article.findAll({
-      include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] }],
-      order: [['published', 'DESC']]
+      include: [ { model: User, attributes: ['firstName', 'lastName'] }],
+      order: [['published', 'DESC']],
+      limit: 10,
+      offset: page !== 0 ? ((page - 1) * 10) : 0
     });
   } else if (filter === 'popular') {
     const aMonthAgo = moment([ moment().year(), moment().month() - 1, moment().date()]).format('YYYY-MM-DD');
     
     articles = await Article.findAll({
-      include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] }],
+      include: [ { model: User, attributes: ['firstName', 'lastName'] }],
       order: [['credits', 'DESC']],
-      where: { published: { [Op.gte]: aMonthAgo }}
+      where: { published: { [Op.gte]: aMonthAgo }},
+      limit: 10,
+      offset: page !== 0 ? ((page - 1) * 10) : 0
     });
   } else {
     articles = await Article.findAll({
-      include: [ { model: User, attributes: ['firstName', 'lastName', 'emailAddress'] }]
+      include: [ { model: User, attributes: ['firstName', 'lastName'] }],
+      limit: 10,
+      offset: page !== 0 ? ((page - 1) * 10) : 0
     });
   }
 
@@ -96,14 +104,17 @@ router.get('/recommended', authenticateLogin, asyncHandler(async (req, res) => {
 
 // GET finds and sends back a specific articles by tag
 router.get('/tag', asyncHandler(async (req, res) => {
+  const { tag, id, page } = req.query;
   const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
-    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    include: [{ model: User, attributes: ['firstName', 'lastName']}],
     where: { [Op.and]: [
-        { tags: { [Op.substring]: req.query.tag } },
-        { id: { [Op.not]: req.query.id} },
+        { tags: { [Op.substring]: tag } },
+        { id: { [Op.not]: id} },
       ] 
-    }
+    },
+    limit: 10,
+    offset: page !== 0 ? ((page - 1) * 10) : 0
   });
 
   if( articles ) {
@@ -115,18 +126,21 @@ router.get('/tag', asyncHandler(async (req, res) => {
 
 // GET finds and sends back specific articles by query
 router.get('/query', asyncHandler(async (req, res) => {
+  const { query, page } = req.query;
   const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
     where: { 
       [Op.or]: [
-        { title: { [Op.substring]: req.query.query } },
-        { topic: { [Op.substring]: req.query.query } },
-        { intro: { [Op.substring]: req.query.query } },
-        { body:  { [Op.substring]: req.query.query } },
-        { tags:  { [Op.substring]: req.query.query } }
+        { title: { [Op.substring]: query } },
+        { topic: { [Op.substring]: query } },
+        { intro: { [Op.substring]: query } },
+        { body:  { [Op.substring]: query } },
+        { tags:  { [Op.substring]: query } }
       ]
-    }
+    },
+    limit: 10,
+    offset: page !== 0 ? ((page - 1) * 10) : 0
   });
 
   if( articles ) {
@@ -138,14 +152,17 @@ router.get('/query', asyncHandler(async (req, res) => {
 
 // GET gets articles by researchers the user follow (sorted by most recent)
 router.get('/following', authenticateLogin, asyncHandler(async (req, res) => {
+  const { page } = req.query;
   const user = await User.findOne({ where: { emailAddress: req.currentUser.emailAddress }});
   const following = isStringAndStringToArray(user.following);
 
   const articles = await Article.findAll({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'topicId', 'published', 'credits'], 
-    include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress']}],
+    include: [{ model: User, attributes: ['firstName', 'lastName']}],
     where: { userId: { [Op.in]: following } },
-    order: [['published', 'DESC']]
+    order: [['published', 'DESC']],
+    limit: 10,
+    offset: page !== 0 ? ((page - 1) * 10) : 0
   });
 
   if( articles ) {
@@ -157,9 +174,13 @@ router.get('/following', authenticateLogin, asyncHandler(async (req, res) => {
 
 // GET finds specified article and basic info on its owner
 router.get('/', asyncHandler(async (req, res) => {
-  const article = await Article.findByPk(req.query.id, { 
+  const { id, page } = req.query;
+  const article = await Article.findByPk( id, { 
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
-    include: [ { model: User, attributes: { exclude: ['emailAddress', 'password', 'createdAt', 'updatedAt'] } } ] });
+    include: [ { model: User, attributes: { exclude: ['emailAddress', 'password', 'createdAt', 'updatedAt'] } } ],
+    limit: 10,
+    offset: page !== 0 ? ((page - 1) * 10) : 0
+  });
   if (article) {
     res.status(200).json(article);
   } else {
@@ -169,10 +190,13 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // GET finds and displays all the articles and basic info on their owners
 router.get('/owner', asyncHandler(async (req, res) => {
+  const { id, page } = req.query;
   const articles = await Article.findAll(({
     attributes: ['id', 'title', 'topic', 'intro', 'body', 'tags', 'userId', 'published', 'credits'], 
     include: [{ model: User, attributes: ['firstName', 'lastName', 'emailAddress', 'accessLevel']}],
-    where: { userId: req.query.id }
+    where: { userId: id },
+    limit: 10,
+    offset: page !== 0 ? ((page - 1) * 10) : 0
   }));
 
   if (articles) {
