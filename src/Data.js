@@ -12,9 +12,12 @@ export default class Data {
    * @returns returns a promise of the fetch request
    */
   api(path, method = 'GET', params = null, body = null, requiresAuth = false, credentials = null) {
+    if (process.env.NODE_ENV !== 'production') {
+      require('dotenv').config();
+    }
     const options = {
       method,
-      url: ( process.env.NODE_ENV === 'production' ? process.env.REACT_APP_DEV_API : process.env.REACT_APP_PRO_API) + path,
+      url: ( process.env.NODE_ENV === 'production' ? 'https://researchers-refuge-api.herokuapp.com/api' : process.env.REACT_APP_DEV_API ) + path,
       params,
       auth: requiresAuth ? 
         { username: credentials.emailAddress, password: credentials.password } : {},
@@ -108,34 +111,39 @@ export default class Data {
    * @param {string} name - name of the propterty if 'returnData'
    * @returns an object with the response
    */
-  responseReturnHandler = (res, returnData = false, name = 'data') => {
-    if ( res.status === 201 || res.status ===  200 || res.status ===  204 ) {
-      if ( returnData ) {
-        return {
-          status: res.status,
-          [name]: res.data
-        };
-      } else {
-        return {
-          status: res.status,
-        };
-      }
-    } else if ( res.status === 404 || res.status === 403 ||  res.status === 500 ) {
-      return { status: res.status };
-    } else if ( res.status > 299 ) {
-      
-      if ( typeof res.data.message === 'string' ) {
-        return {
-          status: res.status,
-          errors: [res.data.message] // this is done because we want to ensure the return of 'errors' is of type: 'array'
-        };
-      } else {
-        return {
-          status: res.status,
-          errors: res.data.message
-        };
-      }
-    }
+  responseHandler = (cb, returnData = false, name = 'data') => {
+    return cb
+      .then( res => {
+        if ( res.status === 201 || res.status ===  200 || res.status ===  204 ) {
+          if ( returnData ) {
+            return {
+              status: res.status,
+              [name]: res.data
+            };
+          } else {
+            return {
+              status: res.status,
+            };
+          }
+        }
+      })
+      .catch(({ response }) => {
+        if ( response.status === 404 || response.status === 403 ||  response.status === 500 ) {
+          return { status: response.status };
+        } else if ( response.status > 299 ) {
+          if ( typeof response.data.message === 'string' ) {
+            return {
+              status: response.status,
+              errors: [response.data.message] // this is done because we want to ensure the return of 'errors' is of type: 'array'
+            };
+          } else {
+            return {
+              status: response.status,
+              errors: response.data.message
+            };
+          }
+        }
+      });
   }
 
 
@@ -151,8 +159,10 @@ export default class Data {
    * @returns a statusCode, and data if succeded, error message if failed
    */
   async getUser(emailAddress, password) {
-    const res = await this.api('/users/me', 'GET', null, null, true, {emailAddress, password});
-    return this.responseReturnHandler(res, true, 'user');
+    return await this.responseHandler(
+      this.api('/users/me', 'GET', null, null, true, {emailAddress, password}), 
+      true, 'user'
+    );
   }
 
   /**
@@ -161,8 +171,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getUserById(id) {
-    const res = await this.api('/users', 'GET', { id });
-    return this.responseReturnHandler(res, true, 'user');
+    return await this.responseHandler(
+      this.api('/users', 'GET', { id }), 
+      true, 'user'
+    );
   }
 
   /**
@@ -171,8 +183,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getUsersByQuery(query, page = 1) {
-    const res = await this.api(`/users/query`, 'GET', { query, page });
-    return this.responseReturnHandler(res, true, 'users');
+    return await this.responseHandler(
+      this.api(`/users/query`, 'GET', { query, page }), 
+      true, 'users'
+    );
   }
 
   /**
@@ -181,8 +195,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getRecommendedUsers(user) {
-    const res = await this.api(`/users/recommended`, 'GET', null, null, true, user);
-    return this.responseReturnHandler(res, true, 'users');
+    return await this.responseHandler(
+      this.api(`/users/recommended`, 'GET', null, null, true, user), 
+      true, 'users'
+    );
   }
 
   /**
@@ -191,8 +207,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getArticle(id) {
-    const res = await this.api(`/articles`, 'GET', { id });
-    return this.responseReturnHandler(res, true, 'article');
+    return await this.responseHandler(
+      this.api(`/articles`, 'GET', { id }), 
+      true, 'article'
+    );
   }
 
   /**
@@ -200,8 +218,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getArticlesWithFilter(filter, page = 1) {
-    const res = await this.api(`/articles/filter`, 'GET', { filter, page });
-    return this.responseReturnHandler(res, true, 'articles');
+    return await this.responseHandler(
+      this.api(`/articles/filter`, 'GET', { filter, page }), 
+      true, 'articles'
+    );
   }
 
   /**
@@ -209,8 +229,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getFollowingArticles(user, page = 1) {
-    const res = await this.api('/articles/following', 'GET', { page }, null, true, user);
-    return this.responseReturnHandler(res, true, 'articles');
+    return await this.responseHandler(
+      this.api('/articles/following', 'GET', { page }, null, true, user), 
+      true, 'articles'
+    );
   }
 
   /**
@@ -219,8 +241,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getArticlesByOwnerId(id, page = 1) {
-    const res = await this.api(`/articles/owner`, 'GET', { id, page });
-    return this.responseReturnHandler(res, true, 'articles');
+    return await this.responseHandler(
+      this.api(`/articles/owner`, 'GET', { id, page }), 
+      true, 'articles'
+    );
   }
 
   /**
@@ -229,8 +253,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getArticlesByTag(tag, id, page = 1) {
-    const res = await this.api(`/articles/tag`, 'GET', { tag, id, page });
-    return this.responseReturnHandler(res, true, 'articles');
+    return await this.responseHandler(
+      this.api(`/articles/tag`, 'GET', { tag, id, page }), 
+      true, 'articles'
+    );
   }
 
   /**
@@ -239,8 +265,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getArticlesByQuery(query, page = 1) {
-    const res = await this.api(`/articles/query`, 'GET', { query, page });
-    return this.responseReturnHandler(res, true, 'articles');
+    return await this.responseHandler(
+      this.api(`/articles/query`, 'GET', { query, page }), 
+      true, 'articles'
+    );
   }
 
   /**
@@ -249,8 +277,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getRecommendedArticles(user) {
-    const res = await this.api(`/articles/recommended`, 'GET', null, null, true, user);
-    return this.responseReturnHandler(res, true, 'articles');
+    return await this.responseHandler(
+      this.api(`/articles/recommended`, 'GET', null, null, true, user), 
+      true, 'articles'
+    );
   }
 
   /**
@@ -259,8 +289,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicById(id) {
-    const res = await this.api(`/topics/id`, 'GET', { id });
-    return this.responseReturnHandler(res, true, 'topic');
+    return await this.responseHandler(
+      this.api(`/topics/id`, 'GET', { id }), 
+      true, 'topic'
+    );
   }
 
   /**
@@ -269,8 +301,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicByName(name) {
-    const res = await this.api(`/topics/name`, 'GET', { name });
-    return this.responseReturnHandler(res, true, 'topic');
+    return await this.responseHandler(
+      this.api(`/topics/name`, 'GET', { name }), 
+      true, 'topic'
+    );
   }
 
   /**
@@ -278,8 +312,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopics() {
-    const res = await this.api(`/topics`, 'GET');
-    return this.responseReturnHandler(res, true, 'topics');
+    return await this.responseHandler(
+      this.api(`/topics`, 'GET'), 
+      true, 'topics'
+    );
   }
 
   /**
@@ -288,8 +324,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicsByTag(tag) {
-    const res = await this.api(`/topics/tag`, 'GET', { tag });
-    return this.responseReturnHandler(res, true, 'topics');
+    return await this.responseHandler(
+      this.api(`/topics/tag`, 'GET', { tag }), 
+      true, 'topics'
+    );
   }
 
   /**
@@ -298,8 +336,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getTopicsByQuery(query) {
-    const res = await this.api(`/topics/query`, 'GET', { query });
-    return this.responseReturnHandler(res, true, 'topics');
+    return await this.responseHandler(
+      this.api(`/topics/query`, 'GET', { query }), 
+      true, 'topics'
+    );
   }
 
   /**
@@ -308,8 +348,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async getRecommendedTopics(user) {
-    const res = await this.api(`/topics/recommended`, 'GET', null, null, true, user);
-    return this.responseReturnHandler(res, true, 'topics');
+    return await this.responseHandler(
+      this.api(`/topics/recommended`, 'GET', null, null, true, user), 
+      true, 'topics'
+    );
   }
 
   /**
@@ -318,8 +360,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getCategoryById(id) {
-    const res = await this.api(`/categories`, 'GET', { id });
-    return this.responseReturnHandler(res, true, 'category');
+    return await this.responseHandler(
+      this.api(`/categories`, 'GET', { id }), 
+      true, 'category'
+    );
   }
 
   /**
@@ -327,8 +371,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getCategories() {
-    const res = await this.api(`/categories`, 'GET');
-    return this.responseReturnHandler(res, true, 'categories');
+    return await this.responseHandler(
+      this.api(`/categories`, 'GET'), 
+      true, 'categories'
+    );
   }
 
   /**
@@ -337,8 +383,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async getCategoriesByQuery(query) {
-    const res = await this.api(`/categories/query`, 'GET', { query });
-    return this.responseReturnHandler(res, true, 'categories');
+    return await this.responseHandler(
+      this.api(`/categories/query`, 'GET', { query }), 
+      true, 'categories'
+    );
   }
 
 
@@ -353,8 +401,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async createUser(user) {
-    const res = await this.api('/users', 'POST', null, user);
-    return this.responseReturnHandler(res);
+    return await this.responseHandler(
+      this.api('/users', 'POST', null, user),
+      true, 'user'
+    );
   }
 
   /**
@@ -364,8 +414,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async createArticle(article, user) {
-    const res = await this.api('/articles', 'POST', null, article, true, user);
-    return this.responseReturnHandler(res, true, 'article');
+    return await this.responseHandler(
+      this.api('/articles', 'POST', null, article, true, user), 
+      true, 'article'
+    );
   }
 
 
@@ -381,8 +433,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async followUnfollow({ id, user }) {
-    const res = await this.api(`/users/follow`, 'PUT', { id }, null, true, user);
-    return this.responseReturnHandler(res, true, 'users');
+    return await this.responseHandler(
+      this.api(`/users/follow`, 'PUT', { id }, null, true, user), 
+      true, 'users'
+    );
   }
 
   /**
@@ -393,8 +447,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
    async updateUser(id, updatedData, user) {
-    const res = await this.api(`/users`, 'PUT', { id }, updatedData, true, user);
-    return this.responseReturnHandler(res);
+    return await this.responseHandler(
+      this.api(`/users`, 'PUT', { id }, updatedData, true, user),
+      true, 'user'
+    );
   }
 
   /**
@@ -405,8 +461,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async updateArticle(article, id, user) {
-    const res = await this.api(`/articles`, 'PUT', { id }, article, true, user);
-    return this.responseReturnHandler(res);
+    return await this.responseHandler(
+      this.api(`/articles`, 'PUT', { id }, article, true, user),
+      true, 'article'
+    );
   }
 
   /**
@@ -416,8 +474,10 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async accreditDiscredit(id, user, credit) {
-    const res = await this.api(`/articles/credit`, 'PUT', { id }, credit, true, user);
-    return this.responseReturnHandler(res, true, 'data');
+    return await this.responseHandler(
+      this.api(`/articles/credit`, 'PUT', { id }, credit, true, user), 
+      true, 'data'
+    );
   }
 
 
@@ -433,7 +493,8 @@ export default class Data {
    * @returns status code 204 on success, errors on failure
    */
   async deleteArticle(id, user) {
-    const res = await this.api(`/articles`, 'DELETE', { id }, null, true, user);
-    return this.responseReturnHandler(res);
+    return await this.responseHandler(
+      this.api(`/articles`, 'DELETE', { id }, null, true, user)
+    );
   }
 }

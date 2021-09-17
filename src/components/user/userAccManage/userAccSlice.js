@@ -40,13 +40,9 @@ export const signUp = createAsyncThunk(
         status: createRes.status,
         user: getRes.user
       };
-    } else {
-      throw new Error();
     }
   } else if (createRes.status === 400) {
     return createRes;
-  } else {
-    throw new Error();
   }
 });
 

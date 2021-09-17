@@ -26,9 +26,9 @@ const UserRegistration = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const smallCheckmark = <img src="https://img.icons8.com/ios-filled/12/34970d/checkmark--v1.png" alt="checkmark"/>;
+  const smallCheckMark = <img src="https://img.icons8.com/ios-filled/12/34970d/checkmark--v1.png" alt="checkmark"/>;
   const smallCross = <img src="https://img.icons8.com/ios-filled/12/dd3939/x.png"  alt="cross"/>;
-  const listOfErrors = <ul>{ errors.map( error => <li className='error'>{error}</li>) }</ul>;
+  const listOfErrors = <ul>{ errors.map( (error, index) => <li key={index} className='error'>{error}</li>) }</ul>;
 
   const passMatchCheck = (value) => {
     !initiatedFocus && setInitiatedFocus(true);
@@ -114,12 +114,15 @@ const UserRegistration = () => {
 
     isReadyToSubmit() && await dispatch(signUp(user))
       .then(res => {
+        return res.error ? res : res.payload;
+      })
+      .then(res => {
         switch (res.status) {
           case 201:
             history.push(from);
             break;
           case 400:
-            setErrors(res.payload.errors);
+            setErrors(res.errors);
             break;
           case 500:
             history.push('/error');
@@ -140,34 +143,34 @@ const UserRegistration = () => {
 
         <div className="form-input first-name">
           <label htmlFor="firstName">
-            First Name { firstName && ( data.validateField('name', firstName, '.first-name') ? smallCheckmark : smallCross ) }
+            First Name { firstName && ( data.validateField('name', firstName, '.first-name') ? smallCheckMark : smallCross ) }
           </label>
           <input id="firstName" name="firstName" type="text" onChange={change}/>
         </div>
 
         <div className="form-input last-name">
           <label htmlFor="lastName">
-            Last Name { lastName && ( data.validateField('name', lastName, '.last-name') ? smallCheckmark : smallCross ) }
+            Last Name { lastName && ( data.validateField('name', lastName, '.last-name') ? smallCheckMark : smallCross ) }
           </label>
           <input id="lastName" name="lastName" type="text" onChange={change}/>
         </div>
 
         <div className="form-input email">
           <label htmlFor="emailAddress">
-            Email { emailAddress && (data.validateField('email', emailAddress, '.email') ? smallCheckmark : smallCross ) }
+            Email { emailAddress && (data.validateField('email', emailAddress, '.email') ? smallCheckMark : smallCross ) }
           </label>
           <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
         </div>
 
         <div className="form-input pass">
             <label htmlFor="password">
-            Password { password && ( data.validateField('password', password, '.pass') ? smallCheckmark : smallCross ) }
+            Password { password && ( data.validateField('password', password, '.pass') ? smallCheckMark : smallCross ) }
             </label>
             <input id="password" name="password" type="password" onChange={change}/>
         </div>
         <div className="form-input confirm-pass">
           <label htmlFor="confirmPassword">
-            Confirmation { initiatedFocus && ( passwordsMatch ? smallCheckmark : smallCross ) }
+            Confirmation { initiatedFocus && ( passwordsMatch ? smallCheckMark : smallCross ) }
           </label>
           <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
           
