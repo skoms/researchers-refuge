@@ -353,7 +353,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async createUser(user) {
-    const res = await this.api('/users', 'POST', user);
+    const res = await this.api('/users', 'POST', null, user);
     return this.responseReturnHandler(res);
   }
 
@@ -364,7 +364,7 @@ export default class Data {
    * @returns status code, data on success, errors on failure
    */
   async createArticle(article, user) {
-    const res = await this.api('/articles', 'POST', article, true, user);
+    const res = await this.api('/articles', 'POST', null, article, true, user);
     return this.responseReturnHandler(res, true, 'article');
   }
 
