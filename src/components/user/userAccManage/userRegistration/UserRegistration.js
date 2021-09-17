@@ -113,14 +113,13 @@ const UserRegistration = () => {
     };
 
     isReadyToSubmit() && await dispatch(signUp(user))
-      .then(res => res.payload)
       .then(res => {
         switch (res.status) {
           case 201:
             history.push(from);
             break;
           case 400:
-            setErrors(res.errors);
+            setErrors(res.payload.errors);
             break;
           case 500:
             history.push('/error');
