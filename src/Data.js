@@ -13,6 +13,7 @@ export default class Data {
    */
   api(path, method = 'GET', params = null, body = null, requiresAuth = false, credentials = null) {
     if (process.env.NODE_ENV !== 'production') {
+      console.log(process.env.NODE_ENV);
       require('dotenv').config();
     }
     const options = {
