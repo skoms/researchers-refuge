@@ -12,9 +12,10 @@ export default class Data {
    * @returns returns a promise of the fetch request
    */
   api(path, method = 'GET', params = null, body = null, requiresAuth = false, credentials = null) {
+    console.log(process.env.NODE_ENV);
     const options = {
       method,
-      url: ( process.env.NODE_ENV === 'production' ? 'https://researchers-refuge-api.herokuapp.com/api' : process.env.REACT_APP_DEV_API ) + path,
+      url: ( process.env.NODE_ENV === 'production' ? process.env.API_URL : process.env.REACT_APP_DEV_API ) + path,
       params,
       auth: requiresAuth ? 
         { username: credentials.emailAddress, password: credentials.password } : {},
