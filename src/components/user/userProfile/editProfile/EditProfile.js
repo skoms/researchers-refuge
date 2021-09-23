@@ -110,7 +110,7 @@ const EditProfile = ({ toggleEdit }) => {
         !classList.contains('mismatch') && classList.add('mismatch');
       }
     }
-    Object.keys(updatedData).length > 0 && await data.updateUser(user.id, updatedData, user)
+    Object.keys(updatedData).length > 0 && await data.updateUser(form, user.id, updatedData, user)
       .then(res => {
         if (res.status === 204) {
           dispatch(updateAccount({ ...user, ...updatedData }));
@@ -134,7 +134,7 @@ const EditProfile = ({ toggleEdit }) => {
     <div className="edit-popup" onClick={(e) => toggleEdit(e)}>
       <div id='edit-profile-div'>
         <div className="edit-header"> 
-          <h2>Edit Profile</h2>
+          <h2>Edit</h2>
           <button className='exit-button' onClick={(e) => {
             dispatch(updateTopic('home'));
             toggleEdit()
@@ -143,14 +143,14 @@ const EditProfile = ({ toggleEdit }) => {
           </button>
         </div>
         <div className="edit-sidebar">
-          <button onClick={selectForm}>My Profile</button>
+          <button onClick={selectForm}>Profile</button>
           <hr />
-          <button onClick={selectForm}>My Account</button>
+          <button onClick={selectForm}>Account</button>
         </div>
         <div className="edit-main">
           { form === 'My Profile' &&
             <form className="edit-user-form" onSubmit={submit}>
-              <h1 className='h1'>My Profile</h1>
+              <h1 className='h1'>Profile</h1>
               <div className='form-input firstName' id='firstName-input-div'>
                 <input id="firstName" name="firstName" type="text" value={ firstName } onChange={onChangeHandler}/>
                 <label htmlFor="firstName">First Name</label>
@@ -170,7 +170,7 @@ const EditProfile = ({ toggleEdit }) => {
               <div className='form-input bio' id='bio-input-div'>
               <textarea id="bio" name="bio"  rows='20' cols='60' value={ bio } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
                 <label htmlFor="bio">Bio</label>
-                <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Markdown Cheat Sheet</a>
+                <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Cheat Sheet</a>
               </div>
               <div className='form-buttons'>
                 <button className="button-primary" type="submit">Update</button>
@@ -180,7 +180,7 @@ const EditProfile = ({ toggleEdit }) => {
           }
           { form === 'My Account' &&
             <form className="edit-user-form" id='edit-account' onSubmit={submit}>
-              <h1 className='h1'>My Account</h1>
+              <h1 className='h1'>Account</h1>
               <div className='form-input oldPass' id='oldPass-input-div'>
                 <input id="oldPass" name="oldPass" type="password" value={ oldPassword } onChange={onChangeHandler}/>
                 <label htmlFor="oldPass">Current Password <span> *Required to update login info</span></label>

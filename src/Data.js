@@ -443,9 +443,9 @@ export default class Data {
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password ( for authentification )
    * @returns status code, data on success, errors on failure
    */
-   async updateUser(id, updatedData, user) {
+   async updateUser( source, id, updatedData, user) {
     return await this.responseHandler(
-      this.api(`/users`, 'PUT', { id }, updatedData, true, user),
+      this.api(`/users`, 'PUT', { source, id }, updatedData, true, user),
       true, 'user'
     );
   }

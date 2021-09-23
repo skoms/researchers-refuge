@@ -3014,10 +3014,12 @@ button:hover {
 
   /* Edit Profile Pop-Up */
   #edit-profile-div {
+    padding-left: .2rem;
     width: unset;
-    min-width: 50vw;
-    max-width: 80vw;
+    min-width: 60vw;
+    max-width: 90vw;
     min-height: 75vh;
+    max-height: 75vh;
     grid-template-columns: .25fr 1.5fr;
     grid-template-rows: .5fr repeat(3, 1fr);
     grid-template-areas:
@@ -3034,6 +3036,14 @@ button:hover {
     margin-top: -5rem;
   }
 
+  #edit-profile-div .edit-header {
+    padding: 0;
+  }
+
+  #edit-profile-div .edit-sidebar {
+    padding: 0;
+  }
+
   .edit-user-form {
     grid-template-columns: .1fr repeat(2, 1fr) .1fr;
     grid-template-areas:
@@ -3046,6 +3056,10 @@ button:hover {
         '. btn btn .';
     grid-gap: .2rem;
     min-width: 40vw;
+  }
+
+  .edit-user-form .form-input textarea {
+    height: 5rem;
   }
 
   #edit-account {

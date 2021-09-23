@@ -48,7 +48,7 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
         [`${purpose}ImgURL`]: response
       }
 
-      await data.updateUser(user.id, updatedData, user)
+      await data.updateUser( `img/${purpose}`, user.id, updatedData, user)
         .then(res => {
           if (res.status === 204) {
             dispatch(updateAccount({ ...user, ...updatedData }));
