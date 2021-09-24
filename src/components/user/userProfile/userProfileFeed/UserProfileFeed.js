@@ -62,7 +62,7 @@ const UserProfileFeed = props => {
     }
     if (!didLoad && owner) {
       getOwnersArticles(props.id);
-      authenticatedUser && dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id.toString())));
+      authenticatedUser && dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id)));
       setDidLoad(true);
     }
   }, [didLoad, owner, dispatch, history, props, authenticatedUser, fetching, location.pathname])

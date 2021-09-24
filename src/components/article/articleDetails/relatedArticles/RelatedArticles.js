@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import ArticleCard from '../../articleCards/articleCard/ArticleCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRelatedArticles, selectRelatedArticles } from './relatedArticlesSlice';
-import Data from '../../../../Data';
 import { Fragment } from 'react';
 
 //TODO - Replace sample data used here and connect to API
@@ -14,10 +13,9 @@ const RelatedArticles = ({ article }) => {
   const relatedArticles = useSelector(selectRelatedArticles);
   
   useEffect(() => {
-    const data = new Data();
     if (!didLoad) {
       dispatch(getRelatedArticles({
-        tags: [...data.isStringAndStringToArray(article.tags)],
+        tags: [...( typeof article.tags === 'object' ? article.tags : [article.tags])],
         id: article.id
       }));
       setDidLoad(true);

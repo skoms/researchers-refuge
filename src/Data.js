@@ -14,7 +14,7 @@ export default class Data {
   api(path, method = 'GET', params = null, body = null, requiresAuth = false, credentials = null) {
     const options = {
       method,
-      url: ( process.env.REACT_APP_API_URL || process.env.REACT_APP_DEV_API ) + path,
+      url: ( process.env.REACT_APP_DEV_API || process.env.REACT_APP_API_URL ) + path,
       params,
       auth: requiresAuth ? 
         { username: credentials.emailAddress, password: credentials.password } : {},

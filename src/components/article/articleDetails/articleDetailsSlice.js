@@ -28,10 +28,7 @@ export const articleDetailsSlice = createSlice({
         const { article } = action.payload;
         const { User, published } = article;
 
-        const followersArr = data.isStringAndStringToArray(User.followers);
-        const followingArr = data.isStringAndStringToArray(User.following);
-        const accreditedArticlesArr = data.isStringAndStringToArray(User.accreditedArticles)
-        const formattedDate = data.formatDate(published)
+        const formattedDate = data.formatDate(published);
 
         return {
           ...state,
@@ -41,10 +38,7 @@ export const articleDetailsSlice = createSlice({
           },
           author: {
             ...User,
-            id: article.userId,
-            followers: followersArr,
-            following: followingArr,
-            accreditedArticles: accreditedArticlesArr
+            id: article.userId
           }
         }
       }

@@ -82,10 +82,7 @@ export const userAccSlice = createSlice({
         const user = {
           ...state.authenticatedUser,
           ...action.payload,
-          followers: data.isStringAndStringToArray(action.payload.followers),
-          following: data.isStringAndStringToArray(action.payload.following),
-          accreditedArticles: data.isStringAndStringToArray(action.payload.accreditedArticles),
-          discreditedArticles: data.isStringAndStringToArray(action.payload.discreditedArticles)
+          id: typeof action.payload.id === 'number' ? action.payload.id : parseInt(action.payload.id)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -105,10 +102,7 @@ export const userAccSlice = createSlice({
           loggedIn: user ? true : false,
           authenticatedUser: {
             ...user,
-            followers: data.isStringAndStringToArray(user.followers),
-            following: data.isStringAndStringToArray(user.following),
-            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles),
-            discreditedArticles: data.isStringAndStringToArray(user.discreditedArticles)
+            id: typeof user.id === 'number' ? user.id : parseInt(user.id)
           }
         }
       }
@@ -122,10 +116,7 @@ export const userAccSlice = createSlice({
           loggedIn: user ? true : false,
           authenticatedUser: {
             ...user,
-            followers: data.isStringAndStringToArray(user.followers),
-            following: data.isStringAndStringToArray(user.following),
-            accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles),
-            discreditedArticles: data.isStringAndStringToArray(user.discreditedArticles)
+            id: typeof user.id === 'number' ? user.id : parseInt(user.id)
           }
         }
       }
@@ -136,10 +127,7 @@ export const userAccSlice = createSlice({
         const user = {
           ...state.authenticatedUser,
           ...updatedUser,
-          followers: data.isStringAndStringToArray(updatedUser.followers),
-          following: data.isStringAndStringToArray(updatedUser.following),
-          accreditedArticles: data.isStringAndStringToArray(updatedUser.accreditedArticles),
-          discreditedArticles: data.isStringAndStringToArray(updatedUser.discreditedArticles)
+          id: typeof updatedUser.id === 'number' ? updatedUser.id : parseInt(updatedUser.id)
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -156,8 +144,7 @@ export const userAccSlice = createSlice({
         const updatedUser = {
           ...state.authenticatedUser,
           ...user,
-          accreditedArticles: data.isStringAndStringToArray(user.accreditedArticles),
-          discreditedArticles: data.isStringAndStringToArray(user.discreditedArticles)
+          id: typeof user.id === 'number' ? user.id : parseInt(user.id)
         };
         Cookies.set('authenticatedUser', JSON.stringify(updatedUser), { sameSite: 'Strict' });
         return {
