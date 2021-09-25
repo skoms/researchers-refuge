@@ -40,10 +40,7 @@ export const userFeedSlice = createSlice({
       const user = action.payload;
       return {
         ...state,
-        owner: {
-          ...user,
-          id: typeof user.id === 'number' ? user.id : parseInt(user.id)
-        }
+        owner: user
       }
     }
   },
@@ -53,10 +50,7 @@ export const userFeedSlice = createSlice({
         const { user } = action.payload;
         return {
           ...state,
-          owner: {
-            ...user,
-            id: typeof user.id === 'number' ? user.id : parseInt(user.id)
-          }
+          owner: user
         }
       }
     });
@@ -75,15 +69,10 @@ export const userFeedSlice = createSlice({
     builder.addCase(followUser.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         const user = action.payload.users.target;
-        const userId = typeof user.id === 'number' ? user.id : parseInt(user.id);
-        const targetId = typeof state.owner.id === 'number' ? state.owner.id : parseInt(state.owner.id);
-        if (state.owner && userId === targetId) {
+        if (state.owner && user.id === state.owner.id) {
           return {
             ...state,
-            owner: {
-              ...user,
-              id: userId
-            }
+            owner: user
           }
         }
       }

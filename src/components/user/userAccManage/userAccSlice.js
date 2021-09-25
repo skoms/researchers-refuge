@@ -81,8 +81,7 @@ export const userAccSlice = createSlice({
       } else {
         const user = {
           ...state.authenticatedUser,
-          ...action.payload,
-          id: typeof action.payload.id === 'number' ? action.payload.id : parseInt(action.payload.id)
+          ...action.payload
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -100,10 +99,7 @@ export const userAccSlice = createSlice({
         return {
           ...state,
           loggedIn: user ? true : false,
-          authenticatedUser: {
-            ...user,
-            id: typeof user.id === 'number' ? user.id : parseInt(user.id)
-          }
+          authenticatedUser: user
         }
       }
       
@@ -114,10 +110,7 @@ export const userAccSlice = createSlice({
         return {
           ...state,
           loggedIn: user ? true : false,
-          authenticatedUser: {
-            ...user,
-            id: typeof user.id === 'number' ? user.id : parseInt(user.id)
-          }
+          authenticatedUser: user
         }
       }
     });
@@ -126,8 +119,7 @@ export const userAccSlice = createSlice({
         const updatedUser = action.payload.users.user;
         const user = {
           ...state.authenticatedUser,
-          ...updatedUser,
-          id: typeof updatedUser.id === 'number' ? updatedUser.id : parseInt(updatedUser.id)
+          ...updatedUser
         };
         Cookies.set('authenticatedUser', JSON.stringify(user), { sameSite: 'Strict' });
         return {
@@ -143,8 +135,7 @@ export const userAccSlice = createSlice({
         const { user } = action.payload.data;
         const updatedUser = {
           ...state.authenticatedUser,
-          ...user,
-          id: typeof user.id === 'number' ? user.id : parseInt(user.id)
+          ...user
         };
         Cookies.set('authenticatedUser', JSON.stringify(updatedUser), { sameSite: 'Strict' });
         return {
