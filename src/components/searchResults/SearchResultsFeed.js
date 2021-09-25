@@ -13,6 +13,7 @@ import ResultRecUser from '../resultRecUser/ResultRecUser'
 import { updateTopic } from '../feed/feedSlice'
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 import { selectIsMobile } from '../../app/screenWidthSlice'
+import { selectPage } from '../paginationBar/paginationBarSlice'
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -32,18 +33,17 @@ const SearchResultsFeed = () => {
   const darkModeOn = useSelector(selectDarkModeOn);
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const isMobile = useSelector(selectIsMobile);
-  
-  
+  const page = useSelector(selectPage);
 
   useEffect(() => {
     if (!didLoad) {
-      dispatch(getResults(term));
+      dispatch(getResults({term, page}));
       dispatch(updateSearchTerm(term));
       setDidLoad(true);
     } else if (searchTerm !== '') {
-      dispatch(getResults(searchTerm));
+      dispatch(getResults({searchTerm, page}));
     }
-  }, [didLoad, term, dispatch, searchTerm]);
+  }, [didLoad, term, dispatch, searchTerm, page]);
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));

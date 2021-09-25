@@ -11,6 +11,7 @@ import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
 import EditProfile from '../editProfile/EditProfile';
 import { getUserArticles } from '../userFeedSlice';
 import { updateTopic } from '../../../feed/feedSlice';
+import { selectPage } from '../../../paginationBar/paginationBarSlice';
 
 const MyProfileFeed = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -19,12 +20,13 @@ const MyProfileFeed = () => {
   const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
   const data = new Data();
+  const page = useSelector(selectPage);
   
   const [owner, setOwner] = useState(authenticatedUser);
 
   useEffect(() => {
     const getOwnersArticles = async (id) => {
-      await dispatch(getUserArticles(id))
+      await dispatch(getUserArticles({id, page}))
         .catch(err => {
           console.error(err);
           history.push({ pathname: '/error', state: { from: location.pathname }})
@@ -35,7 +37,7 @@ const MyProfileFeed = () => {
       getOwnersArticles(authenticatedUser.id);
       setDidLoad(true);
     }
-  }, [didLoad, owner, dispatch, history, authenticatedUser, location.pathname])
+  }, [didLoad, owner, dispatch, history, authenticatedUser, location.pathname, page])
 
   const toggleEdit = (e = null) => {
     if ((e !== null && e.target.className === 'edit-popup') || e === null) {

@@ -17,6 +17,7 @@ import {
   selectOwner
 } from '../userFeedSlice';
 import ReactMarkdown from 'react-markdown';
+import { selectPage } from '../../../paginationBar/paginationBarSlice';
 
 const UserProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -25,6 +26,7 @@ const UserProfileFeed = props => {
   const history = useHistory();
   const location = useLocation();
   const data = new Data();
+  const page = useSelector(selectPage);
   const [didLoad, setDidLoad] = useState(false);
   
   const owner = useSelector(selectOwner);
@@ -50,7 +52,7 @@ const UserProfileFeed = props => {
         });
     }
     const getOwnersArticles = async (id) => {
-      await dispatch(getUserArticles(id))
+      await dispatch(getUserArticles({id, page}))
         .catch(err => {
           console.error(err);
           history.push({ pathname: '/error', state: { from: location.pathname }})
@@ -65,7 +67,7 @@ const UserProfileFeed = props => {
       authenticatedUser && dispatch(updateIsFollowedByMe(owner.followers.includes(authenticatedUser.id)));
       setDidLoad(true);
     }
-  }, [didLoad, owner, dispatch, history, props, authenticatedUser, fetching, location.pathname])
+  }, [didLoad, owner, dispatch, history, props, authenticatedUser, fetching, location.pathname, page])
 
   const followUnfollow = async (e) => {
     const button = e.target;

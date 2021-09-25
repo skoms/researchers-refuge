@@ -11,12 +11,12 @@ const initialState = {
 
 export const getResults = createAsyncThunk(
   'searchResults',
-  async (query) => {
+  async ({query, page = null}) => {
     const response = {  };
     const cleanQuery = query.replace(/[$-/:-?{-~!"^_`[\]]/, '');
     response.users = await data.getUsersByQuery(cleanQuery);
     response.topics = await data.getTopicsByQuery(cleanQuery);
-    response.articles = await data.getArticlesByQuery(cleanQuery);
+    response.articles = await data.getArticlesByQuery(cleanQuery, page)
     return response;
   } 
 );
@@ -35,7 +35,7 @@ export const searchResultsSlice = createSlice({
       }
       if (users.status === 200) result.users = users.users;
       if (topics.status === 200) result.topics = topics.topics;
-      if (articles.status === 200) result.articles = articles.articles;
+      if (articles.status === 200) result.articles = articles.data.articles;
       return result;
     });
   }

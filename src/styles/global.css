@@ -581,32 +581,28 @@ button:hover {
 .pagination-bar {
   display: grid;
   width: 60%;
-  grid-template-columns: 1fr 1fr 4fr 1fr 1fr;
+  grid-template-columns: 2fr 4fr 2fr;
   grid-template-areas: 
-    "first prev page-btn next last";
+    "nav-before page-btn nav-after";
   justify-content: center;
   align-self: center;
 }
 .darkmode .article-cards .pagination-bar,
-.darkmode .article-cards .pagination-bar .page-btn {
+.darkmode .article-cards .pagination-bar .page-btn,
+.darkmode .article-cards .pagination-bar .nav-before,
+.darkmode .article-cards .pagination-bar .nav-after {
   background: none;
 }
 
 /* Grid Area Declarations */
-.pagination-bar .first {
-  grid-area: first;
-}
-.pagination-bar .prev {
-  grid-area: prev;
+.pagination-bar .nav-before {
+  grid-area: nav-before;
 }
 .pagination-bar .page-btn {
   grid-area: page-btn;
 }
-.pagination-bar .next {
-  grid-area: next;
-}
-.pagination-bar .last {
-  grid-area: last;
+.pagination-bar .nav-after {
+  grid-area: nav-after;
 }
 /* ---------------------- */
 
@@ -649,12 +645,15 @@ button:hover {
   background: var(--dark-component-grey);
 }
 
-.pagination-bar .page-btn .current-page,
-.darkmode .pagination-bar .page-btn .current-page {
+.pagination-bar .page-btn .current-page {
   opacity: 1;
   color: var(--base-component-white);
   background: var(--base-blue);
   border: var(--dark-semi-darkblue) solid 1px;
+}
+
+.darkmode .pagination-bar .page-btn .current-page {
+  background: none;
 }
 
 .darkmode .pagination-bar button {

@@ -14,15 +14,15 @@ const initialState = {
 //TODO - SET UP FILTER TO SORT THE ORDER OF THE ARTICLES
 export const getFeedArticles = createAsyncThunk(
   'feed/getFeedArticles',
-  async ({filter = null, topic = 'home', user = null}) => {
+  async ({filter = null, topic = 'home', user = null, page = null}) => {
     if (filter === 'following' && user !== null) {
-      const response = await data.getFollowingArticles(user);
+      const response = await data.getFollowingArticles(user, page);
       return response;
     } else if (topic === 'home') {
-      const response = await data.getArticlesWithFilter(filter);
+      const response = await data.getArticlesWithFilter(filter, page);
       return response;
     } else {
-      const response = await data.getTopicByName(topic, filter);
+      const response = await data.getTopicByName(topic, filter, page);
       return {
         status: response.status,
         articles: response.topic.Articles
@@ -53,7 +53,7 @@ export const feedSlice = createSlice({
       if (action.payload.status === 200) {
         return {
           ...state,
-          feedArticles: action.payload.articles
+          feedArticles: action.payload.data.articles
         }
       } else {
         return {

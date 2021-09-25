@@ -20,8 +20,8 @@ export const getUserInfo = createAsyncThunk(
 
 export const getUserArticles = createAsyncThunk(
   'userFeed/getUserArticles',
-  async (id) => {
-    const response = await data.getArticlesByOwnerId(id);
+  async ({id, page = null}) => {
+    const response = await data.getArticlesByOwnerId(id, page);
     return response
   }
 );
@@ -58,7 +58,7 @@ export const userFeedSlice = createSlice({
       if (action.payload.status === 200) {
         return {
           ...state,
-          userArticles: action.payload.articles
+          userArticles: action.payload.data.articles
         }
       } else {
         return {

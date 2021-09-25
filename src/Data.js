@@ -217,7 +217,7 @@ export default class Data {
   async getArticlesWithFilter(filter, page = 1) {
     return await this.responseHandler(
       this.api(`/articles/filter`, 'GET', { filter, page }), 
-      true, 'articles'
+      true, 'data'
     );
   }
 
@@ -228,7 +228,7 @@ export default class Data {
   async getFollowingArticles(user, page = 1) {
     return await this.responseHandler(
       this.api('/articles/following', 'GET', { page }, null, true, user), 
-      true, 'articles'
+      true, 'data'
     );
   }
 
@@ -240,7 +240,7 @@ export default class Data {
    async getArticlesByOwnerId(id, page = 1) {
     return await this.responseHandler(
       this.api(`/articles/owner`, 'GET', { id, page }), 
-      true, 'articles'
+      true, 'data'
     );
   }
 
@@ -264,7 +264,7 @@ export default class Data {
   async getArticlesByQuery(query, page = 1) {
     return await this.responseHandler(
       this.api(`/articles/query`, 'GET', { query, page }), 
-      true, 'articles'
+      true, 'data'
     );
   }
 
