@@ -577,6 +577,91 @@ button:hover {
   color: var(--base-blue);
 }
 
+/* Pagination Bar */
+.pagination-bar {
+  display: grid;
+  width: 60%;
+  grid-template-columns: 1fr 1fr 4fr 1fr 1fr;
+  grid-template-areas: 
+    "first prev page-btn next last";
+  justify-content: center;
+  align-self: center;
+}
+.darkmode .article-cards .pagination-bar,
+.darkmode .article-cards .pagination-bar .page-btn {
+  background: none;
+}
+
+/* Grid Area Declarations */
+.pagination-bar .first {
+  grid-area: first;
+}
+.pagination-bar .prev {
+  grid-area: prev;
+}
+.pagination-bar .page-btn {
+  grid-area: page-btn;
+}
+.pagination-bar .next {
+  grid-area: next;
+}
+.pagination-bar .last {
+  grid-area: last;
+}
+/* ---------------------- */
+
+.pagination-bar .page-btn {
+  margin: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  grid-template-areas: 
+    "prev-page cur-page next-page";
+  justify-content: center;
+  gap: .3rem;
+}
+
+/* Grid Area Declarations */
+.pagination-bar .prev-page {
+  grid-area: prev-page;
+}
+.pagination-bar .current-page {
+  grid-area: cur-page;
+}
+.pagination-bar .next-page {
+  grid-area: next-page;
+}
+/* ---------------------- */
+
+.pagination-bar button {
+  font-size: 1.1rem;
+  margin: 0 .15rem;
+  border-radius: .25rem;
+}
+
+.pagination-bar .page-btn .prev-page,
+.pagination-bar .page-btn .next-page {
+  opacity: .7;
+}
+
+.darkmode .pagination-bar .page-btn .prev-page,
+.darkmode .pagination-bar .page-btn .next-page {
+  opacity: .7;
+  background: var(--dark-component-grey);
+}
+
+.pagination-bar .page-btn .current-page,
+.darkmode .pagination-bar .page-btn .current-page {
+  opacity: 1;
+  color: var(--base-component-white);
+  background: var(--base-blue);
+  border: var(--dark-semi-darkblue) solid 1px;
+}
+
+.darkmode .pagination-bar button {
+  color: var(--base-blue);
+  background: var(--dark-component-grey);
+}
+
 /* ================ Content Styling (Main Page) ======================= */
 .main-page-content {
   margin: 5rem .5rem 2rem .5rem;
@@ -1548,31 +1633,6 @@ button:hover {
   color: var(--base-blue);
 }
 
-.articles-published .sort-nav {
-  margin-top: -1rem;
-  display: flex;
-  justify-content: center;
-}
-
-.sort-nav div {
-  display: flex;
-}
-
-.sort-nav div * {
-  margin-left: .5rem;
-  min-width: 8rem;
-  align-items: center;
-}
-
-.sort-nav select {
-  width: 50%;
-}
-
-.sort-nav label {
-  word-wrap: nowrap;
-  width: 50%;
-}
-
 .articles-published .article-cards {
   max-height: 20rem;
   align-items: center;
@@ -1589,6 +1649,10 @@ button:hover {
   border-radius: 0;
   box-shadow: none;
   margin: .5rem .3rem;
+}
+
+.articles-published .pagination-bar {
+  width: 50%;
 }
 
 /*UserProfile Articles Recently Accredited*/
@@ -1628,6 +1692,10 @@ button:hover {
   border-radius: 0;
   box-shadow: none;
   margin: .5rem .3rem;
+}
+
+.articles-published .pagination-bar {
+  width: 50%;
 }
 
 /* ============== Content Styling (My profile Page) ================== */

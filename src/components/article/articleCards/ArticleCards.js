@@ -7,6 +7,7 @@ import { selectArticles, updateArticles } from './articleCardsSlice';
 import { getArticleInfo } from '../articleDetails/articleDetailsSlice';
 import ArticleCard from './articleCard/ArticleCard';
 import Loading from '../../loading/Loading';
+import PaginationBar from '../../paginationBar/PaginationBar';
 
 const ArticleCards = (props) => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const ArticleCards = (props) => {
         { didLoad && articles ? 
           articlesOrEmptyMessage(articles) : <Loading /> 
         }
+        { articles && articles.length !== 0 && <PaginationBar /> }
       </div>
     )
   } else {
@@ -98,6 +100,7 @@ const ArticleCards = (props) => {
         { didLoad && secondaryArticles ?
             articlesOrEmptyMessage(secondaryArticles) : <Loading />
         }
+        { secondaryArticles && secondaryArticles.length !== 0 && <PaginationBar /> }
       </div>
     )
   }

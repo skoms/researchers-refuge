@@ -15,6 +15,7 @@ import recommendModuleReducer from '../components/recommendModule/recommendModul
 import recPeopleReducer from '../components/recPeople/recPeopleSlice';
 import relatedArticlesReducer from '../components/article/articleDetails/relatedArticles/relatedArticlesSlice';
 import screenWidthReducer from './screenWidthSlice';
+import paginationBarReducer from '../components/paginationBar/paginationBarSlice';
 
 export const store = configureStore({
   reducer: {
@@ -33,5 +34,6 @@ export const store = configureStore({
     recommendModule: recommendModuleReducer,
     recPeople: recPeopleReducer,
     relatedArticles: relatedArticlesReducer,
+    paginationBar: paginationBarReducer,
   }
 });
