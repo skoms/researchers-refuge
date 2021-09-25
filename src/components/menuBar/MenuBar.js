@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsMobile } from '../../app/screenWidthSlice';
 import { updateFilter } from '../feed/feedSlice';
+import { toFirstPage } from '../paginationBar/paginationBarSlice';
 
 const MenuBar = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const MenuBar = () => {
         });
         classList.add('selected');
         dispatch(updateFilter(value));
+        dispatch(toFirstPage());
       }
     }
   }
