@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Data from "../../../Data";
+import { accreditDiscredit } from "../../article/articleCards/articleCardsSlice";
 import { followUser } from "../userAccManage/userAccSlice";
 
 const data = new Data();
@@ -74,6 +75,15 @@ export const userFeedSlice = createSlice({
             ...state,
             owner: user
           }
+        }
+      }
+    });
+    builder.addCase(accreditDiscredit.fulfilled, (state, action) => {
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          ...action.payload.data.owner
         }
       }
     });

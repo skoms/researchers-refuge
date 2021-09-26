@@ -28,9 +28,9 @@ const ArticleCard = props => {
 
   useEffect(() => {
     if (!didLoad && user) {
-      if (user.accreditedArticles.includes(props.id.toString())) {
+      if (user.accreditedArticles.includes(props.id)) {
         setCreditedStatus('accredited');
-      } else if (user.discreditedArticles.includes(props.id.toString())) {
+      } else if (user.discreditedArticles.includes(props.id)) {
         setCreditedStatus('discredited');
       }
       setDidLoad(true);
