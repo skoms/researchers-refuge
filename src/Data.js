@@ -297,10 +297,10 @@ export default class Data {
    * @param {string} name - topic name
    * @returns status code, data on success, errors on failure
    */
-  async getTopicByName(name) {
+  async getTopicByName(name, filter, page) {
     return await this.responseHandler(
-      this.api(`/topics/name`, 'GET', { name }), 
-      true, 'topic'
+      this.api(`/topics/name`, 'GET', { name, filter, page }), 
+      true, 'data'
     );
   }
 
