@@ -37,11 +37,12 @@ const SearchResultsFeed = () => {
 
   useEffect(() => {
     if (!didLoad) {
-      dispatch(getResults({term, page}));
+      console.log(term);
+      dispatch(getResults({ query: term, page }));
       dispatch(updateSearchTerm(term));
       setDidLoad(true);
     } else if (searchTerm !== '') {
-      dispatch(getResults({searchTerm, page}));
+      dispatch(getResults({ query: searchTerm, page }));
     }
   }, [didLoad, term, dispatch, searchTerm, page]);
 
