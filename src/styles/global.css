@@ -417,8 +417,13 @@ button:hover {
 }
 
 .header .my-profile-div .profile-pic {
+  background: var(--base-component-white);
   height: 2rem;
   width: 2rem;
+}
+
+.darkmode .header .my-profile-div .profile-pic {
+  background: var(--dark-light-darkgrey);
 }
 
 .header .menu-toggle-button {
