@@ -40,9 +40,9 @@ export const deleteArticle = createAsyncThunk(
 
 export const getArticleIfOwner = createAsyncThunk(
   'manageArticle/getArticle',
-  async ({id, userId}) => {
+  async ({id, user}) => {
     const response = await data.getArticle(id);
-    if ( response.article.userId === userId ){
+    if ( response.article.userId === user.id || user.accessLevel === 'admin'){
       return response;
     } else {
       return { status: 401 }
@@ -65,7 +65,7 @@ export const manageArticleSlice = createSlice({
         ...state,
         article: {
           ...state.article,
-          [payload.key]: payload.key !== 'tags' ? payload.value : [...payload.value.split(',')]
+          [payload.key]: payload.value
         }
       }
     },

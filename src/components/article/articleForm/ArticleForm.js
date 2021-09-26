@@ -30,8 +30,8 @@ const ArticleForm = props => {
   };
 
   useEffect(() => {
-    const getArticleInfo = async (id, userId) => {
-      await dispatch(getArticleIfOwner({id, userId}))
+    const getArticleInfo = async (id, user) => {
+      await dispatch(getArticleIfOwner({id, user}))
         .then(res => res.payload)
         .then(res => {
           if (res.status === 200) {
@@ -51,7 +51,7 @@ const ArticleForm = props => {
     dispatch(updateArticleStateByKey({ key: 'topic', value: topic }));
 
     if (!didLoad) {
-      props.isUpdate && user && getArticleInfo(id, user.id);
+      props.isUpdate && user && getArticleInfo(id, user);
       setDidLoad(true);
     }
   }, [topic, dispatch, didLoad, id, props.isUpdate, user, history, location.pathname]);
@@ -88,7 +88,6 @@ const ArticleForm = props => {
         dispatch(updateArticle({ article: article, id: id, user: user }))
           .then(res => res.payload)
           .then(res => {
-            console.log(res);
             if (res.status === 204) {
               history.push({ pathname: `/articles/${id}`, state: { from: location.pathname }})
             } else if (res.status === 403) {

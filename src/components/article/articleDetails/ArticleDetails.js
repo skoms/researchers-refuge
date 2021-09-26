@@ -62,7 +62,7 @@ const ArticleDetails = () => {
       if (e.target.className === 'delete-confirmation') {
         togglePopUp();
       }
-    })
+    }, { once: true });
   }
   
   const confirmDeletion = async () => {
@@ -103,7 +103,7 @@ const ArticleDetails = () => {
       { didLoad && author && article ? (
         <div className="article-div"> 
         
-          { authenticatedUser && authenticatedUser.id === author.id ? 
+          { authenticatedUser && (authenticatedUser.id === author.id || authenticatedUser.accessLevel === 'admin') ? 
             <div className="owner-buttons">
               <a href={`/update-article/${id}`}>
                 <button className='button-primary'>Edit Article</button>
