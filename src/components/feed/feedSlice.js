@@ -25,7 +25,9 @@ export const getFeedArticles = createAsyncThunk(
       const response = await data.getTopicByName(topic, filter, page);
       return {
         status: response.status,
-        articles: response.topic.Articles
+        data: {
+          articles: response.topic.Articles
+        }
       }
     }
 });
@@ -50,6 +52,7 @@ export const feedSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getFeedArticles.fulfilled, (state, action) => {
+      console.log(action.payload);
       if (action.payload.status === 200) {
         return {
           ...state,

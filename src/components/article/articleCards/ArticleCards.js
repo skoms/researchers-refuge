@@ -9,6 +9,7 @@ import ArticleCard from './articleCard/ArticleCard';
 import Loading from '../../loading/Loading';
 import PaginationBar from '../../paginationBar/PaginationBar';
 import { selectLastPage } from '../../paginationBar/paginationBarSlice';
+import { selectDarkModeOn } from '../../darkmodeButton/darkModeButtonSlice';
 
 const ArticleCards = (props) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const ArticleCards = (props) => {
   const resultArticles = useSelector(selectArticlesResults);
   const articles = useSelector(selectArticles);
   const lastPage = useSelector(selectLastPage);
+  const darkModeOn = useSelector(selectDarkModeOn);
   const [secondaryArticles, setSecondaryArticles] = useState(null); 
   const [didLoad, setDidLoad] = useState(false);
 
@@ -72,7 +74,11 @@ const ArticleCards = (props) => {
           authorId={card.userId}
         />
       )
-    : <p>Wow, such empty...</p>
+    : 
+    <div className='no-articles-message'>
+      <img src={`https://img.icons8.com/ios-glyphs/50/${darkModeOn ? 'FFFFFF': '000000'}/shrug-emoticon.png`} alt='shrug emoticon'/>
+      <p>Sorry, but we don't seem to have what you are looking for... </p>
+    </div>
   );
 
   window.addEventListener('scroll', e => {

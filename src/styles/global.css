@@ -995,6 +995,16 @@ button:hover {
   transition-duration: 0.2s;
 }
 
+.article-cards .no-articles-message,
+.article-cards .no-articles-message * {
+  background: none;
+}
+.article-cards .no-articles-message p {
+  margin-top: -1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 /* ============= Content Styling (Article Page) ======================= */
 .content-article-details {
   margin: 5rem .5rem 2rem .5rem;
