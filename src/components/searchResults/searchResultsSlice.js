@@ -13,13 +13,10 @@ export const getResults = createAsyncThunk(
   'searchResults/getResults',
   async ({query, page}) => {
     const response = {  };
-    console.log(query);
     const cleanQuery = query.replace(/[$-/:-?{-~!"^_`[\]]/, '');
-    console.log(cleanQuery);
     response.users = await data.getUsersByQuery(cleanQuery, page);
     response.topics = await data.getTopicsByQuery(cleanQuery);
     response.articles = await data.getArticlesByQuery(cleanQuery, page);
-    console.log(response);
     return response;
   } 
 );
