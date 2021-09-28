@@ -585,8 +585,8 @@ button:hover {
 /* Pagination Bar */
 .pagination-bar {
   display: grid;
-  width: 60%;
-  grid-template-columns: 2fr 4fr 2fr;
+  width: 75%;
+  grid-template-columns: 2fr 3fr 2fr;
   grid-template-areas: 
     "nav-before page-btn nav-after";
   justify-content: center;
@@ -614,7 +614,7 @@ button:hover {
 .pagination-bar .page-btn {
   margin: 0 1rem;
   display: grid;
-  grid-template-columns: 1fr 1.4fr 1fr;
+  grid-template-columns: 1fr 1.2fr 1fr;
   grid-template-areas: 
     "prev-page cur-page next-page";
   justify-content: center;
