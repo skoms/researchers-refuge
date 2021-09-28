@@ -18,7 +18,7 @@ import Forbidden from '../components/error/forbidden/Forbidden';
 import NotFound from '../components/error/notFound/NotFound';
 import UnhandledError from '../components/error/unhandledError/UnhandledError';
 import SearchResultsPage from '../components/searchResults/SearchResultsPage';
-import ImageUploader from '../components/imageUploader/ImageUploader';
+import AdminPanel from '../components/adminPanel/AdminPanel';
 
 
 
@@ -38,9 +38,9 @@ function App() {
             <PrivateRoute exact path='/write-article' component={CreateArticle} />
             <PrivateRoute exact path='/update-article/:id' component={UpdateArticle} />
             <Route exact path='/search/:term' component={SearchResultsPage} />
-            <Route exact path='/uploader' component={ImageUploader} />
             <Route exact path='/forbidden' component={Forbidden} />
             <Route exact path='/error' component={UnhandledError} />
+            <PrivateRoute exact path='/admin-panel' component={AdminPanel} />
             <Route component={NotFound} />
           </Switch>
         </main>
