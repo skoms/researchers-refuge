@@ -377,6 +377,72 @@ button:hover {
   width: 100%;
   height: 100%;
 }
+.panel-main .title {
+  color: var(--base-semi-darkblue);
+}
+
+/* Statistics */
+.statistics-div {
+  display: grid;
+  grid-template-columns: .5fr repeat(3, 1fr) .5fr;
+  text-align: left;
+  grid-template-areas: 
+    "title . . . ."
+    ". total new reports .";
+}
+
+/* Grid Area Declarations */
+.statistics-div .title {
+  grid-area: title;
+}
+.statistics-div .total {
+  grid-area: total;
+}
+.statistics-div .new {
+  grid-area: new;
+}
+.statistics-div .reports {
+  grid-area: reports;
+}
+/* ---------------------- */
+.statistics-div .table-div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 1rem .5rem;
+}
+
+.table-div h4 {
+  background: var(--base-semi-darkblue);
+  color: var(--base-component-white);
+  margin: 0 .15rem;
+  padding: .4rem .6rem;
+  border-radius: .25rem;
+}
+
+.statistics-table {
+  border-collapse: separate;
+  border-spacing: .15rem;
+  font-size: 1.1rem;
+}
+
+.statistics-table th {
+  background: var(--base-semi-darkblue);
+  color: var(--base-component-white);
+  border-radius: .25rem;
+  padding: .4rem .6rem;
+}
+
+.statistics-table td {
+  background: var(--lightblue-border);
+  border-radius: .25rem;
+  min-width: 3rem;
+  padding: .4rem .6rem;
+}
+
+.statistics-table .blank {
+  background: var(--base-fade-grey);
+}
 
 /* ==================== Header and Footer Styling ===================== */
 .header, .footer {
