@@ -444,6 +444,63 @@ button:hover {
   background: var(--base-fade-grey);
 }
 
+/* Management Table Style*/
+.management-table, .management-table th, .management-table td {
+  border:  var(--base-background) 1px solid;
+  line-height: 1.4rem;
+}
+
+.management-table th {
+  background: var(--base-blue);
+  border-bottom: var(--base-background) 4px solid;
+  font-size: 1.1rem;
+  color: white;
+  padding: .3rem .4rem .15rem .4rem;
+}
+
+.management-table td {
+  background: var(--base-component-white);
+  font-size: 1.05rem;
+  color: var(--base-semi-darkblue);
+  padding: .3rem .4rem;
+  vertical-align: middle;
+}
+
+.management-table input {
+  max-width: 6rem;
+  line-height: 1.4rem;
+  background: var(--base-component-white);
+  border: var(--base-background) 1px solid;
+}
+
+.management-table input::placeholder {
+  color: var(--base-scroll-blue);
+}
+
+.management-table .action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.management-table button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  height: calc(1rem + 4px);
+  width: calc(1rem + 4px);
+  opacity: .5;
+}
+
+.management-table button:hover {
+  opacity: 1;
+}
+
 /* ==================== Header and Footer Styling ===================== */
 .header, .footer {
   background-color: var(--base-blue);
