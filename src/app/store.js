@@ -16,6 +16,7 @@ import recPeopleReducer from '../components/recPeople/recPeopleSlice';
 import relatedArticlesReducer from '../components/article/articleDetails/relatedArticles/relatedArticlesSlice';
 import screenWidthReducer from './screenWidthSlice';
 import paginationBarReducer from '../components/paginationBar/paginationBarSlice';
+import adminPanelReducer from '../components/adminPanel/adminPanelSlice';
 
 export const store = configureStore({
   reducer: {
@@ -35,5 +36,6 @@ export const store = configureStore({
     recPeople: recPeopleReducer,
     relatedArticles: relatedArticlesReducer,
     paginationBar: paginationBarReducer,
+    adminPanel: adminPanelReducer,
   }
 });

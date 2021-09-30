@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux"
+import { selectStats } from "../adminPanelSlice"
+
 const Statistics = () => {
+  const stats = useSelector(selectStats);
   return (
     <div className="statistics-div">
       <h2 className='title'>Statistics</h2>
@@ -8,15 +12,15 @@ const Statistics = () => {
             <tbody>
             <tr>
               <th>Users</th>
-              <td>0</td>
+              <td>{stats.total.users}</td>
             </tr>
             <tr>
               <th>Articles</th>
-              <td>0</td>
+              <td>{stats.total.articles}</td>
             </tr>
             <tr>
               <th>Admins</th>
-              <td>0</td>
+              <td>{stats.total.admins}</td>
             </tr>
           </tbody>
         </table>
@@ -27,15 +31,15 @@ const Statistics = () => {
             <tbody>
             <tr>
               <th>Users</th>
-              <td>0</td>
+              <td>{stats.new.users}</td>
             </tr>
             <tr>
               <th>Articles</th>
-              <td>0</td>
+              <td>{stats.new.articles}</td>
             </tr>
             <tr>
               <th>Admins</th>
-              <td>0</td>
+              <td>{stats.new.admins}</td>
             </tr>
           </tbody>
         </table>
@@ -46,15 +50,15 @@ const Statistics = () => {
             <tbody>
             <tr>
               <th>Open</th>
-              <td>0</td>
+              <td>{stats.reports.open}</td>
             </tr>
             <tr>
               <th>Resolved</th>
-              <td>0</td>
+              <td>{stats.reports.resolved}</td>
             </tr>
             <tr>
               <th>Rejected</th>
-              <td>0</td>
+              <td>{stats.reports.rejected}</td>
             </tr>
           </tbody>
         </table>
