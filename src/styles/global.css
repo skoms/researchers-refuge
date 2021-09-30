@@ -118,7 +118,7 @@ select {
 
 select:focus {
   outline: none;
-  border: var(--basic-blue) solid .15rem;
+  border: var(--base-semi-darkblue) solid .15rem;
 }
 
 .darkmode select {
@@ -499,6 +499,74 @@ button:hover {
 
 .management-table button:hover {
   opacity: 1;
+}
+
+/* User Management */
+.access-management-div {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 
+    "title . . . ."
+    "limit . . search search"
+    "table table table table table"
+    "count . . pagination pagination";
+  gap: .3rem;
+}
+
+/* Grid Area Declarations */
+.access-management-div .title {
+  grid-area: title;
+}
+.access-management-div .show-entries {
+  grid-area: limit;
+}
+.access-management-div .table-search {
+  grid-area: search;
+}
+.access-management-div .management-table {
+  grid-area: table;
+}
+.access-management-div .entries-count {
+  grid-area: count;
+}
+.access-management-div .pagination-bar {
+  grid-area: pagination;
+}
+/* ---------------------- */
+
+.access-management-div .title {
+  text-align: left;
+}
+
+.access-management-div .show-entries {
+  text-align: left;
+}
+
+.access-management-div .show-entries select {
+  margin: 0 .3rem;
+}
+
+.access-management-div .table-search {
+  justify-self: right;
+}
+
+.access-management-div .table-search-form {
+  display: flex;
+  align-items: center;
+}
+
+.access-management-div .table-search .clear-search,
+.access-management-div .table-search .search-button {
+  background: none;
+  box-shadow: none;
+}
+
+.access-management-div .entries-count {
+  justify-self: left;
+}
+
+.access-management-div .pagination-bar {
+  justify-self: right;
 }
 
 /* ==================== Header and Footer Styling ===================== */

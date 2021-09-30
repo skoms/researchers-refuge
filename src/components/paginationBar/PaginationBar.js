@@ -6,7 +6,7 @@ import {
   decrementPage, incrementPage
 } from './paginationBarSlice';
 
-const PaginationBar = () => {
+const PaginationBar = ({ use }) => {
   const dispatch = useDispatch();
   const page = useSelector(selectPage);
   const hasMore = useSelector(selectHasMore);
@@ -14,7 +14,6 @@ const PaginationBar = () => {
 
   const updatePage = (e) => {
     const { className } = e.target;
-    const articleCards = e.target.parentElement.parentElement.parentElement;
     if (className === 'first') {
       dispatch(toFirstPage());
     } else if (className === 'prev' || className === 'prev-page') {
@@ -29,11 +28,14 @@ const PaginationBar = () => {
       left: 0, 
       behavior: 'smooth'
     });
-    articleCards.scroll({
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth'
-    });
+    if (use !== 'admin') {
+      const articleCards = e.target.parentElement.parentElement.parentElement;
+      articleCards.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+      });
+    }
   }
 
   return (

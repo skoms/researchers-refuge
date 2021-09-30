@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import PaginationBar from "../../paginationBar/PaginationBar";
+import { selectPage } from '../../paginationBar/paginationBarSlice';
+
 const UserManagement = () => {
   const tempUsers = [
     {
@@ -33,9 +38,41 @@ const UserManagement = () => {
       updatedAt: '1111-1-1'
     },
   ];
+  const tablePage = useSelector(selectPage);
+  const [entriesLimit, setEntriesLimit] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const searchChangeHandler = e => {
+    setSearchQuery(e.target.value);
+  }
+
+  const submit = () => {
+
+  }
+
   return (
-    <div className="user-management-div">
+    <div className="access-management-div">
       <h2 className='title'>User Management</h2>
+      <p className="show-entries">
+        Show 
+        <select name="entries" id="entries-select">
+          <option value="10">10</option>
+          <option value="20">25</option>
+          <option value="50">50</option>
+        </select>
+        entries
+      </p>
+      <div className="table-search">
+        <form onSubmit={submit} className='table-search-form'>
+          <button className="clear-search">
+            <img src="https://img.icons8.com/fluency-systems-filled/18/64B5F7/xbox-x.png" alt='clear search button'/>
+          </button>
+          <input type="text" className='table-search-field' placeholder='Search...' onChange={searchChangeHandler} value={searchQuery} />
+          <button type='submit' className="search-button">
+            <img src="https://img.icons8.com/material-outlined/18/64B5F7/search--v1.png" alt='search button'/>
+          </button>
+        </form>
+      </div>
       <table className='management-table'>
         <tbody>
           <tr>
@@ -88,6 +125,8 @@ const UserManagement = () => {
           }
         </tbody>
       </table>
+      <p className='entries-count'>{`Showing x to x of x entries`}</p>
+      <PaginationBar use='admin' />
     </div>
   )
 }
