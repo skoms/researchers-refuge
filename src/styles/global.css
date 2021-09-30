@@ -446,8 +446,20 @@ button:hover {
 
 /* Management Table Style*/
 .management-table, .management-table th, .management-table td {
-  border:  var(--base-background) 1px solid;
+  border: var(--base-background) 1px solid;
   line-height: 1.4rem;
+}
+
+.management-table.open, .management-table.open th, .management-table.open td {
+  border: var(--base-background) 1px solid;
+}
+
+.management-table.resolved, .management-table.resolved th, .management-table.resolved td {
+  border: var(--valid-background) 1px solid; 
+}
+
+.management-table.rejected, .management-table.rejected th, .management-table.rejected td {
+  border: var(--error-background) 1px solid;
 }
 
 .management-table th {
@@ -456,6 +468,21 @@ button:hover {
   font-size: 1.1rem;
   color: white;
   padding: .3rem .4rem .15rem .4rem;
+}
+
+.management-table.open th {
+  background: var(--base-blue);
+  border-bottom: var(--base-background) 4px solid;
+}
+
+.management-table.resolved th {
+  background: var(--valid-green);
+  border-bottom: var(--valid-background) 4px solid; 
+}
+
+.management-table.rejected th {
+  background: var(--error-red);
+  border-bottom: var(--error-background) 4px solid;
 }
 
 .management-table td {
@@ -501,12 +528,12 @@ button:hover {
   opacity: 1;
 }
 
-/* User Management */
+/* Access Management */
 .access-management-div {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-areas: 
-    "title . . . ."
+    "title title . . ."
     "limit . . search search"
     "table table table table table"
     "count . . pagination pagination";
@@ -566,6 +593,108 @@ button:hover {
 }
 
 .access-management-div .pagination-bar {
+  justify-self: right;
+}
+
+/* Report Center */
+.report-center-div {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 
+    "title title . . ."
+    "limit status-filter status-filter search search"
+    "table table table table table"
+    "count . . pagination pagination";
+  gap: .3rem;
+}
+
+/* Grid Area Declarations */
+.report-center-div .title {
+  grid-area: title;
+}
+.report-center-div .show-entries {
+  grid-area: limit;
+}
+.report-center-div .status-filter {
+  grid-area: status-filter;
+}
+.report-center-div .table-search {
+  grid-area: search;
+}
+.report-center-div .management-table {
+  grid-area: table;
+}
+.report-center-div .entries-count {
+  grid-area: count;
+}
+.report-center-div .pagination-bar {
+  grid-area: pagination;
+}
+/* ---------------------- */
+
+.report-center-div .title {
+  text-align: left;
+}
+
+.report-center-div .show-entries {
+  text-align: left;
+}
+
+.report-center-div .show-entries select {
+  margin: 0 .3rem;
+}
+
+.report-center-div .status-filter {
+  display: flex;
+  justify-self: center;
+}
+
+.report-center-div .status-filter button {
+  box-shadow: none;
+  color: var(--base-component-white);
+  padding: .4rem .6rem;
+  opacity: .4;
+}
+
+.report-center-div .status-filter .open-button {
+  border-radius: .25rem 0 0 .25rem;
+  background: var(--base-blue);
+}
+
+.report-center-div .status-filter .resolved-button {
+  border-radius: 0;
+  background: var(--valid-green);
+}
+
+.report-center-div .status-filter .rejected-button {
+  border-radius: 0 .25rem .25rem 0;
+  background: var(--error-red);
+}
+
+.report-center-div .status-filter .selected {
+  opacity: 1;
+}
+
+.report-center-div .table-search {
+  justify-self: right;
+}
+
+.report-center-div .table-search-form {
+  display: flex;
+  align-items: center;
+}
+
+.report-center-div .table-search .clear-search,
+.report-center-div .table-search .search-button {
+  background: none;
+  box-shadow: none;
+}
+
+.report-center-div .entries-count {
+  justify-self: left;
+}
+
+.report-center-div .pagination-bar {
   justify-self: right;
 }
 
