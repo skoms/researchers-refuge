@@ -28,6 +28,14 @@ const initialState = {
   reports: []
 };
 
+export const getStatsAdmin = createAsyncThunk(
+  'adminPanel/getStatsAdmin',
+  async (user) => {
+    const response = await data.getStatsAdmin(user);
+    return response;
+  }
+)
+
 export const adminPanelSlice = createSlice({
   name: 'adminPanel',
   initialState,
@@ -35,7 +43,18 @@ export const adminPanelSlice = createSlice({
 
   },
   extraReducers: (builder) => {
-
+    builder.addCase(getStatsAdmin.fulfilled, (state, action) => {
+      const { data } = action.payload;
+      console.log(data);
+      return {
+        ...state,
+        stats: {
+          total: data.total,
+          new: data.new,
+          reports: data.reports
+        }
+      }
+    });
   }
 });
 

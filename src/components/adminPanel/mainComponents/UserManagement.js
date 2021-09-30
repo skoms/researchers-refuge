@@ -41,6 +41,29 @@ const UserManagement = () => {
   const tablePage = useSelector(selectPage);
   const [entriesLimit, setEntriesLimit] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState({ column: null, order: null });
+
+  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>
+  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>
+  
+  const handleSort = e => {
+    const { value } = e.target.dataset;
+    const { column, order } = sortOrder;
+    if (!column) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column !== value) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column === value) {
+      setSortOrder({ column: value, order: order === 'ASC' ? 'DESC' : 'ASC' });
+    }
+  }
+
+  const getSortImg = () => {
+    return (
+      (sortOrder.order === 'ASC' && ascImg) || 
+      ( sortOrder.order === 'DESC' && descImg)
+    );
+  }
 
   const searchChangeHandler = e => {
     setSearchQuery(e.target.value);
@@ -76,12 +99,30 @@ const UserManagement = () => {
       <table className='management-table'>
         <tbody>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>E-mail</th>
-            <th>Access Level</th>
-            <th>Created</th>
-            <th>Last Updated</th>
+            <th data-value='firstName' onClick={handleSort}>
+              First Name
+              { sortOrder.column === 'firstName' && getSortImg() }
+            </th>
+            <th data-value='lastName' onClick={handleSort}>
+              Last Name
+              { sortOrder.column === 'lastName' && getSortImg() }  
+            </th>
+            <th data-value='emailAddress' onClick={handleSort}>
+              E-mail
+              { sortOrder.column === 'emailAddress' && getSortImg() }  
+            </th>
+            <th data-value='accessLevel' onClick={handleSort}>
+              Access Level
+              { sortOrder.column === 'accessLevel' && getSortImg() }  
+            </th>
+            <th data-value='createdAt' onClick={handleSort}>
+              Created
+              { sortOrder.column === 'createdAt' && getSortImg() }  
+            </th>
+            <th data-value='updatedAt' onClick={handleSort}>
+              Last Updated
+              { sortOrder.column === 'updatedAt' && getSortImg() }  
+            </th>
             <th>Actions</th>
           </tr>
           <tr>

@@ -386,6 +386,17 @@ export default class Data {
     );
   }
 
+  /**
+   * Gets admin stats for all the data
+   * @returns status code, data on success, errors on failure
+   */
+   async getStatsAdmin(user) {
+    return await this.responseHandler(
+      this.api(`/admin/stats`, 'GET', null, null, true, user), 
+      true, 'data'
+    );
+  }
+
 
   
 

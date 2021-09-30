@@ -34,6 +34,29 @@ const CategoryManagement = () => {
   const tablePage = useSelector(selectPage);
   const [entriesLimit, setEntriesLimit] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState({ column: null, order: null });
+
+  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>
+  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>
+  
+  const handleSort = e => {
+    const { value } = e.target.dataset;
+    const { column, order } = sortOrder;
+    if (!column) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column !== value) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column === value) {
+      setSortOrder({ column: value, order: order === 'ASC' ? 'DESC' : 'ASC' });
+    }
+  }
+
+  const getSortImg = () => {
+    return (
+      (sortOrder.order === 'ASC' && ascImg) || 
+      ( sortOrder.order === 'DESC' && descImg)
+    );
+  }
 
   const searchChangeHandler = e => {
     setSearchQuery(e.target.value);
@@ -69,9 +92,18 @@ const CategoryManagement = () => {
       <table className='management-table'>
         <tbody>
           <tr>
-            <th>Name</th>
-            <th>Created</th>
-            <th>Last Updated</th>
+            <th data-value='name' onClick={handleSort}>
+              Name
+              { sortOrder.column === 'name' && getSortImg() }  
+            </th>
+            <th data-value='createdAt' onClick={handleSort}>
+              Created
+              { sortOrder.column === 'createdAt' && getSortImg() }  
+            </th>
+            <th data-value='updatedAt' onClick={handleSort}>
+              Last Updated
+              { sortOrder.column === 'updatedAt' && getSortImg() }  
+            </th>
             <th>Actions</th>
           </tr>
           <tr>

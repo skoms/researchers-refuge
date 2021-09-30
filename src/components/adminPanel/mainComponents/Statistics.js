@@ -1,8 +1,21 @@
-import { useSelector } from "react-redux"
-import { selectStats } from "../adminPanelSlice"
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux"
+import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
+import { getStatsAdmin, selectStats } from "../adminPanelSlice"
 
 const Statistics = () => {
   const stats = useSelector(selectStats);
+  const user = useSelector(selectAuthenticatedUser);
+  const dispatch = useDispatch();
+  const [didLoad, setDidLoad] = useState(false);
+
+  useEffect(() => {
+    if (!didLoad) {
+      dispatch(getStatsAdmin(user));
+      setDidLoad(true);
+    }
+  }, [didLoad, dispatch, user]);
+
   return (
     <div className="statistics-div">
       <h2 className='title'>Statistics</h2>

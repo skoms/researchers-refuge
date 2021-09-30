@@ -463,11 +463,17 @@ button:hover {
 }
 
 .management-table th {
+  user-select: none;
   background: var(--base-blue);
   border-bottom: var(--base-background) 4px solid;
   font-size: 1.1rem;
   color: white;
   padding: .3rem .4rem .15rem .4rem;
+  vertical-align: middle;
+}
+
+.management-table img {
+  margin: 0 0 -.2rem .4rem;
 }
 
 .management-table.open th {

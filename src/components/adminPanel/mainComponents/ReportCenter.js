@@ -67,6 +67,29 @@ const ReportCenter = () => {
   const [entriesLimit, setEntriesLimit] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [didLoad, setDidLoad] = useState(false);
+  const [sortOrder, setSortOrder] = useState({ column: null, order: null });
+
+  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>
+  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>
+  
+  const handleSort = e => {
+    const { value } = e.target.dataset;
+    const { column, order } = sortOrder;
+    if (!column) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column !== value) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column === value) {
+      setSortOrder({ column: value, order: order === 'ASC' ? 'DESC' : 'ASC' });
+    }
+  }
+
+  const getSortImg = () => {
+    return (
+      (sortOrder.order === 'ASC' && ascImg) || 
+      ( sortOrder.order === 'DESC' && descImg)
+    );
+  }
 
   useEffect(() => {
     const addDropdownEventHandler = () => {
@@ -134,12 +157,30 @@ const ReportCenter = () => {
       <table className='management-table'>
         <tbody>
           <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Sender</th>
-            <th>Created</th>
-            <th>Last Updated</th>
+            <th data-value='id' onClick={handleSort}>
+              Id
+              { sortOrder.column === 'id' && getSortImg() }
+            </th>
+            <th data-value='title' onClick={handleSort}>
+              Title
+              { sortOrder.column === 'title' && getSortImg() }
+            </th>
+            <th data-value='description' onClick={handleSort}>
+              Description
+              { sortOrder.column === 'description' && getSortImg() }
+            </th>
+            <th data-value='userId' onClick={handleSort}>
+              Sender
+              { sortOrder.column === 'userId' && getSortImg() }
+            </th>
+            <th data-value='createdAt' onClick={handleSort}>
+              Created
+              { sortOrder.column === 'createdAt' && getSortImg() }
+            </th>
+            <th data-value='updatedAt' onClick={handleSort}>
+              Last Updated
+              { sortOrder.column === 'updatedAt' && getSortImg() }
+            </th>
             <th>Actions</th>
           </tr>
           { tempReports.map( (report, i) => 

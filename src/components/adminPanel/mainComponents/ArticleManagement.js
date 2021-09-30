@@ -63,6 +63,29 @@ const ArticleManagement = () => {
   const tablePage = useSelector(selectPage);
   const [entriesLimit, setEntriesLimit] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState({ column: null, order: null });
+
+  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>
+  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>
+  
+  const handleSort = e => {
+    const { value } = e.target.dataset;
+    const { column, order } = sortOrder;
+    if (!column) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column !== value) {
+      setSortOrder({ column: value, order: 'ASC' });
+    } else if (column === value) {
+      setSortOrder({ column: value, order: order === 'ASC' ? 'DESC' : 'ASC' });
+    }
+  }
+
+  const getSortImg = () => {
+    return (
+      (sortOrder.order === 'ASC' && ascImg) || 
+      ( sortOrder.order === 'DESC' && descImg)
+    );
+  }
 
   const searchChangeHandler = e => {
     setSearchQuery(e.target.value);
@@ -98,13 +121,34 @@ const ArticleManagement = () => {
       <table className='management-table'>
         <tbody>
           <tr>
-            <th>Title</th>
-            <th>Topic</th>
-            <th>Author</th>
-            <th>Published</th>
-            <th>Credits</th>
-            <th>Created</th>
-            <th>Last Updated</th>
+            <th data-value='title' onClick={handleSort}>
+              Title
+              { sortOrder.column === 'title' && getSortImg() }
+            </th>
+            <th data-value='topic' onClick={handleSort}>
+              Topic
+              { sortOrder.column === 'topic' && getSortImg() }
+            </th>
+            <th data-value='author' onClick={handleSort}>
+              Author
+              { sortOrder.column === 'author' && getSortImg() }
+            </th>
+            <th data-value='published' onClick={handleSort}>
+              Published
+              { sortOrder.column === 'published' && getSortImg() }
+            </th>
+            <th data-value='credits' onClick={handleSort}>
+              Credits
+              { sortOrder.column === 'credits' && getSortImg() }
+            </th>
+            <th data-value='createdAt' onClick={handleSort}>
+              Created
+              { sortOrder.column === 'createdAt' && getSortImg() }
+            </th>
+            <th data-value='updatedAt' onClick={handleSort}>
+              Last Updated
+              { sortOrder.column === 'updatedAt' && getSortImg() }
+            </th>
             <th>Actions</th>
           </tr>
           <tr>
