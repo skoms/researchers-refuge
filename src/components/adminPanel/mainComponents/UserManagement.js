@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
-import { selectPage } from '../../paginationBar/paginationBarSlice';
+import { selectPage, toFirstPage } from '../../paginationBar/paginationBarSlice';
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import { getUsersAdmin, selectUsers } from "../adminPanelSlice";
 
@@ -51,21 +51,25 @@ const UserManagement = () => {
 
   const limitChangeHandler = e => {
     setEntriesLimit(e.target.value);
+    dispatch(toFirstPage());
   }
 
   const search = e => {
     e.preventDefault();
     setSearchQuery(searchField.value);
+    dispatch(toFirstPage());
   }
 
   const clearSearch = () => {
     searchField.value = '';
     setSearchQuery('');
+    dispatch(toFirstPage());
   }
 
   const clearTermIfEmpty = e => {
     if (!searchField.value) {
       setSearchQuery('');
+      dispatch(toFirstPage());
     }
   }
 
