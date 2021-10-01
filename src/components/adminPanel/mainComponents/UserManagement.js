@@ -4,6 +4,8 @@ import PaginationBar from "../../paginationBar/PaginationBar";
 import { selectPage, toFirstPage } from '../../paginationBar/paginationBarSlice';
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import { getUsersAdmin, getUsersByQueryAdmin, selectUsers } from "../adminPanelSlice";
+import EntriesSelect from "./subcomponents/EntriesSelect";
+import TableSearch from "./subcomponents/TableSearch";
 
 const UserManagement = () => {
   const users = useSelector(selectUsers);
@@ -86,28 +88,13 @@ const UserManagement = () => {
   return (
     <div className="access-management-div">
       <h2 className='title'>User Management</h2>
-      <p className="show-entries">
-        Show 
-        <select name="entries" id="entries-select" onChange={limitChangeHandler}>
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
-        </select>
-        entries
-      </p>
-      <div className="table-search">
-        <form onSubmit={search} className='table-search-form'>
-          { searchQuery !== '' && <button className="clear-search" onClick={clearSearch}>
-            <img src="https://img.icons8.com/fluency-systems-filled/18/64B5F7/xbox-x.png" alt='clear search button'/>
-          </button>}
-          <input type="text" className='table-search-field' data-table-search-field placeholder='Search...' onChange={clearTermIfEmpty}/>
-          <button type='submit' className="search-button">
-            <img src="https://img.icons8.com/material-outlined/18/64B5F7/search--v1.png" alt='search button'/>
-          </button>
-        </form>
-      </div>
+      <EntriesSelect limitChangeHandler={limitChangeHandler} />
+      <TableSearch 
+        search={search} 
+        searchQuery={searchQuery}
+        clearSearch={clearSearch}
+        clearTermIfEmpty={clearTermIfEmpty}
+      />
       <table className='management-table'>
         <tbody>
           <tr>
