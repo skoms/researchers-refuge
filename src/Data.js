@@ -388,6 +388,7 @@ export default class Data {
 
   /**
    * Gets admin stats for all the data
+   * @param {object} user - logged in user
    * @returns status code, data on success, errors on failure
    */
   async getStatsAdmin(user) {
@@ -399,15 +400,33 @@ export default class Data {
 
   /**
    * Gets users for admin
+   * @param {object} user - logged in user
    * @param {number} limit - how many entries per page
    * @param {number} page - which page one wants
    * @param {string} sortColumn - what column to sort by
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { users, hasMore, lastPage } }
    */
-  async getUsersAdmin(user, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC') {
+  async getUsersAdmin(user, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
       this.api(`/admin/users`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets users for admin by query
+   * @param {object} user - logged in user
+   * @param {string} query - query to search by
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { users, hasMore, lastPage } }
+   */
+  async getUsersByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/users/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
       true, 'data'
     );
   }

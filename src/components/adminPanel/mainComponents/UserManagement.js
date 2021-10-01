@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
 import { selectPage, toFirstPage } from '../../paginationBar/paginationBarSlice';
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
-import { getUsersAdmin, selectUsers } from "../adminPanelSlice";
+import { getUsersAdmin, getUsersByQueryAdmin, selectUsers } from "../adminPanelSlice";
 
 const UserManagement = () => {
   const users = useSelector(selectUsers);
@@ -78,7 +78,7 @@ const UserManagement = () => {
       if (!searchQuery) {
         dispatch(getUsersAdmin({ user, limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
       } else {
-        console.log('works');
+        dispatch(getUsersByQueryAdmin({ user, query: searchQuery, limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
       }
     }
   }, [dispatch, user, entriesLimit, tablePage, sortOrder, searchQuery]);

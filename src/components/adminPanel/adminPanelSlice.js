@@ -49,6 +49,14 @@ export const getUsersAdmin = createAsyncThunk(
   }
 );
 
+export const getUsersByQueryAdmin = createAsyncThunk(
+  'adminPanel/getUsersByQueryAdmin',
+  async ({ user, query = null, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getUsersByQueryAdmin(user, query, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
 export const adminPanelSlice = createSlice({
   name: 'adminPanel',
   initialState,
@@ -68,6 +76,17 @@ export const adminPanelSlice = createSlice({
       }
     });
     builder.addCase(getUsersAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.users.entries = data.users;
+        result.users.total = data.count;
+        result.users.rangeStart = data.rangeStart;
+        result.users.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getUsersByQueryAdmin.fulfilled, (state, action) => { 
       const { status, data } = action.payload;
       let result = state;
       if (status === 200) {
