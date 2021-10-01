@@ -164,7 +164,7 @@ export default class Data {
 
   /**
    * Gets a specific user and returns it
-   * @param {integer} id - the ID of the user
+   * @param {number} id - the ID of the user
    * @returns status code, data on success, errors on failure
    */
   async getUserById(id) {
@@ -200,7 +200,7 @@ export default class Data {
 
   /**
    * Gets a specific article and returns it
-   * @param {integer} id - the ID of the article
+   * @param {number} id - the ID of the article
    * @returns status code, data on success, errors on failure
    */
   async getArticle(id) {
@@ -234,7 +234,7 @@ export default class Data {
 
   /**
    * Gets a specific article and returns it
-   * @param {integer} id - the ID of the article
+   * @param {number} id - the ID of the article
    * @returns status code, data on success, errors on failure
    */
    async getArticlesByOwnerId(id, page = 1) {
@@ -282,7 +282,7 @@ export default class Data {
 
   /**
    * Gets a topic specified by id
-   * @param {integer} id - topic id
+   * @param {number} id - topic id
    * @returns status code, data on success, errors on failure
    */
   async getTopicById(id) {
@@ -353,7 +353,7 @@ export default class Data {
 
   /**
    * Gets a category specified by id
-   * @param {integer} id - category id
+   * @param {number} id - category id
    * @returns status code, data on success, errors on failure
    */
   async getCategoryById(id) {
@@ -390,9 +390,24 @@ export default class Data {
    * Gets admin stats for all the data
    * @returns status code, data on success, errors on failure
    */
-   async getStatsAdmin(user) {
+  async getStatsAdmin(user) {
     return await this.responseHandler(
       this.api(`/admin/stats`, 'GET', null, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets users for admin
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { users, hasMore, lastPage } }
+   */
+  async getUsersAdmin(user, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC') {
+    return await this.responseHandler(
+      this.api(`/admin/users`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
       true, 'data'
     );
   }
@@ -436,7 +451,7 @@ export default class Data {
 
   /**
    * Updates the data on the user who wants to follow/unfollow and the target
-   * @param {integer} id - The ID of the article one wants to update
+   * @param {number} id - The ID of the article one wants to update
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns status code, data on success, errors on failure
    */
@@ -449,7 +464,7 @@ export default class Data {
 
   /**
    * Updates and saves an user to the API
-   * @param {integer} id - The ID of the user one wants to update
+   * @param {number} id - The ID of the user one wants to update
    * @param {object} updatedData - the object with updated data
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password ( for authentification )
    * @returns status code, data on success, errors on failure
@@ -464,7 +479,7 @@ export default class Data {
   /**
    * Updates and saves an article to the API
    * @param {object} article - the article object with properties: title, topic, intro, body, tags
-   * @param {integer} id - The ID of the article one wants to update
+   * @param {number} id - The ID of the article one wants to update
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns status code, data on success, errors on failure
    */
@@ -477,7 +492,7 @@ export default class Data {
 
   /**
    * Accredits/Discredits an article
-   * @param {integer} id - The ID of the article one wants to accredit/discredit
+   * @param {number} id - The ID of the article one wants to accredit/discredit
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns status code, data on success, errors on failure
    */
@@ -496,7 +511,7 @@ export default class Data {
 
   /**
    * Deletes an article to the API
-   * @param {integer} id - The ID of the article one wants to update
+   * @param {number} id - The ID of the article one wants to update
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password
    * @returns status code 204 on success, errors on failure
    */

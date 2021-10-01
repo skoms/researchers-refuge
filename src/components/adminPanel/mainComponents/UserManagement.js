@@ -1,47 +1,19 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
 import { selectPage } from '../../paginationBar/paginationBarSlice';
+import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
+import { getUsersAdmin, selectUsers } from "../adminPanelSlice";
 
 const UserManagement = () => {
-  const tempUsers = [
-    {
-      firstName: 'test',
-      lastName: 'user',
-      emailAddress: 'test@user.com',
-      accessLevel: 'none',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      firstName: 'test',
-      lastName: 'user',
-      emailAddress: 'test@user.com',
-      accessLevel: 'none',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      firstName: 'test',
-      lastName: 'user',
-      emailAddress: 'test@user.com',
-      accessLevel: 'none',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      firstName: 'test',
-      lastName: 'user',
-      emailAddress: 'test@user.com',
-      accessLevel: 'none',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-  ];
+  const users = useSelector(selectUsers);
+  const user = useSelector(selectAuthenticatedUser);
+  const dispatch = useDispatch();
   const tablePage = useSelector(selectPage);
-  const [entriesLimit, setEntriesLimit] = useState(10);
+  const [entriesLimit, setEntriesLimit] = useState(5);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortOrder, setSortOrder] = useState({ column: null, order: null });
+  const [sortOrder, setSortOrder] = useState({ column: 'id', order: 'ASC' });
+  const searchField = document.querySelector('[data-table-search-field]');
 
   const [newUser, setNewUser] = useState({ });
 
@@ -67,10 +39,6 @@ const UserManagement = () => {
     );
   }
 
-  const searchChangeHandler = e => {
-    setSearchQuery(e.target.value);
-  }
-
   const inputChangeHandler = e => {
     const { column } = e.target.dataset;
     setNewUser( prevNewUser => {
@@ -81,28 +49,56 @@ const UserManagement = () => {
     });
   }
 
-  const submit = () => {
-
+  const limitChangeHandler = e => {
+    setEntriesLimit(e.target.value);
   }
+
+  const search = e => {
+    e.preventDefault();
+    setSearchQuery(searchField.value);
+  }
+
+  const clearSearch = () => {
+    searchField.value = '';
+    setSearchQuery('');
+  }
+
+  const clearTermIfEmpty = e => {
+    if (!searchField.value) {
+      setSearchQuery('');
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      if (!searchQuery) {
+        dispatch(getUsersAdmin({ user, limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
+      } else {
+        console.log('works');
+      }
+    }
+  }, [dispatch, user, entriesLimit, tablePage, sortOrder, searchQuery]);
 
   return (
     <div className="access-management-div">
       <h2 className='title'>User Management</h2>
       <p className="show-entries">
         Show 
-        <select name="entries" id="entries-select">
-          <option value="10">10</option>
-          <option value="20">25</option>
-          <option value="50">50</option>
+        <select name="entries" id="entries-select" onChange={limitChangeHandler}>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
         </select>
         entries
       </p>
       <div className="table-search">
-        <form onSubmit={submit} className='table-search-form'>
-          { searchQuery !== '' && <button className="clear-search">
+        <form onSubmit={search} className='table-search-form'>
+          { searchQuery !== '' && <button className="clear-search" onClick={clearSearch}>
             <img src="https://img.icons8.com/fluency-systems-filled/18/64B5F7/xbox-x.png" alt='clear search button'/>
           </button>}
-          <input type="text" className='table-search-field' placeholder='Search...' onChange={searchChangeHandler} value={searchQuery} />
+          <input type="text" className='table-search-field' data-table-search-field placeholder='Search...' onChange={clearTermIfEmpty}/>
           <button type='submit' className="search-button">
             <img src="https://img.icons8.com/material-outlined/18/64B5F7/search--v1.png" alt='search button'/>
           </button>
@@ -152,14 +148,14 @@ const UserManagement = () => {
               </div>
             </td>
           </tr>
-          { tempUsers.map( (user, i) => 
+          { users && users.entries.length > 0 && users.entries.map( (user, i) => 
               <tr key={i}>
-                <td>{user.firstName + i}</td>
+                <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.emailAddress}</td>
                 <td>{user.accessLevel}</td>
-                <td>{user.createdAt}</td>
-                <td>{user.updatedAt}</td>
+                <td>{`${user.createdAt.slice(0, 10)} ${user.createdAt.slice(11, 16)}`}</td>
+                <td>{`${user.updatedAt.slice(0, 10)} ${user.updatedAt.slice(11, 16)}`}</td>
                 <td>
                   <div className="action-buttons">
                     <button>
@@ -178,7 +174,7 @@ const UserManagement = () => {
           }
         </tbody>
       </table>
-      <p className='entries-count'>{`Showing x to x of x entries`}</p>
+      <p className='entries-count'>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>
       <PaginationBar use='admin' />
     </div>
   )

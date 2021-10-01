@@ -20,7 +20,12 @@ const initialState = {
       rejected: 0
     },
   },
-  users: [],
+  users: {
+    entries: [],
+    total: 0,
+    rangeStart: 0,
+    rangeEnd: 0
+  },
   articles: [],
   topics: [],
   categories: [],
@@ -35,6 +40,14 @@ export const getStatsAdmin = createAsyncThunk(
     return response;
   }
 )
+
+export const getUsersAdmin = createAsyncThunk(
+  'adminPanel/getUsersAdmin',
+  async ({ user, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getUsersAdmin(user, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
 
 export const adminPanelSlice = createSlice({
   name: 'adminPanel',
@@ -53,6 +66,17 @@ export const adminPanelSlice = createSlice({
           reports: data.reports
         }
       }
+    });
+    builder.addCase(getUsersAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.users.entries = data.users;
+        result.users.total = data.count;
+        result.users.rangeStart = data.rangeStart;
+        result.users.rangeEnd = data.rangeEnd;
+      };
+      return result;
     });
   }
 });
