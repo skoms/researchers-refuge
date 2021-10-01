@@ -70,7 +70,6 @@ const ArticleForm = props => {
       && !article[key]
     );
     if (invalidInputs.length > 0) {
-      console.log(invalidInputs);
       invalidInputs.forEach( input => {
         const target = document.querySelector(`#${input}-input-div`);
         target.classList.toggle('invalid');

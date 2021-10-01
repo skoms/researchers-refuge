@@ -45,7 +45,6 @@ export const adminPanelSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getStatsAdmin.fulfilled, (state, action) => {
       const { data } = action.payload;
-      console.log(data);
       return {
         ...state,
         stats: {
