@@ -26,11 +26,36 @@ const initialState = {
     rangeStart: 0,
     rangeEnd: 0
   },
-  articles: [],
-  topics: [],
-  categories: [],
-  admins: [],
-  reports: []
+  articles: {
+    entries: [],
+    total: 0,
+    rangeStart: 0,
+    rangeEnd: 0
+  },
+  topics: {
+    entries: [],
+    total: 0,
+    rangeStart: 0,
+    rangeEnd: 0
+  },
+  categories: {
+    entries: [],
+    total: 0,
+    rangeStart: 0,
+    rangeEnd: 0
+  },
+  admins: {
+    entries: [],
+    total: 0,
+    rangeStart: 0,
+    rangeEnd: 0
+  },
+  reports: {
+    entries: [],
+    total: 0,
+    rangeStart: 0,
+    rangeEnd: 0
+  },
 };
 
 export const getStatsAdmin = createAsyncThunk(
@@ -53,6 +78,22 @@ export const getUsersByQueryAdmin = createAsyncThunk(
   'adminPanel/getUsersByQueryAdmin',
   async ({ user, query = null, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
     const response = await data.getUsersByQueryAdmin(user, query, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
+export const getArticlesAdmin = createAsyncThunk(
+  'adminPanel/getArticlesAdmin',
+  async ({ user, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getArticlesAdmin(user, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
+export const getArticlesByQueryAdmin = createAsyncThunk(
+  'adminPanel/getArticlesByQueryAdmin',
+  async ({ user, query = null, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getArticlesByQueryAdmin(user, query, limit, page, sortColumn, sortOrder);
     return response;
   }
 );

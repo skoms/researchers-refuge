@@ -1,56 +1,24 @@
 import ActionButtons from "./ActionButtons";
 
 export const ManagementTable = (
-    { handleSort, sortOrder, getSortImg, inputChangeHandler, data }
+    { columns, handleSort, sortOrder, getSortImg, inputChangeHandler, data }
   ) => {
-  const tempData = [
-    {
-      column: 'firstName',
-      name: 'First Name',
-      input: true,
-    },
-    {
-      column: 'lastName',
-      name: 'Last Name',
-      input: true,
-    },
-    {
-      column: 'emailAddress',
-      name: 'E-mail',
-      input: true,
-    },
-    {
-      column: 'accessLevel',
-      name: 'Access Level',
-      input: true,
-    },
-    {
-      column: 'createdAt',
-      name: 'Created',
-      input: false,
-    },
-    {
-      column: 'updatedAt',
-      name: 'Last Updated',
-      input: false,
-    },
-  ]
   return (
     <table className='management-table'>
         <tbody>
           <tr>
-            { tempData.map(data => 
-              <th data-value={data.column} onClick={handleSort}>
-                {data.name}
-                { sortOrder.column === data.column && getSortImg() }  
+            { columns.map(column => 
+              <th column-value={column.column} key={column.column} onClick={handleSort}>
+                {column.name}
+                { sortOrder.column === column.column && getSortImg() }  
               </th>
             )}
             <th>Actions</th>
           </tr>
           <tr>
-            { tempData.map(data => {
-              if (!data.input) return <td></td>;
-              return <td><input type="text" data-column={data.column} placeholder={data.name} onChange={inputChangeHandler}/></td>;
+            { columns.map(column => {
+              if (!column.input) return <td key={column.column}></td>;
+              return <td key={column.column}><input type="text" column-column={column.column} placeholder={column.name} onChange={inputChangeHandler}/></td>;
             })}
             <td>
               <ActionButtons isEntry={false} />
@@ -58,10 +26,10 @@ export const ManagementTable = (
           </tr>
           { data && data.entries.length > 0 && data.entries.map( (entry, i) => 
             <tr key={i}>
-              { tempData.map( data => 
-                data.column === 'createdAt' || data.column === 'createdAt' 
-                ? ( <td>{`${entry[data.column].slice(0, 10)} ${entry[data.column].slice(11, 16)}`}</td> ) 
-                : ( <td>{entry[data.column]}</td> )
+              { columns.map( (column, i) => 
+                column.column === 'createdAt' || column.column === 'updatedAt' 
+                ? ( <td key={i}>{`${entry[column.column].slice(0, 10)} ${entry[column.column].slice(11, 16)}`}</td> ) 
+                : ( <td key={i}>{entry[column.column]}</td> )
               )}
               <td>
               <ActionButtons isEntry={true} />

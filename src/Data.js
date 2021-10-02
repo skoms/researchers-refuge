@@ -431,6 +431,39 @@ export default class Data {
     );
   }
 
+  /**
+   * Gets articles for admin
+   * @param {object} user - logged in user
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { articles, hasMore, lastPage } }
+   */
+  async getArticlesAdmin(user, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/articles`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets articles for admin by query
+   * @param {object} user - logged in user
+   * @param {string} query - query to search by
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { articles, hasMore, lastPage } }
+   */
+  async getArticlesByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/articles/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
 
   
 
