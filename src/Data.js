@@ -497,6 +497,74 @@ export default class Data {
     );
   }
 
+  /**
+   * Gets categories for admin
+   * @param {object} user - logged in user
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { categories, hasMore, lastPage } }
+   */
+   async getCategoriesAdmin(user, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/categories`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets categories for admin by query
+   * @param {object} user - logged in user
+   * @param {string} query - query to search by
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { categories, hasMore, lastPage } }
+   */
+  async getCategoriesByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/categories/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets reports for admin
+   * @param {object} user - logged in user
+   * @param {string} status - report status (open, resolved, rejected)
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { reports, hasMore, lastPage } }
+   */
+   async getReportsAdmin(user, status, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/reports`, 'GET', { status, limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets reports for admin by query
+   * @param {object} user - logged in user
+   * @param {string} status - report status (open, resolved, rejected)
+   * @param {string} query - query to search by
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { reports, hasMore, lastPage } }
+   */
+  async getReportsByQueryAdmin(user, status, query, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/reports/search`, 'GET', { status, query, limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
 
   
 

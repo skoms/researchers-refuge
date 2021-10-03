@@ -41,9 +41,7 @@ const ArticleManagement = () => {
     <div className="access-management-div">
       <h2 className='title'>Article Management</h2>
       <EntriesSelect />
-      <TableSearch 
-        searchQuery={searchQuery}
-      />
+      <TableSearch />
       <ManagementTable 
         columns={columns}
         data={articles}

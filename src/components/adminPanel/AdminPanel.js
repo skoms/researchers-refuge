@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
-import AdminManagement from './mainComponents/AdminManagement';
 import ArticleManagement from './mainComponents/ArticleManagement';
 import CategoryManagement from './mainComponents/CategoryManagement';
 import ReportCenter from './mainComponents/ReportCenter';
@@ -39,7 +38,6 @@ const AdminPanel = () => {
         { selection === 'Article Management' && <ArticleManagement />}
         { selection === 'Topic Management' && <TopicManagement />}
         { selection === 'Category Management' && <CategoryManagement />}
-        { selection === 'Admin Management' && <AdminManagement />}
         { selection === 'Report Center' && <ReportCenter />}
       </div>
     </div>

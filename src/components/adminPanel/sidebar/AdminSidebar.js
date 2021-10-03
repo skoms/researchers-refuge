@@ -39,8 +39,7 @@ const AdminSidebar = ({select}) => {
           <button className='sidebar-button' onClick={select}>User Management</button> <hr />
           <button className='sidebar-button' onClick={select}>Article Management</button> <hr />
           <button className='sidebar-button' onClick={select}>Topic Management</button> <hr />
-          <button className='sidebar-button' onClick={select}>Category Management</button> <hr />
-          <button className='sidebar-button' onClick={select}>Admin Management</button>
+          <button className='sidebar-button' onClick={select}>Category Management</button> 
         </div>
       </div>
       <button className='sidebar-button' onClick={select}>Report Center</button>

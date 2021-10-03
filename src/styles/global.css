@@ -540,7 +540,7 @@ button:hover {
   grid-template-columns: repeat(5, 1fr);
   grid-template-areas: 
     "title title . . ."
-    "limit . . search search"
+    "limit status-filter status-filter search search"
     "table table table table table"
     "count . . pagination pagination";
   gap: .3rem;
@@ -552,6 +552,9 @@ button:hover {
 }
 .access-management-div .show-entries {
   grid-area: limit;
+}
+.access-management-div .status-filter {
+  grid-area: status-filter;
 }
 .access-management-div .table-search {
   grid-area: search;
@@ -579,6 +582,37 @@ button:hover {
   margin: 0 .3rem;
 }
 
+.access-management-div .status-filter {
+  display: flex;
+  justify-self: center;
+}
+
+.access-management-div .status-filter button {
+  box-shadow: none;
+  color: var(--base-component-white);
+  padding: .4rem .6rem;
+  opacity: .4;
+}
+
+.access-management-div .status-filter .open-button {
+  border-radius: .25rem 0 0 .25rem;
+  background: var(--base-blue);
+}
+
+.access-management-div .status-filter .resolved-button {
+  border-radius: 0;
+  background: var(--valid-green);
+}
+
+.access-management-div .status-filter .rejected-button {
+  border-radius: 0 .25rem .25rem 0;
+  background: var(--error-red);
+}
+
+.access-management-div .status-filter .selected {
+  opacity: 1;
+}
+
 .access-management-div .table-search {
   justify-self: right;
 }
@@ -603,106 +637,8 @@ button:hover {
   width: 22rem;
 }
 
-/* Report Center */
-.report-center-div {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: 
-    "title title . . ."
-    "limit status-filter status-filter search search"
-    "table table table table table"
-    "count . . pagination pagination";
-  gap: .3rem;
-}
-
-/* Grid Area Declarations */
-.report-center-div .title {
-  grid-area: title;
-}
-.report-center-div .show-entries {
-  grid-area: limit;
-}
-.report-center-div .status-filter {
-  grid-area: status-filter;
-}
-.report-center-div .table-search {
-  grid-area: search;
-}
-.report-center-div .management-table {
-  grid-area: table;
-}
-.report-center-div .entries-count {
-  grid-area: count;
-}
-.report-center-div .pagination-bar {
-  grid-area: pagination;
-}
-/* ---------------------- */
-
-.report-center-div .title {
-  text-align: left;
-}
-
-.report-center-div .show-entries {
-  text-align: left;
-}
-
-.report-center-div .show-entries select {
-  margin: 0 .3rem;
-}
-
-.report-center-div .status-filter {
-  display: flex;
-  justify-self: center;
-}
-
-.report-center-div .status-filter button {
-  box-shadow: none;
-  color: var(--base-component-white);
-  padding: .4rem .6rem;
-  opacity: .4;
-}
-
-.report-center-div .status-filter .open-button {
-  border-radius: .25rem 0 0 .25rem;
-  background: var(--base-blue);
-}
-
-.report-center-div .status-filter .resolved-button {
-  border-radius: 0;
-  background: var(--valid-green);
-}
-
-.report-center-div .status-filter .rejected-button {
-  border-radius: 0 .25rem .25rem 0;
-  background: var(--error-red);
-}
-
-.report-center-div .status-filter .selected {
-  opacity: 1;
-}
-
-.report-center-div .table-search {
-  justify-self: right;
-}
-
-.report-center-div .table-search-form {
-  display: flex;
-  align-items: center;
-}
-
-.report-center-div .table-search .clear-search,
-.report-center-div .table-search .search-button {
-  background: none;
-  box-shadow: none;
-}
-
-.report-center-div .entries-count {
-  justify-self: left;
-}
-
-.report-center-div .pagination-bar {
-  justify-self: right;
+.access-management-div .pagination-bar button {
+  box-shadow: 0 0 10px -4px var(--base-darkblue);
 }
 
 /* ==================== Header and Footer Styling ===================== */

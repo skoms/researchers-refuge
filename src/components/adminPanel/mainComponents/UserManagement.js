@@ -40,9 +40,7 @@ const UserManagement = () => {
     <div className="access-management-div">
       <h2 className='title'>User Management</h2>
       <EntriesSelect />
-      <TableSearch 
-        searchQuery={searchQuery}
-      />
+      <TableSearch />
       <ManagementTable 
         columns={columns}
         data={users}

@@ -1,9 +1,11 @@
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toFirstPage } from "../../../paginationBar/paginationBarSlice";
-import { updateSearchQuery, updateSortOrder } from "../../adminPanelSlice";
+import { selectSearchQuery, updateSearchQuery, updateSortOrder } from "../../adminPanelSlice";
 
-const TableSearch = ({ searchQuery}) => {
+const TableSearch = () => {
   const searchField = document.querySelector('[data-table-search-field]');
+  const searchQuery = useSelector(selectSearchQuery);
   const dispatch = useDispatch();
 
   const search = e => {
@@ -11,6 +13,7 @@ const TableSearch = ({ searchQuery}) => {
     dispatch(updateSearchQuery(searchField.value));
     dispatch(updateSortOrder());
     dispatch(toFirstPage());
+    searchField.value = '';
   }
 
   const clearSearch = () => {

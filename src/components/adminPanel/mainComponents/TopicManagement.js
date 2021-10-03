@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
 import { selectPage } from "../../paginationBar/paginationBarSlice";
@@ -9,47 +9,9 @@ import TableSearch from "./subcomponents/TableSearch";
 import { ManagementTable } from "./subcomponents/ManagementTable";
 
 const TopicManagement = () => {
-  const tempTopics = [
-    {
-      name: 'test name',
-      category: 'test category',
-      relatedTags: 'test tags',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      name: 'test name',
-      category: 'test category',
-      relatedTags: 'test tags',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      name: 'test name',
-      category: 'test category',
-      relatedTags: 'test tags',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      name: 'test name',
-      category: 'test category',
-      relatedTags: 'test tags',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-    {
-      name: 'test name',
-      category: 'test category',
-      relatedTags: 'test tags',
-      createdAt: '1111-1-1',
-      updatedAt: '1111-1-1'
-    },
-  ];
   const columns = [
     { column: 'name', name: 'Name', input: true },
     { column: 'categoryId', name: 'CategoryId', input: true },
-    { column: 'relatedTags', name: 'Related Tags', input: true },
     { column: 'createdAt', name: 'Created', input: false },
     { column: 'updatedAt', name: 'Last Updated', input: false }
   ];
@@ -81,7 +43,7 @@ const TopicManagement = () => {
         columns={columns}
         data={topics}
       />
-      <p className='entries-count'>{`Showing x to x of x entries`}</p>
+      <p className='entries-count'>{`Showing ${topics.rangeStart} to ${topics.rangeEnd} of ${topics.total} entries`}</p>
       <PaginationBar use='admin' />
     </div>
   )

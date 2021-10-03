@@ -22,6 +22,23 @@ export const ManagementTable = (
     }));
   }
 
+  const formatEntryData = (entry, column, i) => {
+    switch (column.column) {
+      case 'createdAt':
+        return <td key={i}>{`${entry[column.column].slice(0, 10)} ${entry[column.column].slice(11, 16)}`}</td>
+      case 'updatedAt':
+        return <td key={i}>{`${entry[column.column].slice(0, 10)} ${entry[column.column].slice(11, 16)}`}</td>
+      case 'userId':
+        return <td key={i}>{`(${entry[column.column]}) ${entry.User.firstName} ${entry.User.lastName}`}</td>
+      case 'categoryId':
+        return <td key={i}>{`(${entry[column.column]}) ${entry.Category.name}
+        `}</td>;
+    
+      default:
+        return <td key={i}>{entry[column.column]}</td>;
+    }
+  }
+
   return (
     <table className='management-table'>
         <tbody>
@@ -46,11 +63,7 @@ export const ManagementTable = (
           { data && data.entries.length > 0 && data.entries.map( (entry, i) => 
             <tr key={i}>
               { columns.map( (column, i) => 
-                column.column === 'createdAt' || column.column === 'updatedAt' 
-                  ? ( <td key={i}>{`${entry[column.column].slice(0, 10)} ${entry[column.column].slice(11, 16)}`}</td> ) 
-                  : column.column === 'userId' 
-                    ? ( <td key={i}>{`(${entry[column.column]}) ${entry.User.firstName} ${entry.User.lastName}`}</td> ) 
-                    : ( <td key={i}>{entry[column.column]}</td> )
+                formatEntryData(entry, column, i)
               )}
               <td>
               <ActionButtons isEntry={true} data={data} />

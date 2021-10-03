@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAdmin, getUsersByQueryAdmin, getArticlesAdmin, getArticlesByQueryAdmin } from "../adminPanel/adminPanelSlice";
+import { 
+  getUsersAdmin, getUsersByQueryAdmin, getArticlesAdmin, 
+  getArticlesByQueryAdmin, getTopicsAdmin, getTopicsByQueryAdmin, 
+  getCategoriesAdmin, getCategoriesByQueryAdmin, getReportsAdmin, 
+  getReportsByQueryAdmin 
+} from "../adminPanel/adminPanelSlice";
 import { getFeedArticles } from "../feed/feedSlice";
 import { getResults } from "../searchResults/searchResultsSlice";
 import { getUserArticles } from "../user/userProfile/userFeedSlice";
@@ -108,6 +113,60 @@ export const paginationBarSlice = createSlice({
       return result;
     });
     builder.addCase(getArticlesByQueryAdmin.fulfilled, (state, action) => {
+      const { data, status } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.hasMore = data.hasMore;
+        result.lastPage = data.lastPage;
+      };
+      return result;
+    });
+    builder.addCase(getTopicsAdmin.fulfilled, (state, action) => {
+      const { data, status } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.hasMore = data.hasMore;
+        result.lastPage = data.lastPage;
+      };
+      return result;
+    });
+    builder.addCase(getTopicsByQueryAdmin.fulfilled, (state, action) => {
+      const { data, status } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.hasMore = data.hasMore;
+        result.lastPage = data.lastPage;
+      };
+      return result;
+    });
+    builder.addCase(getCategoriesAdmin.fulfilled, (state, action) => {
+      const { data, status } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.hasMore = data.hasMore;
+        result.lastPage = data.lastPage;
+      };
+      return result;
+    });
+    builder.addCase(getCategoriesByQueryAdmin.fulfilled, (state, action) => {
+      const { data, status } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.hasMore = data.hasMore;
+        result.lastPage = data.lastPage;
+      };
+      return result;
+    });
+    builder.addCase(getReportsAdmin.fulfilled, (state, action) => {
+      const { data, status } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.hasMore = data.hasMore;
+        result.lastPage = data.lastPage;
+      };
+      return result;
+    });
+    builder.addCase(getReportsByQueryAdmin.fulfilled, (state, action) => {
       const { data, status } = action.payload;
       let result = state;
       if (status === 200) {

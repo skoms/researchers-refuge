@@ -133,6 +133,38 @@ export const getTopicsByQueryAdmin = createAsyncThunk(
   }
 );
 
+export const getCategoriesAdmin = createAsyncThunk(
+  'adminPanel/getCategoriesAdmin',
+  async ({ user, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getCategoriesAdmin(user, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
+export const getCategoriesByQueryAdmin = createAsyncThunk(
+  'adminPanel/getCategoriesByQueryAdmin',
+  async ({ user, query = null, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getCategoriesByQueryAdmin(user, query, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
+export const getReportsAdmin = createAsyncThunk(
+  'adminPanel/getReportsAdmin',
+  async ({ user, status = 'open', limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getReportsAdmin(user, status, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
+export const getReportsByQueryAdmin = createAsyncThunk(
+  'adminPanel/getReportsByQueryAdmin',
+  async ({ user, status = 'open', query = null, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getReportsByQueryAdmin(user, status, query, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
 export const adminPanelSlice = createSlice({
   name: 'adminPanel',
   initialState,
@@ -247,6 +279,50 @@ export const adminPanelSlice = createSlice({
         result.topics.total = data.count;
         result.topics.rangeStart = data.rangeStart;
         result.topics.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getCategoriesAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.categories.entries = data.categories;
+        result.categories.total = data.count;
+        result.categories.rangeStart = data.rangeStart;
+        result.categories.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getCategoriesByQueryAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.categories.entries = data.categories;
+        result.categories.total = data.count;
+        result.categories.rangeStart = data.rangeStart;
+        result.categories.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getReportsAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.reports.entries = data.reports;
+        result.reports.total = data.count;
+        result.reports.rangeStart = data.rangeStart;
+        result.reports.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getReportsByQueryAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.reports.entries = data.reports;
+        result.reports.total = data.count;
+        result.reports.rangeStart = data.rangeStart;
+        result.reports.rangeEnd = data.rangeEnd;
       };
       return result;
     });
