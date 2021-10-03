@@ -117,6 +117,22 @@ export const getArticlesByQueryAdmin = createAsyncThunk(
   }
 );
 
+export const getTopicsAdmin = createAsyncThunk(
+  'adminPanel/getTopicsAdmin',
+  async ({ user, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getTopicsAdmin(user, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
+export const getTopicsByQueryAdmin = createAsyncThunk(
+  'adminPanel/getTopicsByQueryAdmin',
+  async ({ user, query = null, limit = 10, page = 1, sortColumn = 'id', sortOrder = 'ASC' }) => {
+    const response = await data.getTopicsByQueryAdmin(user, query, limit, page, sortColumn, sortOrder);
+    return response;
+  }
+);
+
 export const adminPanelSlice = createSlice({
   name: 'adminPanel',
   initialState,
@@ -209,6 +225,28 @@ export const adminPanelSlice = createSlice({
         result.articles.total = data.count;
         result.articles.rangeStart = data.rangeStart;
         result.articles.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getTopicsAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.topics.entries = data.topics;
+        result.topics.total = data.count;
+        result.topics.rangeStart = data.rangeStart;
+        result.topics.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getTopicsByQueryAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.topics.entries = data.topics;
+        result.topics.total = data.count;
+        result.topics.rangeStart = data.rangeStart;
+        result.topics.rangeEnd = data.rangeEnd;
       };
       return result;
     });

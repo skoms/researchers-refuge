@@ -464,6 +464,39 @@ export default class Data {
     );
   }
 
+  /**
+   * Gets topics for admin
+   * @param {object} user - logged in user
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { topics, hasMore, lastPage } }
+   */
+   async getTopicsAdmin(user, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/topics`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
+  /**
+   * Gets topics for admin by query
+   * @param {object} user - logged in user
+   * @param {string} query - query to search by
+   * @param {number} limit - how many entries per page
+   * @param {number} page - which page one wants
+   * @param {string} sortColumn - what column to sort by
+   * @param {string} sortOrder - ascending or descending order
+   * @returns {object} - { status, data: { topics, hasMore, lastPage } }
+   */
+  async getTopicsByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
+    return await this.responseHandler(
+      this.api(`/admin/topics/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
+      true, 'data'
+    );
+  }
+
 
   
 

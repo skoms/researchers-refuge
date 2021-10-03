@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
 import { selectPage } from '../../paginationBar/paginationBarSlice';
@@ -45,7 +45,6 @@ const UserManagement = () => {
       />
       <ManagementTable 
         columns={columns}
-        sortOrder={sortOrder}
         data={users}
       />
       <p className='entries-count'>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>

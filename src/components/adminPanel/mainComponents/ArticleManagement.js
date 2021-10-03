@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
-import { selectPage, toFirstPage } from "../../paginationBar/paginationBarSlice";
+import { selectPage } from "../../paginationBar/paginationBarSlice";
 import { ManagementTable } from "./subcomponents/ManagementTable";
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import TableSearch from "./subcomponents/TableSearch";
 import EntriesSelect from "./subcomponents/EntriesSelect";
-import { getArticlesAdmin, getArticlesByQueryAdmin, selectArticles, getSortImg, selectSortOrder, selectEntriesLimit, selectSearchQuery } from "../adminPanelSlice";
+import { getArticlesAdmin, getArticlesByQueryAdmin, selectArticles, selectSortOrder, selectEntriesLimit, selectSearchQuery } from "../adminPanelSlice";
 
 
 const ArticleManagement = () => {
@@ -46,7 +46,6 @@ const ArticleManagement = () => {
       />
       <ManagementTable 
         columns={columns}
-        sortOrder={sortOrder}
         data={articles}
       />
       <p className='entries-count'>{`Showing ${articles.rangeStart} to ${articles.rangeEnd} of ${articles.total} entries`}</p>

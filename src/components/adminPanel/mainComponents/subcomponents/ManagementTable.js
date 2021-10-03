@@ -1,11 +1,13 @@
 import ActionButtons from "./ActionButtons";
 import { useDispatch } from "react-redux";
-import { updateSortOrder, getSortImg, updateNewData } from "../../adminPanelSlice";
+import { updateSortOrder, getSortImg, updateNewData, selectSortOrder } from "../../adminPanelSlice";
+import { useSelector } from "react-redux";
 
 export const ManagementTable = (
-    { columns, sortOrder, data }
+    { columns, data }
   ) => {
   const dispatch = useDispatch();
+  const sortOrder = useSelector(selectSortOrder);
 
   const handleSort = e => {
     const { value } = e.target.dataset; 
