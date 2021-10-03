@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../paginationBar/PaginationBar";
-import { selectPage, toFirstPage } from '../../paginationBar/paginationBarSlice';
+import { selectPage } from '../../paginationBar/paginationBarSlice';
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
-import { getUsersAdmin, getUsersByQueryAdmin, selectUsers } from "../adminPanelSlice";
+import { getUsersAdmin, getUsersByQueryAdmin, selectSortOrder, selectUsers, selectEntriesLimit, selectSearchQuery } from "../adminPanelSlice";
 import EntriesSelect from "./subcomponents/EntriesSelect";
+import { ManagementTable } from "./subcomponents/ManagementTable";
 import TableSearch from "./subcomponents/TableSearch";
 
 const UserManagement = () => {
@@ -12,68 +13,18 @@ const UserManagement = () => {
   const user = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const tablePage = useSelector(selectPage);
-  const [entriesLimit, setEntriesLimit] = useState(5);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortOrder, setSortOrder] = useState({ column: 'id', order: 'ASC' });
-  const searchField = document.querySelector('[data-table-search-field]');
+  const searchQuery = useSelector(selectSearchQuery);
+  const entriesLimit = useSelector(selectEntriesLimit);
+  const sortOrder = useSelector(selectSortOrder);
 
-  const [newUser, setNewUser] = useState({ });
-
-  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>
-  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>
-  
-  const handleSort = e => {
-    const { value } = e.target.dataset;
-    const { column, order } = sortOrder;
-    if (!column) {
-      setSortOrder({ column: value, order: 'ASC' });
-    } else if (column !== value) {
-      setSortOrder({ column: value, order: 'ASC' });
-    } else if (column === value) {
-      setSortOrder({ column: value, order: order === 'ASC' ? 'DESC' : 'ASC' });
-    }
-  }
-
-  const getSortImg = () => {
-    return (
-      (sortOrder.order === 'ASC' && ascImg) || 
-      ( sortOrder.order === 'DESC' && descImg)
-    );
-  }
-
-  const inputChangeHandler = e => {
-    const { column } = e.target.dataset;
-    setNewUser( prevNewUser => {
-      return { 
-        ...prevNewUser, 
-        [column]: e.target.value
-      }
-    });
-  }
-
-  const limitChangeHandler = e => {
-    setEntriesLimit(e.target.value);
-    dispatch(toFirstPage());
-  }
-
-  const search = e => {
-    e.preventDefault();
-    setSearchQuery(searchField.value);
-    dispatch(toFirstPage());
-  }
-
-  const clearSearch = () => {
-    searchField.value = '';
-    setSearchQuery('');
-    dispatch(toFirstPage());
-  }
-
-  const clearTermIfEmpty = e => {
-    if (!searchField.value) {
-      setSearchQuery('');
-      dispatch(toFirstPage());
-    }
-  }
+  const columns = [
+    { column: 'firstName', name: 'First Name', input: true },
+    { column: 'lastName', name: 'Last Name', input: true },
+    { column: 'emailAddress', name: 'E-mail', input: true },
+    { column: 'accessLevel', name: 'Access Level', input: true },
+    { column: 'createdAt', name: 'Created', input: false },
+    { column: 'updatedAt', name: 'Last Updated', input: false }
+  ];
 
   useEffect(() => {
     if (user) {
@@ -88,83 +39,15 @@ const UserManagement = () => {
   return (
     <div className="access-management-div">
       <h2 className='title'>User Management</h2>
-      <EntriesSelect limitChangeHandler={limitChangeHandler} />
+      <EntriesSelect />
       <TableSearch 
-        search={search} 
         searchQuery={searchQuery}
-        clearSearch={clearSearch}
-        clearTermIfEmpty={clearTermIfEmpty}
       />
-      <table className='management-table'>
-        <tbody>
-          <tr>
-            <th data-value='firstName' onClick={handleSort}>
-              First Name
-              { sortOrder.column === 'firstName' && getSortImg() }
-            </th>
-            <th data-value='lastName' onClick={handleSort}>
-              Last Name
-              { sortOrder.column === 'lastName' && getSortImg() }  
-            </th>
-            <th data-value='emailAddress' onClick={handleSort}>
-              E-mail
-              { sortOrder.column === 'emailAddress' && getSortImg() }  
-            </th>
-            <th data-value='accessLevel' onClick={handleSort}>
-              Access Level
-              { sortOrder.column === 'accessLevel' && getSortImg() }  
-            </th>
-            <th data-value='createdAt' onClick={handleSort}>
-              Created
-              { sortOrder.column === 'createdAt' && getSortImg() }  
-            </th>
-            <th data-value='updatedAt' onClick={handleSort}>
-              Last Updated
-              { sortOrder.column === 'updatedAt' && getSortImg() }  
-            </th>
-            <th>Actions</th>
-          </tr>
-          <tr>
-            <td><input type="text" data-column='firstName' placeholder='First Name' onChange={inputChangeHandler}/></td>
-            <td><input type="text" data-column='lastName' placeholder='Last Name' onChange={inputChangeHandler}/></td>
-            <td><input type="text" data-column='emailAddress' placeholder='E-mail' onChange={inputChangeHandler}/></td>
-            <td><input type="text" data-column='accessLevel' placeholder='Access Level' onChange={inputChangeHandler}/></td>
-            <td></td>
-            <td></td>
-            <td>
-              <div className="action-buttons">
-                <button>
-                  <img src="https://img.icons8.com/android/16/15458A/plus.png" alt='create button'/>
-                </button>
-              </div>
-            </td>
-          </tr>
-          { users && users.entries.length > 0 && users.entries.map( (user, i) => 
-              <tr key={i}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.emailAddress}</td>
-                <td>{user.accessLevel}</td>
-                <td>{`${user.createdAt.slice(0, 10)} ${user.createdAt.slice(11, 16)}`}</td>
-                <td>{`${user.updatedAt.slice(0, 10)} ${user.updatedAt.slice(11, 16)}`}</td>
-                <td>
-                  <div className="action-buttons">
-                    <button>
-                      <img src="https://img.icons8.com/material-outlined/16/15458A/visible--v1.png" alt='view button' />
-                    </button>
-                    <button>
-                      <img src="https://img.icons8.com/material-outlined/16/15458A/pencil--v1.png" alt='edit button'/>
-                    </button>
-                    <button>
-                      <img src="https://img.icons8.com/ios-filled/16/15458A/menu-2.png" alt='more button'/>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <ManagementTable 
+        columns={columns}
+        sortOrder={sortOrder}
+        data={users}
+      />
       <p className='entries-count'>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>
       <PaginationBar use='admin' />
     </div>

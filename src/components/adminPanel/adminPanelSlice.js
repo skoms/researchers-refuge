@@ -3,6 +3,9 @@ import Data from "../../Data";
 
 const data = new Data();
 const initialState = { 
+  sortOrder: { column: 'id', order: 'ASC' },
+  entriesLimit: 5,
+  searchQuery: '',
   stats: {
     total: {
       users: 0,
@@ -21,42 +24,58 @@ const initialState = {
     },
   },
   users: {
+    type: 'users',
     entries: [],
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
   articles: {
+    type: 'articles',
     entries: [],
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
   topics: {
+    type: 'topics',
     entries: [],
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
   categories: {
+    type: 'categories',
     entries: [],
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
   admins: {
+    type: 'admins',
     entries: [],
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
   reports: {
+    type: 'reports',
     entries: [],
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
 };
+
+export const getSortImg = ( sortOrder ) => {
+  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>;
+  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>;
+  
+  return (
+    ( sortOrder.order === 'ASC' && ascImg) || 
+    ( sortOrder.order === 'DESC' && descImg)
+  );
+}
 
 export const getStatsAdmin = createAsyncThunk(
   'adminPanel/getStatsAdmin',
@@ -102,7 +121,40 @@ export const adminPanelSlice = createSlice({
   name: 'adminPanel',
   initialState,
   reducers: {
-
+    updateEntriesLimit: (state, { payload }) => {
+      const results = state;
+      results.entriesLimit = payload;
+      return results;
+    },
+    updateNewData: (state, { payload }) => {
+      const { data, type, column } = payload;
+      return { 
+        ...state, 
+        [type]:{ 
+          ...state[type],
+          newData: { 
+            ...state[type].newData, 
+            [column]: data
+          }
+        }
+      }
+    },
+    updateSortOrder: (state, { payload }) => {
+      const results = state;
+      if (!payload) return { ...state, sortOrder: { column: 'id', order: 'ASC' }};
+      const { column, order } = state.sortOrder;
+      if (!column || column !== payload) {
+        results.sortOrder = { column: payload, order: 'ASC' };
+      } else if (column === payload) {
+        results.sortOrder = { column: payload, order: order === 'ASC' ? 'DESC' : 'ASC' };
+      }
+      return results;
+    },
+    updateSearchQuery: (state, { payload }) => {
+      const results = state;
+      results.searchQuery = payload;
+      return results;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getStatsAdmin.fulfilled, (state, action) => {
@@ -138,9 +190,36 @@ export const adminPanelSlice = createSlice({
       };
       return result;
     });
+    builder.addCase(getArticlesAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.articles.entries = data.articles;
+        result.articles.total = data.count;
+        result.articles.rangeStart = data.rangeStart;
+        result.articles.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
+    builder.addCase(getArticlesByQueryAdmin.fulfilled, (state, action) => { 
+      const { status, data } = action.payload;
+      let result = state;
+      if (status === 200) {
+        result.articles.entries = data.articles;
+        result.articles.total = data.count;
+        result.articles.rangeStart = data.rangeStart;
+        result.articles.rangeEnd = data.rangeEnd;
+      };
+      return result;
+    });
   }
 });
 
+export const { updateSortOrder, updateEntriesLimit, updateSearchQuery, updateNewData } = adminPanelSlice.actions;
+
+export const selectSortOrder = state => state.adminPanel.sortOrder;
+export const selectEntriesLimit = state => state.adminPanel.entriesLimit;
+export const selectSearchQuery = state => state.adminPanel.searchQuery;
 export const selectStats = state => state.adminPanel.stats;
 export const selectUsers = state => state.adminPanel.users;
 export const selectArticles = state => state.adminPanel.articles;
@@ -148,5 +227,6 @@ export const selectTopics = state => state.adminPanel.topics;
 export const selectCategories = state => state.adminPanel.categories;
 export const selectAdmins = state => state.adminPanel.admins;
 export const selectReports = state => state.adminPanel.reports;
+
 
 export default adminPanelSlice.reducer;

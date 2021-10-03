@@ -1,4 +1,32 @@
-const TableSearch = ({search, searchQuery, clearSearch, clearTermIfEmpty}) => {
+import { useDispatch } from "react-redux";
+import { toFirstPage } from "../../../paginationBar/paginationBarSlice";
+import { updateSearchQuery, updateSortOrder } from "../../adminPanelSlice";
+
+const TableSearch = ({ searchQuery}) => {
+  const searchField = document.querySelector('[data-table-search-field]');
+  const dispatch = useDispatch();
+
+  const search = e => {
+    e.preventDefault();
+    dispatch(updateSearchQuery(searchField.value));
+    dispatch(updateSortOrder());
+    dispatch(toFirstPage());
+  }
+
+  const clearSearch = () => {
+    searchField.value = '';
+    dispatch(updateSearchQuery(''));
+    dispatch(updateSortOrder());
+    dispatch(toFirstPage());
+  }
+
+  const clearTermIfEmpty = () => {
+    if (!searchField.value) {
+      dispatch(updateSearchQuery(''));
+      dispatch(updateSortOrder());
+      dispatch(toFirstPage());
+    }
+  }
   return (
     <div className="table-search">
       <form onSubmit={search} className='table-search-form'>

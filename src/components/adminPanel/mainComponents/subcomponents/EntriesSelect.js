@@ -1,4 +1,15 @@
-const EntriesSelect = ({ limitChangeHandler }) => {
+import { useDispatch } from "react-redux";
+import { updateEntriesLimit } from '../../adminPanelSlice';
+import { toFirstPage } from "../../../paginationBar/paginationBarSlice";
+
+const EntriesSelect = () => {
+  const dispatch = useDispatch();
+  
+  const limitChangeHandler = e => {
+    dispatch(updateEntriesLimit(e.target.value));
+    dispatch(toFirstPage());
+  }
+
   return (
     <div className="show-entries">
       Show 

@@ -282,7 +282,7 @@ button:hover {
 
 /* Admin Panel styling */
 .admin-panel-div {
-  margin-top: 5rem;
+  margin: 5rem 0 3rem 0;
   display: grid;
   grid-template-columns: 
     calc( 50vw - 38rem )
@@ -600,6 +600,7 @@ button:hover {
 
 .access-management-div .pagination-bar {
   justify-self: right;
+  width: 22rem;
 }
 
 /* Report Center */
@@ -1009,7 +1010,7 @@ button:hover {
 .pagination-bar {
   display: grid;
   width: 75%;
-  grid-template-columns: 2fr 3fr 2fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas: 
     "nav-before page-btn nav-after";
   justify-content: center;
