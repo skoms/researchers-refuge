@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { 
   selectHasMore, selectPage, selectLastPage,
@@ -38,7 +38,9 @@ const PaginationBar = ({ use }) => {
     }
   }
 
-  return (
+  return !hasMore && page === 1 ? ( 
+    <Fragment />
+   ) : (
     <div className="pagination-bar">
       { page !== 1 &&
         <div className='nav-before'>

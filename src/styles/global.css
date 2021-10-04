@@ -282,8 +282,9 @@ button:hover {
 
 /* Admin Panel styling */
 .admin-panel-div {
-  margin: 5rem 0 3rem 0;
+  margin: 5rem auto 3rem;
   display: grid;
+  max-width: 96vw;
   grid-template-columns: 
     calc( 50vw - 38rem )
     repeat(6, 1fr)

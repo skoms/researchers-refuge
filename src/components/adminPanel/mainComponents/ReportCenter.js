@@ -7,6 +7,7 @@ import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import EntriesSelect from "./subcomponents/EntriesSelect";
 import TableSearch from "./subcomponents/TableSearch";
 import { ManagementTable } from "./subcomponents/ManagementTable";
+import StatusFilter from "./subcomponents/StatusFilter";
 
 const ReportCenter = () => {
   const columns = [
@@ -23,33 +24,14 @@ const ReportCenter = () => {
   const searchQuery = useSelector(selectSearchQuery);
   const sortOrder = useSelector(selectSortOrder);
   const reports = useSelector(selectReports);
-  const [statusFilter, setStatusFilter] = useState('Open');
-  
-  const handleStatusFilter = e => {
-    const isFilterButton = e.target.matches('[data-status-filter-button]');
-
-    if (!isFilterButton) return;
-
-    if (isFilterButton) {
-      const table =  document.querySelector('.management-table');
-
-      table.classList.contains('open') && table.classList.remove('open');
-      table.classList.contains('resolved') && table.classList.remove('resolved');
-      table.classList.contains('rejected') && table.classList.remove('rejected');
-      document.querySelector('[data-status-filter-button].selected').classList.remove('selected');
-
-      e.target.classList.add('selected');
-      table.classList.add(e.target.innerHTML.toLocaleLowerCase());
-      setStatusFilter(e.target.innerHTML);
-    }
-  }
+  const [statusFilter, setStatusFilter] = useState('open');
 
   useEffect(() => {
     if (user) {
       if (!searchQuery) {
-        dispatch(getReportsAdmin({ user, status: statusFilter.toLowerCase(), limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
+        dispatch(getReportsAdmin({ user, status: statusFilter, limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
       } else {
-        dispatch(getReportsByQueryAdmin({ user, status: statusFilter.toLowerCase(), query: searchQuery, limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
+        dispatch(getReportsByQueryAdmin({ user, status: statusFilter, query: searchQuery, limit: entriesLimit, page: tablePage, sortColumn: sortOrder.column, sortOrder: sortOrder.order }));
       }
     }
   }, [dispatch, user, entriesLimit, tablePage, sortOrder, searchQuery, statusFilter]);
@@ -60,13 +42,10 @@ const ReportCenter = () => {
       <h2 className='title'>Topic Management</h2>
       <EntriesSelect />
       <TableSearch />
-      <div className="status-filter" onClick={handleStatusFilter}>
-        <button data-status-filter-button className='open-button selected'>Open</button>
-        <button data-status-filter-button className='resolved-button'>Resolved</button>
-        <button data-status-filter-button className='rejected-button'>Rejected</button>
-      </div>
+      <StatusFilter setStatusFilter={setStatusFilter} />
       <ManagementTable 
         columns={columns}
+        statusFilter={statusFilter}
         data={reports}
       />
       <p className='entries-count'>{`Showing ${reports.rangeStart} to ${reports.rangeEnd} of ${reports.total} entries`}</p>

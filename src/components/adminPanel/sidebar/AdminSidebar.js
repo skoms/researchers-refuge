@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react'
 
 const AdminSidebar = ({select}) => {
   const [didLoad, setDidLoad] = useState(false);
+  const [menuIsActive, setMenuIsActive] = useState(false);
 
   useEffect(() => {
     const addDropdownEventHandler = () => {
       window.addEventListener('click', e => {
         const isDropdownButton = e.target.matches('[data-management-menu-button]');
         const dropdown = document.querySelector('[data-management-menu]');
+        const dropdownBtn = document.querySelector('[data-management-menu-button]');
   
         if (!isDropdownButton) {
-          document.querySelector('[data-management-menu].active') && 
-          document.querySelector('[data-management-menu].active').classList.remove('active');
+          setMenuIsActive(false);
 
-          document.querySelector('[data-management-menu-button].active') && 
-          document.querySelector('[data-management-menu-button].active').classList.remove('active');
+          dropdownBtn.classList.contains('active') 
+            && dropdownBtn.classList.remove('active');
           return
-        }
-        if (isDropdownButton) {
-          dropdown.classList.toggle('active');
+        } else {
+          setMenuIsActive(dropdown.classList.contains('active') ? false : true);
           e.target.classList.toggle('active');
         }
       });
@@ -27,13 +27,13 @@ const AdminSidebar = ({select}) => {
       addDropdownEventHandler();
       setDidLoad(true);
     }
-  }, [didLoad]);
+  }, [didLoad, menuIsActive]);
 
   return (
     <div className="panel-sidebar">
       <h2 className='title'>Admin Panel</h2>
       <button className='sidebar-button' onClick={select}>Statistics</button>
-      <div className="sidebar-dropdown" data-management-menu >
+      <div className={`sidebar-dropdown ${ menuIsActive ? 'active' : ''}`} data-management-menu >
         <button className='sidebar-button' data-management-menu-button>Access Management</button>
         <div className="dropdown-menu">
           <button className='sidebar-button' onClick={select}>User Management</button> <hr />

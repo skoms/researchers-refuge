@@ -2,9 +2,10 @@ import ActionButtons from "./ActionButtons";
 import { useDispatch } from "react-redux";
 import { updateSortOrder, getSortImg, updateNewData, selectSortOrder } from "../../adminPanelSlice";
 import { useSelector } from "react-redux";
+import classNames from "classnames";
 
 export const ManagementTable = (
-    { columns, data }
+    { columns, data, statusFilter = null }
   ) => {
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
@@ -40,7 +41,12 @@ export const ManagementTable = (
   }
 
   return (
-    <table className='management-table'>
+    <table className={
+      classNames({
+        'management-table': true,
+        [statusFilter]: statusFilter !== null
+      })
+    }>
         <tbody>
           <tr>
             { columns.map(column => 
