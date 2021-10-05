@@ -512,10 +512,27 @@ button:hover {
 }
 
 .management-table .action-buttons {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.management-table .action-button img {
+
+}
+
+.action-buttons .dropdown-menu {
+  left: 0;
+  top: 0;
+}
+
+.action-dropdown.active > .action-button + .dropdown-menu {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
 
 .management-table button {
   display: flex;

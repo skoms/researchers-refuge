@@ -75,7 +75,7 @@ export const ManagementTable = (
                 return <td key={column.column}><input type="text" data-column={column.column} placeholder={column.name} onChange={inputChangeHandler}/></td>;
               })}
               <td>
-                <ActionButtons isEntry={false} setManagerProps={setManagerProps} data={data} type={data.type} />
+                <ActionButtons id={-1} isEntry={false} setManagerProps={setManagerProps} data={data} type={data.type} />
               </td>
             </tr>
             { data && data.entries.length > 0 && data.entries.map( (entry, i) => 
@@ -84,7 +84,7 @@ export const ManagementTable = (
                   formatEntryData(entry, column, i)
                 )}
                 <td>
-                  <ActionButtons isEntry={true} setManagerProps={setManagerProps} data={entry} type={data.type} />
+                  <ActionButtons id={i} isEntry={true} setManagerProps={setManagerProps} data={entry} type={data.type} />
                 </td>
               </tr>
             )}
