@@ -1,14 +1,24 @@
 import ActionButtons from "./ActionButtons";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateSortOrder, getSortImg, updateNewData, selectSortOrder } from "../../adminPanelSlice";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
+import DataManager from "./DataManager";
 
 export const ManagementTable = (
-    { columns, data, statusFilter = null }
+    { data, statusFilter = null }
   ) => {
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
+
+  const [managerProps, setManagerProps] = useState({ 
+    isActive: false,
+    source: 'create',
+    type: data.type,
+    data: data,
+    isEntry: false
+   });
 
   const handleSort = e => {
     const { value } = e.target.dataset; 
@@ -18,7 +28,7 @@ export const ManagementTable = (
   const inputChangeHandler = e => {
     dispatch(updateNewData({ 
       data: e.target.value, 
-      column: e.target.dataset, 
+      column: e.target.dataset.column, 
       type: data.type
     }));
   }
@@ -41,42 +51,45 @@ export const ManagementTable = (
   }
 
   return (
-    <table className={
-      classNames({
-        'management-table': true,
-        [statusFilter]: statusFilter !== null
-      })
-    }>
-        <tbody>
-          <tr>
-            { columns.map(column => 
-              <th data-value={column.column} key={column.column} onClick={handleSort}>
-                {column.name}
-                { sortOrder.column === column.column && getSortImg(sortOrder) }  
-              </th>
-            )}
-            <th>Actions</th>
-          </tr>
-          <tr>
-            { columns.map(column => {
-              if (!column.input) return <td key={column.column}></td>;
-              return <td key={column.column}><input type="text" column-column={column.column} placeholder={column.name} onChange={inputChangeHandler}/></td>;
-            })}
-            <td>
-              <ActionButtons isEntry={false} data={data} />
-            </td>
-          </tr>
-          { data && data.entries.length > 0 && data.entries.map( (entry, i) => 
-            <tr key={i}>
-              { columns.map( (column, i) => 
-                formatEntryData(entry, column, i)
+    <>
+      <DataManager setManagerProps={setManagerProps} {...managerProps} />
+      <table className={
+        classNames({
+          'management-table': true,
+          [statusFilter]: statusFilter !== null
+        })
+      }>
+          <tbody>
+            <tr>
+              { data.columns.map(column => 
+                <th data-value={column.column} key={column.column} onClick={handleSort}>
+                  {column.name}
+                  { sortOrder.column === column.column && getSortImg(sortOrder) }  
+                </th>
               )}
+              <th>Actions</th>
+            </tr>
+            <tr>
+              { data.columns.map(column => {
+                if (!column.input) return <td key={column.column}></td>;
+                return <td key={column.column}><input type="text" data-column={column.column} placeholder={column.name} onChange={inputChangeHandler}/></td>;
+              })}
               <td>
-              <ActionButtons isEntry={true} data={data} />
+                <ActionButtons isEntry={false} setManagerProps={setManagerProps} data={data} type={data.type} />
               </td>
             </tr>
-          )}
-        </tbody>
-      </table>
+            { data && data.entries.length > 0 && data.entries.map( (entry, i) => 
+              <tr key={i}>
+                { data.columns.map( (column, i) => 
+                  formatEntryData(entry, column, i)
+                )}
+                <td>
+                  <ActionButtons isEntry={true} setManagerProps={setManagerProps} data={entry} type={data.type} />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </>
   )
 }

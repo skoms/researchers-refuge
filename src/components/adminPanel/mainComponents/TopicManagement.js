@@ -9,12 +9,6 @@ import TableSearch from "./subcomponents/TableSearch";
 import { ManagementTable } from "./subcomponents/ManagementTable";
 
 const TopicManagement = () => {
-  const columns = [
-    { column: 'name', name: 'Name', input: true },
-    { column: 'categoryId', name: 'CategoryId', input: true },
-    { column: 'createdAt', name: 'Created', input: false },
-    { column: 'updatedAt', name: 'Last Updated', input: false }
-  ];
   const user = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const tablePage = useSelector(selectPage);
@@ -40,7 +34,6 @@ const TopicManagement = () => {
       <EntriesSelect />
       <TableSearch />
       <ManagementTable 
-        columns={columns}
         data={topics}
       />
       <p className='entries-count'>{`Showing ${topics.rangeStart} to ${topics.rangeEnd} of ${topics.total} entries`}</p>

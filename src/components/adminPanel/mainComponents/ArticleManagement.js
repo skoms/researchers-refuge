@@ -10,15 +10,6 @@ import { getArticlesAdmin, getArticlesByQueryAdmin, selectArticles, selectSortOr
 
 
 const ArticleManagement = () => {
-  const columns = [
-    { column: 'title', name: 'Title', input: false },
-    { column: 'topic', name: 'Topic', input: false },
-    { column: 'userId', name: 'AuthorId', input: false },
-    { column: 'published', name: 'Published', input: false },
-    { column: 'credits', name: 'Credits', input: false },
-    { column: 'createdAt', name: 'Created', input: false },
-    { column: 'updatedAt', name: 'Last Updated', input: false }
-  ];
   const user = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const tablePage = useSelector(selectPage);
@@ -43,7 +34,6 @@ const ArticleManagement = () => {
       <EntriesSelect />
       <TableSearch />
       <ManagementTable 
-        columns={columns}
         data={articles}
       />
       <p className='entries-count'>{`Showing ${articles.rangeStart} to ${articles.rangeEnd} of ${articles.total} entries`}</p>

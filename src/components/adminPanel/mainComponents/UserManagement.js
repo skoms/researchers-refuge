@@ -17,14 +17,6 @@ const UserManagement = () => {
   const entriesLimit = useSelector(selectEntriesLimit);
   const sortOrder = useSelector(selectSortOrder);
 
-  const columns = [
-    { column: 'firstName', name: 'First Name', input: true },
-    { column: 'lastName', name: 'Last Name', input: true },
-    { column: 'emailAddress', name: 'E-mail', input: true },
-    { column: 'accessLevel', name: 'Access Level', input: true },
-    { column: 'createdAt', name: 'Created', input: false },
-    { column: 'updatedAt', name: 'Last Updated', input: false }
-  ];
 
   useEffect(() => {
     if (user) {
@@ -42,7 +34,6 @@ const UserManagement = () => {
       <EntriesSelect />
       <TableSearch />
       <ManagementTable 
-        columns={columns}
         data={users}
       />
       <p className='entries-count'>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>

@@ -642,6 +642,86 @@ button:hover {
   box-shadow: 0 0 10px -4px var(--base-darkblue);
 }
 
+.access-management-div .data-manager {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: .75rem;
+  box-shadow: black 0 2px 12px -3px;
+  left: 10vw;
+  right: 10vw;
+  top: 5rem;
+  bottom: 0;
+  min-width: 40vw;
+  max-width: 96vw;
+  background: rgba(255, 255, 255, 0.699);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  margin: 0 0 3rem 0;
+  overflow-y: scroll;
+  z-index: 10;
+}
+
+.data-manager .management-table td,
+.data-manager .management-table th {
+  opacity: .75;
+  line-height: 1rem;
+  max-width: 50rem;
+  border: var(--base-background) 1px solid;
+}
+
+.data-manager form {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
+.data-manager .form-input input {
+  min-width: 15rem;
+}
+
+.access-management-div .action-buttons .data-manager-create {
+  background: var(--base-component-white);
+  padding: 2rem;
+}
+
+.data-manager .buttons {
+  display: flex;
+}
+
+.data-manager .edit-data-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.data-manager .edit-data-form .form-input {
+  max-width: 20rem;
+  margin: .1rem .5rem;
+}
+
+.data-manager .button-primary {
+  margin: 1rem .5rem;
+  background: linear-gradient(var(--base-scroll-blue), var(--base-blue));
+  color: white;
+  border-radius: .75rem;
+  padding: .3rem .6rem;
+  width: unset;
+  height: unset;
+}
+
+.data-manager .button-secondary {
+  margin: 1rem .5rem;
+  background: linear-gradient(var(--dark-fade-grey), var(--base-fade-grey));
+  color: white;
+  border-radius: .75rem;
+  padding: .2rem .4rem;
+  width: unset;
+  height: unset;
+  animation: none;
+}
+
 /* ==================== Header and Footer Styling ===================== */
 .header, .footer {
   background-color: var(--base-blue);
@@ -1654,85 +1734,75 @@ button:hover {
   background: none;
   color: var(--base-blue);
 }
-
-.create-update-article-form .form-input {
+ .form-input {
   display: flex;
   flex-direction: column-reverse;
   text-align: left;
   width: 100%;
 }
 
-.darkmode .create-update-article-form .form-input {
+.darkmode .form-input {
   background: none;
 }
-
-.create-update-article-form .form-input label {
+ .form-input label {
   font-size: 1.1rem;
   margin: .4rem 0 .2rem 0;
 }
-
-.create-update-article-form .invalid label {
+ .invalid label {
   font-weight: 900;
   color: var(--error-red);
 }
 
-.darkmode .create-update-article-form .form-input label {
+.darkmode .form-input label {
   background: none;
   color: var(--base-blue);
 }
 
-.darkmode .create-update-article-form .invalid label {
+.darkmode .invalid label {
   background: none;
   font-weight: 900;
   color: var(--error-red);
 }
-
-.create-update-article-form .form-input input, 
-.create-update-article-form .form-input textarea,
-.create-update-article-form .form-input select  {
+ .form-input input,  .form-input textarea, .form-input select  {
   border: none;
   border-radius: .25rem;
   background: var(--base-component-white)7e;
   box-shadow: 0 2px 8px -3px var(--base-darkblue);
   height: 2rem;
 }
-
-.create-update-article-form .invalid input, 
-.create-update-article-form .invalid textarea,
-.create-update-article-form .invalid select  {
+ .invalid input,  .invalid textarea, .invalid select  {
   border: none;
   border-radius: .25rem;
   background: #d35b5b96;
   box-shadow: 0 2px 8px 1px var(--error-red);
   height: 2rem;
 }
-
-.create-update-article-form .form-input textarea {
+ .form-input textarea {
   font-size: 1rem;
   height: 20rem;
 }
 
-.darkmode .create-update-article-form .form-input input, 
-.darkmode .create-update-article-form .form-input textarea,
-.darkmode .create-update-article-form .form-input select  {
+.darkmode .form-input input, 
+.darkmode .form-input textarea,
+.darkmode .form-input select  {
   background: var(--dark-component-darkgrey)93;
   box-shadow: 0 2px 8px -3px var(--base-blue);
 }
 
-.darkmode .create-update-article-form .invalid input, 
-.darkmode .create-update-article-form .invalid textarea,
-.darkmode .create-update-article-form .invalid select  {
+.darkmode .invalid input, 
+.darkmode .invalid textarea,
+.darkmode .invalid select  {
   background: #380e1093;
   box-shadow: 0 2px 8px -3px var(--error-red);
 }
 
- .create-update-article-form .form-input input:focus, .create-update-article-form .form-input textarea:focus {
+ .form-input input:focus, .form-input textarea:focus {
   border: var(--dark-component-darkgrey) solid .1rem;
   margin: -.1rem;
   outline: none;
 }
 
-.darkmode .create-update-article-form .form-input input:focus, .darkmode .create-update-article-form .form-input textarea:focus {
+.darkmode .form-input input:focus, .darkmode .form-input textarea:focus {
   border: var(--base-blue) solid .1rem;
   margin: -.1rem;
   outline: none;

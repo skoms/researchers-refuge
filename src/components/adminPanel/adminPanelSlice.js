@@ -25,13 +25,48 @@ const initialState = {
   },
   users: {
     type: 'users',
+    columns: [
+      { column: 'firstName', name: 'First Name', input: true },
+      { column: 'lastName', name: 'Last Name', input: true },
+      { column: 'emailAddress', name: 'E-mail', input: true },
+      { column: 'accessLevel', name: 'Access Level', input: true },
+      { column: 'createdAt', name: 'Created', input: false },
+      { column: 'updatedAt', name: 'Last Updated', input: false }
+    ],
+    requiredColumns: [
+      { column: 'firstName', name: 'First Name', needsTextArea: false },
+      { column: 'lastName', name: 'Last Name', needsTextArea: false },
+      { column: 'emailAddress', name: 'E-mail', needsTextArea: false },
+      { column: 'accessLevel', name: 'Access Level', needsTextArea: false },
+      { column: 'password', name: 'Password', needsTextArea: false },
+    ],
     entries: [],
+    newData: {},
     total: 0,
     rangeStart: 0,
     rangeEnd: 0
   },
   articles: {
     type: 'articles',
+    columns: [
+      { column: 'title', name: 'Title', input: false },
+      { column: 'topic', name: 'Topic', input: false },
+      { column: 'userId', name: 'AuthorId', input: false },
+      { column: 'published', name: 'Published', input: false },
+      { column: 'credits', name: 'Credits', input: false },
+      { column: 'createdAt', name: 'Created', input: false },
+      { column: 'updatedAt', name: 'Last Updated', input: false }
+    ],
+    requiredColumns: [
+      { column: 'title', name: 'Title', needsTextArea: false },
+      { column: 'topic', name: 'Topic', needsTextArea: false },
+      { column: 'intro', name: 'Intro', needsTextArea: true },
+      { column: 'body', name: 'Body', needsTextArea: true },
+      { column: 'tags', name: 'Tags', needsTextArea: true },
+      { column: 'userId', name: 'AuthorId', needsTextArea: false },
+      { column: 'published', name: 'Published', needsTextArea: false },
+    ],
+    newData: {},
     entries: [],
     total: 0,
     rangeStart: 0,
@@ -39,6 +74,18 @@ const initialState = {
   },
   topics: {
     type: 'topics',
+    columns: [
+      { column: 'name', name: 'Name', input: true },
+      { column: 'categoryId', name: 'Category Id', input: true },
+      { column: 'createdAt', name: 'Created', input: false },
+      { column: 'updatedAt', name: 'Last Updated', input: false }
+    ],
+    requiredColumns: [
+      { column: 'name', name: 'Name', needsTextArea: false },
+      { column: 'categoryId', name: 'Category Id', needsTextArea: false },
+      { column: 'relatedTags', name: 'Related Tags', needsTextArea: true },
+    ],
+    newData: {},
     entries: [],
     total: 0,
     rangeStart: 0,
@@ -46,13 +93,15 @@ const initialState = {
   },
   categories: {
     type: 'categories',
-    entries: [],
-    total: 0,
-    rangeStart: 0,
-    rangeEnd: 0
-  },
-  admins: {
-    type: 'admins',
+    columns: [
+      { column: 'name', name: 'Name', input: true },
+      { column: 'createdAt', name: 'Created', input: false },
+      { column: 'updatedAt', name: 'Last Updated', input: false }
+    ],
+    requiredColumns: [
+      { column: 'name', name: 'Name' }
+    ],
+    newData: {},
     entries: [],
     total: 0,
     rangeStart: 0,
@@ -60,6 +109,19 @@ const initialState = {
   },
   reports: {
     type: 'reports',
+    columns: [
+      { column: 'title', name: 'Title', input: true },
+      { column: 'description', name: 'Description', input: true },
+      { column: 'userId', name: 'Sender', input: false },
+      { column: 'createdAt', name: 'Created', input: false },
+      { column: 'updatedAt', name: 'Last Updated', input: false }
+    ],
+    requiredColumns: [
+      { column: 'title', name: 'Title', needsTextArea: false },
+      { column: 'description', name: 'Description', needsTextArea: true },
+      { column: 'userId', name: 'Sender', needsTextArea: false },
+    ],
+    newData: {},
     entries: [],
     total: 0,
     rangeStart: 0,

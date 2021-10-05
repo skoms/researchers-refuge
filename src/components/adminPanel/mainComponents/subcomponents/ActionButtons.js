@@ -1,11 +1,23 @@
-const ActionButtons = ({ isEntry, data }) => {
+const ActionButtons = ({ isEntry, setManagerProps, data, type }) => {
 
   //! ITS PRETTY OBVIOUS ...
   const viewData = () => {
-
+    setManagerProps({ 
+      isActive: true,
+      source: 'view',
+      type: data.type,
+      data: data,
+      isEntry: true
+    })
   }
   const editData = () => {
-
+    setManagerProps({ 
+      isActive: true,
+      source: 'edit',
+      type: data.type,
+      data: data,
+      isEntry: true
+    })
   }
   const toggleDropdownMenu = () => {
 
@@ -17,7 +29,15 @@ const ActionButtons = ({ isEntry, data }) => {
 
   }
   const createNewData = () => {
-
+    setManagerProps( prevProps => (
+      { 
+        isActive: true,
+        source: 'create',
+        type: data.type,
+        data: data,
+        isEntry: false
+       }
+    ))
   }
   return isEntry ? (
     <div className="action-buttons">

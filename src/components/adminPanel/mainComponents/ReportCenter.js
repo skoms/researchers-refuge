@@ -10,13 +10,6 @@ import { ManagementTable } from "./subcomponents/ManagementTable";
 import StatusFilter from "./subcomponents/StatusFilter";
 
 const ReportCenter = () => {
-  const columns = [
-    { column: 'title', name: 'Title', input: true },
-    { column: 'description', name: 'Description', input: true },
-    { column: 'userId', name: 'Sender', input: false },
-    { column: 'createdAt', name: 'Created', input: false },
-    { column: 'updatedAt', name: 'Last Updated', input: false }
-  ];
   const user = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const tablePage = useSelector(selectPage);
@@ -44,7 +37,6 @@ const ReportCenter = () => {
       <TableSearch />
       <StatusFilter setStatusFilter={setStatusFilter} />
       <ManagementTable 
-        columns={columns}
         statusFilter={statusFilter}
         data={reports}
       />
