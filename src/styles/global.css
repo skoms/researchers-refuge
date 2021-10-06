@@ -451,7 +451,8 @@ button:hover {
   line-height: 1.4rem;
 }
 
-.management-table.open, .management-table.open th, .management-table.open td {
+.management-table.open, .management-table.open th, 
+.management-table.open td {
   border: var(--base-background) 1px solid;
 }
 
@@ -518,13 +519,13 @@ button:hover {
   align-items: center;
 }
 
-.management-table .action-button img {
-
-}
-
 .action-buttons .dropdown-menu {
-  left: 0;
-  top: 0;
+  border-radius: .75rem 0 .75rem .75rem;
+  left: -.5rem;
+  top: .25rem;
+  z-index: 10;
+  transform: translateX(1rem);
+  box-shadow: -2px 2px 8px 0px rgba(0, 0, 0, .2);
 }
 
 .action-dropdown.active > .action-button + .dropdown-menu {
@@ -737,6 +738,46 @@ button:hover {
   width: unset;
   height: unset;
   animation: none;
+}
+
+/* Confirmation Popup */
+.confirmation {
+  position: fixed;
+  display: flex;
+  top: -3rem;
+  left: calc((50vw - 7.5rem) * -1);
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  border-radius: .75rem;
+  backdrop-filter: blur(40px);
+  z-index: 10;
+}
+
+.confirmation .pop-up {
+  background: var(--base-component-white);
+  padding: .5rem;
+  border-radius: .75rem;
+  font-size: 1.5rem;
+}
+
+.confirmation .pop-up .button-primary {
+  width: 5rem;
+  margin: .8rem .3rem;
+  font-size: 1.2rem;
+}
+
+.confirmation .pop-up .button-secondary {
+  width: 3rem;
+  margin: .8rem .3rem;
+  font-size: 1rem;
+}
+
+.darkmode .confirmation .pop-up,
+.darkmode .confirmation .pop-up p {
+  background: var(--dark-component-darkgrey);
+  color: var(--base-blue);
 }
 
 /* ==================== Header and Footer Styling ===================== */
