@@ -62,9 +62,9 @@
   --dark-shadow-blue: #3d84e7;
   --dark-semi-darkblue: #257aac;
   --dark-fade-grey: #5b6e8b;
-  --error-red: #ff2323;
+  --error-red: #FF2323;
   --error-background: rgba(240, 128, 128, 0.644);
-  --valid-green: rgb(31, 173, 13); 
+  --valid-green: #1FAD0D; 
   --valid-background: rgba(80, 236, 148, 0.658);
 }
 
@@ -311,6 +311,10 @@ button:hover {
   border-radius: .75rem 0 0 .75rem;
 }
 
+.darkmode .panel-sidebar {
+  background: var(--dark-darkgrey);
+}
+
 .sidebar-button {
   color: var(--base-component-white);
   font-size: 1.05rem;
@@ -319,6 +323,11 @@ button:hover {
   border-radius: 0;
   opacity: 1;
   background: none;
+  box-shadow: none;
+}
+
+.darkmode .sidebar-button {
+  color: var(--base-component-white);
   box-shadow: none;
 }
 
@@ -332,8 +341,18 @@ button:hover {
   color: var(--base-darkblue);
 }
 
+.darkmode .sidebar-button.active,
+.sidebar-button:hover {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-background)
+}
+
 .panel-sidebar .title {
   margin: 2rem 0;
+}
+
+.darkmode .panel-sidebar .title {
+  color: var(--base-component-white);
 }
 
 .sidebar-dropdown {
@@ -355,9 +374,22 @@ button:hover {
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 }
 
+.darkmode .dropdown-menu {
+  background: var(--dark-light-darkgrey);
+  box-shadow: 2px 1px 5px 0px rgba(3, 125, 240, 0.329);
+}
+
 .dropdown-menu .sidebar-button {
   color: var(--base-darkblue);
   width: max-content;
+}
+
+.darkmode .dropdown-menu .sidebar-button {
+  color: var(--base-background);
+}
+
+.darkmode .dropdown-menu hr {
+  border-color: var(--base-blue);
 }
 
 .dropdown-menu .sidebar-button:hover {
@@ -378,8 +410,17 @@ button:hover {
   width: 100%;
   height: 100%;
 }
+
+.darkmode .panel-main {
+  background: var(--dark-component-darkgrey);
+}
+
 .panel-main .title {
   color: var(--base-semi-darkblue);
+}
+
+.darkmode .panel-main .title {
+  color: var(--base-component-white);
 }
 
 /* Statistics */
@@ -421,6 +462,11 @@ button:hover {
   border-radius: .25rem;
 }
 
+.darkmode .table-div h4 {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-blue);
+}
+
 .statistics-table {
   border-collapse: separate;
   border-spacing: .15rem;
@@ -434,11 +480,21 @@ button:hover {
   padding: .4rem .6rem;
 }
 
+.darkmode .statistics-table th {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-blue);
+}
+
 .statistics-table td {
   background: var(--lightblue-border);
   border-radius: .25rem;
   min-width: 3rem;
   padding: .4rem .6rem;
+}
+
+.darkmode .statistics-table td {
+  background: var(--dark-component-grey);
+  color: var(--base-background);
 }
 
 .statistics-table .blank {
@@ -451,17 +507,49 @@ button:hover {
   line-height: 1.4rem;
 }
 
+.darkmode .management-table, 
+.darkmode .management-table th,
+.darkmode .management-table td {
+  border: var(--base-scroll-blue) 1px solid;
+}
+
 .management-table.open, .management-table.open th, 
 .management-table.open td {
   border: var(--base-background) 1px solid;
+}
+
+.darkmode .management-table.open, 
+.darkmode .management-table.open th,
+.darkmode .management-table.open td {
+  border: var(--base-scroll-blue) 1px solid;
 }
 
 .management-table.resolved, .management-table.resolved th, .management-table.resolved td {
   border: var(--valid-background) 1px solid; 
 }
 
+.darkmode .management-table.resolved, 
+.darkmode .management-table.resolved th,
+.darkmode .management-table.resolved td {
+  border: var(--valid-background) 1px solid;
+}
+
+.darkmode .management-table.resolved td {
+  color: var(--valid-green);
+}
+
 .management-table.rejected, .management-table.rejected th, .management-table.rejected td {
   border: var(--error-background) 1px solid;
+}
+
+.darkmode .management-table.rejected, 
+.darkmode .management-table.rejected th,
+.darkmode .management-table.rejected td {
+  border: var(--error-background) 1px solid;
+}
+
+.darkmode .management-table.rejected td {
+  color: var(--error-red);
 }
 
 .management-table th {
@@ -474,6 +562,11 @@ button:hover {
   vertical-align: middle;
 }
 
+.darkmode .management-table th {
+  border-bottom: var(--base-scroll-blue) 4px solid;
+  background: var(--dark-light-darkgrey);
+}
+
 .management-table img {
   margin: 0 0 -.2rem .4rem;
 }
@@ -481,6 +574,11 @@ button:hover {
 .management-table.open th {
   background: var(--base-blue);
   border-bottom: var(--base-background) 4px solid;
+}
+
+.darkmode .management-table.open th {
+  background: var(--dark-light-darkgrey);
+  border-color: var(--base-scroll-blue);
 }
 
 .management-table.resolved th {
@@ -501,11 +599,34 @@ button:hover {
   vertical-align: middle;
 }
 
+.darkmode .management-table td {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+}
+
 .management-table input {
   max-width: 6rem;
   line-height: 1.4rem;
   background: var(--base-component-white);
   border: var(--base-background) 1px solid;
+}
+
+.darkmode .management-table input {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+  border-color: var(--base-scroll-blue);
+}
+
+.darkmode .management-table.resolved input,
+.darkmode .management-table.resolved input::placeholder {
+  border-color: var(--valid-green);
+  color: var(--valid-green);
+}
+
+.darkmode .management-table.rejected input,
+.darkmode .management-table.rejected input::placeholder {
+  border-color: var(--error-red);
+  color: var(--error-red);
 }
 
 .management-table input::placeholder {
@@ -520,13 +641,32 @@ button:hover {
 }
 
 .action-buttons .dropdown-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: .75rem 0 .75rem .75rem;
-  left: -.5rem;
+  left: -1.8rem;
   top: .25rem;
   z-index: 10;
   transform: translateX(1rem);
   box-shadow: -2px 2px 8px 0px rgba(0, 0, 0, .2);
 }
+
+.action-buttons .dropdown-menu .dropdown-menu-button {
+  margin: 0;
+}
+
+.darkmode .action-buttons .dropdown-menu {
+  box-shadow: var(--dark-shadow-blue) -2px 2px 6px 0px;
+}
+
+.darkmode .action-buttons .dropdown-menu,
+.darkmode .action-buttons .dropdown-menu button {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+}
+
+
 
 .action-dropdown.active > .action-button + .dropdown-menu {
   opacity: 1;
@@ -601,6 +741,11 @@ button:hover {
   margin: 0 .3rem;
 }
 
+.darkmode .show-entries,
+.darkmode .show-entries select {
+  color: var(--base-blue);
+}
+
 .access-management-div .status-filter {
   display: flex;
   justify-self: center;
@@ -641,6 +786,11 @@ button:hover {
   align-items: center;
 }
 
+.darkmode .table-search-field {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-blue);
+}
+
 .access-management-div .table-search .clear-search,
 .access-management-div .table-search .search-button {
   background: none;
@@ -649,6 +799,10 @@ button:hover {
 
 .access-management-div .entries-count {
   justify-self: left;
+}
+
+.darkmode .access-management-div .entries-count {
+  color: var(--base-blue);
 }
 
 .access-management-div .pagination-bar {
@@ -681,6 +835,11 @@ button:hover {
   z-index: 10;
 }
 
+.access-management-div .data-manager {
+  box-shadow: var(--base-blue) 0 2px 12px -3px;
+  background: rgba(44, 44, 44, 0.699);
+}
+
 .data-manager .management-table td,
 .data-manager .management-table th {
   opacity: .75;
@@ -698,6 +857,11 @@ button:hover {
 .data-manager .form-input input {
   min-width: 15rem;
 }
+
+.data-manager .form-input input,
+.data-manager .form-input textarea {
+  color: var(--base-blue);
+} 
 
 .access-management-div .action-buttons .data-manager-create {
   background: var(--base-component-white);
@@ -756,28 +920,50 @@ button:hover {
 }
 
 .confirmation .pop-up {
+  display: flex;
+  flex-direction: column;
   background: var(--base-component-white);
+  box-shadow: black 1px 1px 8px -3px;
   padding: .5rem;
   border-radius: .75rem;
   font-size: 1.5rem;
 }
 
+.pop-up .confirmation-buttons {
+  display: flex;
+  align-self: center;
+}
+
+.confirmation-buttons button {
+  border-radius: .75rem;
+}
+
 .confirmation .pop-up .button-primary {
+  background: linear-gradient( var(--base-blue), var(--base-semi-darkblue) );
   width: 5rem;
   margin: .8rem .3rem;
   font-size: 1.2rem;
 }
 
 .confirmation .pop-up .button-secondary {
+  background: linear-gradient( var(--base-component-white), var(--base-fade-grey) );
   width: 3rem;
   margin: .8rem .3rem;
   font-size: 1rem;
+}
+
+.darkmode .pop-up {
+  box-shadow: var(--base-shadow-blue) 1px 1px 8px -3px;
 }
 
 .darkmode .confirmation .pop-up,
 .darkmode .confirmation .pop-up p {
   background: var(--dark-component-darkgrey);
   color: var(--base-blue);
+}
+
+.darkmode .confirmation .pop-up .button-secondary {
+  color: var(--base-darkblue);
 }
 
 /* ==================== Header and Footer Styling ===================== */

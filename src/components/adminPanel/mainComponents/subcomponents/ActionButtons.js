@@ -1,14 +1,33 @@
 import { useState, useEffect, useRef } from "react"
+import { useSelector } from "react-redux";
 import ConfirmationPopup from "../../../confirmationPopup.js/ConfirmationPopup";
+import { selectDarkModeOn } from "../../../darkmodeButton/darkModeButtonSlice";
 
-const ActionButtons = ({ id, isEntry, setManagerProps, data, type }) => {
+const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type }) => {
   const [menuIsActive, setMenuIsActive] = useState(false);
   const blockConfirmation = useRef(null);
   const deleteConfirmation = useRef(null);
-
   const dropdown = useRef(null);
 
+  const darkModeOn = useSelector(selectDarkModeOn);
+
   //! ITS PRETTY OBVIOUS ...
+  const getButtonColor = () => {
+    if (!darkModeOn) return '15458A';
+    if (!statusFilter) return '64B5F7';
+    switch (statusFilter) {
+      case 'open':
+        return '64B5F7';
+      case 'resolved':
+        return '1FAD0D';
+      case 'rejected':
+        return 'FF2323';
+    
+      default:
+        return;
+    }
+  }
+
   const hideConfirmations = () => {
     if (blockConfirmation.current && deleteConfirmation.current) {
       !blockConfirmation.current.classList.contains('invisible') && 
@@ -96,23 +115,23 @@ const ActionButtons = ({ id, isEntry, setManagerProps, data, type }) => {
     <>
       <div className="action-buttons">
           <button onClick={viewData}>
-            <img src="https://img.icons8.com/material-outlined/16/15458A/visible--v1.png" alt='view button' />
+            <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/visible--v1.png`} alt='view button' />
           </button>
           <button onClick={editData}>
-            <img src="https://img.icons8.com/material-outlined/16/15458A/pencil--v1.png" alt='edit button'/>
+            <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/pencil--v1.png`} alt='edit button'/>
           </button>
           <div className={`action-dropdown ${ menuIsActive ? 'active' : ''}`} ref={dropdown} >
             <button onClick={toggleDropdownMenu} className='action-button '>
-              <img data-more-menu-button src="https://img.icons8.com/ios-filled/16/15458A/menu-2.png" alt='more button'/>
+              <img data-more-menu-button src={`https://img.icons8.com/ios-filled/16/${getButtonColor()}/menu-2.png`} alt='more button'/>
             </button>
             <div className="dropdown-menu">
               
               <button onClick={confirmBlock}>
-                Block
+                <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/cancel-2.png`} alt='block button' style={{margin: 0}}/>
               </button>
               
               <button onClick={confirmDelete}>
-                Delete
+                <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/${getButtonColor()}/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
               </button>
             </div>
           </div>
@@ -134,7 +153,7 @@ const ActionButtons = ({ id, isEntry, setManagerProps, data, type }) => {
   ) : (
     <div className="action-buttons">
       <button onClick={createNewData}>
-        <img src="https://img.icons8.com/android/16/15458A/plus.png" alt='create button'/>
+        <img src={`https://img.icons8.com/android/16/${getButtonColor()}/plus.png`} alt='create button'/>
       </button>
     </div>
   );

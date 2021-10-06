@@ -75,12 +75,12 @@ const DataManager = ({ setManagerProps, isActive, source, isEntry, data, type })
               {
                 Object.keys(data).map( key => { 
                   return (
-                    (typeof newData[key] !== 'object' || !newData[key].id) &&
+                    (typeof data[key] !== 'object' || !data[key].id) &&
                     <div key={type + key} className='form-input'>
-                      { newData[key].toString().length < 50 ?
-                          <input id={`new-${key}-${type}`} type="text" data-column={key} value={newData[key]} onChange={handleInputChange}/> 
+                      { data[key].toString().length < 50 ?
+                          <input id={`new-${key}-${type}`} type="text" data-column={key} value={data[key]} onChange={handleInputChange}/> 
                         :
-                          <textarea id={`new-${key}-${type}`} type="text" data-column={key} value={newData[key]} onChange={handleInputChange}/>
+                          <textarea id={`new-${key}-${type}`} type="text" data-column={key} value={data[key]} onChange={handleInputChange}/>
                       }
                       <label htmlFor={`new-${key}-${type}`}>{key}</label>
                     </div>
