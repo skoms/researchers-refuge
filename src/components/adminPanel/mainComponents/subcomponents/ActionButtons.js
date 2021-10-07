@@ -1,17 +1,20 @@
 import { useState, useEffect, useRef } from "react"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ConfirmationPopup from "../../../confirmationPopup.js/ConfirmationPopup";
 import { selectDarkModeOn } from "../../../darkmodeButton/darkModeButtonSlice";
+import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
+import { blockEntryAdmin, deleteEntryAdmin } from "../../adminPanelSlice";
 
 const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type }) => {
+  const dispatch = useDispatch();
   const [menuIsActive, setMenuIsActive] = useState(false);
   const blockConfirmation = useRef(null);
   const deleteConfirmation = useRef(null);
   const dropdown = useRef(null);
 
   const darkModeOn = useSelector(selectDarkModeOn);
+  const user = useSelector(selectAuthenticatedUser);
 
-  //! ITS PRETTY OBVIOUS ...
   const getButtonColor = () => {
     if (!darkModeOn) return '15458A';
     if (!statusFilter) return '64B5F7';
@@ -28,6 +31,7 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
     }
   }
 
+  // cleanup func for confirm popups
   const hideConfirmations = () => {
     if (blockConfirmation.current && deleteConfirmation.current) {
       !blockConfirmation.current.classList.contains('invisible') && 
@@ -59,9 +63,10 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
 
   const toggleDropdownMenu = () => {
     setMenuIsActive(!menuIsActive)
-    hideConfirmations();
+    hideConfirmations(); 
   };
 
+  // Positions blur to start at x: 0 y: 0, and then display
   const confirmBlock = () => {
     if (blockConfirmation.current) {
       const { firstElementChild, classList } = blockConfirmation.current;
@@ -71,10 +76,12 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
       classList.remove('invisible');
     }
   }
-  const blockData = () => {
 
+  const blockData = () => {
+    dispatch(blockEntryAdmin({ user, type, id }));
   }
 
+  // Positions blur to start at x: 0 y: 0, and then display
   const confirmDelete = () => {
     if (deleteConfirmation.current) {
       const { firstElementChild, classList } = deleteConfirmation.current;
@@ -84,8 +91,9 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
       classList.remove('invisible');
     }
   }
+  
   const deleteData = () => {
-
+    dispatch(deleteEntryAdmin({ user, type, id }));
   }
 
   const createNewData = () => {
@@ -125,23 +133,25 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
               <img data-more-menu-button src={`https://img.icons8.com/ios-filled/16/${getButtonColor()}/menu-2.png`} alt='more button'/>
             </button>
             <div className="dropdown-menu">
-              
-              <button onClick={confirmBlock}>
-                <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/cancel-2.png`} alt='block button' style={{margin: 0}}/>
-              </button>
-              
+              { type !== 'topics' && type !== 'categories' && 
+                <button onClick={confirmBlock}>
+                  <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: 0}}/>
+                </button>
+              }
               <button onClick={confirmDelete}>
-                <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/${getButtonColor()}/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
+                <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/FF2323/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
               </button>
             </div>
           </div>
         </div>
-        <ConfirmationPopup 
-          action='block'
-          target='entry'
-          confirm={blockData}
-          containerRef={blockConfirmation}
-        />
+        { type !== 'topics' && type !== 'categories' && 
+          <ConfirmationPopup 
+            action='block'
+            target='entry'
+            confirm={blockData}
+            containerRef={blockConfirmation}
+          />
+        }
         <ConfirmationPopup 
           action='delete'
           target='entry'

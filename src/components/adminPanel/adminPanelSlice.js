@@ -31,7 +31,8 @@ const initialState = {
       { column: 'emailAddress', name: 'E-mail', input: true },
       { column: 'accessLevel', name: 'Access Level', input: true },
       { column: 'createdAt', name: 'Created', input: false },
-      { column: 'updatedAt', name: 'Last Updated', input: false }
+      { column: 'updatedAt', name: 'Last Updated', input: false },
+      { column: 'blocked', name: 'Blocked', input: false }
     ],
     requiredColumns: [
       { column: 'firstName', name: 'First Name', needsTextArea: false },
@@ -55,7 +56,8 @@ const initialState = {
       { column: 'published', name: 'Published', input: false },
       { column: 'credits', name: 'Credits', input: false },
       { column: 'createdAt', name: 'Created', input: false },
-      { column: 'updatedAt', name: 'Last Updated', input: false }
+      { column: 'updatedAt', name: 'Last Updated', input: false },
+      { column: 'blocked', name: 'Blocked', input: false }
     ],
     requiredColumns: [
       { column: 'title', name: 'Title', needsTextArea: false },
@@ -227,6 +229,38 @@ export const getReportsByQueryAdmin = createAsyncThunk(
   }
 );
 
+export const createEntryAdmin = createAsyncThunk(
+  'adminPanel/createEntryAdmin',
+  async ({ user, type, body }) => {
+    const response = await data.createEntryAdmin(user, type, body);
+    return { ...response, type};
+  }
+);
+
+export const updateEntryAdmin = createAsyncThunk(
+  'adminPanel/updateEntryAdmin',
+  async ({ user, type, id, body }) => {
+    const response = await data.updateEntryAdmin(user, type, id, body);
+    return { ...response, type, id};
+  }
+);
+
+export const blockEntryAdmin = createAsyncThunk(
+  'adminPanel/blockEntryAdmin',
+  async ({ user, type, id }) => {
+    const response = await data.blockEntryAdmin(user, type, id);
+    return { ...response, type, id };
+  }
+)
+
+export const deleteEntryAdmin = createAsyncThunk(
+  'adminPanel/deleteEntryAdmin',
+  async ({ user, type, id }) => {
+    const response = await data.deleteEntryAdmin(user, type, id);
+    return { ...response, type, id };
+  }
+);
+
 export const adminPanelSlice = createSlice({
   name: 'adminPanel',
   initialState,
@@ -386,6 +420,46 @@ export const adminPanelSlice = createSlice({
         result.reports.rangeStart = data.rangeStart;
         result.reports.rangeEnd = data.rangeEnd;
       };
+      return result;
+    });
+    builder.addCase(createEntryAdmin.fulfilled, (state, { payload }) => {
+      const { status, data, type } = payload;
+      let result = state;
+      if (status === 201) {
+        result[type].entries =  [...result[type].entries, data.entry];
+      }
+      return result;
+    });
+    builder.addCase(updateEntryAdmin.fulfilled, (state , { payload }) => {
+      const { status, data, type, id } = payload;
+      let result = state;
+      if (status === 201) {
+        const updatedIndex = result[type].indexOf(result[type].find( entry => entry.id === id ));
+        result[type].entries[updatedIndex] = {
+          ...result[type].entries[updatedIndex],
+          ...data.entry
+        } 
+      }
+      return result;
+    });
+    builder.addCase(blockEntryAdmin.fulfilled, (state, { payload }) => {
+      const { status, type, id } = payload;
+      let result = state;
+      if (status === 204) {
+        const updatedIndex = result[type].indexOf(result[type].find( entry => entry.id === id ));
+        result[type].entries[updatedIndex] = {
+          ...result[type].entries[updatedIndex],
+          blocked: !result[type].entries[updatedIndex].blocked
+        } 
+      }
+      return result;
+    });
+    builder.addCase(deleteEntryAdmin.fulfilled, (state, { payload }) => {
+      const { status, type, id } = payload;
+      let result = state;
+      if (status === 204) {
+        result[type].entries =  result[type].entries.filter( entry => entry.id !== id );
+      }
       return result;
     });
   }

@@ -12,6 +12,8 @@ export const ManagementTable = (
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
 
+  const blockedIcon = <img src={`https://img.icons8.com/material-outlined/16/FFFFFF/cancel-2.png`} alt='block button' style={{margin: "0 0 -.1rem 0"}}/>;
+
   const [managerProps, setManagerProps] = useState({ 
     isActive: false,
     source: 'create',
@@ -44,6 +46,8 @@ export const ManagementTable = (
       case 'categoryId':
         return <td key={i}>{`(${entry[column.column]}) ${entry.Category.name}
         `}</td>;
+      case 'blocked': 
+        return <td key={i}>{ entry[column.column] === true ? <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: "0 0 -.1rem 0"}}/> : <></> }</td>
     
       default:
         return <td key={i}>{entry[column.column]}</td>;
@@ -63,7 +67,7 @@ export const ManagementTable = (
             <tr>
               { data.columns.map(column => 
                 <th data-value={column.column} key={column.column} onClick={handleSort}>
-                  {column.name}
+                  { column.name !== 'Blocked' ? column.name : blockedIcon }
                   { sortOrder.column === column.column && getSortImg(sortOrder) }  
                 </th>
               )}
@@ -84,7 +88,7 @@ export const ManagementTable = (
                   formatEntryData(entry, column, i)
                 )}
                 <td>
-                  <ActionButtons id={i} isEntry={true} statusFilter={statusFilter} setManagerProps={setManagerProps} data={entry} type={data.type} />
+                  <ActionButtons id={entry.id} isEntry={true} statusFilter={statusFilter} setManagerProps={setManagerProps} data={entry} type={data.type} />
                 </td>
               </tr>
             )}

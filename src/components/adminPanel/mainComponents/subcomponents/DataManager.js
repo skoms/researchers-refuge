@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
+import { createEntryAdmin, updateEntryAdmin } from '../../adminPanelSlice';
 
-const DataManager = ({ setManagerProps, isActive, source, isEntry, data, type }) => {
+const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectAuthenticatedUser);
   const [newData, setNewData] = useState(data);
 
   const handleInputChange = e => {
@@ -13,11 +19,17 @@ const DataManager = ({ setManagerProps, isActive, source, isEntry, data, type })
   
   const submit = e => {
     e.preventDefault();
-    console.log('submit');
+    
+    if ( source === 'edit' ) {
+      dispatch(updateEntryAdmin({  })); //! YET TO IMPLEMENT
+    } else if (source === 'create') {
+      dispatch(createEntryAdmin({  })) //! YET TO IMPLEMENT
+    }
+
     setManagerProps( prevProps => ({
       ...prevProps,
       isActive: false
-    }))
+    }));
   }
   
   const closePopup = e => {
@@ -71,7 +83,7 @@ const DataManager = ({ setManagerProps, isActive, source, isEntry, data, type })
           </>
         ) : source === 'edit' ? (
           <>
-            <form className='edit-data-form'>
+            <form className='edit-data-form' onSubmit={submit}>
               {
                 Object.keys(data).map( key => { 
                   return (

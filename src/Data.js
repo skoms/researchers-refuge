@@ -565,6 +565,9 @@ export default class Data {
     );
   }
 
+  
+
+
 
   
 
@@ -593,6 +596,20 @@ export default class Data {
     return await this.responseHandler(
       this.api('/articles', 'POST', null, article, true, user), 
       true, 'article'
+    );
+  }
+
+  /**
+   * creates an entry
+   * @param {object} user - logged in user
+   * @param {string} type - type of entry
+   * @param {object} body - create body
+   * @returns {object} - { status }
+   */
+  async createEntryAdmin(user, type, body) {
+    return await this.responseHandler(
+      this.api(`/admin/${type}`, 'POST', null, body, true, user),
+      true, 'data'
     );
   }
 
@@ -656,6 +673,34 @@ export default class Data {
     );
   }
 
+  /**
+   * updates an entry
+   * @param {object} user - logged in user
+   * @param {string} type - type of entry
+   * @param {number} id - id of target entry
+   * @param {object} body - Update body
+   * @returns {object} - { status }
+   */
+  async updateEntryAdmin(user, type, id, body) {
+    return await this.responseHandler(
+      this.api(`/admin/${type}`, 'PUT', { id }, body, true, user),
+      true, 'data'
+    );
+  }
+
+  /**
+   * Blocks a user/article
+   * @param {object} user - logged in user
+   * @param {string} type - type of entry
+   * @param {number} id - id of target user/article
+   * @returns {object} - { status }
+   */
+   async blockEntryAdmin(user, type, id) {
+    return await this.responseHandler(
+      this.api(`/admin/${type}/block`, 'PUT', { id }, null, true, user)
+    );
+  }
+
 
 
 
@@ -671,6 +716,19 @@ export default class Data {
   async deleteArticle(id, user) {
     return await this.responseHandler(
       this.api(`/articles`, 'DELETE', { id }, null, true, user)
+    );
+  }
+
+  /**
+   * deletes a user/article
+   * @param {object} user - logged in user
+   * @param {string} type - type of entry
+   * @param {number} id - id of target user/article
+   * @returns {object} - { status }
+   */
+   async deleteEntryAdmin(user, type, id) {
+    return await this.responseHandler(
+      this.api(`/admin/${type}/delete`, 'DELETE', { id }, null, true, user)
     );
   }
 }
