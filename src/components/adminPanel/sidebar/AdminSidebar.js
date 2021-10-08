@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import useToggle from '../../../customHooks/useToggle';
 
 const AdminSidebar = ({select}) => {
-  const [didLoad, setDidLoad] = useState(false);
-  const [menuIsActive, setMenuIsActive] = useState(false);
+  const [loading, toggleLoading] = useToggle(true);
+  const [menuIsActive, toggleMenuIsActive] = useToggle(false);
 
   useEffect(() => {
     const addDropdownEventHandler = () => {
@@ -12,22 +13,22 @@ const AdminSidebar = ({select}) => {
         const dropdownBtn = document.querySelector('[data-management-menu-button]');
   
         if (!isDropdownButton) {
-          setMenuIsActive(false);
+          toggleMenuIsActive(false);
 
           dropdownBtn.classList.contains('active') 
             && dropdownBtn.classList.remove('active');
           return
         } else {
-          setMenuIsActive(dropdown.classList.contains('active') ? false : true);
+          toggleMenuIsActive(dropdown.classList.contains('active') ? false : true);
           e.target.classList.toggle('active');
         }
       });
     }
-    if (!didLoad) {
+    if (loading) {
       addDropdownEventHandler();
-      setDidLoad(true);
+      toggleLoading(false);
     }
-  }, [didLoad, menuIsActive]);
+  }, [ menuIsActive, toggleMenuIsActive, loading, toggleLoading]);
 
   return (
     <div className="panel-sidebar">

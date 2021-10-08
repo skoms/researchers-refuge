@@ -21,9 +21,9 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
     e.preventDefault();
     
     if ( source === 'edit' ) {
-      dispatch(updateEntryAdmin({  })); //! YET TO IMPLEMENT
+      dispatch(updateEntryAdmin({ user })); //! YET TO IMPLEMENT
     } else if (source === 'create') {
-      dispatch(createEntryAdmin({  })) //! YET TO IMPLEMENT
+      dispatch(createEntryAdmin({ user })) //! YET TO IMPLEMENT
     }
 
     setManagerProps( prevProps => ({

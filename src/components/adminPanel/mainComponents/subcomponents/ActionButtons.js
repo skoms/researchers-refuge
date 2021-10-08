@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux";
+import useToggle from "../../../../customHooks/useToggle";
 import ConfirmationPopup from "../../../confirmationPopup.js/ConfirmationPopup";
 import { selectDarkModeOn } from "../../../darkmodeButton/darkModeButtonSlice";
 import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
@@ -7,7 +8,7 @@ import { blockEntryAdmin, deleteEntryAdmin } from "../../adminPanelSlice";
 
 const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type }) => {
   const dispatch = useDispatch();
-  const [menuIsActive, setMenuIsActive] = useState(false);
+  const [menuIsActive, toggleMenuIsActive] = useToggle(false);
   const blockConfirmation = useRef(null);
   const deleteConfirmation = useRef(null);
   const dropdown = useRef(null);
@@ -62,7 +63,7 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
   }
 
   const toggleDropdownMenu = () => {
-    setMenuIsActive(!menuIsActive)
+    toggleMenuIsActive();
     hideConfirmations(); 
   };
 
@@ -111,13 +112,13 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
   useEffect(() => {
     const pageClickEvent = e => {
       if (dropdown.current && !dropdown.current.contains(e.target)) {
-        setMenuIsActive(!menuIsActive);
+        toggleMenuIsActive();
         hideConfirmations();
       }
     }
     menuIsActive && window.addEventListener('click', pageClickEvent);
     return () => window.removeEventListener('click', pageClickEvent);
-  }, [menuIsActive])
+  }, [menuIsActive, toggleMenuIsActive])
 
   return isEntry ? (
     <>
