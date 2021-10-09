@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import useArray from "../../customHooks/useArray";
 import Data from "../../Data";
 
 const data = new Data();
@@ -424,9 +423,7 @@ export const adminPanelSlice = createSlice({
       const { status, data, type } = payload;
       let result = state;
       if (status === 201) {
-        const { array, push } = useArray(result[type].entries);
-        push(data.entry);
-        result[type].entries =  array;
+        result[type].entries =  [...result[type].entries, data.entry];
       }
       return result;
     });
@@ -434,27 +431,23 @@ export const adminPanelSlice = createSlice({
       const { status, data, type, id } = payload;
       let result = state;
       if (status === 201) {
-        const updatedIndex = result[type].indexOf(result[type].find( entry => entry.id === id ));
-        const { array, update } = useArray(result[type].entries);
-        update(updatedIndex, { 
-          ...result[type].entries[updatedIndex], 
-          ...data.entry 
-        });
-        result[type].entries = array;
+        const updatedIndex = result[type].entries.indexOf(result[type].entries.find( entry => entry.id === id ));
+        result[type].entries[updatedIndex] = {
+          ...result[type].entries[updatedIndex],
+          ...data.entry
+        }; 
       }
       return result;
     });
     builder.addCase(blockEntryAdmin.fulfilled, (state, { payload }) => {
-      const { status, type, id } = payload;
+      const { status, type, id, data } = payload;
       let result = state;
-      if (status === 204) {
-        const updatedIndex = result[type].indexOf(result[type].find( entry => entry.id === id ));
-        const { array, update } = useArray(result[type].entries);
-        update(updatedIndex, { 
-          ...result[type].entries[updatedIndex], 
-          blocked: !result[type].entries[updatedIndex].blocked 
-        });
-        result[type].entries = array; 
+      if (status === 201) {
+        const updatedIndex = result[type].entries.indexOf(result[type].entries.find( entry => entry.id === id ));
+        result[type].entries[updatedIndex] = {
+          ...result[type].entries[updatedIndex],
+          ...data.entry
+        }; 
       }
       return result;
     });
@@ -462,9 +455,7 @@ export const adminPanelSlice = createSlice({
       const { status, type, id } = payload;
       let result = state;
       if (status === 204) {
-        const { array, filter } = useArray(result[type].entries);
-        filter( entry => entry.id !== id );
-        result[type].entries =  array;
+        result[type].entries = result[type].entries.filter( entry => entry.id !== id );
       }
       return result;
     });

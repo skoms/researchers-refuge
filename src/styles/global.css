@@ -78,6 +78,11 @@ body {
   font-size: 16px;
 }
 
+body,
+body * {
+  transition: all .2s;
+}
+
 body.darkmode {
   background-color: var(--dark-base-background);
 }
@@ -1097,6 +1102,13 @@ button:hover {
   text-decoration: none;
 }
 
+.header .my-profile-div,
+.darkmode .header .my-profile-div,
+.header .my-profile-div *,
+.darkmode .header .my-profile-div * {
+  background: none;
+}
+
 .profile-and-menu-div {
   display: flex;
 }
@@ -1263,8 +1275,11 @@ button:hover {
 }
 
 .darkmode .footer * {
-  background: var(--dark-component-darkgrey);
   color: var(--base-blue);
+}
+
+.footer .trademark {
+  background: none;
 }
 
 /* Pagination Bar */

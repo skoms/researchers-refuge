@@ -12,10 +12,11 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
   const [isLoading, toggleIsLoading] = useToggle(true);
 
   const handleInputChange = e => {
+    console.log(`data: ${e.target.value} column: ${e.target.dataset.column} type: ${type}`);
     dispatch(updateNewData({ 
       data: e.target.value, 
       column: e.target.dataset.column, 
-      type: data.type
+      type
     }));
   }
   
@@ -111,9 +112,9 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
                     (typeof data[key] !== 'object' || !data[key].id) &&
                     <div key={type + key} className='form-input'>
                       { data[key].toString().length < 50 ?
-                          <input id={`new-${key}-${type}`} type="text" data-column={key} value={data[key]} onChange={handleInputChange}/> 
+                          <input id={`new-${key}-${type}`} type="text" data-column={key} value={newData[key] || data[key]} onChange={handleInputChange}/> 
                         :
-                          <textarea id={`new-${key}-${type}`} type="text" data-column={key} value={data[key]} onChange={handleInputChange}/>
+                          <textarea id={`new-${key}-${type}`} type="text" data-column={key} value={newData[key] || data[key]} onChange={handleInputChange}/>
                       }
                       <label htmlFor={`new-${key}-${type}`}>{key}</label>
                     </div>

@@ -697,7 +697,8 @@ export default class Data {
    */
    async blockEntryAdmin(user, type, id) {
     return await this.responseHandler(
-      this.api(`/admin/${type}/block`, 'PUT', { id }, null, true, user)
+      this.api(`/admin/${type}/block`, 'PUT', { id }, null, true, user),
+      true, 'data'
     );
   }
 
