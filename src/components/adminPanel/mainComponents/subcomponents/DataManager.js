@@ -1,35 +1,42 @@
-import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import useToggle from '../../../../customHooks/useToggle';
 import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
-import { createEntryAdmin, updateEntryAdmin } from '../../adminPanelSlice';
+import { createEntryAdmin, updateEntryAdmin, updateNewData } from '../../adminPanelSlice';
 
 const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectAuthenticatedUser);
-  const [newData, setNewData] = useState(data);
+  const newData = useSelector( state => state.adminPanel[type].newData );
+  const [isLoading, toggleIsLoading] = useToggle(true);
 
   const handleInputChange = e => {
-    const { column } = e.target.dataset;
-    setNewData(prevData => ({
-      ...prevData,
-      [column]: e.target.value
-    }))
+    dispatch(updateNewData({ 
+      data: e.target.value, 
+      column: e.target.dataset.column, 
+      type: data.type
+    }));
   }
   
   const submit = e => {
     e.preventDefault();
     
     if ( source === 'edit' ) {
-      dispatch(updateEntryAdmin({ user })); //! YET TO IMPLEMENT
+      const updatedData = {
+        ...data,
+        ...newData
+      }
+      dispatch(updateEntryAdmin({ user, type, id: data.id, body: updatedData })); 
     } else if (source === 'create') {
-      dispatch(createEntryAdmin({ user })) //! YET TO IMPLEMENT
+      dispatch(createEntryAdmin({ user, type, body: newData }));
     }
 
     setManagerProps( prevProps => ({
       ...prevProps,
       isActive: false
     }));
+    dispatch(updateNewData({ data: null, type }));
   }
   
   const closePopup = e => {
@@ -38,7 +45,21 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
       ...prevProps,
       isActive: false
     }))
+    dispatch(updateNewData({ data: null, type }));
   }
+
+  useEffect(() => {
+    if ( source === 'edit' ) {
+      Object.keys(data).forEach( key => { 
+        updateNewData({ 
+          data: data[key],
+          column: key,
+          type: type
+        });
+      })
+    }
+    toggleIsLoading(false);
+  }, [isLoading, toggleIsLoading, source, data, type]);
   
   if (!isActive) return <></>;
   return (

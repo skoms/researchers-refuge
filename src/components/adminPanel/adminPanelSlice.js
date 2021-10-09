@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import useArray from "../../customHooks/useArray";
 import Data from "../../Data";
 
 const data = new Data();
@@ -271,17 +272,14 @@ export const adminPanelSlice = createSlice({
       return results;
     },
     updateNewData: (state, { payload }) => {
-      const { data, type, column } = payload;
-      return { 
-        ...state, 
-        [type]:{ 
-          ...state[type],
-          newData: { 
-            ...state[type].newData, 
-            [column]: data
-          }
-        }
+      const result = state;
+      if ( payload.data === null ) {
+        result[payload.type].newData = {};
+      } else {
+        const { data, type, column } = payload;
+        result[type].newData[column] = data;
       }
+      return result
     },
     updateSortOrder: (state, { payload }) => {
       const results = state;
@@ -426,7 +424,9 @@ export const adminPanelSlice = createSlice({
       const { status, data, type } = payload;
       let result = state;
       if (status === 201) {
-        result[type].entries =  [...result[type].entries, data.entry];
+        const { array, push } = useArray(result[type].entries);
+        push(data.entry);
+        result[type].entries =  array;
       }
       return result;
     });
@@ -435,10 +435,12 @@ export const adminPanelSlice = createSlice({
       let result = state;
       if (status === 201) {
         const updatedIndex = result[type].indexOf(result[type].find( entry => entry.id === id ));
-        result[type].entries[updatedIndex] = {
-          ...result[type].entries[updatedIndex],
-          ...data.entry
-        } 
+        const { array, update } = useArray(result[type].entries);
+        update(updatedIndex, { 
+          ...result[type].entries[updatedIndex], 
+          ...data.entry 
+        });
+        result[type].entries = array;
       }
       return result;
     });
@@ -447,10 +449,12 @@ export const adminPanelSlice = createSlice({
       let result = state;
       if (status === 204) {
         const updatedIndex = result[type].indexOf(result[type].find( entry => entry.id === id ));
-        result[type].entries[updatedIndex] = {
-          ...result[type].entries[updatedIndex],
-          blocked: !result[type].entries[updatedIndex].blocked
-        } 
+        const { array, update } = useArray(result[type].entries);
+        update(updatedIndex, { 
+          ...result[type].entries[updatedIndex], 
+          blocked: !result[type].entries[updatedIndex].blocked 
+        });
+        result[type].entries = array; 
       }
       return result;
     });
@@ -458,7 +462,9 @@ export const adminPanelSlice = createSlice({
       const { status, type, id } = payload;
       let result = state;
       if (status === 204) {
-        result[type].entries =  result[type].entries.filter( entry => entry.id !== id );
+        const { array, filter } = useArray(result[type].entries);
+        filter( entry => entry.id !== id );
+        result[type].entries =  array;
       }
       return result;
     });
