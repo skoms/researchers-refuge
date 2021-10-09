@@ -285,6 +285,29 @@ button:hover {
   box-shadow: 0 2px 12px -3px var(--dark-base-background);
 }
 
+/* Tooltip */
+.tooltip {
+  visibility: hidden;
+  width: 4rem;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: .3rem .6rem;
+  border-radius: .25rem;
+  position: absolute;
+  z-index: 1;
+  bottom: -15%;
+  right: 100%;
+  margin-left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.management-table .action-buttons .tooltip:hover {
+  visibility: hidden;
+  opacity: 0;
+}
+
 /* Admin Panel styling */
 .admin-panel-div {
   margin: 5rem auto 3rem;
@@ -641,6 +664,8 @@ button:hover {
 .management-table .action-buttons {
   position: relative;
   display: flex;
+  max-width: 6rem;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -681,6 +706,7 @@ button:hover {
 
 
 .management-table button {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -696,6 +722,24 @@ button:hover {
 
 .management-table button:hover {
   opacity: 1;
+}
+
+.management-table button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.management-table button.disabled {
+  opacity: 1;
+}
+
+.management-table button.disabled:hover {
+  cursor: not-allowed;
+}
+
+.management-table button.disabled:hover .tooltip {
+  visibility: hidden;
+  opacity: 0;
 }
 
 /* Access Management */

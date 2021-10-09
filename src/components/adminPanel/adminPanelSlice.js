@@ -423,7 +423,9 @@ export const adminPanelSlice = createSlice({
       const { status, data, type } = payload;
       let result = state;
       if (status === 201) {
-        result[type].entries =  [...result[type].entries, data.entry];
+        result[type].entries =  [data.entry, ...result[type].entries];
+        result[type].total++;
+        result[type].rangeEnd++;
       }
       return result;
     });
@@ -456,6 +458,8 @@ export const adminPanelSlice = createSlice({
       let result = state;
       if (status === 204) {
         result[type].entries = result[type].entries.filter( entry => entry.id !== id );
+        result[type].total--;
+        result[type].rangeEnd--;
       }
       return result;
     });

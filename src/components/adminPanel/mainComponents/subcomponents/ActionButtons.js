@@ -109,6 +109,12 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
     ))
   }
 
+  const markAs = e => {
+    const status = e.currentTarget.getAttribute("data-status");
+    console.log(e.target.dataset);
+    console.log(`Marking report for '${status}'`);
+  }
+
   useEffect(() => {
     const pageClickEvent = e => {
       if (dropdown.current && !dropdown.current.contains(e.target)) {
@@ -123,48 +129,79 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
   return isEntry ? (
     <>
       <div className="action-buttons">
-          <button onClick={viewData}>
-            <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/visible--v1.png`} alt='view button' />
+        <button onClick={viewData}>
+          <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/visible--v1.png`} alt='view button' />
+          <span className='tooltip'>View</span>
+        </button>
+        <button onClick={editData}>
+          <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/pencil--v1.png`} alt='edit button'/>
+          <span className='tooltip'>Edit</span>
+        </button>
+        <div className={`action-dropdown ${ menuIsActive ? 'active' : ''}`} ref={dropdown} >
+          <button onClick={toggleDropdownMenu} className='action-button '>
+            <img data-more-menu-button src={`https://img.icons8.com/ios-filled/16/${getButtonColor()}/menu-2.png`} alt='more button'/>
+            <span className='tooltip'>More</span>
           </button>
-          <button onClick={editData}>
-            <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/pencil--v1.png`} alt='edit button'/>
-          </button>
-          <div className={`action-dropdown ${ menuIsActive ? 'active' : ''}`} ref={dropdown} >
-            <button onClick={toggleDropdownMenu} className='action-button '>
-              <img data-more-menu-button src={`https://img.icons8.com/ios-filled/16/${getButtonColor()}/menu-2.png`} alt='more button'/>
-            </button>
-            <div className="dropdown-menu">
-              { type !== 'topics' && type !== 'categories' && 
-                <button onClick={confirmBlock}>
-                  <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: 0}}/>
-                </button>
-              }
-              <button onClick={confirmDelete}>
-                <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/FF2323/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
+          <div className="dropdown-menu">
+            { type !== 'topics' && type !== 'categories' && 
+              <button onClick={confirmBlock}>
+                <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: 0}}/>
+                <span className='tooltip'>Block</span>
               </button>
-            </div>
+            }
+            <button onClick={confirmDelete}>
+              <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/FF2323/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
+              <span className='tooltip'>Delete</span>
+            </button>
           </div>
         </div>
-        { type !== 'topics' && type !== 'categories' && 
-          <ConfirmationPopup 
-            action='block'
-            target='entry'
-            confirm={blockData}
-            containerRef={blockConfirmation}
-          />
-        }
+        { type === 'reports' && 
+            <>
+              <button data-status={'open'} onClick={markAs} 
+                disabled={`${statusFilter === 'open' ? 'disabled' : ''}`}
+                className={`${statusFilter === 'open' ? 'disabled' : ''}`}
+              >
+                <img src={`https://img.icons8.com/ios-glyphs/16/${getButtonColor()}/open-parcel.png`} alt='mark as open' />
+                <span className='tooltip'>Mark as 'Open'</span>
+              </button>
+              <button data-status={'resolved'} onClick={markAs} 
+                disabled={`${statusFilter === 'resolved' ? 'disabled' : ''}`}
+                className={`${statusFilter === 'resolved' ? 'disabled' : ''}`}
+              >
+                <img src={`https://img.icons8.com/external-bearicons-glyph-bearicons/16/${getButtonColor()}/external-approved-approved-and-rejected-bearicons-glyph-bearicons-2.png`} alt='mark as resolved' />
+                <span className='tooltip'>Mark as 'Resolved'</span>
+              </button>
+              <button data-status='rejected' onClick={markAs} 
+                disabled={`${statusFilter === 'rejected' ? 'disabled' : ''}`}
+                className={`${statusFilter === 'rejected' ? 'disabled' : ''}`}
+              >
+                <img src={`https://img.icons8.com/external-bearicons-glyph-bearicons/16/${getButtonColor()}/external-reject-approved-and-rejected-bearicons-glyph-bearicons.png`} alt='mark as rejected' />
+                <span className='tooltip'>Mark as 'Rejected'</span>
+              </button>
+            </>
+          }
+      </div>
+      { type !== 'topics' && type !== 'categories' && 
         <ConfirmationPopup 
-          action='delete'
+          action='block'
           target='entry'
-          confirm={deleteData}
-          containerRef={deleteConfirmation}
+          confirm={blockData}
+          containerRef={blockConfirmation}
         />
+      }
+      <ConfirmationPopup 
+        action='delete'
+        target='entry'
+        confirm={deleteData}
+        containerRef={deleteConfirmation}
+      />
     </>
     
   ) : (
     <div className="action-buttons">
       <button onClick={createNewData}>
         <img src={`https://img.icons8.com/android/16/${getButtonColor()}/plus.png`} alt='create button'/>
+        <span className='tooltip'>New</span>
       </button>
     </div>
   );

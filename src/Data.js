@@ -729,7 +729,7 @@ export default class Data {
    */
    async deleteEntryAdmin(user, type, id) {
     return await this.responseHandler(
-      this.api(`/admin/${type}/delete`, 'DELETE', { id }, null, true, user)
+      this.api(`/admin/${type}`, 'DELETE', { id }, null, true, user)
     );
   }
 }

@@ -5,12 +5,14 @@ import { updateSortOrder, getSortImg, updateNewData, selectSortOrder } from "../
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import DataManager from "./DataManager";
+import { selectPage } from '../../../paginationBar/paginationBarSlice';
 
 export const ManagementTable = (
     { data, statusFilter = null }
   ) => {
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
+  const page = useSelector(selectPage);
 
   const blockedIcon = <img src={`https://img.icons8.com/material-outlined/16/FFFFFF/cancel-2.png`} alt='block button' style={{margin: "0 0 -.1rem 0"}}/>;
 
@@ -42,7 +44,7 @@ export const ManagementTable = (
       case 'updatedAt':
         return <td key={i}>{`${entry[column.column].slice(0, 10)} ${entry[column.column].slice(11, 16)}`}</td>
       case 'userId':
-        return <td key={i}>{`(${entry[column.column]}) ${entry.User.firstName} ${entry.User.lastName}`}</td>
+        return <td key={i}>{`(${entry[column.column]}) ${entry.User ? entry.User.firstName : ''} ${entry.User ? entry.User.lastName : ''}`}</td>
       case 'categoryId':
         return <td key={i}>{`(${entry[column.column]}) ${entry.Category.name}
         `}</td>;
@@ -73,15 +75,17 @@ export const ManagementTable = (
               )}
               <th>Actions</th>
             </tr>
-            <tr>
-              { data.columns.map(column => {
-                if (!column.input) return <td key={column.column}></td>;
-                return <td key={column.column}><input type="text" data-column={column.column} placeholder={column.name} onChange={inputChangeHandler}/></td>;
-              })}
-              <td>
-                <ActionButtons id={-1} isEntry={false} statusFilter={statusFilter} setManagerProps={setManagerProps} data={data} type={data.type} />
-              </td>
-            </tr>
+            { page === 1 &&
+              <tr>
+                { data.columns.map(column => {
+                  if (!column.input) return <td key={column.column}></td>;
+                  return <td key={column.column}><input type="text" data-column={column.column} placeholder={column.name} onChange={inputChangeHandler}/></td>;
+                })}
+                <td>
+                  <ActionButtons id={-1} isEntry={false} statusFilter={statusFilter} setManagerProps={setManagerProps} data={data} type={data.type} />
+                </td>
+              </tr>
+            }
             { data && data.entries.length > 0 && data.entries.map( (entry, i) => 
               <tr key={i}>
                 { data.columns.map( (column, i) => 
