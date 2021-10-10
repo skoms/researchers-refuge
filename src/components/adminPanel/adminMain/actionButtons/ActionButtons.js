@@ -111,7 +111,6 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
 
   const markAs = e => {
     const status = e.currentTarget.getAttribute("data-status");
-    console.log(`Marking report for '${status}'`);
     dispatch(markReportAsAdmin({ user, status, id }));
   }
 
@@ -137,24 +136,31 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
           <img src={`https://img.icons8.com/material-outlined/16/${getButtonColor()}/pencil--v1.png`} alt='edit button'/>
           <span className='tooltip'>Edit</span>
         </button>
-        <div className={`action-dropdown ${ menuIsActive ? 'active' : ''}`} ref={dropdown} >
-          <button onClick={toggleDropdownMenu} className='action-button '>
-            <img data-more-menu-button src={`https://img.icons8.com/ios-filled/16/${getButtonColor()}/menu-2.png`} alt='more button'/>
-            <span className='tooltip'>More</span>
-          </button>
-          <div className="dropdown-menu">
-            { type !== 'topics' && type !== 'categories' && 
-              <button onClick={confirmBlock}>
-                <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: 0}}/>
-                <span className='tooltip'>Block</span>
-              </button>
-            }
-            <button onClick={confirmDelete}>
-              <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/FF2323/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
-              <span className='tooltip'>Delete</span>
+        { (type === 'users' || type === 'articles') ?
+          <div className={`action-dropdown ${ menuIsActive ? 'active' : ''}`} ref={dropdown} >
+            <button onClick={toggleDropdownMenu} className='action-button '>
+              <img data-more-menu-button src={`https://img.icons8.com/ios-filled/16/${getButtonColor()}/menu-2.png`} alt='more button'/>
+              <span className='tooltip'>More</span>
             </button>
-          </div>
-        </div>
+            <div className="dropdown-menu">
+              { (type === 'users' || type === 'articles') && 
+                <button onClick={confirmBlock}>
+                  <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: 0}}/>
+                  <span className='tooltip'>Block</span>
+                </button>
+              }
+              <button onClick={confirmDelete}>
+                <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/FF2323/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button' style={{margin: 0}}/>
+                <span className='tooltip'>Delete</span>
+              </button>
+            </div>
+          </div> 
+          :
+          <button onClick={confirmDelete}>
+            <img src={`https://img.icons8.com/external-kiranshastry-solid-kiranshastry/16/${getButtonColor()}/external-delete-multimedia-kiranshastry-solid-kiranshastry.png`} alt='delete button'/>
+            <span className='tooltip'>Delete</span>
+          </button>
+        }
         { type === 'reports' && 
             <>
               <button data-status={'open'} onClick={markAs} 

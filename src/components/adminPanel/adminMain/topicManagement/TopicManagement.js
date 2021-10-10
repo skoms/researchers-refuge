@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PaginationBar from "../../paginationBar/PaginationBar";
-import { selectPage } from "../../paginationBar/paginationBarSlice";
-import { selectEntriesLimit, selectSearchQuery, selectTopics, selectSortOrder, getTopicsAdmin, getTopicsByQueryAdmin } from "../adminPanelSlice";
-import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
-import EntriesSelect from "./subcomponents/EntriesSelect";
-import TableSearch from "./subcomponents/TableSearch";
-import { ManagementTable } from "./subcomponents/ManagementTable";
+import PaginationBar from "../../../paginationBar/PaginationBar";
+import { selectPage } from "../../../paginationBar/paginationBarSlice";
+import { selectEntriesLimit, selectSearchQuery, selectTopics, selectSortOrder, getTopicsAdmin, getTopicsByQueryAdmin } from "../../adminPanelSlice";
+import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
+import EntriesSelect from "../entriesSelect/EntriesSelect";
+import TableSearch from "../tableSearch/TableSearch";
+import ManagementTable from "../managementTable/ManagementTable";
 
 const TopicManagement = () => {
   const user = useSelector(selectAuthenticatedUser);

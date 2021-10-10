@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PaginationBar from "../../paginationBar/PaginationBar";
-import { selectPage } from "../../paginationBar/paginationBarSlice";
-import { selectEntriesLimit, selectSearchQuery, selectSortOrder, getReportsAdmin, getReportsByQueryAdmin, selectReports } from "../adminPanelSlice";
-import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
-import EntriesSelect from "./subcomponents/EntriesSelect";
-import TableSearch from "./subcomponents/TableSearch";
-import { ManagementTable } from "./subcomponents/ManagementTable";
-import StatusFilter from "./subcomponents/StatusFilter";
+import PaginationBar from "../../../paginationBar/PaginationBar";
+import { selectPage } from "../../../paginationBar/paginationBarSlice";
+import { selectEntriesLimit, selectSearchQuery, selectSortOrder, getReportsAdmin, getReportsByQueryAdmin, selectReports } from "../../adminPanelSlice";
+import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
+import EntriesSelect from "../entriesSelect/EntriesSelect";
+import TableSearch from "../tableSearch/TableSearch";
+import ManagementTable from "../managementTable/ManagementTable";
+import StatusFilter from "../statusFilter/StatusFilter";
 
 const ReportCenter = () => {
   const user = useSelector(selectAuthenticatedUser);

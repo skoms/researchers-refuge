@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
-import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
-import { getStatsAdmin, selectStats } from "../adminPanelSlice"
+import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
+import { getStatsAdmin, selectStats } from "../../adminPanelSlice"
 
 const Statistics = () => {
   const stats = useSelector(selectStats);

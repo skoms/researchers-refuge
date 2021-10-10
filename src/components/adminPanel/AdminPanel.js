@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
-import ArticleManagement from './mainComponents/ArticleManagement';
-import CategoryManagement from './mainComponents/CategoryManagement';
-import ReportCenter from './mainComponents/ReportCenter';
-import Statistics from './mainComponents/Statistics';
-import TopicManagement from './mainComponents/TopicManagement';
-import UserManagement from './mainComponents/UserManagement';
-import AdminSidebar from './sidebar/AdminSidebar';
+import ArticleManagement from './adminMain/articleManagement/ArticleManagement';
+import CategoryManagement from './adminMain/categoryManagement/CategoryManagement';
+import ReportCenter from './adminMain/reportCenter/ReportCenter';
+import Statistics from './adminMain/statistics/Statistics';
+import TopicManagement from './adminMain/topicManagement/TopicManagement';
+import UserManagement from './adminMain/userManagement/UserManagement';
+import AdminSidebar from './adminSidebar/AdminSidebar';
 
 const AdminPanel = () => {
   const history = useHistory();

@@ -1,13 +1,13 @@
-import ActionButtons from "./ActionButtons";
+import ActionButtons from "../actionButtons/ActionButtons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateSortOrder, getSortImg, updateNewData, selectSortOrder } from "../../adminPanelSlice";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
-import DataManager from "./DataManager";
+import DataManager from "../dataManager/DataManager";
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
 
-export const ManagementTable = (
+const ManagementTable = (
     { data, statusFilter = null }
   ) => {
   const dispatch = useDispatch();
@@ -101,3 +101,5 @@ export const ManagementTable = (
       </>
   )
 }
+
+export default ManagementTable;

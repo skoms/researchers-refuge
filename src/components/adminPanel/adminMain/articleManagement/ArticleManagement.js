@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PaginationBar from "../../paginationBar/PaginationBar";
-import { selectPage } from "../../paginationBar/paginationBarSlice";
-import { ManagementTable } from "./subcomponents/ManagementTable";
-import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
-import TableSearch from "./subcomponents/TableSearch";
-import EntriesSelect from "./subcomponents/EntriesSelect";
-import { getArticlesAdmin, getArticlesByQueryAdmin, selectArticles, selectSortOrder, selectEntriesLimit, selectSearchQuery } from "../adminPanelSlice";
+import PaginationBar from "../../../paginationBar/PaginationBar";
+import { selectPage } from "../../../paginationBar/paginationBarSlice";
+import ManagementTable from "../managementTable/ManagementTable";
+import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
+import TableSearch from "../tableSearch/TableSearch";
+import EntriesSelect from "../entriesSelect/EntriesSelect";
+import { getArticlesAdmin, getArticlesByQueryAdmin, selectArticles, selectSortOrder, selectEntriesLimit, selectSearchQuery } from "../../adminPanelSlice";
 
 
 const ArticleManagement = () => {

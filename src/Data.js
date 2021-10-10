@@ -703,7 +703,7 @@ export default class Data {
   }
 
   /**
-   * Blocks a user/article
+   * updates the status of the report
    * @param {object} user - logged in user
    * @param {string} status - status to be marked as
    * @param {number} id - id of target report

@@ -289,8 +289,9 @@ button:hover {
 .tooltip {
   visibility: hidden;
   width: 4rem;
-  background-color: #555;
-  color: #fff;
+  background-color: #fff;
+  color: #555;
+  box-shadow: 1px 2px 8px -3px #555;
   text-align: center;
   padding: .3rem .6rem;
   border-radius: .25rem;
@@ -301,6 +302,12 @@ button:hover {
   margin-left: 0;
   opacity: 0;
   transition: opacity 0.3s;
+}
+
+.darkmode .tooltip {
+  background-color: #555;
+  color: #fff;
+  box-shadow: 1px 2px 8px -3px var(--dark-shadow-blue);
 }
 
 .management-table .action-buttons .tooltip:hover {
@@ -665,6 +672,7 @@ button:hover {
   position: relative;
   display: flex;
   max-width: 6rem;
+  min-width: 3.8rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
