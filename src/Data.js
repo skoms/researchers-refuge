@@ -702,6 +702,20 @@ export default class Data {
     );
   }
 
+  /**
+   * Blocks a user/article
+   * @param {object} user - logged in user
+   * @param {string} status - status to be marked as
+   * @param {number} id - id of target report
+   * @returns {object} - { status }
+   */
+  async markReportAsAdmin(user, status, id) {
+    return await this.responseHandler(
+      this.api(`/admin/reports/mark`, 'PUT', { status, id }, null, true, user),
+      true, 'data'
+    );
+  }
+
 
 
 

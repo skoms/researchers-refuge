@@ -253,6 +253,14 @@ export const blockEntryAdmin = createAsyncThunk(
   }
 )
 
+export const markReportAsAdmin = createAsyncThunk(
+  'adminPanel/markReportAsAdmin',
+  async ({ user, status, id }) => {
+    const response = await data.markReportAsAdmin(user, status, id);
+    return { ...response, markedAs: status, id };
+  }
+);
+
 export const deleteEntryAdmin = createAsyncThunk(
   'adminPanel/deleteEntryAdmin',
   async ({ user, type, id }) => {
@@ -442,14 +450,22 @@ export const adminPanelSlice = createSlice({
       return result;
     });
     builder.addCase(blockEntryAdmin.fulfilled, (state, { payload }) => {
-      const { status, type, id, data } = payload;
       let result = state;
-      if (status === 201) {
+      if (payload.status === 201) {
+        const { type, id, data } = payload;
         const updatedIndex = result[type].entries.indexOf(result[type].entries.find( entry => entry.id === id ));
         result[type].entries[updatedIndex] = {
           ...result[type].entries[updatedIndex],
           ...data.entry
         }; 
+      }
+      return result;
+    });
+    builder.addCase(markReportAsAdmin.fulfilled, (state, {payload}) => {
+      const { status, id } = payload;
+      let result = state;
+      if ( status === 204 ) {
+        result.reports.entries = result.reports.entries.filter( entry => entry.id !== id );
       }
       return result;
     });

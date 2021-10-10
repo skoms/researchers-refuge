@@ -4,7 +4,7 @@ import useToggle from "../../../../customHooks/useToggle";
 import ConfirmationPopup from "../../../confirmationPopup.js/ConfirmationPopup";
 import { selectDarkModeOn } from "../../../darkmodeButton/darkModeButtonSlice";
 import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
-import { blockEntryAdmin, deleteEntryAdmin } from "../../adminPanelSlice";
+import { blockEntryAdmin, deleteEntryAdmin, markReportAsAdmin } from "../../adminPanelSlice";
 
 const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type }) => {
   const dispatch = useDispatch();
@@ -111,8 +111,8 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
 
   const markAs = e => {
     const status = e.currentTarget.getAttribute("data-status");
-    console.log(e.target.dataset);
     console.log(`Marking report for '${status}'`);
+    dispatch(markReportAsAdmin({ user, status, id }));
   }
 
   useEffect(() => {
