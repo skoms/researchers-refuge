@@ -1,10 +1,10 @@
 import React from 'react'
+import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
-    <div className='footer'>
-      {/* TODO - Add Logo */}
-      <p className='trademark'>© 2021 Researchers' Refuge</p>
+    <div className={styles.container}>
+      <p className={styles.trademark}>© 2021 Researchers' Refuge</p>
     </div>
   )
 }

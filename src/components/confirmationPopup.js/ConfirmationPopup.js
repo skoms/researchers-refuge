@@ -1,3 +1,5 @@
+import styles from './ConfirmationPopup.module.css';
+
 const ConfirmationPopup = ({ action, target, confirm, containerRef }) => {
 
   const cancel = () => {
@@ -8,12 +10,12 @@ const ConfirmationPopup = ({ action, target, confirm, containerRef }) => {
 
   return (
     <div className='invisible' ref={containerRef}>
-      <div className="confirmation">
-        <div className="pop-up">
-          <p>{`Are you sure you want to ${action} this ${target}?`}</p>
-          <div className="confirmation-buttons">
-            <button className='button-primary' onClick={confirm}>Yes</button>
-            <button className='button-secondary' onClick={cancel}>No</button>
+      <div className={styles.container}>
+        <div className={styles.popUp}>
+          <p className={styles.p}>{`Are you sure you want to ${action} this ${target}?`}</p>
+          <div className={styles.confirmationButtons}>
+            <button className={`button-primary ${styles.button}`} onClick={confirm}>Yes</button>
+            <button className={`button-secondary ${styles.button}`} onClick={cancel}>No</button>
           </div>
         </div>
       </div>

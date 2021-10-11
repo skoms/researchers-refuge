@@ -1,0 +1,25 @@
+.container {
+  grid-area: select;
+  margin-left: -2rem;
+  display: flex;
+}
+
+.select {
+  padding: .3rem;
+  font-size: .9rem;
+  font-family: 'Times New Roman', Times, serif;
+  width: 100%;
+}
+
+.button {
+  background: none;
+  box-shadow: none;
+}
+
+:global(.darkmode) .button {
+  box-shadow: none;
+}
+
+:global(.darkmode) .container {
+  background: none;
+}

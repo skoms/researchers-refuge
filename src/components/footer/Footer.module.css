@@ -1,0 +1,23 @@
+.container {
+  background-color: var(--base-blue);
+  color: white;
+  padding: .4rem 0 .2rem 0;
+  position: fixed;
+  width: 100%;
+  z-index: 200;
+  bottom: 0;
+  display: flex;
+}
+
+:global(.darkmode) .container {
+  background-color: var(--dark-component-darkgrey);
+}
+
+.trademark {
+  margin-left: .7rem;
+  background: none;
+}
+
+:global(.darkmode) .container * {
+  color: var(--base-blue);
+}

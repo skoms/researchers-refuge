@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import styles from './SearchField.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
@@ -26,16 +27,17 @@ const SearchField = ({ isMobile }) => {
   }
 
   return !isMobile ? (
-    <div className="search">
+    <div className={styles.container}>
       <form onSubmit={submit}>
         <input
+          className={styles.input}
           id="search"
           type="text"
           value={searchTerm}
           onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
           placeholder="Search for articles or people"
         />
-        <button className='search-button' type='submit'>
+        <button className={styles.searchButton} type='submit'>
           <img 
             src={`https://img.icons8.com/material-outlined/20/${ darkModeOn ? '38B6FF' : 'E8F7FF' }/search--v1.png`}
             alt='search button'
@@ -44,7 +46,7 @@ const SearchField = ({ isMobile }) => {
       </form>
     </div>
   ) : (
-    <div className="search">
+    <div className={styles.container}>
       <button className="toggle-mobile-search" onClick={toggleMobileSearch}>
         <img 
           src={`https://img.icons8.com/material-outlined/32/${ darkModeOn ? '38B6FF' : 'E8F7FF' }/search--v1.png`}

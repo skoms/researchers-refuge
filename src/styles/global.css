@@ -891,7 +891,7 @@ button.disabled:hover .tooltip {
   box-shadow: 0 0 10px -4px var(--base-darkblue);
 } */
 
-.access-management-div .data-manager {
+/* .access-management-div .data-manager {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -979,10 +979,10 @@ button.disabled:hover .tooltip {
   width: unset;
   height: unset;
   animation: none;
-}
+} */
 
 /* Confirmation Popup */
-.confirmation {
+/* .confirmation {
   position: fixed;
   display: flex;
   top: -3rem;
@@ -1041,10 +1041,10 @@ button.disabled:hover .tooltip {
 
 .darkmode .confirmation .pop-up .button-secondary {
   color: var(--base-darkblue);
-}
+} */
 
 /* ==================== Header and Footer Styling ===================== */
-.header, .footer {
+/* .header, .footer {
   background-color: var(--base-blue);
   color: white;
   padding: .6rem 0;
@@ -1098,9 +1098,9 @@ button.disabled:hover .tooltip {
 
 .darkmode .logo-home-a img {
   transform: scale(0.8);
-}
+} */
 
-.header .topic-select {
+/* .header .topic-select {
   grid-area: select;
 }
 
@@ -1123,8 +1123,8 @@ button.disabled:hover .tooltip {
 
 .darkmode .header .topic-select {
   background: none;
-}
-
+} */
+/* 
 .header .search {
   grid-area: search;
   position: relative;
@@ -1160,9 +1160,9 @@ button.disabled:hover .tooltip {
 
 .search input:focus {
   outline: none;
-}
+} */
 
-.header .my-profile-div {
+/* .header .my-profile-div {
   position: relative;
   justify-self: right;
   width: 100%;
@@ -1227,8 +1227,8 @@ button.disabled:hover .tooltip {
 
 .darkmode .my-profile-div {
   background: var(--dark-component-darkgrey);
-}
-
+} */
+/* 
 .darkmode-button {
   cursor: pointer;
   background: none;
@@ -1253,9 +1253,9 @@ button.disabled:hover .tooltip {
   border-radius: 0;
   box-shadow: none;
   transition: unset;
-}
+} */
 
-.header .my-profile-div a, .header .my-profile-div .signout-btn {
+/* .header .my-profile-div a, .header .my-profile-div .signout-btn {
   border: none;
   box-shadow: none;
   padding: none;
@@ -1352,7 +1352,7 @@ button.disabled:hover .tooltip {
 
 .footer .trademark {
   background: none;
-}
+} */
 
 /* Pagination Bar */
 /* .pagination-bar {

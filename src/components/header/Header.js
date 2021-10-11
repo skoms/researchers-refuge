@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import DarkModeButton from '../darkmodeButton/DarkModeButton';
 import Cookies from 'js-cookie';
+import styles from './Header.module.css';
 
 import SearchField from '../searchField/SearchField'
 import {
@@ -55,22 +56,22 @@ const Header = () => {
   }
 
   return (
-    <div className='header'>
-      <a className='logo-home-a' href="/">
+    <div className={styles.container}>
+      <a className={styles.homeLogo} href="/">
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
         <h2>Researchers' Refuge</h2>
       </a>
       <SearchField isMobile={isMobile}/>
       {location.pathname === '/' && <TopicSelect use='header' />}
       { didLoad && loggedIn ?
-        <div className='my-profile-div'>
+        <div className={styles.loggedInNav}>
           <DarkModeButton />
 
-          <div className='profile-and-menu-div'>
+          <div className={styles.menuProfileDiv}>
             { 
               <img 
                 src={`https://img.icons8.com/material-outlined/24/${!dropdownActive ? 'ffffff' : (darkModeOn ? '38B6FF' : '161B22') }/menu--v1.png`} 
-                className='menu-toggle-button'
+                className={styles.menuToggleButton}
                 alt='menu toggle button'
                 onClick={toggleDropdown}
               />
@@ -78,20 +79,20 @@ const Header = () => {
 
             <img 
               src={ authenticatedUser.profileImgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
-              className={ `profile-pic ${authenticatedUser.profileImgURL ? '' : 'placeholder'}` } 
+              className={ `${styles.profilePic} ${authenticatedUser.profileImgURL ? '' : 'placeholder'}` } 
               alt='your profile'
               onClick={() => history.push('/my-profile')}
             />
           </div>
           
-          <div className={`header-dropdown ${!dropdownActive && 'invisible'}`}>
+          <div className={`${styles.dropdown} ${!dropdownActive && 'invisible'}`}>
             <a href="/my-profile">My Profile</a>
             <hr />
-            <button className='signout-btn' onClick={LogOut}>Sign Out</button>
+            <button className={styles.signOutButton} onClick={LogOut}>Sign Out</button>
           </div>
         </div>
       :
-        <div className='sign-buttons'>
+        <div className={styles.signButtons}>
           <DarkModeButton />
           <a href="/sign-in">
             <button>

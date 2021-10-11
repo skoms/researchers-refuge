@@ -1,0 +1,207 @@
+.container {
+  background-color: var(--base-blue);
+  color: white;
+  padding: .6rem 0;
+  position: fixed;
+  width: 100%;
+  z-index: 200;
+  top: 0;
+  display: grid;
+  grid-template-columns: 
+    calc( 50vw - 38rem )
+    repeat(12, 1fr)
+    calc( 50vw - 38rem );
+  grid-template-areas: 
+    ". name name name search search search search select select profile profile profile .";
+  gap: 1.5rem;
+  align-items: center;
+}
+
+:global(.darkmode) .container {
+  background-color: var(--dark-component-darkgrey);
+}
+
+.homeLogo {
+  text-decoration: none;
+  color: white;
+  grid-area: name;
+  justify-self: left;
+  margin: 0 .7rem;
+  display: flex;
+  align-items: center;
+}
+
+:global(.darkmode) .homeLogo, :global(.darkmode) .homeLogo * {
+  background: none;
+}
+
+.homeLogo h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.homeLogo img {
+  height: 3rem;
+  width: 3rem;
+  margin: -.6rem 0;
+  border-radius: 50%;
+}
+
+:global(.darkmode) .homeLogo img {
+  transform: scale(0.8);
+}
+
+.loggedInNav {
+  position: relative;
+  justify-self: right;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-area: profile;
+  margin: 0 .7rem;
+  text-decoration: none;
+}
+
+.loggedInNav,
+:global(.darkmode) .loggedInNav,
+.loggedInNav *,
+:global(.darkmode) .loggedInNav * {
+  background: none;
+}
+
+.menuProfileDiv {
+  display: flex;
+}
+
+.profilePic {
+  background: var(--base-component-white);
+  height: 2rem;
+  width: 2rem;
+}
+
+:global(.darkmode) .profilePic {
+  background: var(--dark-light-darkgrey);
+}
+
+.menuToggleButton {
+  margin: 0 .5rem;
+}
+
+.dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: var(--dark-component-darkgrey) solid .05rem;
+  border-radius: .75rem 0 .75rem .75rem;
+  background: var(--base-component-white);
+  z-index: 3;
+  top: 2rem;
+  right: 2.5rem;
+  padding: .7rem .3rem;
+  height: fit-content;
+  transform: translateY(0);
+}
+
+.dropdown:global(.invisible) {
+  opacity: 0;
+  transform: translateY(-1rem);
+}
+
+:global(.darkmode) .dropdown {
+  border: var(--dark-semi-darkblue) solid .05rem;
+  background: var(--dark-component-darkgrey);
+}
+
+.dropdown hr {
+  width: 80%;
+  border: none;
+  border-top: var(--base-blue) .05rem solid;
+}
+
+:global(.darkmode) .loggedInNav {
+  background: var(--dark-component-darkgrey);
+}
+
+.loggedInNav a, .signOutButton {
+  border: none;
+  box-shadow: none;
+  padding: none;
+  color: var(--base-darkblue);
+  opacity: 1;
+  line-height: 1rem;
+  background: none;
+  margin: 0 .7rem 0 .3rem;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Times New Roman', Times, serif;
+  text-decoration: none;
+  transition: all .3s;
+}
+
+:global(.darkmode) .loggedInNav a, 
+:global(.darkmode) .signOutButton {
+  color: var(--base-component-white);
+}
+
+.signOutButton {
+  margin-right: -.5rem;
+}
+
+.loggedInNav a:hover, .signOutButton:hover {
+  cursor: pointer;
+  text-shadow: black 2px 2px 2px;
+}
+
+:global(.darkmode).loggedInNav a:hover, :global(.darkmode).signOutButton:hover {
+  text-shadow: var(--base-blue) 2px 2px 2px;
+}
+
+.loggedInNav img {
+  border-radius: 50%;
+}
+
+.loggedInNav img:hover {
+  transform: scale(1.1);
+  transition-duration: 0.3s;
+}
+
+.signButtons {
+  justify-self: right;
+  display: flex;
+  align-items: center;
+  grid-area: profile;
+  margin: 0 .7rem;
+  text-decoration: none;
+  transition: all .3s;
+}
+
+:global(.darkmode) .signButtons a {
+  background-color: var(--dark-component-darkgrey);
+}
+
+.signButtons a button {
+  border: none;
+  border-radius: .75rem;
+  margin-left: .5rem;
+  padding: .2rem .5rem;
+  color: var(--base-darkblue);
+  background:  var(--base-component-white);
+  font-weight: 500;
+}
+
+:global(.darkmode) .signButtons a button {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+}
+
+.signButtons a button:hover {
+  cursor: pointer;
+  background-color: var(--base-scroll-blue);
+  color: var(--base-component-white);
+}
+
+:global(.darkmode) .signButtons a button:hover {
+  background: var(--base-darkblue);
+}

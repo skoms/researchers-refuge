@@ -1,0 +1,63 @@
+.container {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  border-radius: .75rem;
+  backdrop-filter: blur(40px);
+  z-index: 10;
+}
+
+.popUp {
+  display: flex;
+  flex-direction: column;
+  background: var(--base-component-white);
+  box-shadow: black 1px 1px 8px -3px;
+  padding: 1rem;
+  border-radius: .75rem;
+  font-size: 1.5rem;
+}
+
+.confirmationButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.confirmationButtons button {
+  margin: .5rem;
+  font-size: 1.1rem;
+  padding: .4rem .6rem;
+  border-radius: .75rem;
+}
+
+:global(.button-primary) .button {
+  background: linear-gradient( var(--base-blue), var(--base-semi-darkblue) );
+  width: 5rem;
+  margin: .8rem .3rem;
+  font-size: 1.2rem;
+}
+
+:global(.button-secondary) .button {
+  background: linear-gradient( var(--base-component-white), var(--base-fade-grey) );
+  width: 3rem;
+  margin: .8rem .3rem;
+  font-size: 1rem;
+}
+
+:global(.darkmode) .popUp {
+  box-shadow: var(--base-shadow-blue) 1px 1px 8px -3px;
+}
+
+:global(.darkmode) .popUp,
+:global(.darkmode) .p {
+  background: var(--dark-component-darkgrey);
+  color: var(--base-blue);
+}
+
+:global(.darkmode) :global(.button-secondary) .button {
+  color: var(--base-darkblue);
+}

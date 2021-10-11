@@ -1,0 +1,25 @@
+.darkModeButton {
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition: unset;
+}
+
+.darkModeButton:hover {
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:global(.darkmode) .darkModeButton {
+  cursor: pointer;
+  background: var(--dark-component-darkgrey);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition: unset;
+}

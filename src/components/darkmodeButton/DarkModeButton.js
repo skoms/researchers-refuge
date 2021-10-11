@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './DarkModeButton.module.css';
 import { useSelector, useDispatch } from 'react-redux'
 import {
   selectDarkModeOn,
@@ -11,7 +12,7 @@ const DarkModeButton = () => {
 
   const toggleDarkmode = () => {
     dispatch(toggleDarkMode());
-    // localStorage set to the opposit of the state, as the state 'darkMode' will at this point be the previous state
+    // localStorage set to the opposite of the state, as the state 'darkMode' will at this point be the previous state
     localStorage.setItem('darkmode', ( darkmodeOn === false ? true : false).toString());
     document.getElementsByTagName('body')[0].classList.toggle('darkmode');
   }
@@ -23,7 +24,7 @@ const DarkModeButton = () => {
   });
   return (
     <div>
-      <button className="darkmode-button" onClick={toggleDarkmode}>
+      <button className={styles.darkModeButton} onClick={toggleDarkmode}>
         { darkmodeOn 
         ?
         <img src="https://img.icons8.com/material-rounded/24/ffffff/sun--v1.png" alt="darkmode button"/>

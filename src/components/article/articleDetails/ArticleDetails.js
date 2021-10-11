@@ -1,20 +1,17 @@
-//TODO - CHANGE OUT PLACEHOLDERS
-//TODO - MAKE SURE TO HOOK UP ALL LINKS
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useParams } from "react-router";
-
 import InfoModule from "../../infoModule/InfoModule";
 import RelatedArticles from "./relatedArticles/RelatedArticles";
 import Loading from "../../loading/Loading";
-
 import { selectDarkModeOn } from '../../darkmodeButton/darkModeButtonSlice'
 import { getArticleInfo, selectArticle, selectAuthor } from "./articleDetailsSlice";
 import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import { deleteArticle } from '../manageArticle/manageArticleSlice';
 import { selectIsMobile } from '../../../app/screenWidthSlice';
+import ConfirmationPopup from '../../confirmationPopup.js/ConfirmationPopup';
 
 const ArticleDetails = () => {
   const darkModeOn = useSelector(selectDarkModeOn);
@@ -28,6 +25,7 @@ const ArticleDetails = () => {
   const history = useHistory();
   const location = useLocation();
 
+  const confirmationPopupRef = useRef();
   const [didLoad, setDidLoad] = useState(false);
 
   useEffect(() => {
@@ -47,22 +45,12 @@ const ArticleDetails = () => {
   }, [didLoad, id, dispatch, history, location.pathname]);
 
   const togglePopUp = () => {
-    const confirmationBox = document.querySelector('.invisibility-container');
+    const confirmationBox = confirmationPopupRef.current;
     if ( confirmationBox.classList.contains('invisible') ) {
       confirmationBox.classList.remove('invisible');
     } else {
       confirmationBox.classList.add('invisible');
     }
-  }
-
-  const deleteArticleQuestion = () => {
-    const deletePopUp = document.querySelector('.delete-confirmation');
-    togglePopUp();
-    deletePopUp.addEventListener('click', (e) => {
-      if (e.target.className === 'delete-confirmation') {
-        togglePopUp();
-      }
-    }, { once: true });
   }
   
   const confirmDeletion = async () => {
@@ -81,24 +69,15 @@ const ArticleDetails = () => {
       });
   }
 
-  const cancelDeletion = () => {
-    togglePopUp();
-  }
-
   return (
     <div className="content-article-details">
 
-      <div className="invisibility-container invisible">
-        <div className="delete-confirmation">
-          <div className="pop-up">
-            <p>Are you sure?</p>
-            <div className="confirmation-buttons">
-              <button className='button-primary' onClick={confirmDeletion}>Yes</button>
-              <button className='button-secondary' onClick={cancelDeletion}>No</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ConfirmationPopup 
+        action='delete'
+        target='article'
+        confirm={confirmDeletion}
+        containerRef={confirmationPopupRef}
+      />
       
       { didLoad && author && article ? (
         <div className="article-div"> 
@@ -108,7 +87,7 @@ const ArticleDetails = () => {
               <a href={`/update-article/${id}`}>
                 <button className='button-primary'>Edit Article</button>
               </a>
-              <button className='button-primary' onClick={deleteArticleQuestion}>Delete Article</button>
+              <button className='button-primary' onClick={togglePopUp}>Delete Article</button>
             </div>
           :
             <Fragment />
