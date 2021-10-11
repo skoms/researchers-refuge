@@ -28,5 +28,13 @@
     "statusBarItem.remoteBackground": "#756904",
     "statusBarItem.remoteForeground": "#e7e7e7"
   },
-  "peacock.color": "#756904"
+  "peacock.color": "#756904",
+  "cSpell.customDictionaries": {
+    "custom-dictionary-workspace": {
+      "name": "custom-dictionary-workspace",
+      "path": "${workspaceFolder:researchers-refuge}/.cspell/custom-dictionary-workspace.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  }
 }

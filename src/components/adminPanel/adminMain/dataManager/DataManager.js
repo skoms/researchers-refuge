@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import styles from './DataManager.module.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import useToggle from '../../../../customHooks/useToggle';
@@ -64,28 +65,32 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
   
   if (!isActive) return <></>;
   return (
-    <div className={`data-manager data-manager-${source}`} >
+    <div className={`${styles.container} ${styles[source]}`} >
       { 
         source === 'view' ? (
           <>
-            <table className='management-table'>
+            <table className={styles.table}>
               <tbody>
                 <tr>
-                  <th>Column</th>
-                  <th>Value</th>
+                  <th className={styles.tableHead}>Column</th>
+                  <th className={styles.tableHead}>Value</th>
                 </tr>
                 { 
                   Object.keys(data).map( key => 
                     <tr key={type + key}>
                       {typeof data[key] !== 'object' ?
-                        <th>{key}</th> 
+                        <th className={styles.tableHead}>
+                          {key}
+                        </th> 
                       :
-                        <th>{key + ' (id)'}</th>
+                        <th className={styles.tableHead}>
+                          {key + ' (id)'}
+                        </th>
                       }
                       { typeof data[key] !== 'object' ? 
-                          <td>{data[key]}</td> 
+                          <td className={styles.tableData}>{data[key]}</td> 
                         :
-                          <td>
+                          <td className={styles.tableData}>
                             {Object.keys(data[key]).map( (val, i) => 
                               Object.keys(data[key]).length - 1 !== i ? 
                                 data[key][val] + ', ' 
@@ -99,31 +104,63 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
                 }
               </tbody>
             </table>
-            <div className="buttons">
-                <button className='button-secondary' onClick={closePopup}>Close</button>
+            <div className={styles.buttons}>
+                <button 
+                  className={styles.buttonSecondary} 
+                  onClick={closePopup}
+                >
+                  Close
+                </button>
             </div>
           </>
         ) : source === 'edit' ? (
           <>
-            <form className='edit-data-form' onSubmit={submit}>
+            <form className={styles.editDataForm} onSubmit={submit}>
               {
                 Object.keys(data).map( key => { 
                   return (
                     (typeof data[key] !== 'object' || !data[key].id) &&
                     <div key={type + key} className='form-input'>
                       { data[key].toString().length < 50 ?
-                          <input id={`new-${key}-${type}`} type="text" data-column={key} value={newData[key] || data[key]} onChange={handleInputChange}/> 
+                          <input 
+                            className={styles.input} 
+                            id={`new-${key}-${type}`} 
+                            type="text" data-column={key} 
+                            value={newData[key] || data[key]} 
+                            onChange={handleInputChange}
+                          /> 
                         :
-                          <textarea id={`new-${key}-${type}`} type="text" data-column={key} value={newData[key] || data[key]} onChange={handleInputChange}/>
+                          <textarea 
+                            className={styles.textarea} 
+                            id={`new-${key}-${type}`} 
+                            type="text" data-column={key} 
+                            value={newData[key] || data[key]} 
+                            onChange={handleInputChange}
+                          />
                       }
-                      <label htmlFor={`new-${key}-${type}`}>{key}</label>
+                      <label 
+                        className={styles.label} 
+                        htmlFor={`new-${key}-${type}`}
+                      >
+                        {key}
+                      </label>
                     </div>
                   );
                 })
               }
-              <div className="buttons">
-                <button className='button-primary' type="submit">Edit</button>
-                <button className='button-secondary' onClick={closePopup}>Cancel</button>
+              <div className={styles.buttons}>
+                <button 
+                  className={styles.buttonPrimary} 
+                  type="submit"
+                >
+                  Edit
+                </button>
+                <button 
+                  className={styles.buttonSecondary} 
+                  onClick={closePopup}
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </>
@@ -135,17 +172,45 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
                 .map( column => 
                   <div key={type + column.column} className='form-input'>
                     { column.needsTextArea ? 
-                        <textarea id={`new-${column.column}-${type}`} type="text" data-column={column.column} value={newData[column.column] || ''} onChange={handleInputChange}/> 
+                        <textarea 
+                          className={styles.textarea} 
+                          id={`new-${column.column}-${type}`} 
+                          type="text" data-column={column.column}
+                          value={newData[column.column] || ''} 
+                          onChange={handleInputChange}
+                        /> 
                       : 
-                        <input id={`new-${column.column}-${type}`} type={column.column !== 'password' ? 'text' : 'password'} data-column={column.column} value={newData[column.column] || ''} onChange={handleInputChange}/>
+                        <input 
+                          className={styles.input} 
+                          id={`new-${column.column}-${type}`} 
+                          type={column.column !== 'password' ? 'text' : 'password'} 
+                          data-column={column.column} 
+                          value={newData[column.column] || ''} 
+                          onChange={handleInputChange}
+                        />
                     }
-                    <label htmlFor={`new-${column.column}-${type}`}>{column.name}</label>
+                    <label 
+                      className={styles.label} 
+                      htmlFor={`new-${column.column}-${type}`}
+                    >
+                      {column.name}
+                    </label>
                   </div>
                 )
               }
-              <div className="buttons">
-                <button className='button-primary' type="submit">Create</button>
-                <button className='button-secondary' onClick={closePopup}>Cancel</button>
+              <div className={styles.buttons}>
+                <button 
+                  className={styles.buttonPrimary}
+                  type="submit"
+                >
+                  Create
+                </button>
+                <button 
+                  className={styles.buttonSecondary} 
+                  onClick={closePopup}
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </>

@@ -1,0 +1,76 @@
+.container {
+  display: grid;
+  grid-template-columns: .5fr repeat(3, 1fr) .5fr;
+  text-align: left;
+  grid-template-areas: 
+    "title . . . ."
+    ". total new reports .";
+}
+
+/* Grid Area Declarations */
+.title {
+  grid-area: title;
+}
+.total {
+  grid-area: total;
+}
+.new {
+  grid-area: new;
+}
+.reports {
+  grid-area: reports;
+}
+/* ---------------------- */
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 1rem .5rem;
+}
+
+.tableTitle {
+  background: var(--base-semi-darkblue);
+  color: var(--base-component-white);
+  margin: 0 .15rem;
+  padding: .4rem .6rem;
+  border-radius: .25rem;
+}
+
+:global(.darkmode) .tableTitle {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-blue);
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: .15rem;
+  font-size: 1.1rem;
+}
+
+.table th {
+  background: var(--base-semi-darkblue);
+  color: var(--base-component-white);
+  border-radius: .25rem;
+  padding: .4rem .6rem;
+}
+
+:global(.darkmode) .table th {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-blue);
+}
+
+.table td {
+  background: var(--lightblue-border);
+  border-radius: .25rem;
+  min-width: 3rem;
+  padding: .4rem .6rem;
+}
+
+:global(.darkmode) .table td {
+  background: var(--dark-component-grey);
+  color: var(--base-background);
+}
+
+.table .blank {
+  background: var(--base-fade-grey);
+}

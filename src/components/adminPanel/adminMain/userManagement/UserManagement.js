@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import styles from '../Management.module.css';
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../../paginationBar/PaginationBar";
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
@@ -29,14 +30,14 @@ const UserManagement = () => {
   }, [dispatch, user, entriesLimit, tablePage, sortOrder, searchQuery]);
 
   return (
-    <div className="access-management-div">
-      <h2 className='title'>User Management</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>User Management</h2>
       <EntriesSelect />
       <TableSearch />
       <ManagementTable 
         data={users}
       />
-      <p className='entries-count'>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>
+      <p className={styles.entriesCount}>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>
       <PaginationBar use='admin' />
     </div>
   )

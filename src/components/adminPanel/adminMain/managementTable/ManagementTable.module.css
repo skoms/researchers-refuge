@@ -1,0 +1,143 @@
+.table {
+  grid-area: table;
+}
+
+.table, 
+.tableHeader, 
+.tableData {
+  border: var(--base-background) 1px solid;
+  line-height: 1.4rem;
+}
+
+:global(.darkmode) .table, 
+:global(.darkmode) .tableHeader,
+:global(.darkmode) .tableData {
+  border: var(--base-scroll-blue) 1px solid;
+}
+
+.table:global(.open), 
+:global(.open) .tableHeader, 
+:global(.open) .tableData {
+  border: var(--base-background) 1px solid;
+}
+
+:global(.darkmode) .table:global(.open), 
+:global(.darkmode) :global(.open) .tableHeader,
+:global(.darkmode) :global(.open) .tableData {
+  border: var(--base-scroll-blue) 1px solid;
+}
+
+.table:global(.resolved), 
+:global(.resolved) .tableHeader, 
+:global(.resolved) .tableData {
+  border: var(--valid-background) 1px solid; 
+}
+
+:global(.darkmode) .table:global(.resolved), 
+:global(.darkmode) :global(.resolved) .tableHeader,
+:global(.darkmode) :global(.resolved) .tableData {
+  border: var(--valid-background) 1px solid;
+}
+
+:global(.darkmode) :global(.resolved) .tableData {
+  color: var(--valid-green);
+}
+
+.table:global(.rejected), 
+:global(.rejected) .tableHeader, 
+:global(.rejected) .tableData {
+  border: var(--error-background) 1px solid;
+}
+
+:global(.darkmode) .table:global(.rejected), 
+:global(.darkmode) :global(.rejected) .tableHeader,
+:global(.darkmode) :global(.rejected) .tableData {
+  border: var(--error-background) 1px solid;
+}
+
+:global(.rejected) .tableData,
+:global(.darkmode) .table:global(.rejected) .tableData {
+  color: var(--error-red);
+}
+
+.tableHeader {
+  user-select: none;
+  background: var(--base-blue);
+  border-bottom: var(--base-background) 4px solid;
+  font-size: 1.1rem;
+  color: white;
+  padding: .3rem .4rem .15rem .4rem;
+  vertical-align: middle;
+}
+
+:global(.darkmode) .tableHeader {
+  border-bottom: var(--base-scroll-blue) 4px solid;
+  background: var(--dark-light-darkgrey);
+}
+
+:global(.open) .tableHeader {
+  background: var(--base-blue);
+  border-bottom: var(--base-background) 4px solid;
+}
+
+:global(.darkmode) :global(.open) .tableHeader {
+  background: var(--dark-light-darkgrey);
+  border-color: var(--base-scroll-blue);
+}
+
+:global(.resolved) .tableHeader {
+  background: var(--valid-green);
+  border-bottom: var(--valid-background) 4px solid; 
+}
+
+:global(.rejected) .tableHeader {
+  background: var(--error-red);
+  border-bottom: var(--error-background) 4px solid;
+}
+
+.tableData {
+  background: var(--base-component-white);
+  font-size: 1.05rem;
+  color: var(--base-semi-darkblue);
+  padding: .3rem .4rem;
+  vertical-align: middle;
+}
+
+:global(.darkmode) .tableData {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+}
+
+.tableInput {
+  max-width: 6rem;
+  line-height: 1.4rem;
+  background: var(--base-component-white);
+  border: var(--base-background) 1px solid;
+}
+
+:global(.darkmode) .tableInput {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+  border-color: var(--base-scroll-blue);
+}
+
+:global(.darkmode) :global(.resolved) .tableInput,
+:global(.darkmode) :global(.resolved) .tableInput::placeholder {
+  border-color: var(--valid-green);
+  color: var(--valid-green);
+}
+
+:global(.darkmode) :global(.rejected) .tableInput,
+:global(.darkmode) :global(.rejected) .tableInput::placeholder {
+  border-color: var(--error-red);
+  color: var(--error-red);
+}
+
+.tableInput::placeholder {
+  color: var(--base-scroll-blue);
+}
+
+.table :global(.tooltip):hover {
+  visibility: hidden;
+  opacity: 0;
+}

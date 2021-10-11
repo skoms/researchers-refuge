@@ -1,0 +1,22 @@
+.container {
+  grid-area: search;
+  justify-self: right;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+}
+
+:global(.darkmode) .searchField {
+  background: var(--dark-light-darkgrey);
+  color: var(--base-blue);
+}
+
+.clearSearch,
+.searchButton,
+:global(.darkmode) .clearSearch,
+:global(.darkmode) .searchButton {
+  background: none;
+  box-shadow: none;
+}

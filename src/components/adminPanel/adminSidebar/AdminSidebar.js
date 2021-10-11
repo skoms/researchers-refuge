@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import styles from './AdminSideBar.module.css';
 import useToggle from '../../../customHooks/useToggle';
 
 const AdminSidebar = ({select}) => {
@@ -31,19 +32,19 @@ const AdminSidebar = ({select}) => {
   }, [ menuIsActive, toggleMenuIsActive, loading, toggleLoading]);
 
   return (
-    <div className="panel-sidebar">
-      <h2 className='title'>Admin Panel</h2>
-      <button className='sidebar-button' onClick={select}>Statistics</button>
-      <div className={`sidebar-dropdown ${ menuIsActive ? 'active' : ''}`} data-management-menu >
-        <button className='sidebar-button' data-management-menu-button>Access Management</button>
-        <div className="dropdown-menu">
-          <button className='sidebar-button' onClick={select}>User Management</button> <hr />
-          <button className='sidebar-button' onClick={select}>Article Management</button> <hr />
-          <button className='sidebar-button' onClick={select}>Topic Management</button> <hr />
-          <button className='sidebar-button' onClick={select}>Category Management</button> 
+    <div className={styles.container}>
+      <h2 className={styles.title}>Admin Panel</h2>
+      <button className={styles.button} onClick={select}>Statistics</button>
+      <div className={`${styles.dropdown} ${ menuIsActive ? 'active' : ''}`} data-management-menu >
+        <button className={styles.button} data-management-menu-button>Access Management</button>
+        <div className={styles.dropdownMenu}>
+          <button className={styles.button} onClick={select}>User Management</button> <hr />
+          <button className={styles.button} onClick={select}>Article Management</button> <hr />
+          <button className={styles.button} onClick={select}>Topic Management</button> <hr />
+          <button className={styles.button} onClick={select}>Category Management</button> 
         </div>
       </div>
-      <button className='sidebar-button' onClick={select}>Report Center</button>
+      <button className={styles.button} onClick={select}>Report Center</button>
     </div>
   )
 }

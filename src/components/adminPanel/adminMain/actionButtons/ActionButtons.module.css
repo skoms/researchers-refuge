@@ -1,0 +1,79 @@
+.container {
+  position: relative;
+  display: flex;
+  max-width: 6rem;
+  min-width: 3.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonIcon {
+  margin: 0 0 -.2rem .4rem;
+}
+
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  height: calc(1rem + 4px);
+  width: calc(1rem + 4px);
+  opacity: .5;
+}
+
+:global(.darkmode) .button {
+  box-shadow: none;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.button:global(.disabled) {
+  opacity: 1;
+}
+
+.dropdownMenu {
+  composes: dropdownMenu from '../../adminSidebar/AdminSideBar.module.css';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .75rem 0 .75rem .75rem;
+  left: -1.8rem;
+  top: .25rem;
+  z-index: 10;
+  transform: translateX(1rem);
+  box-shadow: -2px 2px 8px 0px rgba(0, 0, 0, .2);
+}
+
+.dropdownMenuButton {
+  composes: button;
+  margin: 0;
+}
+
+:global(.darkmode) .dropdownMenu {
+  box-shadow: var(--dark-shadowBlue) -2px 2px 6px 0px;
+}
+
+:global(.darkmode) .dropdownMenu,
+:global(.darkmode) .dropdownMenu .button {
+  background: var(--dark-component-grey);
+  color: var(-BaseBlue);
+}
+
+.dropdown:global(.active) > .actionButton + .dropdownMenu {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+

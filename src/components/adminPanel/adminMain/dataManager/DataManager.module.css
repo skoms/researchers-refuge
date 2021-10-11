@@ -1,0 +1,108 @@
+.container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: .75rem;
+  box-shadow: black 0 2px 12px -3px;
+  left: 10vw;
+  right: 10vw;
+  top: 5rem;
+  bottom: 0;
+  min-width: 40vw;
+  max-width: 96vw;
+  background: rgba(255, 255, 255, 0.699);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  margin: 0 0 3rem 0;
+  overflow-y: scroll;
+  z-index: 10;
+}
+
+:global(.darkmode) .container {
+  box-shadow: var(--base-blue) 0 2px 12px -3px;
+  background: rgba(44, 44, 44, 0.699);
+}
+
+.table {
+  composes: table from '../managementTable/ManagementTable.module.css';
+}
+
+.tableHead {
+  composes: tableHead from '../managementTable/ManagementTable.module.css';
+}
+
+.tableData {
+  composes: tableData from '../managementTable/ManagementTable.module.css';
+}
+
+.tableData,
+.tableHead {
+  opacity: .75;
+  line-height: 1rem;
+  max-width: 50rem;
+  border: var(--base-background) 1px solid;
+}
+
+.form {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
+:global(.form-input) .input {
+  min-width: 15rem;
+}
+
+:global(.darkmode) :global(.form-input) .label {
+  color: var(--base-component-white);
+}
+
+:global(.form-input) .input,
+:global(.form-input) .textarea {
+  color: var(--base-blue);
+} 
+
+.create {
+  background: var(--base-component-white);
+  padding: 2rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.editDataForm {
+  composes: form;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.editDataForm :global(.form-input) {
+  max-width: 20rem;
+  margin: .1rem .5rem;
+}
+
+.buttonPrimary {
+  margin: 1rem .5rem;
+  background: linear-gradient(var(--base-scroll-blue), var(--base-blue));
+  color: white;
+  border-radius: .75rem;
+  padding: .3rem .6rem;
+  width: unset;
+  height: unset;
+}
+
+.buttonSecondary {
+  color: var(--dark-component-grey);
+  margin: 1rem .5rem;
+  background: linear-gradient(var(--dark-fade-grey), var(--base-fade-grey));
+  color: white;
+  border-radius: .75rem;
+  padding: .2rem .4rem;
+  width: unset;
+  height: unset;
+  animation: none;
+}

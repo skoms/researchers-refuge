@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from './Statistics.module.css';
 import { useSelector, useDispatch } from "react-redux"
 import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlice";
 import { getStatsAdmin, selectStats } from "../../adminPanelSlice"
@@ -17,11 +18,11 @@ const Statistics = () => {
   }, [didLoad, dispatch, user]);
 
   return (
-    <div className="statistics-div">
-      <h2 className='title'>Statistics</h2>
-      <div className="table-div total">
-        <h4>Total</h4>
-        <table className='statistics-table'>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Statistics</h2>
+      <div className={`${styles.tableContainer} ${styles.total}`}>
+        <h4 className={styles.tableTitle}>Total</h4>
+        <table className={styles.table}>
             <tbody>
             <tr>
               <th>Users</th>
@@ -38,9 +39,9 @@ const Statistics = () => {
           </tbody>
         </table>
       </div>
-      <div className="table-div new">
-        <h4>New (last 30 days)</h4>
-        <table className='statistics-table'>
+      <div className={`${styles.tableContainer} ${styles.new}`}>
+        <h4 className={styles.tableTitle}>New (last 30 days)</h4>
+        <table className={styles.table}>
             <tbody>
             <tr>
               <th>Users</th>
@@ -57,9 +58,9 @@ const Statistics = () => {
           </tbody>
         </table>
       </div>
-      <div className="table-div reports">
-        <h4>Reports</h4>
-        <table className='statistics-table'>
+      <div className={`${styles.tableContainer} ${styles.reports}`}>
+        <h4 className={styles.tableTitle}>Reports</h4>
+        <table className={styles.table}>
             <tbody>
             <tr>
               <th>Open</th>

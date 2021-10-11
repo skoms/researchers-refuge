@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './AdminPanel.module.css';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
@@ -30,9 +31,9 @@ const AdminPanel = () => {
   }, [didLoad, user, history]);
 
   return (
-    <div className='admin-panel-div'>
+    <div className={styles.container}>
       <AdminSidebar select={select} />
-      <div className="panel-main">
+      <div className={styles.mainPanel}>
         { selection === 'Statistics' && <Statistics />}
         { selection === 'User Management' && <UserManagement />}
         { selection === 'Article Management' && <ArticleManagement />}

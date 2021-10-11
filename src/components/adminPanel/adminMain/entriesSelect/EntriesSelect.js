@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { updateEntriesLimit } from '../../adminPanelSlice';
 import { toFirstPage } from "../../../paginationBar/paginationBarSlice";
+import styles from './EntriesSelect.module.css';
 
 const EntriesSelect = () => {
   const dispatch = useDispatch();
@@ -11,9 +12,9 @@ const EntriesSelect = () => {
   }
 
   return (
-    <div className="show-entries">
+    <div className={styles.container}>
       Show 
-      <select name="entries" id="entries-select" onChange={limitChangeHandler}>
+      <select className={styles.select} name="entries" id="entries-select" onChange={limitChangeHandler}>
         <option value={5}>5</option>
         <option value={10}>10</option>
         <option value={25}>25</option>

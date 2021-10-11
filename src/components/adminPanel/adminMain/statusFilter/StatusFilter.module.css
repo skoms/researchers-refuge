@@ -1,0 +1,38 @@
+.container {
+  grid-area: status-filter;
+  display: flex;
+  justify-self: center;
+}
+
+.button {
+  box-shadow: none;
+  color: var(--base-component-white);
+  padding: .4rem .6rem;
+  opacity: .4;
+}
+
+:global(.darkmode) .button {
+  box-shadow: none;
+}
+
+.openButton {
+  composes: button;
+  border-radius: .25rem 0 0 .25rem;
+  background: var(--base-blue);
+}
+
+.resolvedButton {
+  composes: button;
+  border-radius: 0;
+  background: var(--valid-green);
+}
+
+.rejectedButton {
+  composes: button;
+  border-radius: 0 .25rem .25rem 0;
+  background: var(--error-red);
+}
+
+.button:global(.selected) {
+  opacity: 1;
+}

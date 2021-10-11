@@ -304,19 +304,34 @@ button:hover {
   transition: opacity 0.3s;
 }
 
+button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 .darkmode .tooltip {
   background-color: #555;
   color: #fff;
   box-shadow: 1px 2px 8px -3px var(--dark-shadow-blue);
 }
 
-.management-table .action-buttons .tooltip:hover {
+button.disabled:hover {
+  cursor: not-allowed;
+}
+
+button.disabled:hover .tooltip {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.action-buttons .tooltip:hover {
   visibility: hidden;
   opacity: 0;
 }
 
 /* Admin Panel styling */
-.admin-panel-div {
+
+/* .admin-panel-div {
   margin: 5rem auto 3rem;
   display: grid;
   max-width: 96vw;
@@ -327,18 +342,18 @@ button:hover {
   grid-template-areas: 
     ". sidebar main main main main main .";
   align-items: center;
-}
+} */
 
 /* Grid Area Declerations */
-.panel-sidebar {
+/* .panel-sidebar {
   grid-area: sidebar;
 }
 .panel-main {
   grid-area: main;
-}
+} */
 /* ---------------------- */
 
-.panel-sidebar {
+/* .panel-sidebar {
   padding: .5rem;
   height: 100%;
   background: var(--base-semi-darkblue);
@@ -436,9 +451,9 @@ button:hover {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
-}
+} */
 
-.panel-main {
+/* .panel-main {
   background: var(--base-component-white);
   padding: .5rem;
   border-radius: 0 .75rem .75rem 0;
@@ -456,20 +471,20 @@ button:hover {
 
 .darkmode .panel-main .title {
   color: var(--base-component-white);
-}
+} */
 
 /* Statistics */
-.statistics-div {
+/* .statistics-div {
   display: grid;
   grid-template-columns: .5fr repeat(3, 1fr) .5fr;
   text-align: left;
   grid-template-areas: 
     "title . . . ."
     ". total new reports .";
-}
+} */
 
 /* Grid Area Declarations */
-.statistics-div .title {
+/* .statistics-div .title {
   grid-area: title;
 }
 .statistics-div .total {
@@ -480,9 +495,9 @@ button:hover {
 }
 .statistics-div .reports {
   grid-area: reports;
-}
+} */
 /* ---------------------- */
-.statistics-div .table-div {
+/* .statistics-div .table-div {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -534,10 +549,10 @@ button:hover {
 
 .statistics-table .blank {
   background: var(--base-fade-grey);
-}
+} */
 
 /* Management Table Style*/
-.management-table, .management-table th, .management-table td {
+/* .management-table, .management-table th, .management-table td {
   border: var(--base-background) 1px solid;
   line-height: 1.4rem;
 }
@@ -750,8 +765,13 @@ button:hover {
   opacity: 0;
 }
 
+.management-table .action-buttons .tooltip:hover {
+  visibility: hidden;
+  opacity: 0;
+} */
+
 /* Access Management */
-.access-management-div {
+/* .access-management-div {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-areas: 
@@ -760,10 +780,10 @@ button:hover {
     "table table table table table"
     "count . . pagination pagination";
   gap: .3rem;
-}
+} */
 
 /* Grid Area Declarations */
-.access-management-div .title {
+/* .access-management-div .title {
   grid-area: title;
 }
 .access-management-div .show-entries {
@@ -783,10 +803,10 @@ button:hover {
 }
 .access-management-div .pagination-bar {
   grid-area: pagination;
-}
+} */
 /* ---------------------- */
 
-.access-management-div .title {
+/* .access-management-div .title {
   text-align: left;
 }
 
@@ -869,7 +889,7 @@ button:hover {
 
 .access-management-div .pagination-bar button {
   box-shadow: 0 0 10px -4px var(--base-darkblue);
-}
+} */
 
 .access-management-div .data-manager {
   position: absolute;
@@ -1335,7 +1355,7 @@ button:hover {
 }
 
 /* Pagination Bar */
-.pagination-bar {
+/* .pagination-bar {
   display: grid;
   width: 75%;
   grid-template-columns: repeat(3, 1fr);
@@ -1349,10 +1369,10 @@ button:hover {
 .darkmode .article-cards .pagination-bar .nav-before,
 .darkmode .article-cards .pagination-bar .nav-after {
   background: none;
-}
+} */
 
 /* Grid Area Declarations */
-.pagination-bar .nav-before {
+/* .pagination-bar .nav-before {
   grid-area: nav-before;
 }
 .pagination-bar .page-btn {
@@ -1360,9 +1380,9 @@ button:hover {
 }
 .pagination-bar .nav-after {
   grid-area: nav-after;
-}
+} */
 /* ---------------------- */
-
+/* 
 .pagination-bar .page-btn {
   margin: 0 1rem;
   display: grid;
@@ -1371,10 +1391,10 @@ button:hover {
     "prev-page cur-page next-page";
   justify-content: center;
   gap: .3rem;
-}
+} */
 
 /* Grid Area Declarations */
-.pagination-bar .prev-page {
+/* .pagination-bar .prev-page {
   grid-area: prev-page;
 }
 .pagination-bar .current-page {
@@ -1382,9 +1402,9 @@ button:hover {
 }
 .pagination-bar .next-page {
   grid-area: next-page;
-}
+} */
 /* ---------------------- */
-
+/* 
 .pagination-bar button {
   font-size: 1.1rem;
   margin: 0 .15rem;
@@ -1416,7 +1436,7 @@ button:hover {
 .darkmode .pagination-bar button {
   color: var(--base-blue);
   background: var(--dark-component-grey);
-}
+} */
 
 /* ================ Content Styling (Main Page) ======================= */
 .main-page-content {
@@ -4048,4 +4068,8 @@ button:hover {
 
 .invisible {
   display: none;
+}
+
+.selected {
+  opacity: 1;
 }

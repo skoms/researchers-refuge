@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from '../Management.module.css';
 import { useSelector, useDispatch } from "react-redux";
 import PaginationBar from "../../../paginationBar/PaginationBar";
 import { selectPage } from "../../../paginationBar/paginationBarSlice";
@@ -31,8 +32,8 @@ const ReportCenter = () => {
 
 
   return (
-    <div className="access-management-div">
-      <h2 className='title'>Topic Management</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Topic Management</h2>
       <EntriesSelect />
       <TableSearch />
       <StatusFilter setStatusFilter={setStatusFilter} />
@@ -40,7 +41,7 @@ const ReportCenter = () => {
         statusFilter={statusFilter}
         data={reports}
       />
-      <p className='entries-count'>{`Showing ${reports.rangeStart} to ${reports.rangeEnd} of ${reports.total} entries`}</p>
+      <p className={styles.entriesCount}>{`Showing ${reports.rangeStart} to ${reports.rangeEnd} of ${reports.total} entries`}</p>
       <PaginationBar use='admin' />
     </div>
   )

@@ -1,0 +1,13 @@
+.container {
+  grid-area: limit;
+  text-align: left;
+}
+
+.select {
+  margin: 0 .3rem;
+}
+
+:global(.darkmode) .container,
+:global(.darkmode) .select {
+  color: var(--base-blue);
+}

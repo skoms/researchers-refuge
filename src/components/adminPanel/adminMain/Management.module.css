@@ -1,0 +1,24 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 
+    "title title . . ."
+    "limit status-filter status-filter search search"
+    "table table table table table"
+    "count . . pagination pagination";
+  gap: .3rem;
+}
+
+.title {
+  grid-area: title;
+  text-align: left;
+}
+
+.entriesCount {
+  grid-area: count;
+  justify-self: left;
+}
+
+:global(.darkmode) .entriesCount {
+  color: var(--base-blue);
+}

@@ -1,0 +1,93 @@
+.container {
+  grid-area: pagination;
+  display: grid;
+  width: 75%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: 
+    "navBefore pageButtons navAfter";
+  justify-content: center;
+  align-self: center;
+}
+
+:global(.darkmode) .container,
+:global(.darkmode) .pageButtons,
+:global(.darkmode) .navBefore,
+:global(.darkmode) .navAfter {
+  background: none;
+}
+
+/* Grid Area Declarations */
+.navBefore {
+  grid-area: navBefore;
+}
+.pageButtons {
+  grid-area: pageButtons;
+}
+.navAfter {
+  grid-area: navAfter;
+}
+/* ---------------------- */
+
+.pageButtons {
+  margin: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-areas: 
+  "prevPage curPage nextPage";
+  justify-content: center;
+  gap: .3rem;
+}
+
+.button {
+  font-size: 1.1rem;
+  margin: 0 .15rem;
+  border-radius: .25rem;
+}
+
+.prevPage {
+  composes: button;
+  grid-area: prevPage;
+}
+
+.currentPage {
+  composes: button;
+  grid-area: curPage;
+  opacity: 1;
+  color: var(--base-component-white);
+  background: var(--base-blue);
+  border: var(--dark-semi-darkblue) solid 1px;
+}
+
+.nextPage {
+  composes: button;
+  grid-area: nextPage;
+}
+
+.prevPage,
+.nextPage {
+  opacity: .7;
+}
+
+:global(.darkmode) .prevPage,
+:global(.darkmode) .nextPage {
+  opacity: .7;
+  background: var(--dark-component-grey);
+}
+
+:global(.darkmode) .currentPage {
+  background: none;
+}
+
+:global(.darkmode) .button {
+  color: var(--base-blue);
+  background: var(--dark-component-grey);
+}
+
+.container:global(.admin) {
+  justify-self: right;
+  width: 22rem;
+}
+
+.container:global(.admin) .button {
+  box-shadow: 0 0 10px -4px var(--base-darkblue);
+}
