@@ -1,0 +1,125 @@
+.container {
+  background-color: var(--base-component-white);
+  margin: 0 .1rem .5rem .1rem;
+  border: none;
+  border-radius: .75rem;
+  padding: .3rem 0;
+  width: 99%;
+  display: grid;
+  grid-template-columns: repeat(8, 2fr);
+  grid-template-areas: 
+    "credits head head head head head head head"
+    "credits title title title title title title title"
+    "credits intro intro intro intro intro intro intro";
+}
+
+.relatedContainer {
+  background-color: var(--base-component-white);
+  border: none;
+  border-radius: .75rem;
+  padding: .3rem 0;
+  box-shadow: black -.05rem .05rem .2rem;
+  width: 90%;
+  margin: .2rem .3rem;
+  display: grid;
+  grid-template-columns: repeat(8, 2fr);
+  grid-template-areas: 
+    "head head head head head head head head"
+    "title title title title title title title title"
+    "intro intro intro intro intro intro intro intro";
+}
+
+:global(.darkmode) .relatedContainer {
+  box-shadow: var(--base-blue) -.04rem .04rem .2rem;
+}
+.intro {
+  grid-area: intro;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.credits {
+  grid-area: credits;
+  background: white;
+  padding: .2rem 0;
+  margin: 0 0 0 .2rem;
+  width: 100%;
+  border-radius: .75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 1;
+}
+
+.credits button {
+  margin: .3rem 0;
+}
+
+:global(.darkmode) .credits, 
+:global(.darkmode) .credits * {
+  background: var(--dark-component-grey);
+}
+
+.credits span {
+  color: var(--base-blue);
+  background: white;
+  border-radius: .75;
+}
+
+.credits img {
+  margin-bottom: -.15rem;
+}
+
+.headline {
+  grid-area: head;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+}
+
+.title {
+  grid-area: title;
+  margin-bottom: .1rem;
+  color: var(--base-darkblue);
+}
+
+:global(.darkmode) .title h2 {
+  color: var(--base-blue);
+}
+
+.container button {
+  box-shadow: none;
+  background: none;
+  opacity: 1;
+}
+
+.container span {
+  color: var(--base-fade-grey);
+  text-align: center;
+}
+
+.container p {
+  color: var(--base-darkblue);
+  text-align: left;
+  margin: .5rem 1rem;
+}
+
+.container:hover {
+  transform: scale(1.02);
+  box-shadow: var(--base-shadow-blue) 0 2px 3px;
+  transition-duration: 0.2s;
+}
+
+:global(.darkmode) .container {
+  background: var(--dark-component-darkgrey);
+}
+
+:global(.darkmode) .container p {
+  color: var(--base-component-white);
+}
+
+:global(.darkmode) .container button {
+  box-shadow: none;
+}

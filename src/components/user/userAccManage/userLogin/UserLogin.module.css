@@ -1,0 +1,110 @@
+.container {
+  margin: 7rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". . . . . form form form form . . . . .";
+  gap: .5rem;
+  justify-items: center;
+}
+
+.loginForm {
+  grid-area: form;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas: 
+    ". title title title title ."
+    ". errors errors errors errors ."
+    ". email email email email ."
+    ". pass pass pass pass ."
+    ". btn btn btn btn ."
+    ". signup-p signup-p signup-p signup-p .";
+  gap: .5rem;
+  justify-items: center;
+  background: linear-gradient(-45deg, #cfd0ff, #a6d7ff, #cce4ff, #a6f9ff );
+  background-size: 400% 400%;
+  box-shadow: 0 2px 12px -3px var(--dark-darkgrey);
+  padding: 1rem;
+  border-radius: .75rem;
+  align-items: center;
+  text-align: center;
+}
+
+:global(.darkmode) .loginForm {
+  background: linear-gradient(-45deg, #2b2b55, var(--dark-component-darkgrey), #23364d, #19393b );
+  background-size: 400% 400%;
+  animation: moving-gradient 15s ease infinite;
+}
+
+.loginForm :global,
+:global(.darkmode) .loginForm :global {
+  animation: moving-gradient 15s ease infinite;
+}
+
+.errors {
+  grid-area: errors;
+}
+
+.email {
+  grid-area: email;
+}
+
+.pass {
+  grid-area: pass;
+}
+
+.formButtons {
+  grid-area: btn;
+}
+
+.p {
+  grid-area: signup-p;
+}
+/*---------------------------*/
+
+.h1 {
+  grid-area: title;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.loginForm label {
+  margin-bottom: .2rem;
+}
+
+.loginForm input {
+  border: none;
+  border-radius: .25rem;
+  background: var(--base-component-white)7e;
+  box-shadow: 0 2px 8px -3px var(--base-darkblue);
+  height: 2rem;
+}
+
+:global(.darkmode) .loginForm input {
+  background: var(--dark-component-darkgrey)93;
+  box-shadow: 0 2px 8px -3px var(--base-blue);
+}
+
+.loginForm :global(.form-input) {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+
+.loginForm .p {
+  text-align: center;
+}
+

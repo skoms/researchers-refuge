@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: info;
+  background-color: var(--base-component-white);
+  border-radius: .75rem;
+  padding: .5rem 0;
+  width: 15rem;
+  height: fit-content;
+}
+
+:global(.darkmode) .container {
+  background: var(--dark-component-darkgrey);
+}
+
+:global(.darkmode) .container * {
+  background: none;
+}
+
+.container img {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  padding: 0;
+  margin: 0 0 .3rem 0;
+}
+
+.placeholder {
+  background: var(--base-darkblue);
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  padding: 5px;
+  margin: 0 0 .3rem 0;
+}
+
+:global(.darkmode) .placeholder {
+  background: none;
+}
+
+.fullName {
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+}
+
+.fullName img {
+  height: 1rem;
+  width: 1rem;
+  margin: 0;
+}
+
+:global(.darkmode) .fullName {
+  color: var(--base-blue);
+}
+
+.occupation {
+  color: var(--base-fade-grey);
+}
+
+.bio {
+  margin: .5rem .5rem;
+}
+
+.container table {
+  margin: .5rem 0;
+  border-collapse: separate;
+  border-spacing: .3rem;
+  width: 80%;
+}
+
+.container table th {
+  text-align: left;
+}
+
+.container table td {
+  text-align: center;
+}

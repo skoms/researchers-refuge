@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './ResultRecUser.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
@@ -7,6 +8,7 @@ import {
   followUser,
 } from '../user/userAccManage/userAccSlice';
 import { useLocation } from 'react-router-dom';
+import TypedButton from '../typedButton/TypedButton';
 
 const ResultRecUser = ({ user }) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -41,13 +43,21 @@ const ResultRecUser = ({ user }) => {
   }
 
   return (
-    <div key={user.id} className="rec-user">
-      <a href={`/users/${user.id}`} className="profile-pic" ><img src={user.profileImgURL} alt="profile-pic" /></a>
-      <a href={`/users/${user.id}`} className="full-name"><p>{`${user.firstName} ${user.lastName}`}</p></a>
-      <p className="occupation">{user.occupation}</p>
-      <div className="buttons">
-        <button className='button-primary' onClick={followUnfollow}>{isFollowedByMe ? 'Unfollow' : 'Follow'}</button>
-        <button className='button-secondary' onClick={view}>View</button>
+    <div key={user.id} className={styles.container}>
+      <a href={`/users/${user.id}`} className={styles.profilePic}><img src={user.profileImgURL} alt="profile-pic" /></a>
+      <a href={`/users/${user.id}`} className={styles.fullName}><p>{`${user.firstName} ${user.lastName}`}</p></a>
+      <p className={styles.occupation}>{user.occupation}</p>
+      <div className={styles.buttons}>
+        <TypedButton 
+          buttontype='primary' 
+          content={isFollowedByMe ? 'Unfollow' : 'Follow'} 
+          onClick={followUnfollow}
+        />
+        <TypedButton 
+          buttontype='secondary'
+          content='View'
+          onClick={view}
+        />
       </div>
     </div>
   )

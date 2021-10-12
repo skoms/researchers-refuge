@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import styles from './ArticleDetails.module.css';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -12,6 +13,7 @@ import { selectAuthenticatedUser } from "../../user/userAccManage/userAccSlice";
 import { deleteArticle } from '../manageArticle/manageArticleSlice';
 import { selectIsMobile } from '../../../app/screenWidthSlice';
 import ConfirmationPopup from '../../confirmationPopup.js/ConfirmationPopup';
+import TypedButton from '../../typedButton/TypedButton';
 
 const ArticleDetails = () => {
   const darkModeOn = useSelector(selectDarkModeOn);
@@ -70,7 +72,7 @@ const ArticleDetails = () => {
   }
 
   return (
-    <div className="content-article-details">
+    <div className={styles.container}>
 
       <ConfirmationPopup 
         action='delete'
@@ -80,70 +82,59 @@ const ArticleDetails = () => {
       />
       
       { didLoad && author && article ? (
-        <div className="article-div"> 
+        <div className={styles.articleContainer}> 
         
           { authenticatedUser && (authenticatedUser.id === author.id || authenticatedUser.accessLevel === 'admin') ? 
-            <div className="owner-buttons">
+            <div className={styles.ownerButtons}>
               <a href={`/update-article/${id}`}>
-                <button className='button-primary'>Edit Article</button>
+                <TypedButton buttontype='primary' content='Edit Article' />
               </a>
-              <button className='button-primary' onClick={togglePopUp}>Delete Article</button>
+              <TypedButton 
+                buttontype='primary' 
+                content='Delete Article' 
+                onClick={togglePopUp} 
+              />
             </div>
           :
             <Fragment />
           }
           
-          <h1>{ article.title }</h1> 
-          <div className="article-header">
+          <h1 className={styles.title}>{ article.title }</h1> 
+          <div className={styles.header}>
             <a href={`/users/${author.id}`}>{ `${author.firstName} ${author.lastName}` }</a>
             <p>{ article.published }</p>
           </div>
-          <ReactMarkdown className="article-intro">{ article.intro }</ReactMarkdown>
-          <ReactMarkdown className="article-body">{ article.body }</ReactMarkdown> 
+          <ReactMarkdown className={styles.intro}>{ article.intro }</ReactMarkdown>
+          <ReactMarkdown className={styles.articleBody}>{ article.body }</ReactMarkdown> 
           
-          <div className="nav-buttons">
+          <div className={styles.navButtons}>
             { parseInt(id, 10) !== 1 
             ?
               <a className="prev" href={`/articles/${parseInt(id, 10) - 1}`}>
-                { darkModeOn 
-                ?
-                  <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-left.png" alt="previous button"/>
-                :
-                  <img src="https://img.icons8.com/ios/50/000000/circled-chevron-left.png" alt="previous button"/>
-                }
+                <img src={`https://img.icons8.com/ios/50/${ darkModeOn ? '38B6FF' : '000000'}/circled-chevron-left.png`} alt="previous button"/>
               </a>
             :
               <a href="/"> </a>
             }
             
             <a className="home" href='/'>
-              { darkModeOn 
-                ?
-                  <img src="https://img.icons8.com/ios/64/38B6FF/home-page.png" alt="home button"/>
-                :
-                  <img src="https://img.icons8.com/ios/64/000000/home-page.png" alt="home button"/>
-              }
+              <img src={`https://img.icons8.com/ios/64/${ darkModeOn ? '38B6FF' : '000000'}/home-page.png`} alt="home button"/>
             </a>
 
             <a className="next" href={`/articles/${parseInt(id, 10) + 1}`}>
-              { darkModeOn 
-                ?
-                  <img src="https://img.icons8.com/ios/50/38B6FF/circled-chevron-right.png" alt="next button"/>
-                :
-                  <img src="https://img.icons8.com/ios/50/000000/circled-chevron-right.png" alt="next button"/>
-              }
+              <img src={`https://img.icons8.com/ios/50/${ darkModeOn ? '38B6FF' : '000000'}/circled-chevron-right.png`} alt="next button"/>
             </a>
 
           </div>
       </div>
       ) : (
-        <div className="article-div"> 
+        <div className={styles.articleContainer}> 
           <Loading />
         </div>
       )}
 
       { !isMobile &&
-        <div className="article-details-sidebar">
+        <div className={styles.sidebar}>
           { didLoad && author ? <InfoModule user={author} /> : <Loading /> }
           { didLoad && article ? <RelatedArticles article={article} /> : <Loading /> }
         </div>

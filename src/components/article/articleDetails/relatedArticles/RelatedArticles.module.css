@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  margin: 1rem -.7rem 0 0;
+  height: 25vh;
+  width: 14rem;
+  font-size: .8rem;
+  padding: .3rem;
+  background: var(--base-component-white);
+  border: var(--base-component-white) .2rem solid;
+  border-radius: .75rem;
+}
+
+:global(.darkmode) .container {
+  background: var(--dark-component-darkgrey);
+  border: var(--dark-component-darkgrey) .2rem solid;
+}
+
+:global(.darkmode) .container * {
+  background: none;
+}
+
+.container::-webkit-scrollbar {
+  width: 0;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.container h2 {
+  margin-top: 0;
+  font-size: .9rem;
+}
+
+:global(.darkmode) .container h2 {
+  color: var(--base-blue);
+}

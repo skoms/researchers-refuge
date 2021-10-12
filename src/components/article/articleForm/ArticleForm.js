@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './ArticleForm.module.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -13,6 +14,7 @@ import {
 } from '../manageArticle/manageArticleSlice'
 import { selectAuthenticatedUser } from '../../user/userAccManage/userAccSlice'
 import { selectTopic, updateTopic } from '../../feed/feedSlice'
+import TypedButton from '../../typedButton/TypedButton'
 
 const ArticleForm = props => {
   const dispatch = useDispatch();
@@ -113,38 +115,46 @@ const ArticleForm = props => {
   }
 
   return didLoad && (
-    <div className='create-update-article-div'>
-      <form className="create-update-article-form" onSubmit={submit}>
-        <h1 className='h1'>{ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE</h1>
-        <div className='form-input title' id='title-input-div'>
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={submit}>
+        <h1 className={styles.h1}>{ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE</h1>
+        <div className={`form-input ${styles.title}`} id='title-input-div'>
           <input id="title" name="title" type="text" value={ article.title || '' } onChange={onChangeHandler}/>
           <label htmlFor="title">Title</label>
         </div>
-        <div className='form-input intro' id='intro-input-div'>
+        <div className={`form-input ${styles.intro}`} id='intro-input-div'>
           <input id="intro" name="intro" type="text" value={ article.intro || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
           <label htmlFor="intro">Intro</label>
         </div>
-        <div className='form-input body' id='body-input-div'>
+        <div className={`form-input ${styles.body}`} id='body-input-div'>
           <textarea id="body" name="body"  rows='20' cols='60' value={ article.body || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
           <label htmlFor="body">Body</label>
           <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Markdown Cheat Sheet</a>
         </div>
-        <div className='form-input date' id='published-input-div'>
+        <div className={`form-input ${styles.date}`} id='published-input-div'>
           <input id="published" name="date" type="date" value={ article.published || '' } onChange={onChangeHandler}/>
           <label htmlFor="published">Published: </label>
         </div>
-        <div className="form-input topic" id='topic-input-div'>
+        <div className={`form-input ${styles.topic}`} id='topic-input-div'>
           <TopicSelect use='ArticleForm' />
           <label htmlFor="topic">Topic: </label>
         </div>
-        <div className='form-input tags' id='tags-input-div'>
+        <div className={`form-input ${styles.tags}`} id='tags-input-div'>
           <input id="tags" name="tags" type="text" value={ article.tags || '' } onChange={onChangeHandler} placeholder="One or more separated by ','"/>
           <label htmlFor="tags">Tags:</label>
         </div>
         
-        <div className='form-buttons'>
-          <button className="button-primary" type="submit">{ props.isUpdate ? 'Update' : 'Create' }</button>
-          <button className="button-secondary" onClick={cancel}>Cancel</button>
+        <div className={styles.formButtons}>
+          <TypedButton 
+            buttontype='primary' 
+            type='submit' 
+            content={ props.isUpdate ? 'Update' : 'Create' } 
+          />
+          <TypedButton 
+            buttontype='secondary'
+            onClick={cancel}
+            content='Cancel'
+          />
         </div>
       </form>
     </div>

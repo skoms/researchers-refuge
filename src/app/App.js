@@ -8,8 +8,7 @@ import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import MainPage from '../components/mainPage/MainPage';
 import ArticleDetails from '../components/article/articleDetails/ArticleDetails';
-import CreateArticle from '../components/article/manageArticle/CreateArticle';
-import UpdateArticle from '../components/article/manageArticle/UpdateArticle';
+import ManageArticle from '../components/article/manageArticle/ManageArticle';
 import UserRegistration from '../components/user/userAccManage/userRegistration/UserRegistration';
 import UserLogin from '../components/user/userAccManage/userLogin/UserLogin';
 import UserProfile from '../components/user/userProfile/userProfile/UserProfile';
@@ -35,8 +34,8 @@ function App() {
             <Route exact path='/users/:id' component={UserProfile} />
             <PrivateRoute exact path='/my-profile' component={MyProfile} />
             <Route exact path='/articles/:id' component={ArticleDetails} />
-            <PrivateRoute exact path='/write-article' component={CreateArticle} />
-            <PrivateRoute exact path='/update-article/:id' component={UpdateArticle} />
+            <PrivateRoute exact path='/write-article' component={ManageArticle} />
+            <PrivateRoute exact path='/update-article/:id' component={ManageArticle} />
             <Route exact path='/search/:term' component={SearchResultsPage} />
             <Route exact path='/forbidden' component={Forbidden} />
             <Route exact path='/error' component={UnhandledError} />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './RelatedArticles.module.css';
 import ArticleCard from '../../articleCards/articleCard/ArticleCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRelatedArticles, selectRelatedArticles } from './relatedArticlesSlice';
@@ -22,7 +23,7 @@ const RelatedArticles = ({ article }) => {
     }
   }, [didLoad, dispatch, article])
   return didLoad && relatedArticles && relatedArticles.length > 0 ? (
-    <div className='related-articles'>
+    <div className={styles.container}>
       <h2>Related Articles</h2>
       {
         relatedArticles.map(card => 

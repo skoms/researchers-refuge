@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import styles from './ImageUploader.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Data from '../../Data';
+import TypedButton from '../typedButton/TypedButton';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 import { updateAccount } from '../user/userAccManage/userAccSlice';
 const crypto = require('crypto');
@@ -65,11 +67,16 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
     }
   }
   return (
-    <div className="upload-popup" onClick={ purpose === 'header' ? toggleHeaderUploader : toggleProfileUploader }>
-      <div className='image-uploader-div'>
-        <h2>{ purpose === 'header' ? 'Header Image' : 'Profile Image' }</h2>
+    <div className={styles.container} data-value='upload-popup' onClick={ purpose === 'header' ? toggleHeaderUploader : toggleProfileUploader }>
+      <div className={styles.uploader}>
+        <h2 className={styles.title}>{ purpose === 'header' ? 'Header Image' : 'Profile Image' }</h2>
         <input type="file" name="file-input" id="file-input" multiple={false} onChange={onImageSelected}/>
-        <button className='button-primary' onClick={uploadImage}>Upload</button>
+        <TypedButton 
+          buttontype='primary'
+          className={styles.button}
+          onClick={uploadImage}
+          content='Upload'
+        />
       </div>
     </div>
   )

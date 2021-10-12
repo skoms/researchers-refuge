@@ -1,0 +1,180 @@
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". . . . form form form form form form . . . .";
+  gap: .5rem;
+  justify-items: center;
+}
+
+.registrationForm {
+  grid-area: form;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas: 
+    ". title title title title ."
+    ". errors errors errors errors ."
+    ". first first last last ."
+    ". email email email email ."
+    ". pass pass confirm-pass confirm-pass ."
+    ". btn btn btn btn ."
+    ". login-p login-p login-p login-p .";
+  gap: .5rem;
+  justify-items: center;
+  background: linear-gradient(-45deg, #cfd0ff, #a6d7ff, #cce4ff, #a6f9ff );
+  background-size: 400% 400%;
+  box-shadow: 0 2px 12px -3px var(--dark-darkgrey);
+  padding: 1rem;
+  border-radius: .75rem;
+  align-items: center;
+  text-align: center;
+}
+
+:global(.darkmode) .registrationForm {
+  background: linear-gradient(-45deg, #2b2b55, var(--dark-component-darkgrey), #23364d, #19393b );
+  background-size: 400% 400%;
+}
+
+.registrationForm :global,
+:global(.darkmode) .registrationForm :global {
+  animation: moving-gradient 15s ease infinite;
+}
+
+.errors {
+  grid-area: errors;
+}
+
+.firstName {
+  grid-area: first;
+}
+
+.lastName {
+  grid-area: last;
+}
+
+.email {
+  grid-area: email;
+}
+
+.pass {
+  grid-area: pass;
+}
+
+.confirmPass {
+  grid-area: confirm-pass;
+}
+
+.formButtons {
+  grid-area: btn;
+}
+
+.p {
+  grid-area: login-p;
+}
+
+.h1 {
+  grid-area: title;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.registrationForm label {
+  margin-bottom: .2rem;
+}
+
+.registrationForm input {
+  border: none;
+  border-radius: .25rem;
+  background: var(--base-component-white)7e;
+  box-shadow: 0 2px 8px -3px var(--base-darkblue);
+  height: 2rem;
+}
+
+:global(.darkmode) .registrationForm input {
+  background: var(--dark-component-darkgrey)93;
+  box-shadow: 0 2px 8px -3px var(--base-blue);
+}
+
+.registrationForm .form-input {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+
+:global(.mismatch) input {
+  background: var(--error-background);
+}
+
+:global(.mismatch) label {
+  color: var(--error-red);
+  font-weight: 900;
+}
+
+:global(.match) input {
+  background: var(--valid-background);
+}
+
+:global(.match) label {
+  color: var(--valid-green);
+  font-weight: 900;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+
+.registrationForm :global(.active) {
+  background: linear-gradient(var(--base-scroll-blue), var(--base-blue));
+  color: var(--base-component-white);
+  animation: sign-up-btn 6s 3s infinite ease-in-out;
+}
+
+.registrationForm :global(.disabled) {
+  background: var(--dark-fade-grey);
+  color: var(--base-fade-grey);
+  animation: none;
+}
+
+.registrationForm :global(.disabled):hover {
+  cursor: not-allowed;
+  background: var(--dark-fade-grey);
+  opacity: .85;
+  box-shadow: 0 2px 12px -3px var(--base-darkblue);
+}
+
+:global(.darkmode) .registrationForm :global(.active) {
+  background: linear-gradient(var(--base-darkblue), var(--dark-component-darkgrey));
+  animation: sign-up-btn 6s 3s infinite ease-in-out;
+}
+
+:global(.darkmode) .registrationForm :global(.disabled) {
+  background: var(--dark-light-darkgrey);
+  color: var(--dark-fade-grey);
+  animation: none;
+}
+
+:global(.darkmode) .registrationForm :global(.disabled):hover {
+  cursor: not-allowed;
+  background: var(--dark-light-darkgrey);
+  opacity: .85;
+  box-shadow: 0 2px 12px -3px var(--dark-shadow-blue);
+}
+
+.formButtons button {
+  font-size: 1rem;
+  margin: .5rem .5rem 0 .5rem;
+  padding: .3rem .5rem .4rem;
+}
+
+.registrationForm p {
+  text-align: center;
+}

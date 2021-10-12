@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from '../UserProfileFeed.module.css';
 import { Fragment } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +13,7 @@ import EditProfile from '../editProfile/EditProfile';
 import { getUserArticles } from '../userFeedSlice';
 import { updateTopic } from '../../../feed/feedSlice';
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
+import TypedButton from '../../../typedButton/TypedButton';
 
 const MyProfileFeed = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -53,7 +55,7 @@ const MyProfileFeed = () => {
 
   const toggleHeaderUploader = (e = null) => {
     if ((e !== null 
-      && (e.target.className === 'upload-popup' || e.target.className === 'header-img'))
+      && (e.target.getAttribute('data-value') === 'upload-popup' || e.target.getAttribute('data-value') === 'header-img'))
       || e === null) {
       const headerImgPopup = document.querySelector('.invisibility-container-header');
       if ( headerImgPopup.classList.contains('invisible') ) {
@@ -66,7 +68,7 @@ const MyProfileFeed = () => {
 
   const toggleProfileUploader = (e = null) => {
     if ((e !== null 
-      && (e.target.className === 'upload-popup' || e.target.classList.contains('profile-pic')))
+      && (e.target.getAttribute('data-value') === 'upload-popup' || e.target.getAttribute('data-value') === 'profile-pic'))
       || e === null) {
       const profilePicPopup = document.querySelector('.invisibility-container-profile');
       if ( profilePicPopup.classList.contains('invisible') ) {
@@ -78,7 +80,7 @@ const MyProfileFeed = () => {
   }
 
   return owner !== null ? (
-      <div className="user-profile-div">
+      <div className={styles.container}>
 
         <div className="invisibility-container-edit invisible">
           <EditProfile toggleEdit={toggleEdit} />
@@ -90,62 +92,67 @@ const MyProfileFeed = () => {
           <ImageUploader toggleProfileUploader={toggleProfileUploader} purpose='profile' />
         </div>
 
-        <div className="user-profile-info-header">
-          <div className="header-img-div">
-            <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" }  alt="header"  className="header-img" onClick={toggleHeaderUploader} />
+        <div className={styles.infoHeader}>
+          <div className={styles.headerImgDiv}>
+            <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" }  alt="header"  className={styles.headerImg} data-value='header-img' onClick={toggleHeaderUploader} />
             <img 
               src={ owner.profileImgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
-              alt="profile pic" className={`profile-pic ${owner.profileImgURL ? "" : "placeholder"}`} 
+              alt="profile pic" data-value='profile-pic' className={`${styles.profilePic} ${owner.profileImgURL ? "" : "placeholder"}`} 
               onClick={toggleProfileUploader}
             />
-            <button className='button-primary' onClick={() => toggleEdit()}>Edit Profile</button>
+            <TypedButton 
+              buttontype='primary'
+              className={styles.button}
+              onClick={() => toggleEdit()}
+              content='Edit Profile'
+            />
               
           </div>
-          <div className="name-occupation-and-bio">
-            <span className="full-name">
-              <h2 className="full-name">
+          <div className={styles.nameOccupationAndBio}>
+            <span className={styles.fullName}>
+              <h2 className={styles.fullName}>
                 { `${data.capitalize(owner.firstName)} ${data.capitalize(owner.lastName)}` }
               </h2>
               {owner.accessLevel === 'admin' ? 
                 <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
             </span>
             
-            <p className="occupation">{ data.capitalize(owner.occupation) || '' }</p>
-            <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
+            <p className={styles.occupation}>{ data.capitalize(owner.occupation) || '' }</p>
+            <ReactMarkdown className={styles.bio}>{ owner.bio || '' }</ReactMarkdown>
           </div>
-          <div className="stats">
-            <div className="stat most-active-field">
-              <p className="title">Most active field:</p>
-              <p className="data">{ data.capitalize(owner.mostActiveField) || 'None' }</p>
+          <div className={styles.stats}>
+            <div className={`${styles.stat} most-active-field`}>
+              <p className={styles.title}>Most active field:</p>
+              <p className={styles.data}>{ data.capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
-            <div className="stat articles">
-              <p className="title">Articles:</p>
-              <p className="data">{ owner.articles || 0 }</p>
+            <div className={`${styles.stat} articles`}>
+              <p className={styles.title}>Articles:</p>
+              <p className={styles.data}>{ owner.articles || 0 }</p>
             </div>
-            <div className="stat credits">
-              <p className="title">Credits:</p>
-              <p className="data">{ owner.credits || 0 }</p>
+            <div className={`${styles.stat} credits`}>
+              <p className={styles.title}>Credits:</p>
+              <p className={styles.data}>{ owner.credits || 0 }</p>
             </div>
-            <div className="stat followers">
-              <p className="title">Followers:</p>
-              <p className="data">
+            <div className={`${styles.stat} followers`}>
+              <p className={styles.title}>Followers:</p>
+              <p className={styles.data}>
                 { owner.followers.length || 0 }
               </p>
             </div>
-            <div className="stat following">
-              <p className="title">Following:</p>
-              <p className="data">
+            <div className={`${styles.stat} following`}>
+              <p className={styles.title}>Following:</p>
+              <p className={styles.data}>
                 { owner.following.length || 0 }
               </p>
             </div>
           </div>
         </div>
-        <div className="articles-published">
-          <h2 className="title">Articles Published:</h2>
+        <div className={styles.articlesPublishedContainer}>
+          <h2 className={styles.title}>Articles Published:</h2>
           <ArticleCards type='ownersArticles' />
         </div>
-        <div className="articles-accredited">
-          <h2 className="title">Articles Recently Accredited:</h2>
+        <div className={styles.articlesAccreditedContainer}>
+          <h2 className={styles.title}>Articles Recently Accredited:</h2>
           <ArticleCards type='accreditedArticles' recentlyAccredited={owner.accreditedArticles} />
         </div>
       </div>

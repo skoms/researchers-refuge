@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './Feed.module.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { getFeedArticles, selectFilter, selectTopic } from './feedSlice' 
 import MenuBar from '../menuBar/MenuBar'
@@ -23,7 +24,7 @@ const Feed = () => {
   }, [didLoad, dispatch, filter, topic, authenticatedUser, page]);
 
   return (
-    <div className='feed'>
+    <div className={styles.container}>
       <MenuBar />
       { didLoad ? <ArticleCards type='feed' /> : <Loading /> }
     </div>

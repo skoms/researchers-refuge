@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './RecommendModule.module.css';
 import { useSelector, useDispatch } from 'react-redux'
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 import Data from '../../Data';
@@ -16,7 +17,7 @@ import { Fragment } from 'react';
 const RecommendModule = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectAuthenticatedUser);
-  const [didLoad, setdidLoad] = useState(false);
+  const [didLoad, setDidLoad] = useState(false);
   const data = new Data();
 
   const recommendedTopics = useSelector(selectRecommendedTopics);
@@ -28,22 +29,22 @@ const RecommendModule = () => {
       dispatch(getRecommendedTopics(user));
       dispatch(getRecommendedArticles(user));
       dispatch(getRecommendedUsers(user));
-      setdidLoad(true);
+      setDidLoad(true);
     }
   }, [user, dispatch, didLoad])
 
   return user !== null && didLoad && (
-    <div className='rec-mod'>
+    <div className={styles.container}>
       { recommendedTopics && recommendedTopics.length > 0 ?
-        <table className='table-spacing'>
+        <table className={styles.table}>
             <tbody>
             <tr>
-              <th>Recommended Topics</th>
+              <th className={styles.th}>Recommended Topics</th>
             </tr>
             {
               recommendedTopics.map( topic => 
                 <tr key={topic.id}>
-                  <td onClick={() => dispatch(updateTopic(topic.name))}>
+                  <td className={styles.td} onClick={() => dispatch(updateTopic(topic.name))}>
                     {data.capitalize(topic.name)}
                   </td>
                 </tr>
@@ -54,16 +55,16 @@ const RecommendModule = () => {
       : <Fragment />
       }
       { recommendedArticles && recommendedArticles.length > 0 ?
-        <table className='table-spacing'>
+        <table className={styles.table}>
             <tbody>
             <tr>
-              <th>Recommended Articles</th>
+              <th className={styles.th}>Recommended Articles</th>
             </tr>
             {
               recommendedArticles.map( article => 
                 <tr key={article.id}>
-                  <td>
-                    <a href={`/articles/${article.id}`}>
+                  <td className={styles.td}>
+                    <a className={styles.a} href={`/articles/${article.id}`}>
                       {data.capitalize(article.title)}
                     </a>
                   </td>
@@ -75,16 +76,16 @@ const RecommendModule = () => {
       : <Fragment />
       }
       { recommendedUsers && recommendedUsers.length > 0 ?
-        <table className='table-spacing'>
+        <table className={styles.table}>
             <tbody>
             <tr>
-              <th>Recommended Researchers</th>
+              <th className={styles.th}>Recommended Researchers</th>
             </tr>
             {
               recommendedUsers.map( user => 
                 <tr key={user.id}>
-                  <td>
-                    <a href={`/users/${user.id}`}>
+                  <td className={styles.td}>
+                    <a className={styles.a} href={`/users/${user.id}`}>
                       {data.capitalize(`${user.firstName} ${user.lastName}`)}
                     </a>
                   </td>

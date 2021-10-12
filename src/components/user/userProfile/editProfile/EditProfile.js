@@ -1,11 +1,13 @@
 import Cookies from 'js-cookie';
 import React, { useState } from 'react'
+import styles from './EditProfile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Data from '../../../../Data';
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { selectTopic, updateTopic } from '../../../feed/feedSlice';
 import TopicSelect from '../../../topicSelect/TopicSelect';
+import TypedButton from '../../../typedButton/TypedButton';
 import { selectAuthenticatedUser, updateAccount } from '../../userAccManage/userAccSlice';
 
 const EditProfile = ({ toggleEdit }) => {
@@ -13,7 +15,7 @@ const EditProfile = ({ toggleEdit }) => {
   const data = new Data();
   const history = useHistory();
 
-  const [form, setForm] = useState('My Profile');
+  const [form, setForm] = useState('Profile');
   const darkModeOn = useSelector(selectDarkModeOn);
   const user = useSelector(selectAuthenticatedUser);
   const topic = useSelector(selectTopic);
@@ -131,75 +133,91 @@ const EditProfile = ({ toggleEdit }) => {
     toggleEdit();
   }
   return (
-    <div className="edit-popup" onClick={(e) => toggleEdit(e)}>
-      <div id='edit-profile-div'>
-        <div className="edit-header"> 
+    <div className={styles.container} onClick={(e) => toggleEdit(e)}>
+      <div className={styles.editProfileContainer}>
+        <div className={styles.editHeader}> 
           <h2>Edit</h2>
-          <button className='exit-button' onClick={(e) => {
+          <button className={styles.exitButton} onClick={(e) => {
             dispatch(updateTopic('home'));
             toggleEdit()
           }}>
             <img src={`https://img.icons8.com/ios-filled/16/${ darkModeOn ? 'E8F7FF' : '1A3861'}/x.png`} alt='Exit button'/>
           </button>
         </div>
-        <div className="edit-sidebar">
+        <div className={styles.editSidebar}>
           <button onClick={selectForm}>Profile</button>
           <hr />
           <button onClick={selectForm}>Account</button>
         </div>
-        <div className="edit-main">
-          { form === 'My Profile' &&
-            <form className="edit-user-form" onSubmit={submit}>
-              <h1 className='h1'>Profile</h1>
-              <div className='form-input firstName' id='firstName-input-div'>
+        <div className={styles.editMain}>
+          { form === 'Profile' &&
+            <form className={styles.editUserForm} onSubmit={submit}>
+              <h1 className={styles.h1}>Profile</h1>
+              <div className={`form-input ${styles.firstName}`} id='firstName-input-div'>
                 <input id="firstName" name="firstName" type="text" value={ firstName } onChange={onChangeHandler}/>
                 <label htmlFor="firstName">First Name</label>
               </div>
-              <div className='form-input lastName' id='lastName-input-div'>
+              <div className={`form-input ${styles.lastName}`} id='lastName-input-div'>
                 <input id="lastName" name="lastName" type="text" value={ lastName } onChange={onChangeHandler}/>
                 <label htmlFor="lastName">Last Name</label>
               </div>
-              <div className='form-input occupation' id='occupation-input-div'>
+              <div className={`form-input ${styles.occupation}`} id='occupation-input-div'>
                 <input id="occupation" name="occupation" type="text" value={ occupation } onChange={onChangeHandler}/>
                 <label htmlFor="occupation">Occupation</label>
               </div>
-              <div className="form-input mostActiveField" id='mostActiveField-input-div'>
+              <div className={`form-input ${styles.mostActiveField}`} id='mostActiveField-input-div'>
                 <TopicSelect use='ArticleForm' />
                 <label htmlFor="mostActiveField">Most Active Field: </label>
               </div>
-              <div className='form-input bio' id='bio-input-div'>
+              <div className={`form-input ${styles.bio}`} id='bio-input-div'>
               <textarea id="bio" name="bio"  rows='20' cols='60' value={ bio } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
                 <label htmlFor="bio">Bio</label>
                 <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Cheat Sheet</a>
               </div>
-              <div className='form-buttons'>
-                <button className="button-primary" type="submit">Update</button>
-                <button className="button-secondary" onClick={cancel}>Cancel</button>
+              <div className={styles.formButtons}>
+                <TypedButton 
+                  buttontype='primary'
+                  type='submit'
+                  content='Update'
+                />
+                <TypedButton 
+                  buttontype='secondary'
+                  onClick={cancel} 
+                  content='Cancel'
+                />
               </div>
             </form>
           }
-          { form === 'My Account' &&
-            <form className="edit-user-form" id='edit-account' onSubmit={submit}>
-              <h1 className='h1'>Account</h1>
-              <div className='form-input oldPass' id='oldPass-input-div'>
+          { form === 'Account' &&
+            <form className={styles.editAccountForm} onSubmit={submit}>
+              <h1 className={styles.h1}>Account</h1>
+              <div className={`form-input ${styles.oldPass}`} id='oldPass-input-div'>
                 <input id="oldPass" name="oldPass" type="password" value={ oldPassword } onChange={onChangeHandler}/>
                 <label htmlFor="oldPass">Current Password <span> *Required to update login info</span></label>
               </div>
-              <div className='form-input email' id='email-input-div'>
+              <div className={`form-input ${styles.email}`} id='email-input-div'>
                 <input id="email" name="email" type="text" value={ email } onChange={onChangeHandler}/>
                 <label htmlFor="email">Email</label>
               </div>
-              <div className='form-input pass' id='pass-input-div'>
+              <div className={`form-input ${styles.pass}`} id='pass-input-div'>
                 <input id="pass" name="pass" type="password" value={ newPassword } onChange={onChangeHandler}/>
                 <label htmlFor="pass">New Password</label>
               </div>
-              <div className='form-input confPass' id='confPass-input-div'>
+              <div className={`form-input ${styles.confPass}`} id='confPass-input-div'>
                 <input id="confPass" name="confPass" type="password" value={ confirmPassword } onChange={onChangeHandler}/>
                 <label htmlFor="confPass">Confirm Password</label>
               </div>
-              <div className='form-buttons'>
-                <button className="button-primary" type="submit">Update</button>
-                <button className="button-secondary cancel" onClick={cancel}>Cancel</button>
+              <div className={styles.formButtons}>
+                <TypedButton 
+                  buttontype='primary'
+                  type='submit'
+                  content='Update'
+                />
+                <TypedButton 
+                  buttontype='secondary'
+                  onClick={cancel} 
+                  content='Cancel'
+                />
               </div>
             </form>
           }

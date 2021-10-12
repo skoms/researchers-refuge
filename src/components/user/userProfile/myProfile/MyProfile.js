@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './MyProfile.module.css';
 import { useSelector } from 'react-redux';
 import { selectIsMobile } from '../../../../app/screenWidthSlice';
 import RecPeople from '../../../recPeople/RecPeople'
@@ -8,7 +9,7 @@ import MyProfileFeed from '../myProfileFeed/MyProfileFeed';
 const MyProfile = () => {
   const isMobile = useSelector(selectIsMobile);
   return (
-    <div className='my-profile-page'>
+    <div className={styles.container}>
       <MyProfileFeed />
       { !isMobile && <RecPeople />}
     </div>

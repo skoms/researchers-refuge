@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
-
+import styles from './UserRegistration.module.css';
 import { useDispatch } from 'react-redux';
 import {
   signUp
 } from '../userAccSlice';
 import Data from '../../../../Data';
+import TypedButton from '../../../typedButton/TypedButton';
 
 //TODO - Add onChange to each field to verify input
 //TODO - Add onClick on 'cancel' button to take them back whence they came
@@ -20,6 +21,12 @@ const UserRegistration = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfRef = useRef();
+
   const [passwordsMatch, setPasswordsMatch] = useState();
   const [initiatedFocus, setInitiatedFocus] = useState(false);
   const [errors, setErrors] = useState([  ]);
@@ -32,7 +39,7 @@ const UserRegistration = () => {
 
   const passMatchCheck = (value) => {
     !initiatedFocus && setInitiatedFocus(true);
-    const { classList } =  document.querySelector('.confirm-pass');
+    const { classList } =  passwordConfRef.current;
     if ( password === value ) {
       classList.contains('mismatch') && classList.remove('mismatch');
       !classList.contains('match') && classList.add('match');
@@ -46,10 +53,10 @@ const UserRegistration = () => {
 
   const isReadyToSubmit = (target = null) => {
     const isReady = ( 
-      data.validateField('name', firstName, '.first-name') &&
-      data.validateField('name', lastName, '.last-name') &&
-      data.validateField('email', emailAddress, '.email') &&
-      data.validateField('password', password, '.pass') &&
+      data.validateField('name', firstName, firstNameRef.current) &&
+      data.validateField('name', lastName, lastNameRef.current) &&
+      data.validateField('email', emailAddress, emailRef.current) &&
+      data.validateField('password', password, passwordRef.current) &&
       ( target ? 
         (target.name !== 'confirmPassword' ? passwordsMatch : passMatchCheck(target.value)) 
         : passwordsMatch
@@ -74,19 +81,19 @@ const UserRegistration = () => {
     switch (name) {
       case 'firstName':
         setFirstName(value);
-        data.validateField('name', value, '.first-name');
+        data.validateField('name', value, firstNameRef.current);
         break;
       case 'lastName':
         setLastName(value);
-        data.validateField('name', value, '.last-name');
+        data.validateField('name', value, lastNameRef.current);
         break;
       case 'emailAddress':
         setEmailAddress(value);
-        data.validateField('email', value, '.email');
+        data.validateField('email', value, emailRef.current);
         break;
       case 'password':
         setPassword(value);
-        data.validateField('password', value, '.pass');
+        data.validateField('password', value, passwordRef.current);
         break;
       case 'confirmPassword':
         setPasswordsMatch(passMatchCheck(value));
@@ -134,52 +141,63 @@ const UserRegistration = () => {
   }
 
   return (
-    <div className='user-registration-div'>
-      <form className='user-registration-form' onSubmit={submit}>
-        <h1 className="card_title">REGISTER NEW USER</h1>
-        <div className="errors">
+    <div className={styles.container}>
+      <form className={styles.registrationForm} onSubmit={submit}>
+        <h1 className={styles.h1}>REGISTER NEW USER</h1>
+        <div className={styles.errors}>
           { errors ? listOfErrors : <Fragment /> }
         </div>
 
-        <div className="form-input first-name">
-          <label htmlFor="firstName">
-            First Name { firstName && ( data.validateField('name', firstName, '.first-name') ? smallCheckMark : smallCross ) }
-          </label>
+        <div className={`form-input ${styles.firstName}`} ref={firstNameRef}>
           <input id="firstName" name="firstName" type="text" onChange={change}/>
+          <label htmlFor="firstName">
+            First Name { firstName && ( data.validateField('name', firstName, firstNameRef.current) ? smallCheckMark : smallCross ) }
+          </label>
         </div>
 
-        <div className="form-input last-name">
-          <label htmlFor="lastName">
-            Last Name { lastName && ( data.validateField('name', lastName, '.last-name') ? smallCheckMark : smallCross ) }
-          </label>
+        <div className={`form-input ${styles.lastName}`} ref={lastNameRef}>
           <input id="lastName" name="lastName" type="text" onChange={change}/>
-        </div>
-
-        <div className="form-input email">
-          <label htmlFor="emailAddress">
-            Email { emailAddress && (data.validateField('email', emailAddress, '.email') ? smallCheckMark : smallCross ) }
+          <label htmlFor="lastName">
+            Last Name { lastName && ( data.validateField('name', lastName, lastNameRef.current) ? smallCheckMark : smallCross ) }
           </label>
-          <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
         </div>
 
-        <div className="form-input pass">
-            <label htmlFor="password">
-            Password { password && ( data.validateField('password', password, '.pass') ? smallCheckMark : smallCross ) }
-            </label>
-            <input id="password" name="password" type="password" onChange={change}/>
+        <div className={`form-input ${styles.email}`} ref={emailRef}>
+          <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
+          <label htmlFor="emailAddress">
+            Email { emailAddress && (data.validateField('email', emailAddress, emailRef.current) ? smallCheckMark : smallCross ) }
+          </label>
         </div>
-        <div className="form-input confirm-pass">
+
+        <div className={`form-input ${styles.pass}`} ref={passwordRef}>
+            <input id="password" name="password" type="password" onChange={change}/>
+            <label htmlFor="password">
+            Password { password && ( data.validateField('password', password, passwordRef.current) ? smallCheckMark : smallCross ) }
+            </label>
+        </div>
+        <div className={`form-input ${styles.confirmPass}`} ref={passwordConfRef}>
+          <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
           <label htmlFor="confirmPassword">
             Confirmation { initiatedFocus && ( passwordsMatch ? smallCheckMark : smallCross ) }
           </label>
-          <input id="confirmPassword" name="confirmPassword" type="password" onChange={change}/>
           
         </div>
-        <div className='form-buttons'>
-          <button id="sign-up-btn" className="button-primary disabled" type="submit" onSubmit={submit}>Sign Up</button>
-          <button className="button-secondary" onClick={cancel}>Cancel</button>
+        <div className={styles.formButtons}>
+          <TypedButton 
+            buttontype='primary'
+            id='sign-up-btn'
+            className='disabled'
+            type='submit'
+            onSubmit={submit}
+            content='Sign Up'
+          />
+          <TypedButton 
+            buttontype='secondary'
+            onClick={cancel}
+            content='Cancel'
+          />
         </div>
-        <p>Already have a user account? Click here to <a href="/sign-in">sign in</a>!</p>
+        <p className={styles.p}>Already have a user account? Click here to <a href="/sign-in">sign in</a>!</p>
       </form>
     </div>
   )

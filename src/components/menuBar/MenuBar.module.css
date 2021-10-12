@@ -1,0 +1,52 @@
+.container {
+  background-color: var(--base-scroll-blue);
+  margin: 0 0 .5rem 0;
+  border-radius: .75rem;
+  padding: .4rem .1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+:global(.darkmode) .container {
+  background: var(--dark-component-darkgrey);
+  color: var(--base-blue);
+}
+
+:global(.darkmode) .container * {
+  background: none;
+  color: var(--base-blue);
+}
+
+.button {
+  border-radius: .6rem;
+  color: var(--base-darkblue);
+  background-color: var(--base-component-white);
+  border: none;
+  padding: .2rem .6rem;
+  margin: 0 .3rem;
+}
+
+:global(.darkmode) .button {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+}
+
+.button:global(.selected) {
+  color: var(--base-component-white);
+  background-color: var(--base-darkblue);
+}
+
+:global(.darkmode) .button:global(.selected) {
+  background: var(--base-blue);
+  color: var(--dark-component-grey);
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--lightblue-border);
+}
+
+:global(.darkmode) .button:hover {
+  background: var(--base-darkblue);
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './ArticleCards.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUserArticles } from '../../user/userProfile/userFeedSlice';
 import { selectFeedArticles } from '../../feed/feedSlice';
@@ -75,7 +76,7 @@ const ArticleCards = (props) => {
         />
       )
     : 
-    <div className='no-articles-message'>
+    <div className={styles.noArticlesMessage}>
       <img src={`https://img.icons8.com/ios-glyphs/50/${darkModeOn ? 'FFFFFF': '000000'}/shrug-emoticon.png`} alt='shrug emoticon'/>
       <p>Sorry, but we don't seem to have what you are looking for... </p>
     </div>
@@ -95,7 +96,7 @@ const ArticleCards = (props) => {
 
   if (props.type !== 'accreditedArticles') {
     return (
-      <div className='article-cards'>
+      <div className={styles.container}>
         { didLoad && articles ? 
           articlesOrEmptyMessage(articles) : <Loading /> 
         }
@@ -104,7 +105,7 @@ const ArticleCards = (props) => {
     )
   } else {
     return (
-      <div className='article-cards'>
+      <div className={styles.container}>
         { didLoad && secondaryArticles ?
             articlesOrEmptyMessage(secondaryArticles) : <Loading />
         }

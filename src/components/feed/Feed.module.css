@@ -1,0 +1,4 @@
+.container {
+  grid-area: feed;
+  width: 100%;
+}

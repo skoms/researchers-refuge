@@ -71,7 +71,8 @@ export default class Data {
     return `${match[3]}-${match[2]}-${match[1]}`;
   }
 
-  validateField = (type, data, targetQuery = null) => {
+  validateField = (type, data, target) => {
+    console.log(target.classList);
     let regex;
     if (type === 'name' || type === 'occupation') {
       regex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/;
@@ -82,10 +83,10 @@ export default class Data {
     }
 
     const isValid = regex.test(data);
-    if (targetQuery === null) {
+    if (target === null) {
       return isValid;
     } else {
-      const { classList } = document.querySelector(targetQuery);
+      const { classList } = target;
       if ( isValid ) {
         classList.contains('mismatch') && classList.remove('mismatch');
         !classList.contains('match') && classList.add('match');

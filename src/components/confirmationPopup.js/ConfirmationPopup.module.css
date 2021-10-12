@@ -28,24 +28,10 @@
 }
 
 .confirmationButtons button {
-  margin: .5rem;
+  margin: 1rem .5rem 0;
   font-size: 1.1rem;
-  padding: .4rem .6rem;
+  padding: .2rem .6rem;
   border-radius: .75rem;
-}
-
-:global(.button-primary) .button {
-  background: linear-gradient( var(--base-blue), var(--base-semi-darkblue) );
-  width: 5rem;
-  margin: .8rem .3rem;
-  font-size: 1.2rem;
-}
-
-:global(.button-secondary) .button {
-  background: linear-gradient( var(--base-component-white), var(--base-fade-grey) );
-  width: 3rem;
-  margin: .8rem .3rem;
-  font-size: 1rem;
 }
 
 :global(.darkmode) .popUp {
@@ -56,8 +42,4 @@
 :global(.darkmode) .p {
   background: var(--dark-component-darkgrey);
   color: var(--base-blue);
-}
-
-:global(.darkmode) :global(.button-secondary) .button {
-  color: var(--base-darkblue);
 }

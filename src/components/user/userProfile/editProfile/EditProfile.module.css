@@ -1,0 +1,333 @@
+.container {
+  position: fixed;
+  display: flex;
+  left: 0;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
+.editProfileContainer {
+  position: relative;
+  width: 40vw;
+  min-width: 40rem;
+  min-height: 25rem;
+  max-height: 60vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) .5fr;
+  grid-template-rows: .5fr repeat(3, 1fr);
+  grid-template-areas: 
+    "edit-header main main main main"
+    "sidebar main main main main"
+    "sidebar main main main main"
+    "sidebar main main main main";
+  gap: 1rem;
+  background: linear-gradient(-45deg, #cfd0ff, #a6d7ff, #cce4ff, #a6f9ff );
+  background-size: 400% 400%;
+  box-shadow: 0 2px 12px -3px var(--dark-darkgrey);
+  padding: 1rem;
+  border-radius: .75rem;
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+  z-index: 10;  
+}
+
+.editProfileContainer :global {
+  animation: moving-gradient 15s ease infinite;
+}
+
+:global(.darkmode) .editProfileContainer {
+  background: linear-gradient(-45deg, #2b2b55, var(--dark-component-darkgrey), #23364d, #19393b );
+  background-size: 400% 400%;
+}
+
+:global(.darkmode) .editProfileContainer :global {
+  animation: moving-gradient 15s ease infinite;
+}
+
+.editHeader {
+  grid-area: edit-header;
+  margin: 0;
+  display: flex;
+  padding: .5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.editHeader h2 {
+  margin: 0;
+}
+
+.editHeader .exitButton {
+  position: absolute;
+  top: 1.5rem;
+  right: .1rem;
+  background: none;
+  box-shadow: none;
+  margin: -1rem 0;
+}
+
+.editSidebar {
+  grid-area: sidebar;
+  flex-direction: column;
+  padding: 0 .5rem;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+
+.editSidebar button {
+  width: 100%;
+  padding: .5rem;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.editSidebar hr {
+  border: 0;
+  border-top: var(--dark-component-darkgrey) solid .1rem;
+}
+
+:global(.darkmode) .editSidebar hr {
+  border: 0;
+  border-top: var(--base-blue) solid .1rem;
+}
+
+.editMain {
+  grid-area: main;
+  border-left: var(--dark-component-darkgrey) solid .1rem;
+}
+
+:global(.darkmode) .editMain {
+  border-left: var(--base-blue) solid .1rem;
+}
+
+/* Edit Main Form */
+.editUserForm {
+  display: grid; 
+  grid-template-columns: .5fr repeat(4, 1fr) .5fr;
+  grid-template-areas: 
+    '. h1 h1 h1 h1 .'
+    '. firstName firstName lastName lastName .'
+    '. occupation occupation mostActiveField mostActiveField .'
+    '. bio bio bio bio .'
+    '. btn btn btn btn .';
+  grid-gap: .5rem;
+  min-width: 30rem;
+  padding: .5rem 0 .5rem 0;
+  border-radius: .75rem;
+  justify-items: center;
+}
+
+.firstName {
+  grid-area: firstName;
+}
+
+.lastName {
+  grid-area: lastName;
+}
+
+.intro {
+  grid-area: intro;
+}
+
+.occupation {
+  grid-area: occupation;
+}
+
+.mostActiveField {
+  grid-area: mostActiveField;
+}
+
+.formButtons {
+  grid-area: btn;
+}
+
+.h1 {
+  grid-area: h1;
+  font-weight: 900;
+  font-size: 1.6rem;
+  margin: 0 0 1rem 0;
+}
+
+:global(.darkmode) .h1 {
+  background: none;
+  color: var(--base-blue);
+}
+
+.editUserForm :global(.form-input) {
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: left;
+  width: 100%;
+}
+
+.editUserForm select {
+  width: 86%;
+  margin-left: 14%;
+}
+
+:global(.darkmode) .editUserForm select:focus,
+:global(.darkmode) .editUserForm select:hover {
+  background: var(--dark-component-grey);
+}
+
+.bio {
+  grid-area: bio;
+  position: relative;
+}
+
+.bio a {
+  position: absolute;
+  text-decoration: none;
+  top: .35rem;
+  right: .2rem;
+}
+
+.bio a:hover {
+  text-decoration: underline;
+}
+
+:global(.darkmode) :global(.form-input) {
+  background: none;
+}
+
+:global(.form-input) label {
+  font-size: 1.1rem;
+  margin: .4rem 0 .2rem 0;
+}
+
+:global(.darkmode) :global(.form-input) label {
+  background: none;
+  color: var(--base-blue);
+}
+
+:global(.form-input) input, 
+:global(.form-input) textarea,
+:global(.form-input) select  {
+  border: none;
+  border-radius: .25rem;
+  background: var(--base-component-white)7e;
+  box-shadow: 0 2px 8px -3px var(--base-darkblue);
+  height: 2rem;
+}
+
+:global(.form-input) textarea {
+  font-size: 1rem;
+  height: 8rem;
+}
+
+:global(.darkmode) :global(.form-input) input, 
+:global(.darkmode) :global(.form-input) textarea,
+:global(.darkmode) :global(.form-input) select  {
+  background: var(--dark-component-darkgrey)93;
+  box-shadow: 0 2px 8px -3px var(--base-blue);
+}
+
+:global(.form-input) input:focus,
+:global(.form-input) textarea:focus {
+  border: var(--dark-component-darkgrey) solid .1rem;
+  margin: -.1rem;
+  outline: none;
+}
+
+:global(.darkmode) :global(.form-input) input:focus, 
+:global(.darkmode) :global(.form-input) textarea:focus {
+  border: var(--base-blue) solid .1rem;
+  margin: -.1rem;
+  outline: none;
+}
+
+.formButtons button {
+  margin: .7rem .5rem 0 .5rem;
+  font-size: 1.2rem;
+  min-width: 5rem;
+  min-height: 2rem;
+}
+
+:global(.mismatch) input,
+:global(.darkmode) :global(.mismatch) input {
+  background: var(--error-background);
+}
+
+:global(.mismatch) label,
+:global(.darkmode) :global(.mismatch) label {
+  color: var(--error-red);
+  font-weight: 900;
+}
+
+:global(.match) input,
+:global(.darkmode) :global(.match) input {
+  background: var(--valid-background);
+}
+
+:global(.match) label,
+:global(.darkmode) :global(.match) label {
+  color: var(--valid-green);
+  font-weight: 900;
+}
+
+.editAccountForm {
+  composes: editUserForm;
+  grid-template-areas: 
+    '. h1 h1 h1 h1 .'
+    '. oldPass oldPass oldPass oldPass .'
+    '. email email email email .'
+    '. pass pass confPass confPass .'
+    '. btn btn btn btn .';
+}
+
+.editAccountForm .h1 {
+  grid-area: h1;
+}
+
+.editAccountForm .email {
+  grid-area: email;
+}
+
+.editAccountForm .oldPass {
+  grid-area: oldPass;
+}
+
+.editAccountForm .pass {
+  grid-area: pass;
+}
+
+.editAccountForm .confPass {
+  grid-area: confPass;
+}
+
+.editAccountForm .formButtons {
+  grid-area: btn;
+}
+
+.editAccountForm .oldPass span {
+  font-size: .9rem;
+  color: var(--base-blue);
+  opacity: .5;
+}
+
+.editAccountForm :global(.mismatch) input {
+  background: var(--error-background);
+}
+
+.editAccountForm :global(.mismatch) label {
+  color: var(--error-red);
+  font-weight: 900;
+}
+
+.editAccountForm .match input {
+  background:var(--valid-background);
+}
+
+.editAccountForm .match label {
+  color: var(--valid-green);
+  font-weight: 900;
+}

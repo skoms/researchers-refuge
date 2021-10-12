@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import styles from './UserLogin.module.css';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation, Link } from 'react-router-dom';
+import TypedButton from '../../../typedButton/TypedButton';
 import {
   signIn
 } from '../userAccSlice';
@@ -58,10 +60,10 @@ const UserLogin = () => {
   }
 
   return (
-    <div className='user-login-div'>
-      <form className='user-login-form' onSubmit={submit}>
-        <h1 className="card_title">LOGIN</h1>
-        <div className="errors">
+    <div className={styles.container}>
+      <form className={styles.loginForm} onSubmit={submit}>
+        <h1 className={styles.h1}>LOGIN</h1>
+        <div className={styles.errors}>
           { errors 
           ?
             <ul>
@@ -73,19 +75,28 @@ const UserLogin = () => {
               <React.Fragment />
           }
         </div>
-        <div className="form-input email">
+        <div className={`form-input ${styles.email}`}>
           <label htmlFor="emailAddress">Email</label>
           <input id="emailAddress" name="emailAddress" type="email" onChange={change}/>
         </div>
-        <div className="form-input pass">
+        <div className={`form-input ${styles.pass}`}>
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" onChange={change}/>
         </div>
-        <div className='form-buttons'>
-          <button className="button-primary" type="submit" onSubmit={submit}>Sign In</button>
-          <button className="button-secondary" onClick={cancel}>Cancel</button>
+        <div className={styles.formButtons}>
+          <TypedButton 
+            buttontype='primary'
+            content='Sign In'
+            type='submit'
+            onSubmit={submit}
+          />
+          <TypedButton 
+            buttontype='secondary'
+            content='Cancel'
+            onClick={cancel}
+          />
         </div>
-        <p>Don't have a user account yet? Click here to <Link to={{pathname: '/sign-up', state: { from: from }}}>sign up</Link>!</p>
+        <p className={styles.p}>Don't have a user account yet? Click here to <Link to={{pathname: '/sign-up', state: { from: from }}}>sign up</Link>!</p>
       </form>
     </div>
   )

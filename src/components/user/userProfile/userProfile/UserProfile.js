@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './UserProfile.module.css';
 import { useParams } from 'react-router';
 import UserProfileFeed from '../userProfileFeed/UserProfileFeed';
 //TODO - change out temporary data with data gotten from the server
@@ -6,7 +7,7 @@ import UserProfileFeed from '../userProfileFeed/UserProfileFeed';
 const UserProfile = () => {
   const { id } = useParams();
   return (
-    <div className='user-profile-page'>
+    <div className={styles.container}>
       <UserProfileFeed id={id} />
     </div>
   )

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './RecPeople.module.css'
 import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,8 +21,8 @@ const RecPeople = () => {
   }, [didLoad, user, dispatch]);
 
   return didLoad && recPeople && recPeople.length > 0 ?
-      <div className='rec-ppl'>
-        <h2 className="title">People you may know</h2>
+      <div className={styles.container}>
+        <h2 className={styles.title}>People you may know</h2>
         { recPeople &&
           recPeople.map( recUser => (
             <ResultRecUser key={recUser.id} type='rec' user={recUser} />

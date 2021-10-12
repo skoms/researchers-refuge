@@ -1,0 +1,88 @@
+.container {
+  position: fixed;
+  display: flex;
+  left: 0;
+  margin: -1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
+.uploader {
+  position: fixed;
+  top: calc(50vh - 4rem);
+  left: calc(50vw - 5rem);
+  display: flex;
+  background: var(--base-blue);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 2rem 1.5rem 1rem 2rem;
+  border-radius: .75rem;
+  text-align: center;
+}
+
+.title {
+  font-weight: 500;
+  color: var(--base-component-white)
+}
+
+:global(.darkmode) .uploader {
+  background: var(--dark-component-grey);
+}
+
+.uploader input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.uploader input {
+  margin: .3rem -.3rem .5rem .3rem;
+  max-width: 9.5rem;
+}
+
+.uploader input::before {
+  color: var(--base-fade-grey);
+  content: 'Select an image';
+  display: inline-block;
+  border: 1px solid var(--base-component-white);
+  border-radius: .75rem;
+  padding: .25rem .5rem;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+:global(.darkmode) .uploader input::before {
+  color: var(--dark-semi-darkblue);
+  border: 1px solid var(--base-blue);
+}
+
+.uploader input:hover::before {
+  border-color: var(--base-fade-grey);
+  color: var(--base-component-white);
+}
+
+:global(.darkmode) .uploader input:hover::before {
+  border-color: var(--base-darkblue);
+  color: var(--base-blue);
+}
+
+.uploader input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.uploader .button {
+  background: linear-gradient( -75deg, var(--base-scroll-blue), #9cd8fa);
+  margin-top: .5rem;
+  height: 1.6rem;
+  width: 8.68rem;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,13 @@
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(4, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". content content content rec-ppl .";
+  gap: 1rem;
+  justify-items: center;
+}
+
