@@ -297,135 +297,19 @@ button.disabled:hover .tooltip {
 }
 
 
-/* ============= Content Styling (Results Page) ======================== */
-
-
 /* ============== Small Screen Content Styling  ======================= */
 @media only screen and (max-width: 800px) {
   /* ============= Base Styling ======================================= */
   body {
     font-size: 18px;
   }
-
-
-
-  /* ============= Header and Footer Styling ========================== */
-  /* ====== Header ====== */
-  .header {
-    top: 0;
-    width: 100vw;
-    min-height: 4vh;
-    max-height: 7vh;
-    display: grid;
-    display: grid;
-    grid-template-columns: 
-      1fr 1fr 1fr 1fr 1fr .5fr 1.5fr;
-    grid-template-areas: 
-      "name search . select select select profile";
-    gap: .2rem;
-    align-items: center;
+  
+  main {
+    margin: 8.5vh .3rem 0 .3rem;
   }
-
-  .header .my-profile-div {
-    margin: 0 .3rem 0 0;
-  }
-
-  /* Header logo */
-  .logo-home-a {
-    margin: 0;
-  }
-
-  .logo-home-a h2 {
-    display: none;
-  }
-
-  /* Header search */
-  .header .search {
-    position: relative;
-  }
-
-  .header .toggle-mobile-search {
-    padding-left: 0;
-    background: none;
-    box-shadow: none;
-  }
-
-  .mobile-search {
-    position: absolute;
-    top: 2.9rem;
-    left: -24vw;
-    width: 110vw;
-    padding: .2rem 0 .5rem 0;
-    background: var(--base-blue);
-  }
-
-  .darkmode .mobile-search {
-    background: var(--dark-component-darkgrey);
-  }
-
-  /* Sign buttons */
-  .header .sign-buttons {
-    margin-left: 0;
-    margin-right: .25rem;
-  }
-
-  .header .sign-buttons a button,
-  .darkmode .header .sign-buttons a button {
-    margin: 0;
-    box-shadow: none;
-    background: none;
-  }
-
-  /* Header dropdown */
-  .header-dropdown {
-    bottom: -200%;
-    width: fit-content;
-  }
-
-  /* ====== Footer ====== */
-  .footer {
-    width: 100vw;
-    max-height: 5vh;
-    font-size: .8rem;
-  }
-
 
   /* ============= Content Styling (Main Page) ======================== */
-  .main-page-content {
-    margin: 11vh .5rem 0 .5rem;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-  }
-
-  /* menu bar */
-  .menu-bar {
-    display: flex;
-    align-items: center;
-    margin-bottom: .2rem;
-  }
-
-  .menu-bar img {
-    margin: 0 .3rem -.2rem 0;
-  }
-
-  /* Article cards */
-  .main-page-content .article-cards {
-    padding: 0;
-    height: 77vh;
-    margin: 0;
-  }
-
-  .main-page-content .article-card {
-    margin: .3rem 0;
-  }
-
-  .main-page-content .article-card:hover {
-    transform: none;
-    box-shadow: none;
-  }
-
+  
   /* ============= Content Styling (User profile Page) ================= */
   .user-profile-page {
     margin: 6rem .5rem 2rem .5rem;

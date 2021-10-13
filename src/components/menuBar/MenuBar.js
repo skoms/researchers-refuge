@@ -26,7 +26,7 @@ const MenuBar = () => {
   }
   return (
     <div className={styles.container}>
-      <div className='menu-bar-filters'>
+      <div>
         <button 
           className={`${styles.button} selected`} 
           onClick={select} 

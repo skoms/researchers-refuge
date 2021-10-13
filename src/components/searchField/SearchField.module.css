@@ -39,3 +39,33 @@
 .input:focus {
   outline: none;
 }
+
+@media only screen and (max-width: 800px) {
+  /* container search */
+  .container {
+    position: relative;
+  }
+
+  .toggleMobileSearch {
+    padding-left: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  :global(.darkmode) .toggleMobileSearch {
+    box-shadow: none;
+  }
+
+  .mobileSearch {
+    position: absolute;
+    top: 2.9rem;
+    left: -24vw;
+    width: 110vw;
+    padding: .2rem 0 .5rem 0;
+    background: var(--base-blue);
+  }
+
+  :global(.darkmode) .mobileSearch {
+    background: var(--dark-component-darkgrey);
+  }
+}

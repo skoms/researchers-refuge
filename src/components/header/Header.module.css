@@ -207,3 +207,48 @@
 :global(.darkmode) .signButtons a button:hover {
   background: var(--base-darkblue);
 }
+
+@media only screen and (max-width: 800px) {
+  .container {
+    top: 0;
+    width: 100vw;
+    min-height: 4vh;
+    max-height: 7vh;
+    display: grid;
+    grid-template-columns: 
+      1fr 1fr 1fr 1fr 1fr .5fr 1.5fr;
+    grid-template-areas: 
+      "name search . select select select profile";
+    gap: .2rem;
+    align-items: center;
+  }
+
+  .container .loggedInNav {
+    margin: 0 .3rem 0 0;
+  }
+
+  .homeLogo {
+    margin: 0;
+  }
+
+  .homeLogo h2 {
+    display: none;
+  }
+
+  .container .signButtons {
+    margin-left: 0;
+    margin-right: .25rem;
+  }
+
+  .container .signButtons a button,
+  .darkmode .container .signButtons a button {
+    margin: 0;
+    box-shadow: none;
+    background: none;
+  }
+
+  .dropdown {
+    bottom: -200%;
+    width: fit-content;
+  }
+}

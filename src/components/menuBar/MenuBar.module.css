@@ -50,3 +50,21 @@
 :global(.darkmode) .button:hover {
   background: var(--base-darkblue);
 }
+
+@media only screen and (max-width: 800px) {
+  .container {
+    display: flex;
+    align-items: center;
+    margin-bottom: .2rem;
+    margin-top: 0;
+  }
+
+  .button {
+    padding: .2rem .3rem;
+    margin: 0 .1rem;
+  }
+
+  .container img {
+    margin: 0 .3rem -.2rem 0;
+  }
+}

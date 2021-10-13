@@ -2,3 +2,20 @@
   grid-area: feed;
   width: 100%;
 }
+
+@media only screen and (max-width: 800px) {
+  .container:last-child {
+    padding: 0;
+    height: 77vh;
+    margin: 0;
+  }
+
+  .container:last-child > div {
+    margin: .3rem 0;
+  }
+
+  .container:last-child > div:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

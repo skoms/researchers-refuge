@@ -21,3 +21,11 @@
 :global(.darkmode) .container * {
   color: var(--base-blue);
 }
+
+@media only screen and (max-width: 800px) {
+  .container {
+    width: 100vw;
+    max-height: 5vh;
+    font-size: .8rem;
+  }
+}

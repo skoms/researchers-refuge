@@ -110,3 +110,6 @@
   transition-duration: .2s;
 }
 
+@media only screen and (max-width: 800px) {
+  
+}

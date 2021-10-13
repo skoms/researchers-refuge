@@ -54,7 +54,7 @@ const SearchField = ({ isMobile }) => {
     </div>
   ) : (
     <div className={styles.container}>
-      <button className="toggle-mobile-search" onClick={toggleMobileSearch}>
+      <button className={styles.toggleMobileSearch} onClick={toggleMobileSearch}>
         <img 
           src={getIconUrl('magnifying-glass', darkModeOn, {
             size: 32,
@@ -66,7 +66,7 @@ const SearchField = ({ isMobile }) => {
           alt='search button'
         />
       </button>
-      <div className={`mobile-search ${!mobileSearchActive && 'invisible'}`}>
+      <div className={`${styles.mobileSearch} ${!mobileSearchActive && 'invisible'}`}>
         <form onSubmit={submit}>
           <input
             id="search"
@@ -75,7 +75,7 @@ const SearchField = ({ isMobile }) => {
             onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
             placeholder="Search for articles or people"
           />
-          <button className='search-button' type='submit'>
+          <button className={styles.searchButton} type='submit'>
             <img 
               src={getIconUrl('magnifying-glass', darkModeOn, {
                 size: 20,

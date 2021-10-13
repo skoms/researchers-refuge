@@ -43,3 +43,7 @@
   background: var(--dark-component-darkgrey);
   color: var(--base-blue);
 }
+
+@media only screen and (max-width: 800px) {
+  
+}

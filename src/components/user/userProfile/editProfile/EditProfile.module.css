@@ -331,3 +331,7 @@
   color: var(--valid-green);
   font-weight: 900;
 }
+
+@media only screen and (max-width: 800px) {
+  
+}

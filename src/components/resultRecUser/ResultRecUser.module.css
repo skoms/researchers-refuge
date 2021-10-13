@@ -59,3 +59,7 @@
 .occupation {
   color: var(--base-fade-grey);
 }
+
+@media only screen and (max-width: 800px) {
+  
+}
