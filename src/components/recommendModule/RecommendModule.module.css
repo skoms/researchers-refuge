@@ -26,10 +26,13 @@
 }
 
 .td {
-  color: var(--base-darkblue);
   border-radius: .4rem;
   background-color: var(--base-component-white);
   padding: .3rem;
+}
+
+.td a {
+  color: var(--base-darkblue);
 }
 
 .td:hover {
@@ -43,5 +46,8 @@
 
 :global(.darkmode) .td {
   background: var(--dark-component-darkgrey);
+}
+
+:global(.darkmode) td a {
   color: var(--base-component-white);
 }

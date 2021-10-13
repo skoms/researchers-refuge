@@ -14,6 +14,7 @@ import { getUserArticles } from '../userFeedSlice';
 import { updateTopic } from '../../../feed/feedSlice';
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
 import TypedButton from '../../../typedButton/TypedButton';
+import { getIconUrl } from '../../../../Icons';
 
 const MyProfileFeed = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -96,7 +97,10 @@ const MyProfileFeed = () => {
           <div className={styles.headerImgDiv}>
             <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" }  alt="header"  className={styles.headerImg} data-value='header-img' onClick={toggleHeaderUploader} />
             <img 
-              src={ owner.profileImgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
+              src={ owner.profileImgURL || getIconUrl('user-placeholder', null, {
+                size: 120,
+                colors: { light: 'FFFFFF' }
+              })} 
               alt="profile pic" data-value='profile-pic' className={`${styles.profilePic} ${owner.profileImgURL ? "" : "placeholder"}`} 
               onClick={toggleProfileUploader}
             />
@@ -114,7 +118,10 @@ const MyProfileFeed = () => {
                 { `${data.capitalize(owner.firstName)} ${data.capitalize(owner.lastName)}` }
               </h2>
               {owner.accessLevel === 'admin' ? 
-                <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
+                <img src={getIconUrl('admin-emblem', null, {
+                  size: 24,
+                  colors: { light: '38B6FF' }
+                })} alt='admin icon'/> : ''}
             </span>
             
             <p className={styles.occupation}>{ data.capitalize(owner.occupation) || '' }</p>

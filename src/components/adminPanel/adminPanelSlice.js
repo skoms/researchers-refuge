@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Data from "../../Data";
+import { getIconUrl } from '../../Icons';
 
 const data = new Data();
 const initialState = { 
@@ -132,8 +133,8 @@ const initialState = {
 };
 
 export const getSortImg = ( sortOrder ) => {
-  const ascImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting-2.png" alt='ascending filter'/>;
-  const descImg = <img src="https://img.icons8.com/material-outlined/20/FFFFFF/generic-sorting.png" alt='descending filter'/>;
+  const ascImg = <img src={getIconUrl('asc')} alt='ascending filter'/>;
+  const descImg = <img src={getIconUrl('desc')} alt='descending filter'/>;
   
   return (
     ( sortOrder.order === 'ASC' && ascImg) || 

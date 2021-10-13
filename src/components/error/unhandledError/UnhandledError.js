@@ -1,7 +1,10 @@
 import React from 'react'
+import styles from '../Error.module.css';
 import { Link, useHistory, useLocation } from 'react-router-dom'
+import TypedButton from '../../typedButton/TypedButton';
+import { getIconUrl } from '../../../Icons';
 
-//TODO - Hook up the 'contact us' link
+//TODO - Hook up report bug form
 
 const UnhandledError = props => {
   const history = useHistory();
@@ -11,17 +14,17 @@ const UnhandledError = props => {
     history.push(from);
   }
   return (
-    <div className='error-div'>
-      { localStorage.getItem('darkmode') === 'true' 
-      ?
-        <img src="https://img.icons8.com/ios/180/38B6FF/no-entry.png" alt='stop-sign' />
-      :
-        <img src="https://img.icons8.com/ios/180/1a3861/no-entry.png" alt='stop-sign' />
-      }
-      <h1 className="status-code">{props.statusCode || 500}</h1>
-      <p className="error-message">{props.errorMessage || 'Something went wrong, please try and refresh the page, if the issue persists, please'} <Link to='/'>contact us</Link></p>
-      { props.errorStack && <p className="error-stack">{props.errorStack}</p> }
-      <button className='button-secondary' onClick={goBack}>Go Back</button>
+    <div className={styles.container}>
+      <img className={styles.img} src={getIconUrl('no-entry', localStorage.getItem('darkmode') === 'true', {size: 180, colors: {dark: '38B6FF', light: '1A3861'}})} alt='stop-sign' />
+      <h1 className={styles.status}>{props.statusCode || 500}</h1>
+      <p className={styles.message}>{props.errorMessage || 'Something went wrong, please try and refresh the page, if the issue persists, please'} <Link to='/'>issue a bug report</Link></p>
+      { props.errorStack && <p className={styles.stack}>{props.errorStack}</p> }
+      <TypedButton
+        buttontype='secondary'
+        onClick={goBack}
+        content='Go Back'
+        className={styles.secondaryButton}
+      />
     </div>
   )
 }

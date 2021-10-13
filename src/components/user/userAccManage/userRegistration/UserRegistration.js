@@ -7,6 +7,7 @@ import {
 } from '../userAccSlice';
 import Data from '../../../../Data';
 import TypedButton from '../../../typedButton/TypedButton';
+import { getIconUrl } from '../../../../Icons';
 
 //TODO - Add onChange to each field to verify input
 //TODO - Add onClick on 'cancel' button to take them back whence they came
@@ -33,8 +34,20 @@ const UserRegistration = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const smallCheckMark = <img src="https://img.icons8.com/ios-filled/12/34970d/checkmark--v1.png" alt="checkmark"/>;
-  const smallCross = <img src="https://img.icons8.com/ios-filled/12/dd3939/x.png"  alt="cross"/>;
+  const smallCheckMark = <img src={getIconUrl('checkmark', null, {
+    size: 12,
+    colors: {
+      light: '34970d'
+    }
+  })} alt="checkmark"/>;
+  
+  const smallCross = <img src={getIconUrl('x', null, {
+    size: 12,
+    colors: {
+      light: 'dd3939'
+    }
+  })} alt="cross"/>;
+
   const listOfErrors = <ul>{ errors.map( (error, index) => <li key={index} className='error'>{error}</li>) }</ul>;
 
   const passMatchCheck = (value) => {

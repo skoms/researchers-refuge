@@ -7,6 +7,7 @@ import {
   updateSearchTerm,
   selectSearchTerm
 } from './searchFieldSlice';
+import { getIconUrl } from '../../Icons';
 
 const SearchField = ({ isMobile }) => {
   const [mobileSearchActive, setMobileSearchActive] = useState(false);
@@ -39,7 +40,13 @@ const SearchField = ({ isMobile }) => {
         />
         <button className={styles.searchButton} type='submit'>
           <img 
-            src={`https://img.icons8.com/material-outlined/20/${ darkModeOn ? '38B6FF' : 'E8F7FF' }/search--v1.png`}
+            src={getIconUrl('magnifying-glass', darkModeOn, {
+              size: 20,
+              colors: {
+                dark: '38B6FF',
+                light: 'E8F7FF'
+              }
+            })}
             alt='search button'
           />
         </button>
@@ -49,7 +56,13 @@ const SearchField = ({ isMobile }) => {
     <div className={styles.container}>
       <button className="toggle-mobile-search" onClick={toggleMobileSearch}>
         <img 
-          src={`https://img.icons8.com/material-outlined/32/${ darkModeOn ? '38B6FF' : 'E8F7FF' }/search--v1.png`}
+          src={getIconUrl('magnifying-glass', darkModeOn, {
+            size: 32,
+            colors: {
+              dark: '38B6FF',
+              light: 'E8F7FF'
+            }
+          })}
           alt='search button'
         />
       </button>
@@ -64,7 +77,13 @@ const SearchField = ({ isMobile }) => {
           />
           <button className='search-button' type='submit'>
             <img 
-              src={`https://img.icons8.com/material-outlined/20/${ darkModeOn ? '38B6FF' : 'E8F7FF' }/search--v1.png`}
+              src={getIconUrl('magnifying-glass', darkModeOn, {
+                size: 20,
+                colors: {
+                  dark: '38B6FF',
+                  light: 'E8F7FF'
+                }
+              })}
               alt='search button'
             />
           </button>

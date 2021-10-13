@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styles from './SearchResultsFeed.module.css';
 import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
@@ -14,6 +15,7 @@ import { updateTopic } from '../feed/feedSlice'
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 import { selectIsMobile } from '../../app/screenWidthSlice'
 import { selectPage } from '../paginationBar/paginationBarSlice'
+import { getIconUrl } from '../../Icons';
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -96,49 +98,39 @@ const SearchResultsFeed = () => {
   }
 
   return didLoad ? (
-    <div className='feed'>
+    <div className={styles.feed}>
       { searchTerm || term ?
-        <div className='info-bar'>
+        <div className={styles.infoBar}>
           <h4>Search results for: '{searchTerm || term}'</h4>
         </div>
         :
         <Fragment />
       }
       { users && filteredUsers() && filteredUsers().length > 0 ?
-        <div className="results users">
+        <div className={`${styles.results} ${styles.users}`}>
           <h4>Users</h4>
-          <div className="user-results-main" 
+          <div className={styles.userResultsMain} 
                onTouchStart={handleTouchStart}
                onTouchMove={handleTouchMove}
           >
             { !isMobile &&
-              <button className={`prev nav-btn ${displayedUser === 0 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'prev')}>
-                { darkModeOn 
-                  ?
-                    <img src="https://img.icons8.com/ios/40/38B6FF/circled-chevron-left.png" alt="previous button"/>
-                  :
-                    <img src="https://img.icons8.com/ios/40/000000/circled-chevron-left.png" alt="previous button"/>
-                }
+              <button className={`${styles.prev} ${styles.navBtn} ${displayedUser === 0 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'prev')}>
+                <img src={getIconUrl('prev', darkModeOn)} alt="previous button"/>
               </button>
             }
-            <div key={filteredUsers()[displayedUser].id} className="user-card">
+            <div key={filteredUsers()[displayedUser].id} className={styles.userCard}>
               <ResultRecUser key={displayedUser} type='res' user={filteredUsers()[displayedUser]} />
             </div>
             { !isMobile &&
-              <button className={`next nav-btn ${displayedUser === filteredUsers().length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
-                { darkModeOn 
-                  ?
-                    <img src="https://img.icons8.com/ios/40/38B6FF/circled-chevron-right.png" alt="previous button"/>
-                  :
-                    <img src="https://img.icons8.com/ios/40/000000/circled-chevron-right.png" alt="previous button"/>
-                }
+              <button className={`${styles.next} ${styles.navBtn} ${displayedUser === filteredUsers().length - 1 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'next')}>
+                <img src={getIconUrl('next', darkModeOn)} alt="next button"/>
               </button>
             }
           </div>
-          <div className="points">
+          <div className={styles.points}>
             { filteredUsers().length > 1 ?
               filteredUsers().map( (user, id) => 
-                <div key={id} className={`point ${id} ${id === displayedUser ? 'point-selected' : '' }`} onClick={() => setDisplayedUser(id)}/>
+                <div key={id} className={`${styles.point} ${id} ${id === displayedUser ? 'point-selected' : '' }`} onClick={() => setDisplayedUser(id)}/>
               )
               :
               <Fragment />
@@ -146,12 +138,12 @@ const SearchResultsFeed = () => {
           </div>
         </div>
         :
-        <div className="empty results users">
+        <div className={`${styles.empty} ${styles.results} ${styles.users}`}>
           <h4>No users match your search...</h4>
         </div>
       }
       { topics && topics.length > 0 ?
-        <div className="results topics">
+        <div className={`${styles.results} ${styles.topics}`}>
           <h4>Topics</h4>
           {
             categories.map( category => 
@@ -174,23 +166,23 @@ const SearchResultsFeed = () => {
           }
         </div>
         :
-        <div className="empty results topics">
+        <div className={`${styles.empty} ${styles.results} ${styles.topics}`}>
           <h4>No topics match your search...</h4>
         </div>
       }
       
       { articles && articles.length > 0  ?
-        <div className="results articles">
+        <div className={`${styles.results} ${styles.articles}`}>
           <h4>Articles</h4> 
           <ArticleCards type='results' />     
         </div>
         :
-        <div className="empty results articles">
+        <div className={`${styles.empty} ${styles.results} ${styles.articles}`}>
           <h4>No articles match your search...</h4>
         </div>
       }
     </div>
-  ) : <div className='feed'><Loading /></div>
+  ) : <div className={styles.feed}><Loading /></div>
 }
 
 export default SearchResultsFeed

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import styles from './SearchResultsPage.module.css';
 import { useSelector } from 'react-redux'
 import InfoModule from '../infoModule/InfoModule'
 import RecommendModule from '../recommendModule/RecommendModule'
@@ -15,7 +16,7 @@ const SearchResultsPage = props => {
   const isMobile = useSelector(selectIsMobile);
 
   return (
-    <div className='results-page-content'>
+    <div className={styles.container}>
       { !isMobile && loggedIn ? <InfoModule user={authenticatedUser} /> :<Fragment /> }
       <SearchResultsFeed />
       { !isMobile && <RecommendModule />}

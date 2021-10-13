@@ -11,6 +11,7 @@ import Loading from '../../loading/Loading';
 import PaginationBar from '../../paginationBar/PaginationBar';
 import { selectLastPage } from '../../paginationBar/paginationBarSlice';
 import { selectDarkModeOn } from '../../darkmodeButton/darkModeButtonSlice';
+import { getIconUrl } from '../../../Icons';
 
 const ArticleCards = (props) => {
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const ArticleCards = (props) => {
       )
     : 
     <div className={styles.noArticlesMessage}>
-      <img src={`https://img.icons8.com/ios-glyphs/50/${darkModeOn ? 'FFFFFF': '000000'}/shrug-emoticon.png`} alt='shrug emoticon'/>
+      <img src={getIconUrl('shrug', darkModeOn, {size: 50, colors: { dark: 'FFFFFF', light: '000000' }})} alt='shrug emoticon'/>
       <p>Sorry, but we don't seem to have what you are looking for... </p>
     </div>
   );

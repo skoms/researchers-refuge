@@ -4,6 +4,7 @@ import styles from './TableSearch.module.css';
 import { toFirstPage } from "../../../paginationBar/paginationBarSlice";
 import { updateSearchQuery, updateSortOrder } from "../../adminPanelSlice";
 import useDebounce from '../../../../customHooks/useDebounce';
+import { getIconUrl } from '../../../../Icons';
 
 const TableSearch = () => {
   const searchField = useRef();
@@ -47,12 +48,12 @@ const TableSearch = () => {
       <form onSubmit={submitHandler} className={styles.searchForm}>
         { searchTerm !== '' && 
           <button className={styles.clearSearch} onClick={clearSearch}>
-            <img src="https://img.icons8.com/fluency-systems-filled/18/64B5F7/xbox-x.png" alt='clear search button' />
+            <img src={getIconUrl('x-circle', null, {size: 18, colors: { light: '64B5F7' }})} alt='clear search button' />
           </button>
         }
         <input type="text" className={styles.searchField} ref={searchField} placeholder='Search...' onChange={onChangeHandler} />
         <button type='submit' className={styles.searchButton}>
-          <img src="https://img.icons8.com/material-outlined/18/64B5F7/search--v1.png" alt='search button'/>
+          <img src={getIconUrl('magnifying-glass', null, {size: 18, colors: { light: '64B5F7' }})} alt='search button'/>
         </button>
       </form>
     </div>

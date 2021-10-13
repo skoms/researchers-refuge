@@ -10,6 +10,7 @@ import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { updateTopic } from '../../../feed/feedSlice';
 import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
 import { accreditDiscredit } from '../articleCardsSlice';
+import { getIconUrl } from '../../../../Icons';
 
 const data = new Data();
 
@@ -67,17 +68,29 @@ const ArticleCard = props => {
         <div className={styles.credits}>
           <button onClick={accredit}>
             <img 
-              src={`https://img.icons8.com/ios-filled/16/${creditedStatus === 'accredited' ? accreditColor : inactiveColor }/checkmark--v1.png`}
+              src={getIconUrl('checkmark', darkModeOn, {
+                size: 16,
+                colors: {
+                  dark: creditedStatus === 'accredited' ? accreditColor : inactiveColor,
+                  light: creditedStatus === 'accredited' ? accreditColor : inactiveColor
+                }
+              })}
               alt='accredit button'
             />
           </button>
           <div>
-            <img src="https://img.icons8.com/ios/16/38B6FF/rating.png" alt='credits'/>
+            <img src={getIconUrl('star-box', null, {size: 16, colors: {light: '38B6FF'}})} alt='credits' className={styles.ratingIcon}/>
             <span>{props.credits}</span>
           </div>
           <button onClick={discredit}>
             <img 
-              src={`https://img.icons8.com/fluency-systems-filled/16/${creditedStatus === 'discredited' ? discreditColor : inactiveColor }/x.png`} 
+              src={getIconUrl('x', darkModeOn, {
+                size: 16,
+                colors: {
+                  dark: creditedStatus === 'discredited' ? discreditColor : inactiveColor,
+                  light: creditedStatus === 'discredited' ? discreditColor : inactiveColor
+                }
+              })} 
               alt='discredit button'
             />
           </button>

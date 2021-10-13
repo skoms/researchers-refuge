@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './InfoModule.module.css';
 import ReactMarkdown from 'react-markdown';
 import Data from '../../Data';
+import { getIconUrl } from '../../Icons';
 
 const InfoModule = props => {
   const data = new Data();
@@ -22,13 +23,13 @@ const InfoModule = props => {
   return (
     <div className={styles.container}>
       <img alt='your profile'
-        src={ profileImgURL || "https://img.icons8.com/ios-glyphs/75/ffffff/user--v1.png" }
+        src={ profileImgURL || getIconUrl('user-placeholder', null, {size: 75, colors: {light: 'FFFFFF'}}) }
         className={ profileImgURL ? '' : styles.placeholder } 
       />
       <span className={styles.fullName}>
         <p className={styles.fullName}>{ `${data.capitalize(firstName)} ${data.capitalize(lastName)}` }</p>
         {accessLevel === 'admin' ? 
-          <img src="https://img.icons8.com/ios-glyphs/16/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
+          <img src={getIconUrl('admin-emblem', null, {size: 16, colors: {light: '38B6FF'}})} alt='admin icon'/> : ''}
       </span>
       <p className={styles.occupation}>{data.capitalize(occupation)}</p>
       <ReactMarkdown className={styles.bio}>{bio}</ReactMarkdown>

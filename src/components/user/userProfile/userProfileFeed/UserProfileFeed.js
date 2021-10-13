@@ -20,6 +20,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
 import TypedButton from '../../../typedButton/TypedButton';
+import { getIconUrl } from '../../../../Icons';
 
 const UserProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -88,7 +89,11 @@ const UserProfileFeed = props => {
           <div className={styles.headerImgDiv}>
             <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" } alt="header"  className={styles.headerImg}/>
             <img 
-              src={ owner.profileImgURL || "https://img.icons8.com/ios-glyphs/120/ffffff/user--v1.png" } 
+              src={ owner.profileImgURL || getIconUrl('user-placeholder', null, {
+                  size: 120,
+                  colors: { light: 'FFFFFF' }
+                })
+              } 
               alt="profile-pic" className={`${styles.profilePic} ${owner.profileImgURL ? "" : "placeholder"}`} 
             />
             <TypedButton
@@ -104,7 +109,10 @@ const UserProfileFeed = props => {
                 { `${owner.firstName} ${owner.lastName}` }
               </h2>
               {owner.accessLevel === 'admin' ? 
-                <img src="https://img.icons8.com/ios-glyphs/24/38B6FF/microsoft-admin--v2.png" alt='admin icon'/> : ''}
+                <img src={getIconUrl('admin-emblem', null, {
+                  size: 24,
+                  colors: { light: '38B6FF' }
+                })} alt='admin icon'/> : ''}
             </span>
             <p className={styles.occupation}>{ owner.occupation || '' }</p>
             <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>

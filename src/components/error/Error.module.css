@@ -1,0 +1,64 @@
+
+.container {
+  margin: 7rem .5rem 2rem .5rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(4, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". pic pic pic pic ."
+    ". status status status status ."
+    ". message message message message ."
+    ". stack stack stack stack ."
+    ". . . . . ."
+    ". . btn btn . .";
+  gap: .5rem;
+  justify-items: center;
+  color: var(--base-darkblue);
+}
+
+:global(.darkmode) .container {
+  color: var(--base-blue);
+  background: none;
+}
+
+.img {
+  grid-area: pic;
+}
+
+.secondaryButton {
+  grid-area: btn;
+  color: var(--base-darkblue);
+}
+
+.container .status {
+  grid-area: status;
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.container .message {
+  grid-area: message;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.container .stack {
+  grid-area: stack;
+  margin: 2rem 0;
+  font-size: .9rem;
+  color: var(--base-component-white);
+  background: var(--error-red);
+  padding: 1rem;
+  border-radius: .25rem;
+  max-width: 40rem;
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+:global(.darkmode) .container .stack {
+  color: var(--error-background);
+  background: var(--dark-component-grey);
+}

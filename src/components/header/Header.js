@@ -17,6 +17,7 @@ import TopicSelect from '../topicSelect/TopicSelect';
 import { useHistory, useLocation } from 'react-router-dom';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 import { selectIsMobile, updateWidth } from '../../app/screenWidthSlice';
+import { getIconUrl } from '../../Icons';
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -70,7 +71,13 @@ const Header = () => {
           <div className={styles.menuProfileDiv}>
             { 
               <img 
-                src={`https://img.icons8.com/material-outlined/24/${!dropdownActive ? 'ffffff' : (darkModeOn ? '38B6FF' : '161B22') }/menu--v1.png`} 
+                src={getIconUrl('tri-stripe', darkModeOn, {
+                  size: 24,
+                  colors: {
+                    dark: !dropdownActive ? 'ffffff' : '38B6FF',
+                    light: !dropdownActive ? 'ffffff' : '161B22'
+                  }
+                })} 
                 className={styles.menuToggleButton}
                 alt='menu toggle button'
                 onClick={toggleDropdown}
@@ -78,7 +85,7 @@ const Header = () => {
             }
 
             <img 
-              src={ authenticatedUser.profileImgURL || "https://img.icons8.com/ios-glyphs/30/ffffff/user--v1.png" }
+              src={ authenticatedUser.profileImgURL || getIconUrl('user-placeholder', null, {size: 30, colors: {light: 'FFFFFF'}})}
               className={ `${styles.profilePic} ${authenticatedUser.profileImgURL ? '' : 'placeholder'}` } 
               alt='your profile'
               onClick={() => history.push('/my-profile')}
@@ -96,12 +103,18 @@ const Header = () => {
           <DarkModeButton />
           <a href="/sign-in">
             <button>
-              {!isMobile ? 'Sign In' : <img src='https://img.icons8.com/ios-filled/24/ffffff/login-rounded-right.png' alt='sign in button'/>}
+              {!isMobile ? 'Sign In' : <img src={getIconUrl('sign-in', null, {
+                size: 30,
+                colors: { light: 'FFFFFF' }
+              })} alt='sign in button'/>}
             </button>
           </a>
           <a href="/sign-up">
             <button>
-              {!isMobile ? 'Sign Up' : <img src='https://img.icons8.com/material-rounded/24/ffffff/edit-user-male.png' alt='sign up button'/>}
+              {!isMobile ? 'Sign Up' : <img src={getIconUrl('sign-up', null, {
+                size: 30,
+                colors: { light: 'FFFFFF' }
+              })} alt='sign up button'/>}
             </button>
           </a>
         </div>

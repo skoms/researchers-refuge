@@ -126,10 +126,6 @@
   box-shadow: none;
 }
 
-:global(.darkmode) .loggedInNav {
-  background: var(--dark-component-darkgrey);
-}
-
 .loggedInNav a, .signOutButton {
   border: none;
   box-shadow: none;

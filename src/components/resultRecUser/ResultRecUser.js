@@ -44,7 +44,9 @@ const ResultRecUser = ({ user }) => {
 
   return (
     <div key={user.id} className={styles.container}>
-      <a href={`/users/${user.id}`} className={styles.profilePic}><img src={user.profileImgURL} alt="profile-pic" /></a>
+      <a href={`/users/${user.id}`} className={styles.profilePic}>
+        <img src={user.profileImgURL} alt="profile-pic" />
+      </a>
       <a href={`/users/${user.id}`} className={styles.fullName}><p>{`${user.firstName} ${user.lastName}`}</p></a>
       <p className={styles.occupation}>{user.occupation}</p>
       <div className={styles.buttons}>

@@ -5,6 +5,7 @@ import { selectTopic, updateTopic } from '../feed/feedSlice';
 import { selectCategories } from '../topics/topicsSlice';
 import Data from '../../Data';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
+import { getIconUrl } from '../../Icons';
 
 
 const TopicSelect = ({ use }) => {
@@ -49,11 +50,10 @@ const TopicSelect = ({ use }) => {
       </select>  
       { topic !== 'home' && use !== 'ArticleForm' ?
         <button className={styles.button} onClick={clearTopic}>
-          <img src={`https://img.icons8.com/fluency-systems-filled/20/${ darkModeOn ? 'DD3939' : '15458A' }/x.png`} alt='clear topic button' />
+          <img src={getIconUrl('x', darkModeOn, {size: 20, colors: {dark: 'DD3939', light: '15458A'}})} alt='clear topic button' />
         </button>
         : <Fragment />
       }
-      
     </div>
   )
 }

@@ -9,6 +9,7 @@ import { selectTopic, updateTopic } from '../../../feed/feedSlice';
 import TopicSelect from '../../../topicSelect/TopicSelect';
 import TypedButton from '../../../typedButton/TypedButton';
 import { selectAuthenticatedUser, updateAccount } from '../../userAccManage/userAccSlice';
+import { getIconUrl } from '../../../../Icons';
 
 const EditProfile = ({ toggleEdit }) => {
   const dispatch = useDispatch();
@@ -141,7 +142,7 @@ const EditProfile = ({ toggleEdit }) => {
             dispatch(updateTopic('home'));
             toggleEdit()
           }}>
-            <img src={`https://img.icons8.com/ios-filled/16/${ darkModeOn ? 'E8F7FF' : '1A3861'}/x.png`} alt='Exit button'/>
+            <img src={getIconUrl('x', darkModeOn, {size: 16, colors: {dark: 'E8F7FF', light: '1A3861'}})} alt='Exit button'/>
           </button>
         </div>
         <div className={styles.editSidebar}>

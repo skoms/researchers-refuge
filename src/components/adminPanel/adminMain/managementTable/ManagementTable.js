@@ -6,6 +6,7 @@ import { updateSortOrder, getSortImg, updateNewData, selectSortOrder } from "../
 import { useSelector } from "react-redux";
 import DataManager from "../dataManager/DataManager";
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
+import { getIconUrl } from '../../../../Icons';
 
 const ManagementTable = (
     { data, statusFilter = null }
@@ -14,7 +15,7 @@ const ManagementTable = (
   const sortOrder = useSelector(selectSortOrder);
   const page = useSelector(selectPage);
 
-  const blockedIcon = <img src={`https://img.icons8.com/material-outlined/16/FFFFFF/cancel-2.png`} alt='block button' style={{margin: "0 0 -.1rem 0"}}/>;
+  const blockedIcon = <img src={getIconUrl('blocked', null, { size: 16, colors: { light: 'FFFFFF' } })} alt='block button' style={{margin: "0 0 -.1rem 0"}}/>;
 
   const [managerProps, setManagerProps] = useState({ 
     isActive: false,
@@ -49,7 +50,7 @@ const ManagementTable = (
         return <td className={styles.tableData} key={i}>{`(${entry[column.column]}) ${entry.Category.name}
         `}</td>;
       case 'blocked': 
-        return <td className={styles.tableData} key={i}>{ entry[column.column] === true ? <img src={`https://img.icons8.com/material-outlined/16/FF2323/cancel-2.png`} alt='block button' style={{margin: "0 0 -.1rem 0"}}/> : <></> }</td>
+        return <td className={styles.tableData} key={i}>{ entry[column.column] === true ? <img src={getIconUrl('blocked', null, { size: 16, colors: { light: 'FF2323' } })} alt='block button' style={{margin: "0 0 -.1rem 0"}}/> : <></> }</td>
     
       default:
         return <td className={styles.tableData} key={i}>{entry[column.column]}</td>;

@@ -14,6 +14,7 @@ import { deleteArticle } from '../manageArticle/manageArticleSlice';
 import { selectIsMobile } from '../../../app/screenWidthSlice';
 import ConfirmationPopup from '../../confirmationPopup.js/ConfirmationPopup';
 import TypedButton from '../../typedButton/TypedButton';
+import { getIconUrl } from '../../../Icons';
 
 const ArticleDetails = () => {
   const darkModeOn = useSelector(selectDarkModeOn);
@@ -111,18 +112,18 @@ const ArticleDetails = () => {
             { parseInt(id, 10) !== 1 
             ?
               <a className="prev" href={`/articles/${parseInt(id, 10) - 1}`}>
-                <img src={`https://img.icons8.com/ios/50/${ darkModeOn ? '38B6FF' : '000000'}/circled-chevron-left.png`} alt="previous button"/>
+                <img src={getIconUrl('prev', darkModeOn, {size: 50})} alt="previous button"/>
               </a>
             :
               <a href="/"> </a>
             }
             
             <a className="home" href='/'>
-              <img src={`https://img.icons8.com/ios/64/${ darkModeOn ? '38B6FF' : '000000'}/home-page.png`} alt="home button"/>
+              <img src={getIconUrl('home', darkModeOn, {size: 64})} alt="home button"/>
             </a>
 
             <a className="next" href={`/articles/${parseInt(id, 10) + 1}`}>
-              <img src={`https://img.icons8.com/ios/50/${ darkModeOn ? '38B6FF' : '000000'}/circled-chevron-right.png`} alt="next button"/>
+              <img src={getIconUrl('next', darkModeOn, {size: 50})} alt="next button"/>
             </a>
 
           </div>

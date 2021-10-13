@@ -5,6 +5,7 @@ import {
   selectDarkModeOn,
   toggleDarkMode
 } from './darkModeButtonSlice'
+import { getIconUrl } from '../../Icons';
 
 const DarkModeButton = () => {
   const darkmodeOn = useSelector(selectDarkModeOn);
@@ -27,9 +28,9 @@ const DarkModeButton = () => {
       <button className={styles.darkModeButton} onClick={toggleDarkmode}>
         { darkmodeOn 
         ?
-        <img src="https://img.icons8.com/material-rounded/24/ffffff/sun--v1.png" alt="darkmode button"/>
+          <img src={getIconUrl('sun', null, {size: 24, colors: {light: 'FFFFFF'}})} alt="darkmode button"/>
         :
-          <img src="https://img.icons8.com/ios-filled/24/ffffff/crescent-moon.png" alt="darkmode button"/>
+          <img src={getIconUrl('moon', null, {size: 24, colors: {light: 'FFFFFF'}})} alt="darkmode button"/>
         }
       </button>
     </div>

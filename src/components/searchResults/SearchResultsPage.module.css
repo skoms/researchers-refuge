@@ -1,0 +1,12 @@
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 
+    calc(50vw - 38rem) 
+    repeat(12, 1fr) 
+    calc(50vw - 38rem);
+  grid-template-areas: 
+    ". info info info feed feed feed feed feed feed rec rec rec .";
+  gap: 1.5rem;
+  justify-items: center;
+}

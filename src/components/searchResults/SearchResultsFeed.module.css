@@ -1,0 +1,168 @@
+.feed {
+  grid-area: feed;
+  width: 100%;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  padding: .3rem;
+  margin-right: -.7rem;
+  height: fit-content;
+  max-height: 27vh;
+  min-height: 12rem;
+  overflow: auto;
+  margin: 1rem 0 0 0;
+  background: var(--base-component-white);
+  border-radius: .75rem;
+}
+
+.users a {
+  text-decoration: none;
+}
+
+.users a:hover {
+  text-decoration: underline;
+}
+
+.users {
+  overflow: unset;
+  max-height: 20vh;
+  min-height: 10rem;
+} 
+
+.empty {
+  height: fit-content;
+  min-height: 0;
+}
+
+.empty h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+:global(.darkmode) .results {
+  background: var(--dark-component-darkgrey);
+}
+
+:global(.darkmode) .results h4,
+:global(.darkmode) .results h5 {
+  color: var(--base-blue);
+  background: none;
+}
+
+.infoBar {
+  background-color: var(--base-scroll-blue);
+  color: var(--base-component-white);
+  margin: 0 0 .5rem 0;
+  border-radius: .75rem;
+  padding: .2rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.infoBar h4 {
+  margin: .2rem;
+}
+
+:global(.darkmode) .infoBar,
+:global(.darkmode) .infoBar h4 {
+  background: var(--dark-component-grey);
+  color: var(--base-blue);
+}
+
+.userResultsMain {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  margin: -.5rem 0 0 0;
+  grid-template-areas: "prev user next";
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userResultsMain .prev {
+  grid-area: prev;
+}
+
+.userResultsMain .next {
+  grid-area: next;
+}
+
+.userResultsMain .navBtn {
+  background: none;
+  box-shadow: none;
+  margin: none;
+}
+
+.userCard {
+  grid-area: user;
+  display: flex;
+  justify-content: center;
+}
+
+.userCard > div {
+  border-radius: .75rem;
+  background: white;
+  padding: .3rem;
+  margin: 1rem 0 .5rem 0;
+  box-shadow: 0 2px 12px -3px var(--base-darkblue);
+}
+
+:global(.darkmode) .userCard > div {
+  background: var(--dark-component-grey);
+  box-shadow: 0 2px 12px -3px var(--dark-shadow-blue);
+}
+
+.points {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.points .point {
+  padding: .35rem;
+  border-radius: 50%;
+  margin: .5rem;
+  background: var(--base-darkblue);
+  opacity: .5;
+}
+
+.points :global(.point-selected) {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+:global(.darkmode) .points .point {
+  background: var(--base-blue);
+}
+
+.topics button {
+  background: none;
+  box-shadow: none;
+  opacity: .3;
+}
+
+.topics button:hover {
+  opacity: 1;
+}
+
+.articles > div {
+  width: 98%;
+}
+
+.articles > div > div {
+  margin-bottom: 1.5rem;
+}
+
+:global(.darkmode) .articles > div {
+  background: none;
+}
+
+:global(.darkmode) .articles > div > div {
+  background: var(--dark-component-grey);
+}
+
+:global(.darkmode) .articles > div > div:last-child {
+  background: none;
+}
+

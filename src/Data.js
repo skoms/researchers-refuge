@@ -72,7 +72,6 @@ export default class Data {
   }
 
   validateField = (type, data, target) => {
-    console.log(target.classList);
     let regex;
     if (type === 'name' || type === 'occupation') {
       regex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/;

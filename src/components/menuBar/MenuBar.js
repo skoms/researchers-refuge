@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsMobile } from '../../app/screenWidthSlice';
 import { updateFilter } from '../feed/feedSlice';
 import { toFirstPage } from '../paginationBar/paginationBarSlice';
+import { getIconUrl } from '../../Icons';
 
 const MenuBar = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,12 @@ const MenuBar = () => {
         { !isMobile ? 
           <button className={styles.button}>New Article</button>
           :
-          <img src='https://img.icons8.com/material/28/FFFFFF/create-new--v1.png' alt='write article button'/>
+          <img src={getIconUrl('pen-and-paper', null, {
+            size: 28,
+            colors: {
+              light: 'FFFFFF'
+            }
+          })} alt='write article button'/>
         }
       </a>
     </div>

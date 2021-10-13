@@ -57,19 +57,17 @@
   margin: .3rem 0;
 }
 
-:global(.darkmode) .credits, 
-:global(.darkmode) .credits * {
+:global(.darkmode) .credits {
   background: var(--dark-component-grey);
 }
 
 .credits span {
-  color: var(--base-blue);
-  background: white;
+  color: var(--base-darkblue);
   border-radius: .75;
 }
 
 .credits img {
-  margin-bottom: -.15rem;
+  margin: 0 .2rem -.15rem;
 }
 
 .headline {
@@ -82,6 +80,9 @@
 .title {
   grid-area: title;
   margin-bottom: .1rem;
+}
+
+.title h2 {
   color: var(--base-darkblue);
 }
 
