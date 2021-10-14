@@ -131,7 +131,7 @@
   box-shadow: none;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container {
     grid-template-areas: 
       "head head head head head head head head"

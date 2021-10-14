@@ -110,7 +110,7 @@
   transition-duration: .2s;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container {
     margin: 4.5rem .5rem 2rem .5rem;
     height: 100%;

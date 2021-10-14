@@ -179,7 +179,7 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container {
     margin-top: 5rem;
     grid-template-columns: .5rem repeat(2, 1fr) .5rem;

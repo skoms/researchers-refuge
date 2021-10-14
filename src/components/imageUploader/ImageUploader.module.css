@@ -87,7 +87,7 @@
   font-size: 1.1rem;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container {
     left: 0;
     margin: 0;

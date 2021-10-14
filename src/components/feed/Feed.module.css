@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container:last-child {
     padding: 0;
     height: 77vh;

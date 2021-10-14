@@ -208,7 +208,7 @@
   background: var(--base-darkblue);
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container {
     top: 0;
     width: 100vw;

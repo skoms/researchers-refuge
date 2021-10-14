@@ -51,7 +51,7 @@
   background: var(--base-darkblue);
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .container {
     display: flex;
     align-items: center;
