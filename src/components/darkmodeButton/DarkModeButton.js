@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import styles from './DarkModeButton.module.css';
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -18,11 +18,11 @@ const DarkModeButton = () => {
     document.getElementsByTagName('body')[0].classList.toggle('darkmode');
   }
 
-  window.addEventListener('load', () => {
-    if ( darkmodeOn ) {
+  useLayoutEffect(() => {
+    if (localStorage.getItem('darkmode') === 'true') {
       document.getElementsByTagName('body')[0].classList.add('darkmode');
     }
-  });
+  }, [])
   return (
     <div>
       <button className={styles.darkModeButton} onClick={toggleDarkmode}>

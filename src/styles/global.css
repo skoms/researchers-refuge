@@ -39,7 +39,7 @@
 }
 
 body {
-  background-color: var(--base-background);
+  background-color: var(--dark-base-background);
   color: var(--base-darkblue);
   font-size: 16px;
 }
@@ -51,6 +51,12 @@ body * {
 
 body.darkmode {
   background-color: var(--dark-base-background);
+  transition: background-color 0s;
+}
+
+body {
+  background-color: var(--base-background);
+  transition: background-color 0s;
 }
 
 .darkmode * {
