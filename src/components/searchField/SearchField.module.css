@@ -52,6 +52,10 @@
     box-shadow: none;
   }
 
+  .toggleMobileSearch:hover {
+    box-shadow: none;
+  }
+
   :global(.darkmode) .toggleMobileSearch {
     box-shadow: none;
   }
@@ -59,13 +63,33 @@
   .mobileSearch {
     position: absolute;
     top: 2.9rem;
-    left: -24vw;
-    width: 110vw;
+    left: -51px;
+    width: 100vw;
     padding: .2rem 0 .5rem 0;
     background: var(--base-blue);
   }
 
+  .mobileSearch > form  {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobileSearch > form > input  {
+    border: var(--base-semi-darkblue) .15rem solid;
+    padding: 0 .5rem;
+    border-radius: .75rem 0 0 .75rem;
+    width: 70vw;
+  }
+
+  .searchButton {
+    position: unset;
+    margin-left: -.1rem;
+  }
+
   :global(.darkmode) .mobileSearch {
+    background: var(--dark-component-darkgrey);
+  }
+  :global(.darkmode) .mobileSearch > form > input {
     background: var(--dark-component-darkgrey);
   }
 }

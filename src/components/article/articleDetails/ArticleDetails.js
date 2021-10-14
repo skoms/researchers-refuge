@@ -88,10 +88,17 @@ const ArticleDetails = () => {
           { authenticatedUser && (authenticatedUser.id === author.id || authenticatedUser.accessLevel === 'admin') ? 
             <div className={styles.ownerButtons}>
               <a href={`/update-article/${id}`}>
-                <TypedButton buttontype='primary' content='Edit Article' />
+                <TypedButton
+                  buttontype='primary'
+                  className={styles.ownerButton}
+                  style={{animation: 'none'}}
+                  content='Edit Article' 
+                />
               </a>
               <TypedButton 
                 buttontype='primary' 
+                className={styles.ownerButton}
+                style={{animation: 'none'}}
                 content='Delete Article' 
                 onClick={togglePopUp} 
               />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './SearchField.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -8,9 +8,11 @@ import {
   selectSearchTerm
 } from './searchFieldSlice';
 import { getIconUrl } from '../../Icons';
+import useToggle from '../../customHooks/useToggle';
+import { selectIsMobile } from '../../app/screenWidthSlice';
 
-const SearchField = ({ isMobile }) => {
-  const [mobileSearchActive, setMobileSearchActive] = useState(false);
+const SearchField = () => {
+  const [mobileSearchActive, toggleMobileSearchActive] = useToggle(false);
   
   const searchTerm = useSelector(selectSearchTerm);
   const darkModeOn = useSelector(selectDarkModeOn);
@@ -18,13 +20,12 @@ const SearchField = ({ isMobile }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-
-  const toggleMobileSearch = () => {
-    setMobileSearchActive(!mobileSearchActive);
-  }
+  const isMobile = useSelector(selectIsMobile);
 
   const submit = () => {
     history.push({ pathname: `/search/${searchTerm}`, state: { from: location.pathname }});
+    toggleMobileSearchActive(false);
+
   }
 
   return !isMobile ? (
@@ -54,7 +55,7 @@ const SearchField = ({ isMobile }) => {
     </div>
   ) : (
     <div className={styles.container}>
-      <button className={styles.toggleMobileSearch} onClick={toggleMobileSearch}>
+      <button className={styles.toggleMobileSearch} onClick={toggleMobileSearchActive}>
         <img 
           src={getIconUrl('magnifying-glass', darkModeOn, {
             size: 32,

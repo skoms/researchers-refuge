@@ -117,5 +117,33 @@
 }
 
 @media only screen and (max-width: 800px) {
-  
+  .container {
+    margin: 3.8rem .1rem 2rem .1rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 
+      "form form form";
+    gap: .5rem;
+    justify-items: center;
+  }
+
+  .form {
+    grid-template-columns: .2fr repeat(4, 1fr) .2fr;
+    grid-template-areas: 
+      '. h1 h1 h1 h1 .'
+      '. title title title title .'
+      '. intro intro intro intro .'
+      '. body body body body .'
+      '. date date topic topic.'
+      '. tags tags tags tags .'
+      '. btn btn btn btn .';
+  }
+
+  .form textarea {
+    max-width: 80vw;
+  }
+
+  :global(.darkmode) .topic select:focus,
+  :global(.darkmode) .topic select:hover {
+    background: var(--dark-component-darkgrey);
+  }
 }

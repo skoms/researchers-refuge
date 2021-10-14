@@ -333,5 +333,66 @@
 }
 
 @media only screen and (max-width: 800px) {
-  
+  /* Edit Profile Pop-Up */
+  .editProfileContainer {
+    padding: 3rem 1rem 2rem;
+    padding-left: .2rem;
+    width: unset;
+    min-width: 60vw;
+    max-width: 90vw;
+    min-height: fit-content;
+    max-height: 75vh;
+    grid-template-columns: .25fr 1.5fr;
+    grid-template-rows: .5fr repeat(3, 1fr);
+    grid-template-areas:
+        "edit-header main"
+        "sidebar main"
+        "sidebar main"
+        "sidebar main";
+    gap: .5rem;
+  }
+
+  .editMain {
+    left: 0;
+    margin: 0;
+    margin-top: -2rem;
+  }
+
+  .editProfileContainer .editHeader {
+    padding: 0;
+  }
+
+  .editProfileContainer .editSidebar {
+    padding: 0;
+  }
+
+  .editUserForm {
+    grid-template-columns: .1fr repeat(2, 1fr) .1fr;
+    grid-template-areas:
+        '. h1 h1 .'
+        '. firstName firstName .'
+        '. lastName lastName .'
+        '. occupation occupation .'
+        '. mostActiveField mostActiveField .'
+        '. bio bio .'
+        '. btn btn .';
+    grid-gap: .2rem;
+    min-width: 40vw;
+  }
+
+  .editUserForm :global(.form-input) textarea {
+    height: 5rem;
+    max-height: 15rem;
+  }
+
+  .editAccountForm {
+    grid-template-areas:
+        '. h1 h1 .'
+        '. oldPass oldPass .'
+        '. email email .'
+        '. pass pass .'
+        '. confPass confPass .'
+        '. btn btn.';
+  }
+
 }

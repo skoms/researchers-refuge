@@ -180,5 +180,29 @@
 }
 
 @media only screen and (max-width: 800px) {
-  
+  .container {
+    margin-top: 5rem;
+    grid-template-columns: .5rem repeat(2, 1fr) .5rem;
+    grid-template-areas: 
+      ". form form .";
+  }
+
+  .registrationForm {
+    grid-template-columns: .5rem repeat(4, 1fr) .5rem;
+    grid-template-areas: 
+      ". title title title title ."
+      ". errors errors errors errors ."
+      ". first first last last ."
+      ". email email email email ."
+      ". pass pass confirm-pass confirm-pass ."
+      ". btn btn btn btn ."
+      ". login-p login-p login-p login-p .";
+  }
+
+  .container :global(.mismatch) label {
+    font-weight: 500;
+  }
+  .container :global(.match) label {
+    font-weight: 500;
+  }
 }

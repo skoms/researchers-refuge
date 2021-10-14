@@ -219,7 +219,7 @@
       1fr 1fr 1fr 1fr 1fr .5fr 1.5fr;
     grid-template-areas: 
       "name search . select select select profile";
-    gap: .2rem;
+    gap: 3px;
     align-items: center;
   }
 

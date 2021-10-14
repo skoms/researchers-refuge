@@ -166,3 +166,28 @@
   background: none;
 }
 
+
+@media only screen and (max-width: 800px) {
+  .results {
+    margin-top: .5rem;
+  }
+
+  .articles > div > div {
+    font-size: .9rem;
+    width: 98%;
+    border-bottom: var(--dark-semi-darkblue) .1rem solid;
+    border-top: var(--dark-semi-darkblue) .1rem solid;
+  }
+
+  .articles > div > div:last-child {
+    border: none;
+  }
+
+  .articles > div > div .credits {
+    background: var(--dark-component-grey);
+  }
+
+  .articles > div > div h2 {
+    font-size: 1.1rem;
+  }
+}

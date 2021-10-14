@@ -11,6 +11,7 @@ import { updateTopic } from '../../../feed/feedSlice';
 import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
 import { accreditDiscredit } from '../articleCardsSlice';
 import { getIconUrl } from '../../../../Icons';
+import { selectIsMobile } from '../../../../app/screenWidthSlice';
 
 const data = new Data();
 
@@ -20,6 +21,7 @@ const ArticleCard = props => {
   const location = useLocation();
   const user = useSelector(selectAuthenticatedUser);
   const darkModeOn = useSelector(selectDarkModeOn);
+  const isMobile = useSelector(selectIsMobile);
 
   const inactiveColor = darkModeOn ? '161B22' : 'CECECE';
   const accreditColor = '00A300';
@@ -69,7 +71,7 @@ const ArticleCard = props => {
           <button onClick={accredit}>
             <img 
               src={getIconUrl('checkmark', darkModeOn, {
-                size: 16,
+                size: isMobile ? 16 : 20,
                 colors: {
                   dark: creditedStatus === 'accredited' ? accreditColor : inactiveColor,
                   light: creditedStatus === 'accredited' ? accreditColor : inactiveColor
@@ -79,13 +81,19 @@ const ArticleCard = props => {
             />
           </button>
           <div>
-            <img src={getIconUrl('star-box', null, {size: 16, colors: {light: '38B6FF'}})} alt='credits' className={styles.ratingIcon}/>
+            <img src={getIconUrl('star-box', null, {
+                size: isMobile ? 16 : 20, 
+                colors: {
+                  light: '38B6FF'
+                }
+              }
+            )} alt='credits' className={styles.ratingIcon}/>
             <span>{props.credits}</span>
           </div>
           <button onClick={discredit}>
             <img 
               src={getIconUrl('x', darkModeOn, {
-                size: 16,
+                size: isMobile ? 16 : 20,
                 colors: {
                   dark: creditedStatus === 'discredited' ? discreditColor : inactiveColor,
                   light: creditedStatus === 'discredited' ? discreditColor : inactiveColor

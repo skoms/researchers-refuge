@@ -102,6 +102,11 @@
   text-align: center;
 }
 
+.credits span {
+  color: var(--dark-fade-grey);
+  font-size: 1.25rem;
+}
+
 .container p {
   color: var(--base-darkblue);
   text-align: left;
@@ -132,6 +137,11 @@
       "head head head head head head head head"
       "title title title title title title title title"
       "credits intro intro intro intro intro intro intro";
+  }
+
+  .credits span {
+    color: var(--dark-fade-grey);
+    font-size: 1rem;
   }
 
   .intro {

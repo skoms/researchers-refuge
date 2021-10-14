@@ -13,7 +13,7 @@ export const screenWidthSlice = createSlice({
       return {
         ...state,
         width: window.innerWidth,
-        isMobile: window.innerWidth <= 768
+        isMobile: window.innerWidth <= 800
       }
     }
   }

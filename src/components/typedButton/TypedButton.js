@@ -5,13 +5,13 @@ const TypedButton = props => {
 
   if (props.buttontype === 'primary') {
     return (
-      <button className={styles.primaryButton} {...props}>
+      <button {...props} className={`${ props.className || '' } ${styles.primaryButton}`}>
         {props.content}
       </button>
     )
   } else {
     return (
-      <button className={`${styles.secondaryButton} ${ props.className || '' }`} {...props}>
+      <button {...props} className={`${ props.className || '' } ${styles.secondaryButton}`}>
         {props.content}
       </button>
     )

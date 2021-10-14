@@ -79,5 +79,31 @@
 }
 
 @media only screen and (max-width: 800px) {
-  
+  .container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 
+      'img table'
+      'name table'
+      'occupation table'
+      'bio bio';
+    justify-items: center;
+  }
+
+  .container img {
+    grid-area: img;
+  }
+  .container .full-name {
+    grid-area: name;
+  }
+  .container .occupation {
+    grid-area: occupation;
+  }
+  .container table {
+    grid-area: table;
+  }
+  .container .bio {
+    grid-area: bio;
+  }
 }

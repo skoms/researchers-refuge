@@ -1,25 +1,28 @@
-.darkModeButton {
+.darkModeButton,
+.darkModeButton img {
   cursor: pointer;
   background: none;
   border: none;
-  border-radius: 0;
+  border-radius: 50%;
   box-shadow: none;
   transition: unset;
 }
 
-.darkModeButton:hover {
+.darkModeButton:hover,
+.darkModeButton img:hover {
   cursor: pointer;
   background: none;
   border: none;
-  border-radius: 0;
+  border-radius: 50%;
   box-shadow: none;
 }
 
-:global(.darkmode) .darkModeButton {
+:global(.darkmode) .darkModeButton,
+:global(.darkmode) .darkModeButton img {
   cursor: pointer;
-  background: var(--dark-component-darkgrey);
+  background: none;
   border: none;
-  border-radius: 0;
+  border-radius: 50%;
   box-shadow: none;
   transition: unset;
 }

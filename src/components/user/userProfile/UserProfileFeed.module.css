@@ -255,5 +255,92 @@
 }
 
 @media only screen and (max-width: 800px) {
-  
+  .container {
+    max-width: 95vw;
+  }
+
+  .infoHeader {
+    grid-template-columns: .5rem repeat(2, 1fr) .5rem;
+    grid-template-areas:
+        "header header header header"
+        ". name-occ-bio name-occ-bio ."
+        ". stats stats .";
+  }
+
+  .headerImgDiv .button {
+    font-size: .8rem;
+    margin-right: .2rem;
+    margin-bottom: .7rem;
+    line-height: 1.5rem;
+
+  }
+
+  .profilePic {
+    height: 4rem;
+    width: 4rem;
+    left: calc(50% - 2rem);
+  }
+
+  span.fullName {
+    margin-top: 0;
+  }
+
+  h2.fullName {
+    margin-top: .2rem;
+  }
+
+  .fullName img {
+    margin-bottom: .2rem;
+  }
+
+  .stats {
+    margin-bottom: 0;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      'active active'
+      'articles credits'
+      'followers following';
+    gap: .5rem
+  }
+
+  .stats .stat {
+    justify-content: space-between;
+  }
+
+  .stat .title {
+    margin: 0;
+  }
+
+  .stats :global(.most-active-field) {
+    grid-area: active;
+  }
+  .stats .articles {
+    grid-area: articles;
+  }
+  .stats .credits {
+    grid-area: credits;
+  }
+  .stats .followers {
+    grid-area: followers;
+  }
+  .stats .following {
+    grid-area: following;
+  }
+
+  .container .title {
+    margin-bottom: .5rem;
+  }
+
+  .articlesPublishedContainer > div > div, 
+  .articlesAccreditedContainer > div > div {
+    width: 95%;
+  }
+
+  .articlesPublishedContainer > div > div h2, 
+  .articlesAccreditedContainer > div > div h2 {
+    margin: .1rem 0;
+  }
+
 }

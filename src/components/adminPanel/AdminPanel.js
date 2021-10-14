@@ -10,12 +10,17 @@ import Statistics from './adminMain/statistics/Statistics';
 import TopicManagement from './adminMain/topicManagement/TopicManagement';
 import UserManagement from './adminMain/userManagement/UserManagement';
 import AdminSidebar from './adminSidebar/AdminSidebar';
+import { selectIsMobile } from '../../app/screenWidthSlice';
+import { getIconUrl } from '../../Icons';
+import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 
 const AdminPanel = () => {
   const history = useHistory();
   const user = useSelector(selectAuthenticatedUser);
   const [didLoad, setDidLoad] = useState(false);
   const [selection, setSelection] = useState('Statistics');
+  const isMobile = useSelector(selectIsMobile);
+  const darkModeOn = useSelector(selectDarkModeOn);
 
   const select = e => {
     setSelection(e.target.innerHTML);
@@ -30,7 +35,7 @@ const AdminPanel = () => {
     }
   }, [didLoad, user, history]);
 
-  return (
+  return !isMobile ? (
     <div className={styles.container}>
       <AdminSidebar select={select} />
       <div className={styles.mainPanel}>
@@ -41,6 +46,13 @@ const AdminPanel = () => {
         { selection === 'Category Management' && <CategoryManagement />}
         { selection === 'Report Center' && <ReportCenter />}
       </div>
+    </div>
+  ) : (
+    <div>
+      <img src={getIconUrl('no-entry', darkModeOn, { size: 80 })} alt="forbidden" />
+      <p>Admin Panel Not Available</p>
+      <p>On Smaller Narrow Screens</p>
+      <p>You can try landscape mode if necessary</p>
     </div>
   )
 }

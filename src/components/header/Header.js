@@ -62,7 +62,7 @@ const Header = () => {
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
         <h2>Researchers' Refuge</h2>
       </a>
-      <SearchField isMobile={isMobile}/>
+      <SearchField />
       {location.pathname === '/' && <TopicSelect use='header' />}
       { didLoad && loggedIn ?
         <div className={styles.loggedInNav}>

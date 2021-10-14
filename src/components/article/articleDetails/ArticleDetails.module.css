@@ -111,5 +111,24 @@
 }
 
 @media only screen and (max-width: 800px) {
-  
+  .container {
+    margin: 4.5rem .5rem 2rem .5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .articleContainer {
+    padding: 1rem 0;
+    margin-bottom: .2rem;
+  }
+
+  .articleContainer .ownerButtons {
+    margin: 0 .8rem;
+  }
+
+  .ownerButton {
+    animation: none;
+  }
 }
