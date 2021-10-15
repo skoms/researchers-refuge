@@ -97,6 +97,9 @@ export const getIconUrl = (
     case 'pen-and-paper':
       return `https://img.icons8.com/material/${size}/${darkModeOn ? colors.dark : colors.light}/create-new--v1.png`;
 
+    case 'letter-and-paper':
+      return `https://img.icons8.com/external-flatart-icons-outline-flatarticons/${size}/${darkModeOn ? colors.dark : colors.light}/external-letter-contact-flatart-icons-outline-flatarticons.png`;
+
     default:
       break;
   }

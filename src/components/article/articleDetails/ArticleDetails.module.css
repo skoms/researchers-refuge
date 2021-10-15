@@ -23,7 +23,8 @@
   width: 100%;
   font-size: 1.2rem;
   margin-bottom: 3rem;
-  padding: 1rem;
+  min-width: 30rem;
+  padding: 0;
   background-color: var(--base-component-white);
   border-radius: .75rem;
   text-align: left;
@@ -38,6 +39,7 @@
 }
 
 .ownerButtons {
+  margin: .5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -57,7 +59,7 @@
 .title {
   font-size: 2.5rem;
   font-weight: 900;
-  margin: 1rem 1rem;
+  margin: 1rem 2rem;
 }
 
 :global(.darkmode) .title {
@@ -65,7 +67,7 @@
 }
 
 .header, .intro, .articleBody {
-  margin: 1rem;
+  margin: 1rem 2rem;
   text-indent: 2rem;
 }
 
@@ -88,6 +90,36 @@
 .header a:hover {
   text-decoration: underline;
 }
+
+:global(#report-button).reportButton {
+  padding: .1rem .2rem;
+  line-height: 1.5rem;
+  border-radius: .75rem;
+  border: none;
+  outline: none;
+  opacity: 0.5;
+  transition: all .3s;
+  min-width: 7rem;
+  font-size: .7rem;
+  margin: 1rem 1rem;
+  background: linear-gradient(#FF5858, #FF2323);
+  color: var(--base-component-white);
+}
+
+:global(.darkmode) :global(#report-button).reportButton {
+  background: linear-gradient(#FF5858, #FF2323);
+  color: var(--base-component-white);
+}
+
+:global(#report-button).reportButton:hover {
+  opacity: 1;
+  box-shadow: none;
+}
+
+.reportIcon {
+  margin-bottom: -.2rem;
+}
+
 
 .navButtons {
   margin-top: 2rem;
@@ -130,5 +162,10 @@
 
   .ownerButton {
     animation: none;
+  }
+
+  .reportButton {
+    min-width: 6rem;
+    padding: 0;
   }
 }

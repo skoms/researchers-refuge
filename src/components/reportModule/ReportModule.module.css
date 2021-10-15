@@ -1,0 +1,65 @@
+.container {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  border-radius: .75rem;
+  backdrop-filter: blur(40px);
+  z-index: 10;
+}
+
+.popUp {
+  display: flex;
+  flex-direction: column;
+  background: var(--base-component-white);
+  box-shadow: black 1px 1px 8px -3px;
+  padding: 1rem;
+  border-radius: .75rem;
+  font-size: 1.5rem;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.formButtons button {
+  margin: 1rem .5rem 0;
+  font-size: 1rem;
+  padding: .2rem .6rem;
+  border-radius: .75rem;
+}
+
+:global(.darkmode) .popUp {
+  box-shadow: var(--base-shadow-blue) 1px 1px 8px -3px;
+}
+
+:global(.darkmode) .popUp,
+:global(.darkmode) .p {
+  background: var(--dark-component-darkgrey);
+  color: var(--base-blue);
+}
+
+:global(.darkmode) .select:focus {
+  background: var(--dark-darkgrey);
+}
+
+@media only screen and (max-width: 768px) {
+  .popUp {
+    max-width: 80vw;
+    max-height: 80vh;
+  }
+
+  .popUp :global(.error) {
+    font-size: 1.1rem;
+  }
+
+  .popUp :global(.form-input) textarea {
+    max-height: 30vh;
+    max-width: 78vw;
+  }
+}

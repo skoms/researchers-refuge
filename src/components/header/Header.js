@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import DarkModeButton from '../darkmodeButton/DarkModeButton';
 import Cookies from 'js-cookie';
 import styles from './Header.module.css';
+import useUpdateEffect from '../../customHooks/useUpdateEffect';
 
 import SearchField from '../searchField/SearchField'
 import {
@@ -18,10 +19,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 import { selectIsMobile, updateWidth } from '../../app/screenWidthSlice';
 import { getIconUrl } from '../../Icons';
+import { toggleIsActive, updateTargetId, updateType } from '../reportModule/reportModuleSlice';
+import useToggle from '../../customHooks/useToggle';
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false);
-  const [dropdownActive, setDropdownActive] = useState(false);
+  const [dropdownActive, toggleDropdownActive] = useToggle(false);
+  const dropdownRef = useRef();
 
   const loggedIn = useSelector(selectLoggedIn);
   const isMobile = useSelector(selectIsMobile);
@@ -48,8 +52,20 @@ const Header = () => {
     }
   }, [ dispatch ]);
 
-  const toggleDropdown = () => {
-    setDropdownActive(!dropdownActive);
+  useUpdateEffect(() => {
+    const pageClickEvent = e => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        toggleDropdownActive(false);
+      }
+    }
+    dropdownActive && window.addEventListener('click', pageClickEvent);
+    return () => window.removeEventListener('click', pageClickEvent);
+  }, [dropdownActive, toggleDropdownActive])
+
+  const openReportModule = () => {
+    dispatch(updateType('Bug'));
+    dispatch(updateTargetId(0));
+    dispatch(toggleIsActive(true));
   }
 
   const LogOut = () => {
@@ -80,7 +96,7 @@ const Header = () => {
                 })} 
                 className={styles.menuToggleButton}
                 alt='menu toggle button'
-                onClick={toggleDropdown}
+                onClick={toggleDropdownActive}
               />
             }
 
@@ -92,8 +108,13 @@ const Header = () => {
             />
           </div>
           
-          <div className={`${styles.dropdown} ${!dropdownActive && 'invisible'}`}>
+          <div 
+            className={`${styles.dropdown} ${!dropdownActive && 'invisible'}`}
+            ref={dropdownRef}
+          >
             <a href="/my-profile">My Profile</a>
+            <hr />
+            <button className={styles.signOutButton} onClick={openReportModule}>Report Bug</button>
             <hr />
             <button className={styles.signOutButton} onClick={LogOut}>Sign Out</button>
           </div>

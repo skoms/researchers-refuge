@@ -6,7 +6,9 @@
   background-color: var(--base-component-white);
   border-radius: .75rem;
   padding: .5rem 0;
-  width: 15rem;
+  width: fit-content;
+  min-width: 10rem;
+  max-width: 15rem;
   height: fit-content;
 }
 

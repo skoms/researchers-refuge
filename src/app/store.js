@@ -17,6 +17,7 @@ import relatedArticlesReducer from '../components/article/articleDetails/related
 import screenWidthReducer from './screenWidthSlice';
 import paginationBarReducer from '../components/paginationBar/paginationBarSlice';
 import adminPanelReducer from '../components/adminPanel/adminPanelSlice';
+import reportModuleReducer from '../components/reportModule/reportModuleSlice';
 
 export const store = configureStore({
   reducer: {
@@ -37,5 +38,6 @@ export const store = configureStore({
     relatedArticles: relatedArticlesReducer,
     paginationBar: paginationBarReducer,
     adminPanel: adminPanelReducer,
+    reportModule: reportModuleReducer,
   }
 });

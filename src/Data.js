@@ -600,6 +600,18 @@ export default class Data {
   }
 
   /**
+   * creates a report and posts to the API
+   * @param {object} report - the report object with properties: title, description
+   * @param {object} user - the logged in user
+   * @returns status code, errors on failure
+   */
+  async createReport(report, user) {
+    return await this.responseHandler(
+      this.api('/reports', 'POST', null, report, true, user)
+    );
+  }
+
+  /**
    * creates an entry
    * @param {object} user - logged in user
    * @param {string} type - type of entry

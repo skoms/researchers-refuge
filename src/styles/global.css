@@ -305,7 +305,6 @@ button.disabled:hover .tooltip {
 
 /* ============== Small Screen Content Styling  ======================= */
 @media only screen and (max-width: 800px) {
-  /* ============= Base Styling ======================================= */
   body {
     font-size: 18px;
   }

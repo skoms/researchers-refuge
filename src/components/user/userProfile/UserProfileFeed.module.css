@@ -96,7 +96,7 @@
   color: var(--dark-fade-grey);
 }
 
-.infoHeader .button {
+.button {
   line-height: 2rem;
   border-radius: .75rem;
   border: none;
@@ -106,9 +106,9 @@
   transition: all .3s;
   position: absolute;
   width: 15%;
-  right: 0%;
-  bottom: 3%;
-  min-width: 5rem;
+  right: -.7rem;
+  bottom: 0;
+  min-width: 7rem;
   font-size: 1.1rem;
   margin: 1rem 1rem;
   background: linear-gradient(var(--base-scroll-blue), var(--base-blue));
@@ -116,16 +116,44 @@
   animation: sign-up-btn 6s 3s infinite ease-in-out;
 }
 
-:global(.darkmode) .infoHeader .button {
+:global(.darkmode) .button {
   background: linear-gradient(var(--base-darkblue), var(--dark-component-darkgrey));
   animation: sign-up-btn 6s 3s infinite ease-in-out;
   box-shadow: 0 2px 12px -3px var(--dark-shadow-blue);
 }
 
-.infoHeader button:hover {
+.button:hover {
   cursor: pointer;
   opacity: 1;
   box-shadow: 0 2px 12px -3px #0D1117;
+}
+
+.reportButton {
+  padding: .1rem .2rem;
+  line-height: 1.5rem;
+  border-radius: .75rem;
+  border: none;
+  outline: none;
+  opacity: 0.5;
+  transition: all .3s;
+  min-width: 7rem;
+  font-size: .7rem;
+  margin: 1rem 1rem;
+  position: absolute;
+  width: 12%;
+  right: -1rem;
+  bottom: -2.5rem;
+  background: linear-gradient(#FF5858, #FF2323);
+  color: var(--base-component-white);
+}
+
+:global(.darkmode) .reportButton {
+  background: linear-gradient(#FF5858, #FF2323);
+  color: var(--base-component-white);
+}
+
+.reportIcon {
+  margin-bottom: -.2rem;
 }
 
 .stats {
@@ -254,45 +282,7 @@
   width: 50%;
 }
 
-@media only screen and (max-width: 768px) {
-  .container {
-    max-width: 95vw;
-  }
-
-  .infoHeader {
-    grid-template-columns: .5rem repeat(2, 1fr) .5rem;
-    grid-template-areas:
-        "header header header header"
-        ". name-occ-bio name-occ-bio ."
-        ". stats stats .";
-  }
-
-  .headerImgDiv .button {
-    font-size: .8rem;
-    margin-right: .2rem;
-    margin-bottom: .7rem;
-    line-height: 1.5rem;
-
-  }
-
-  .profilePic {
-    height: 4rem;
-    width: 4rem;
-    left: calc(50% - 2rem);
-  }
-
-  span.fullName {
-    margin-top: 0;
-  }
-
-  h2.fullName {
-    margin-top: .2rem;
-  }
-
-  .fullName img {
-    margin-bottom: .2rem;
-  }
-
+@media only screen and (max-width: 950px) {
   .stats {
     margin-bottom: 0;
     width: fit-content;
@@ -327,6 +317,56 @@
   }
   .stats .following {
     grid-area: following;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    max-width: 95vw;
+  }
+
+  .infoHeader {
+    grid-template-columns: .5rem repeat(2, 1fr) .5rem;
+    grid-template-areas:
+        "header header header header"
+        ". name-occ-bio name-occ-bio ."
+        ". stats stats .";
+  }
+
+  .headerImgDiv .button {
+    bottom: .2rem;
+    right: 0;
+    font-size: .8rem;
+    margin-right: .2rem;
+    margin-bottom: .7rem;
+    line-height: 1.5rem;
+    min-width: 5rem;
+    padding: 0;
+  }
+
+  .reportButton {
+    bottom: -2rem;
+    right: -1rem;
+    min-width: 6rem;
+    padding: 0;
+  }
+
+  .profilePic {
+    height: 4rem;
+    width: 4rem;
+    left: calc(50% - 2rem);
+  }
+
+  span.fullName {
+    margin-top: 1rem;
+  }
+
+  h2.fullName {
+    margin-top: .2rem;
+  }
+
+  .fullName img {
+    margin-bottom: .2rem;
   }
 
   .container .title {

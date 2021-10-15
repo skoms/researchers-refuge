@@ -18,15 +18,18 @@ import NotFound from '../components/error/notFound/NotFound';
 import UnhandledError from '../components/error/unhandledError/UnhandledError';
 import SearchResultsPage from '../components/searchResults/SearchResultsPage';
 import AdminPanel from '../components/adminPanel/AdminPanel';
+import ReportModule from '../components/reportModule/ReportModule';
 
 
 
 function App() {
+
   return (
     <div className="App">
       <Router>
         <Header />
         <main>
+          <ReportModule />
           <Switch>
             <Route exact path='/' component={MainPage} />
             <Route exact path='/sign-up' component={UserRegistration} />
@@ -40,6 +43,7 @@ function App() {
             <Route exact path='/forbidden' component={Forbidden} />
             <Route exact path='/error' component={UnhandledError} />
             <PrivateRoute exact path='/admin-panel' component={AdminPanel} />
+            {/* <PrivateRoute exact path='/report' component={ReportModule} /> */}
             <Route component={NotFound} />
           </Switch>
         </main>

@@ -17,6 +17,7 @@ import {
   selectIsFollowedByMe,
   selectOwner
 } from '../userFeedSlice';
+import { updateType, updateTargetId, toggleIsActive } from '../../../reportModule/reportModuleSlice';
 import ReactMarkdown from 'react-markdown';
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
 import TypedButton from '../../../typedButton/TypedButton';
@@ -83,9 +84,16 @@ const UserProfileFeed = props => {
       });
   }
 
+  const openReportModule = () => {
+    dispatch(updateType('User'));
+    dispatch(updateTargetId(props.id));
+    dispatch(toggleIsActive(true));
+  }
+
   return owner !== null ? (
       <div className={styles.container}>
         <div className={styles.infoHeader}>
+
           <div className={styles.headerImgDiv}>
             <img src={ owner.headerImgURL || "https://placeimg.com/1000/150/tech" } alt="header"  className={styles.headerImg}/>
             <img 
@@ -102,7 +110,28 @@ const UserProfileFeed = props => {
               onClick={followUnfollow}
               content={ isFollowedByMe ? 'Unfollow' : 'Follow' }
             />
+            <TypedButton
+              buttontype='secondary'
+              className={styles.reportButton}
+              onClick={openReportModule}
+              content={
+                <>
+                  <img 
+                    className={styles.reportIcon}
+                    src={getIconUrl('letter-and-paper', null, {
+                      size: 16,
+                      colors: {
+                        light: 'FFFFFF'
+                      }
+                    })}
+                    alt='report icon'
+                  />
+                  <span> Report User</span>
+                </>
+              }
+            />
           </div>
+
           <div className={styles.nameOccupationAndBio}>
             <span className={styles.fullName}>
               <h2 className={styles.fullName}>
@@ -117,6 +146,7 @@ const UserProfileFeed = props => {
             <p className={styles.occupation}>{ owner.occupation || '' }</p>
             <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
+
           <div className={styles.stats}>
             <div className={`${styles.stat} most-active-field`}>
               <p className={styles.title}>Most active field:</p>
