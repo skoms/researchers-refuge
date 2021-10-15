@@ -114,6 +114,12 @@ const Header = () => {
           >
             <a href="/my-profile">My Profile</a>
             <hr />
+            { authenticatedUser.accessLevel === 'admin' && 
+              <>
+                <a href="/admin-panel">Admin Panel</a>
+                <hr />
+              </>
+            }
             <button className={styles.signOutButton} onClick={openReportModule}>Report Bug</button>
             <hr />
             <button className={styles.signOutButton} onClick={LogOut}>Sign Out</button>

@@ -16,6 +16,7 @@ import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 import { selectIsMobile } from '../../app/screenWidthSlice'
 import { selectPage } from '../paginationBar/paginationBarSlice'
 import { getIconUrl } from '../../Icons';
+import useDebounce from '../../customHooks/useDebounce';
 
 const SearchResultsFeed = () => {
   const [didLoad, setDidLoad] = useState(false);
@@ -42,10 +43,14 @@ const SearchResultsFeed = () => {
       dispatch(getResults({ query: term, page }));
       dispatch(updateSearchTerm(term));
       setDidLoad(true);
-    } else if (searchTerm !== '') {
+    }
+  }, [didLoad, term, dispatch, page]);
+
+  useDebounce(() => {
+    if (searchTerm !== '') {
       dispatch(getResults({ query: searchTerm, page }));
     }
-  }, [didLoad, term, dispatch, searchTerm, page]);
+  }, 750, [searchTerm]);
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));

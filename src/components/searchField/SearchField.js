@@ -22,15 +22,14 @@ const SearchField = () => {
   const location = useLocation();
   const isMobile = useSelector(selectIsMobile);
 
-  const submit = () => {
+  const search = () => {
     history.push({ pathname: `/search/${searchTerm}`, state: { from: location.pathname }});
     toggleMobileSearchActive(false);
-
   }
 
   return !isMobile ? (
     <div className={styles.container}>
-      <form onSubmit={submit}>
+      <form onSubmit={search}>
         <input
           className={styles.input}
           id="search"
@@ -68,7 +67,7 @@ const SearchField = () => {
         />
       </button>
       <div className={`${styles.mobileSearch} ${!mobileSearchActive && 'invisible'}`}>
-        <form onSubmit={submit}>
+        <form onSubmit={search}>
           <input
             id="search"
             type="text"

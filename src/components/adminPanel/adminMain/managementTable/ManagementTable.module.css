@@ -70,6 +70,10 @@
   vertical-align: middle;
 }
 
+.tableHeader img {
+  margin: 0 0 -.2rem .5rem 
+}
+
 :global(.darkmode) .tableHeader {
   border-bottom: var(--base-scroll-blue) 4px solid;
   background: var(--dark-light-darkgrey);
