@@ -28,6 +28,15 @@
   grid-area: pic;
 }
 
+.reportIssueSpan {
+  text-decoration: underline;
+}
+
+.reportIssueSpan:hover {
+  color: #FF2323;
+  cursor: pointer;
+}
+
 .secondaryButton {
   grid-area: btn;
   color: var(--base-darkblue);

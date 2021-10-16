@@ -8,6 +8,7 @@ import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlic
 import TableSearch from "../tableSearch/TableSearch";
 import EntriesSelect from "../entriesSelect/EntriesSelect";
 import { getArticlesAdmin, getArticlesByQueryAdmin, selectArticles, selectSortOrder, selectEntriesLimit, selectSearchQuery } from "../../adminPanelSlice";
+import EntriesShown from '../entriesShown/EntriesShown';
 
 
 const ArticleManagement = () => {
@@ -37,7 +38,7 @@ const ArticleManagement = () => {
       <ManagementTable 
         data={articles}
       />
-      <p className={styles.entriesCount}>{`Showing ${articles.rangeStart} to ${articles.rangeEnd} of ${articles.total} entries`}</p>
+      <EntriesShown data={articles} />
       <PaginationBar use='admin' />
     </div>
   )

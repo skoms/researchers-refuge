@@ -75,7 +75,10 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <a className={styles.homeLogo} href="/">
-        <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" /> 
+        <img
+          src={process.env.PUBLIC_URL + '/logo192.png'}
+          alt="logo"
+        /> 
         <h2>Researchers' Refuge</h2>
       </a>
       <SearchField />
@@ -101,7 +104,9 @@ const Header = () => {
             }
 
             <img 
-              src={ authenticatedUser.profileImgURL || getIconUrl('user-placeholder', null, {size: 30, colors: {light: 'FFFFFF'}})}
+              src={ authenticatedUser.profileImgURL || getIconUrl('user-placeholder', null, {
+                size: 30, colors: { light: 'FFFFFF' }
+              })}
               className={ `${styles.profilePic} ${authenticatedUser.profileImgURL ? '' : 'placeholder'}` } 
               alt='your profile'
               onClick={() => history.push('/my-profile')}
@@ -120,9 +125,19 @@ const Header = () => {
                 <hr />
               </>
             }
-            <button className={styles.signOutButton} onClick={openReportModule}>Report Bug</button>
+            <button
+              className={styles.menuButton}
+              onClick={openReportModule}
+            >
+              Report Bug
+            </button>
             <hr />
-            <button className={styles.signOutButton} onClick={LogOut}>Sign Out</button>
+            <button
+              className={styles.menuButton}
+              onClick={LogOut}
+            >
+              Sign Out
+            </button>
           </div>
         </div>
       :
@@ -130,18 +145,28 @@ const Header = () => {
           <DarkModeButton />
           <a href="/sign-in">
             <button>
-              {!isMobile ? 'Sign In' : <img src={getIconUrl('sign-in', null, {
-                size: 30,
-                colors: { light: 'FFFFFF' }
-              })} alt='sign in button'/>}
+              { !isMobile ? 
+                  'Sign In' 
+                : 
+                  <img 
+                    src={getIconUrl('sign-in', null, {
+                      size: 30, colors: { light: 'FFFFFF' }
+                    })}
+                    alt='sign in button'
+                  />
+              }
             </button>
           </a>
           <a href="/sign-up">
             <button>
-              {!isMobile ? 'Sign Up' : <img src={getIconUrl('sign-up', null, {
-                size: 30,
-                colors: { light: 'FFFFFF' }
-              })} alt='sign up button'/>}
+              { !isMobile ? 
+                  'Sign Up' 
+                : 
+                <img src={getIconUrl('sign-up', null, {
+                  size: 30, colors: { light: 'FFFFFF' }
+                })}
+                alt='sign up button'/>
+              }
             </button>
           </a>
         </div>

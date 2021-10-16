@@ -135,7 +135,7 @@ const UserProfileFeed = props => {
           <div className={styles.nameOccupationAndBio}>
             <span className={styles.fullName}>
               <h2 className={styles.fullName}>
-                { `${owner.firstName} ${owner.lastName}` }
+                { data.capitalize(`${owner.firstName} ${owner.lastName}`, false) }
               </h2>
               {owner.accessLevel === 'admin' ? 
                 <img src={getIconUrl('admin-emblem', null, {
@@ -143,7 +143,7 @@ const UserProfileFeed = props => {
                   colors: { light: '38B6FF' }
                 })} alt='admin icon'/> : ''}
             </span>
-            <p className={styles.occupation}>{ owner.occupation || '' }</p>
+            <p className={styles.occupation}>{ data.capitalize(owner.occupation, false) || '' }</p>
             <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
 

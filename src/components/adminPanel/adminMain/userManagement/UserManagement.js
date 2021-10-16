@@ -8,6 +8,7 @@ import { getUsersAdmin, getUsersByQueryAdmin, selectSortOrder, selectUsers, sele
 import EntriesSelect from "../entriesSelect/EntriesSelect";
 import ManagementTable from "../managementTable/ManagementTable";
 import TableSearch from "../tableSearch/TableSearch";
+import EntriesShown from '../entriesShown/EntriesShown';
 
 const UserManagement = () => {
   const users = useSelector(selectUsers);
@@ -37,7 +38,7 @@ const UserManagement = () => {
       <ManagementTable 
         data={users}
       />
-      <p className={styles.entriesCount}>{`Showing ${users.rangeStart} to ${users.rangeEnd} of ${users.total} entries`}</p>
+      <EntriesShown data={users} />
       <PaginationBar use='admin' />
     </div>
   )

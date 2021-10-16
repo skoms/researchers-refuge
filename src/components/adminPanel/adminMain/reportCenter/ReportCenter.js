@@ -9,6 +9,7 @@ import EntriesSelect from "../entriesSelect/EntriesSelect";
 import TableSearch from "../tableSearch/TableSearch";
 import ManagementTable from "../managementTable/ManagementTable";
 import StatusFilter from "../statusFilter/StatusFilter";
+import EntriesShown from '../entriesShown/EntriesShown';
 
 const ReportCenter = () => {
   const user = useSelector(selectAuthenticatedUser);
@@ -41,7 +42,7 @@ const ReportCenter = () => {
         statusFilter={statusFilter}
         data={reports}
       />
-      <p className={styles.entriesCount}>{`Showing ${reports.rangeStart} to ${reports.rangeEnd} of ${reports.total} entries`}</p>
+      <EntriesShown data={reports} />
       <PaginationBar use='admin' />
     </div>
   )

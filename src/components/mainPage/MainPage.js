@@ -17,8 +17,12 @@ const MainPage = () => {
 
   return (
     <div className={styles.container}>
+      { loggedIn && !isMobile ? 
+          <InfoModule user={authenticatedUser} /> 
+        : 
+          <Fragment /> 
+      }
       { !isMobile && <RecommendModule />}
-      { loggedIn && !isMobile ? <InfoModule user={authenticatedUser} /> :<Fragment /> }
       <Feed />
     </div>
   )

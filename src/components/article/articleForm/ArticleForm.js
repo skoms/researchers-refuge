@@ -116,31 +116,95 @@ const ArticleForm = props => {
 
   return didLoad && (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={submit}>
-        <h1 className={styles.h1}>{ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE</h1>
-        <div className={`form-input ${styles.title}`} id='title-input-div'>
-          <input id="title" name="title" type="text" value={ article.title || '' } onChange={onChangeHandler}/>
+      <form
+        className={styles.form}
+        onSubmit={submit}
+      >
+        <h1 className={styles.h1}>
+          {`${ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE`}
+        </h1>
+        <div
+          className={`form-input ${styles.title}`}
+          id='title-input-div'
+        >
+          <input
+            id="title"
+            name="title"
+            type="text"
+            value={ article.title || '' }
+            onChange={onChangeHandler}
+          />
           <label htmlFor="title">Title</label>
         </div>
-        <div className={`form-input ${styles.intro}`} id='intro-input-div'>
-          <textarea id="intro" name="intro"  rows='20' cols='60' value={ article.intro || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
+        <div
+          className={`form-input ${styles.intro}`}
+          id='intro-input-div'
+        >
+          <textarea
+            id="intro"
+            name="intro"
+            rows='20'
+            cols='60'
+            value={ article.intro || '' }
+            onChange={onChangeHandler}
+            placeholder='Uses Markdown formatting'
+          />
           <label htmlFor="intro">Intro</label>
         </div>
-        <div className={`form-input ${styles.body}`} id='body-input-div'>
-          <textarea id="body" name="body"  rows='20' cols='60' value={ article.body || '' } onChange={onChangeHandler} placeholder='Uses Markdown formatting'/>
+        <div
+          className={`form-input ${styles.body}`}
+          id='body-input-div'
+        >
+          <textarea
+            id='body'
+            name='body'
+            rows='20'
+            cols='60'
+            value={ article.body || '' }
+            onChange={onChangeHandler}
+            placeholder='Uses Markdown formatting'
+          />
           <label htmlFor="body">Body</label>
-          <a href="https://www.markdownguide.org/cheat-sheet" target='_blank' rel='noreferrer'>Cheat Sheet</a>
+          <a
+            href="https://www.markdownguide.org/cheat-sheet"
+            target='_blank'
+            rel='noreferrer'
+          >
+            Cheat Sheet
+          </a>
         </div>
-        <div className={`form-input ${styles.date}`} id='published-input-div'>
-          <input id="published" name="date" type="date" value={ article.published || '' } onChange={onChangeHandler}/>
+        <div
+          className={`form-input ${styles.date}`}
+          id='published-input-div'
+        >
+          <input
+            id="published"
+            name="date"
+            type="date"
+            value={ article.published || '' }
+            onChange={onChangeHandler}
+          />
           <label htmlFor="published">Published: </label>
         </div>
-        <div className={`form-input ${styles.topic}`} id='topic-input-div'>
+        <div
+          className={`form-input ${styles.topic}`}
+          id='topic-input-div'
+        >
           <TopicSelect use='ArticleForm' />
           <label htmlFor="topic">Topic: </label>
         </div>
-        <div className={`form-input ${styles.tags}`} id='tags-input-div'>
-          <input id="tags" name="tags" type="text" value={ article.tags || '' } onChange={onChangeHandler} placeholder="One or more separated by ','"/>
+        <div
+          className={`form-input ${styles.tags}`}
+          id='tags-input-div'
+        >
+          <input
+            id="tags"
+            name="tags"
+            type="text"
+            value={ article.tags || '' }
+            onChange={onChangeHandler}
+            placeholder="One or more separated by ','"
+          />
           <label htmlFor="tags">Tags:</label>
         </div>
         

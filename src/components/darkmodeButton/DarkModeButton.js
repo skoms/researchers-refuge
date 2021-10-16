@@ -25,12 +25,20 @@ const DarkModeButton = () => {
   }, [])
   return (
     <div>
-      <button className={styles.darkModeButton} onClick={toggleDarkmode}>
-        { darkmodeOn 
-        ?
-          <img src={getIconUrl('sun', null, {size: 24, colors: {light: 'FFFFFF'}})} alt="darkmode button"/>
+      <button
+        className={styles.darkModeButton}
+        onClick={toggleDarkmode}
+      >
+        { darkmodeOn ?
+          <img
+            src={getIconUrl('sun', null, {size: 24, colors: {light: 'FFFFFF'}})} 
+            alt="darkmode button"
+          />
         :
-          <img src={getIconUrl('moon', null, {size: 24, colors: {light: 'FFFFFF'}})} alt="darkmode button"/>
+          <img
+            src={getIconUrl('moon', null, {size: 24, colors: {light: 'FFFFFF'}})} 
+            alt="darkmode button"
+          />
         }
       </button>
     </div>

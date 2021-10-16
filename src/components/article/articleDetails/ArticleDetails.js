@@ -116,8 +116,12 @@ const ArticleDetails = () => {
           
           <h1 className={styles.title}>{ article.title }</h1> 
           <div className={styles.header}>
-            <a href={`/users/${author.id}`}>{ `${author.firstName} ${author.lastName}` }</a>
-            <p>{ article.published }</p>
+            <a href={`/users/${author.id}`}>
+              { `${author.firstName} ${author.lastName}` }
+            </a>
+            <p>
+              { article.published }
+            </p>
           </div>
           <ReactMarkdown className={styles.intro}>{ article.intro }</ReactMarkdown>
           <ReactMarkdown className={styles.articleBody}>{ article.body }</ReactMarkdown> 
@@ -145,19 +149,37 @@ const ArticleDetails = () => {
           <div className={styles.navButtons}>
             { parseInt(id, 10) !== 1 
             ?
-              <a className="prev" href={`/articles/${parseInt(id, 10) - 1}`}>
-                <img src={getIconUrl('prev', darkModeOn, {size: 50})} alt="previous button"/>
+              <a
+                className="prev"
+                href={`/articles/${parseInt(id, 10) - 1}`}
+              >
+                <img
+                  src={getIconUrl('prev', darkModeOn, {size: 50})}
+                  alt="previous button"
+                />
               </a>
             :
               <a href="/"> </a>
             }
             
-            <a className="home" href='/'>
-              <img src={getIconUrl('home', darkModeOn, {size: 64})} alt="home button"/>
+            <a
+              className="home"
+              href='/'
+            >
+              <img
+                src={getIconUrl('home', darkModeOn, {size: 64})}
+                alt="home button"
+              />
             </a>
 
-            <a className="next" href={`/articles/${parseInt(id, 10) + 1}`}>
-              <img src={getIconUrl('next', darkModeOn, {size: 50})} alt="next button"/>
+            <a
+              className="next"
+              href={`/articles/${parseInt(id, 10) + 1}`}
+            >
+              <img
+                src={getIconUrl('next', darkModeOn, {size: 50})}
+                alt="next button"
+              />
             </a>
 
           </div>

@@ -14,11 +14,6 @@
   text-align: left;
 }
 
-.entriesCount {
-  grid-area: count;
-  justify-self: left;
-}
-
 :global(.darkmode) .entriesCount {
   color: var(--base-blue);
 }

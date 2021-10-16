@@ -17,13 +17,29 @@ const ConfirmationPopup = ({ action, target, confirm, containerRef }) => {
   }
 
   return (
-    <div className='invisible' ref={containerRef}>
-      <div className={styles.container} onClick={closeOnBlur}>
+    <div
+      className='invisible'
+      ref={containerRef}
+    >
+      <div
+        className={styles.container}
+        onClick={closeOnBlur}
+      >
         <div className={styles.popUp}>
-          <p className={styles.p}>{`Are you sure you want to ${action} this ${target}?`}</p>
+          <p className={styles.p}>
+            {`Are you sure you want to ${action} this ${target}?`}
+          </p>
           <div className={styles.confirmationButtons}>
-            <TypedButton buttontype='primary' onClick={confirm} content={'Yes'} /> 
-            <TypedButton buttontype='secondary' onClick={cancel} content={'No'} />
+            <TypedButton
+              buttontype='primary'
+              onClick={confirm}
+              content={'Yes'}
+            /> 
+            <TypedButton
+              buttontype='secondary'
+              onClick={cancel}
+              content={'No'}
+            />
           </div>
         </div>
       </div>

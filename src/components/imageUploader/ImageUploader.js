@@ -35,6 +35,7 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
     formData.append('timestamp', timestamp)
     formData.append('upload_preset', upload_preset)
 
+    // generate shaSignature for cloudinary
     const shaSignature = crypto.createHash('sha1');
     shaSignature.update(`public_id=${publicId}&timestamp=${timestamp}&upload_preset=${upload_preset}${dictionary.SECRET}`);
 
@@ -67,10 +68,31 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
     }
   }
   return (
-    <div className={styles.container} data-value='upload-popup' onClick={ purpose === 'header' ? toggleHeaderUploader : toggleProfileUploader }>
+    <div
+      className={styles.container}
+      data-value='upload-popup'
+      onClick={ 
+        purpose === 'header' ? 
+          toggleHeaderUploader 
+        : 
+          toggleProfileUploader 
+      }
+    >
       <div className={styles.uploader}>
-        <h2 className={styles.title}>{ purpose === 'header' ? 'Header Image' : 'Profile Image' }</h2>
-        <input type="file" name="file-input" id="file-input" multiple={false} onChange={onImageSelected}/>
+        <h2 className={styles.title}>
+          { purpose === 'header' ?
+              'Header Image'
+            : 
+              'Profile Image' 
+          }
+        </h2>
+        <input
+          type="file"
+          name="file-input"
+          id="file-input"
+          multiple={false}
+          onChange={onImageSelected}
+        />
         <TypedButton 
           buttontype='primary'
           className={styles.button}

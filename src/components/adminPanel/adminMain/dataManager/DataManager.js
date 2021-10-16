@@ -120,7 +120,10 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
                 Object.keys(data).map( key => { 
                   return (
                     (typeof data[key] !== 'object' || !data[key].id) &&
-                    <div key={type + key} className='form-input'>
+                    <div 
+                      key={type + key}
+                      className='form-input'
+                    >
                       { data[key].toString().length < 50 ?
                           <input 
                             className={styles.input} 

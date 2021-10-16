@@ -35,24 +35,28 @@ const RecommendModule = () => {
 
   return user !== null && didLoad && (
     <div className={styles.container}>
-      { recommendedTopics && recommendedTopics.length > 0 ?
-        <table className={styles.table}>
-            <tbody>
-            <tr>
-              <th className={styles.th}>Recommended Topics</th>
-            </tr>
-            {
-              recommendedTopics.map( topic => 
-                <tr key={topic.id}>
-                  <td className={styles.td} onClick={() => dispatch(updateTopic(topic.name))}>
-                    {data.capitalize(topic.name)}
-                  </td>
-                </tr>
-              )
-            }
-          </tbody>
-        </table>
-      : <Fragment />
+      { recommendedTopics && recommendedTopics.length > 0 ? 
+          <table className={styles.table}>
+              <tbody>
+              <tr>
+                <th className={styles.th}>Recommended Topics</th>
+              </tr>
+              {
+                recommendedTopics.map( topic => 
+                  <tr key={topic.id}>
+                    <td
+                      className={styles.td}
+                      onClick={() => dispatch(updateTopic(topic.name))}
+                    >
+                      {data.capitalize(topic.name)}
+                    </td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
+        : 
+          <Fragment />
       }
       { recommendedArticles && recommendedArticles.length > 0 ?
         <table className={styles.table}>
@@ -64,7 +68,10 @@ const RecommendModule = () => {
               recommendedArticles.map( article => 
                 <tr key={article.id}>
                   <td className={styles.td}>
-                    <a className={styles.a} href={`/articles/${article.id}`}>
+                    <a
+                      className={styles.a}
+                      href={`/articles/${article.id}`}
+                    >
                       {data.capitalize(article.title)}
                     </a>
                   </td>
@@ -73,28 +80,33 @@ const RecommendModule = () => {
             }
           </tbody>
         </table>
-      : <Fragment />
+      : 
+        <Fragment />
       }
       { recommendedUsers && recommendedUsers.length > 0 ?
-        <table className={styles.table}>
-            <tbody>
-            <tr>
-              <th className={styles.th}>Recommended Researchers</th>
-            </tr>
-            {
-              recommendedUsers.map( user => 
-                <tr key={user.id}>
-                  <td className={styles.td}>
-                    <a className={styles.a} href={`/users/${user.id}`}>
-                      {data.capitalize(`${user.firstName} ${user.lastName}`)}
-                    </a>
-                  </td>
-                </tr>
-              )
-            }
-          </tbody>
-        </table>
-      : <Fragment />
+          <table className={styles.table}>
+              <tbody>
+              <tr>
+                <th className={styles.th}>Recommended Researchers</th>
+              </tr>
+              {
+                recommendedUsers.map( user => 
+                  <tr key={user.id}>
+                    <td className={styles.td}>
+                      <a
+                        className={styles.a}
+                        href={`/users/${user.id}`}
+                      >
+                        {data.capitalize(`${user.firstName} ${user.lastName}`)}
+                      </a>
+                    </td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
+        : 
+          <Fragment />
       }
     </div>
   )

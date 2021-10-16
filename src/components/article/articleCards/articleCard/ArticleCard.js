@@ -65,7 +65,11 @@ const ArticleCard = props => {
   }
 
   return (
-    <div className={`${props.credits === undefined ? styles.relatedContainer : ''} ${styles.container} `}>
+    <div
+      className={
+        `${props.credits === undefined ? styles.relatedContainer : ''} ${styles.container} `
+      }
+    >
       { props.credits !== undefined ? 
         <div className={styles.credits}>
           <button onClick={accredit}>
@@ -81,13 +85,15 @@ const ArticleCard = props => {
             />
           </button>
           <div>
-            <img src={getIconUrl('star-box', null, {
-                size: isMobile ? 16 : 20, 
-                colors: {
-                  light: '38B6FF'
+            <img
+              src={getIconUrl('star-box', null, {
+                  size: isMobile ? 16 : 20, 
+                  colors: {
+                    light: '38B6FF'
+                  }
                 }
-              }
-            )} alt='credits' className={styles.ratingIcon}/>
+              )}
+              alt='credits' className={styles.ratingIcon}/>
             <span>{props.credits}</span>
           </div>
           <button onClick={discredit}>
@@ -107,14 +113,30 @@ const ArticleCard = props => {
       }
       
       <div className={styles.headline}>
-        <button onClick={goToTopic}><span>{data.capitalize(props.topic, false)}</span></button>
-        <a href={`/users/${props.authorId}`}><span>{props.author}</span></a>
+        <button onClick={goToTopic}>
+          <span>
+            {data.capitalize(props.topic, false)}
+          </span>
+        </button>
+        <a href={`/users/${props.authorId}`}>
+          <span>
+            {data.capitalize(props.author, false)}
+          </span>
+        </a>
       </div>
       <div className={styles.title}>
-        <a href={`/articles/${props.id}`}><h2>{props.title}</h2></a>
+        <a href={`/articles/${props.id}`}>
+          <h2>
+            {props.title}
+          </h2>
+        </a>
       </div>
       <div className={styles.intro}>
-        <a href={`/articles/${props.id}`}><ReactMarkdown>{props.intro}</ReactMarkdown></a>
+        <a href={`/articles/${props.id}`}>
+          <ReactMarkdown>
+            {props.intro}
+          </ReactMarkdown>
+        </a>
       </div>
     </div>
   )

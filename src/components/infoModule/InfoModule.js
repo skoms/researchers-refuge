@@ -22,14 +22,30 @@ const InfoModule = props => {
 
   return (
     <div className={styles.container}>
-      <img alt='your profile'
-        src={ profileImgURL || getIconUrl('user-placeholder', null, {size: 75, colors: {light: 'FFFFFF'}}) }
-        className={ profileImgURL ? '' : styles.placeholder } 
+      <img
+        alt='your profile'
+        src={ profileImgURL || getIconUrl('user-placeholder', null, {
+          size: 75, colors: {light: 'FFFFFF'}
+        })}
+        className={ 
+          profileImgURL ? 
+            '' : styles.placeholder 
+        } 
       />
       <span className={styles.fullName}>
-        <p className={styles.fullName}>{ `${data.capitalize(firstName)} ${data.capitalize(lastName)}` }</p>
-        {accessLevel === 'admin' ? 
-          <img src={getIconUrl('admin-emblem', null, {size: 16, colors: {light: '38B6FF'}})} alt='admin icon'/> : ''}
+        <p className={styles.fullName}>
+          { `${data.capitalize(firstName)} ${data.capitalize(lastName)}` }
+        </p>
+        { accessLevel === 'admin' ? 
+            <img
+              src={getIconUrl('admin-emblem', null, {
+                size: 16, colors: {light: '38B6FF'}
+              })}
+              alt='admin icon'
+            /> 
+          : 
+            ''
+        }
       </span>
       <p className={styles.occupation}>{data.capitalize(occupation)}</p>
       <ReactMarkdown className={styles.bio}>{bio}</ReactMarkdown>
@@ -49,11 +65,19 @@ const InfoModule = props => {
           </tr>
           <tr>
             <th>Followers:</th>
-            <td>{ typeof followers === 'object' ? followers.length : 0 }</td>
+            <td>
+              { typeof followers === 'object' ? 
+                  followers.length : 0 
+              }
+            </td>
           </tr>
           <tr>
             <th>Following:</th>
-            <td>{ typeof following === 'object' ? following.length : 0 }</td>
+            <td>
+              { typeof following === 'object' ? 
+                following.length : 0 
+              }
+            </td>
           </tr>
         </tbody>
       </table>

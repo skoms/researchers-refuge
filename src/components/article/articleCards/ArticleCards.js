@@ -78,7 +78,10 @@ const ArticleCards = (props) => {
       )
     : 
     <div className={styles.noArticlesMessage}>
-      <img src={getIconUrl('shrug', darkModeOn, {size: 50, colors: { dark: 'FFFFFF', light: '000000' }})} alt='shrug emoticon'/>
+      <img
+        src={getIconUrl('shrug', darkModeOn, {size: 50, colors: { dark: 'FFFFFF', light: '000000' }})}
+        alt='shrug emoticon'
+      />
       <p>Sorry, but we don't seem to have what you are looking for... </p>
     </div>
   );
@@ -88,7 +91,9 @@ const ArticleCards = (props) => {
     if ( e.target.tagName !== undefined 
          && e.target.classList.contains('on-scrollbar') === false ) {
         e.target.classList.add("on-scrollbar");
+
         clearTimeout(scrollbarTimeout);
+        
         scrollbarTimeout = setTimeout(() => {
           e.target.classList.remove("on-scrollbar");
         }, 800);

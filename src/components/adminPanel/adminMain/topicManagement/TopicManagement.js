@@ -8,6 +8,7 @@ import { selectAuthenticatedUser } from "../../../user/userAccManage/userAccSlic
 import EntriesSelect from "../entriesSelect/EntriesSelect";
 import TableSearch from "../tableSearch/TableSearch";
 import ManagementTable from "../managementTable/ManagementTable";
+import EntriesShown from '../entriesShown/EntriesShown';
 
 const TopicManagement = () => {
   const user = useSelector(selectAuthenticatedUser);
@@ -37,7 +38,7 @@ const TopicManagement = () => {
       <ManagementTable 
         data={topics}
       />
-      <p className={styles.entriesCount}>{`Showing ${topics.rangeStart} to ${topics.rangeEnd} of ${topics.total} entries`}</p>
+      <EntriesShown data={topics} />
       <PaginationBar use='admin' />
     </div>
   )

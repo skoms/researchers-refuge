@@ -8,6 +8,7 @@ import { selectCategories, selectEntriesLimit, selectSearchQuery, selectSortOrde
 import EntriesSelect from "../entriesSelect/EntriesSelect";
 import ManagementTable from "../managementTable/ManagementTable";
 import TableSearch from "../tableSearch/TableSearch";
+import EntriesShown from '../entriesShown/EntriesShown';
 
 const CategoryManagement = () => {
   const user = useSelector(selectAuthenticatedUser);
@@ -37,7 +38,7 @@ const CategoryManagement = () => {
       <ManagementTable 
         data={categories}
       />
-      <p className={styles.entriesCount}>{`Showing ${categories.rangeStart} to ${categories.rangeEnd} of ${categories.total} entries`}</p>
+      <EntriesShown data={categories} />
       <PaginationBar use='admin' />
     </div>
   )

@@ -60,12 +60,11 @@ const MenuBar = () => {
         { !isMobile ? 
           <button className={styles.button}>New Article</button>
           :
-          <img src={getIconUrl('pen-and-paper', null, {
-            size: 28,
-            colors: {
-              light: 'FFFFFF'
-            }
-          })} alt='write article button'/>
+          <img
+            src={getIconUrl('pen-and-paper', null, {
+              size: 28, colors: { light: 'FFFFFF' }
+            })}
+            alt='write article button'/>
         }
       </a>
     </div>

@@ -45,15 +45,36 @@ const TableSearch = () => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={submitHandler} className={styles.searchForm}>
+      <form
+        onSubmit={submitHandler}
+        className={styles.searchForm}
+      >
         { searchTerm !== '' && 
-          <button className={styles.clearSearch} onClick={clearSearch}>
-            <img src={getIconUrl('x-circle', null, {size: 18, colors: { light: '64B5F7' }})} alt='clear search button' />
+          <button
+            className={styles.clearSearch}
+            onClick={clearSearch}
+          >
+            <img
+              src={getIconUrl('x-circle', null, {size: 18, colors: { light: '64B5F7' }})}
+              alt='clear search button'
+            />
           </button>
         }
-        <input type="text" className={styles.searchField} ref={searchField} placeholder='Search...' onChange={onChangeHandler} />
-        <button type='submit' className={styles.searchButton}>
-          <img src={getIconUrl('magnifying-glass', null, {size: 18, colors: { light: '64B5F7' }})} alt='search button'/>
+        <input
+          type="text"
+          className={styles.searchField}
+          ref={searchField}
+          placeholder='Search...'
+          onChange={onChangeHandler}
+        />
+        <button
+          type='submit'
+          className={styles.searchButton}
+        >
+          <img
+            src={getIconUrl('magnifying-glass', null, {size: 18, colors: { light: '64B5F7' }})}
+            alt='search button'
+          />
         </button>
       </form>
     </div>

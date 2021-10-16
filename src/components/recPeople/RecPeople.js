@@ -25,7 +25,11 @@ const RecPeople = () => {
         <h2 className={styles.title}>People you may know</h2>
         { recPeople &&
           recPeople.map( recUser => (
-            <ResultRecUser key={recUser.id} type='rec' user={recUser} />
+            <ResultRecUser
+              key={recUser.id}
+              type='rec'
+              user={recUser}
+            />
           )).slice(0,5)
         }
       </div>

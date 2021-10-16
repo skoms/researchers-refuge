@@ -15,10 +15,29 @@ const StatusFilter = ({ setStatusFilter }) => {
     }
   }
   return (
-    <div className={styles.container} onClick={handleStatusFilter}>
-      <button data-status-filter-button ref={selectedRef} className={`${styles.openButton} selected`}>Open</button>
-      <button data-status-filter-button className={styles.resolvedButton}>Resolved</button>
-      <button data-status-filter-button className={styles.rejectedButton}>Rejected</button>
+    <div
+      className={styles.container}
+      onClick={handleStatusFilter}
+    >
+      <button
+        data-status-filter-button
+        ref={selectedRef}
+        className={`${styles.openButton} selected`}
+      >
+        Open
+      </button>
+      <button
+        data-status-filter-button
+        className={styles.resolvedButton}
+      >
+        Resolved
+      </button>
+      <button
+        data-status-filter-button
+        className={styles.rejectedButton}
+      >
+        Rejected
+      </button>
     </div>
   )
 }

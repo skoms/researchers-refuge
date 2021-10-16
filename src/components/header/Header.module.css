@@ -116,7 +116,8 @@
 }
 
 .dropdown hr {
-  width: 80%;
+  width: 90%;
+  margin-left: .25rem;
   border: none;
   border-top: var(--base-blue) .05rem solid;
 }
@@ -126,7 +127,7 @@
   box-shadow: none;
 }
 
-.loggedInNav a, .signOutButton {
+.loggedInNav a, .menuButton {
   border: none;
   box-shadow: none;
   padding: none;
@@ -143,20 +144,20 @@
 }
 
 :global(.darkmode) .loggedInNav a, 
-:global(.darkmode) .signOutButton {
+:global(.darkmode) .menuButton {
   color: var(--base-component-white);
 }
 
-.signOutButton {
-  margin-right: -.5rem;
+.menuButton {
+  padding-left: 0;
 }
 
-.loggedInNav a:hover, .signOutButton:hover {
+.loggedInNav a:hover, .menuButton:hover {
   cursor: pointer;
   text-shadow: black 2px 2px 2px;
 }
 
-:global(.darkmode).loggedInNav a:hover, :global(.darkmode).signOutButton:hover {
+:global(.darkmode).loggedInNav a:hover, :global(.darkmode).menuButton:hover {
   text-shadow: var(--base-blue) 2px 2px 2px;
 }
 

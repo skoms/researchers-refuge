@@ -1,0 +1,4 @@
+.container {
+  grid-area: count;
+  justify-self: left;
+}

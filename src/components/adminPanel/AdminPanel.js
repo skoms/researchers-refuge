@@ -35,25 +35,30 @@ const AdminPanel = () => {
     }
   }, [didLoad, user, history]);
 
-  return !isMobile ? (
-    <div className={styles.container}>
-      <AdminSidebar select={select} />
-      <div className={styles.mainPanel}>
-        { selection === 'Statistics' && <Statistics />}
-        { selection === 'User Management' && <UserManagement />}
-        { selection === 'Article Management' && <ArticleManagement />}
-        { selection === 'Topic Management' && <TopicManagement />}
-        { selection === 'Category Management' && <CategoryManagement />}
-        { selection === 'Report Center' && <ReportCenter />}
+  return didLoad && (
+    !isMobile ? (
+      <div className={styles.container}>
+        <AdminSidebar select={select} />
+        <div className={styles.mainPanel}>
+          { selection === 'Statistics' && <Statistics />}
+          { selection === 'User Management' && <UserManagement />}
+          { selection === 'Article Management' && <ArticleManagement />}
+          { selection === 'Topic Management' && <TopicManagement />}
+          { selection === 'Category Management' && <CategoryManagement />}
+          { selection === 'Report Center' && <ReportCenter />}
+        </div>
       </div>
-    </div>
-  ) : (
-    <div>
-      <img src={getIconUrl('no-entry', darkModeOn, { size: 80 })} alt="forbidden" />
-      <p>Admin Panel Not Available</p>
-      <p>On Smaller Narrow Screens</p>
-      <p>You can try landscape mode if necessary</p>
-    </div>
+    ) : (
+      <div>
+        <img
+          src={getIconUrl('no-entry', darkModeOn, { size: 80 })}
+          alt="forbidden"
+        />
+        <p>Admin Panel Not Available</p>
+        <p>On Smaller Narrow Screens</p>
+        <p>You can try landscape mode if necessary</p>
+      </div>
+    )
   )
 }
 
