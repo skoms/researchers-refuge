@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './RecommendModule.module.css';
 import { useSelector, useDispatch } from 'react-redux'
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
-import Data from '../../Data';
+import Data from '../../utils/helpers/Data';
 import {
   selectRecommendedTopics,
   selectRecommendedArticles,

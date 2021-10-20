@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styles from './ReportModule.module.css'
-import Data from '../../Data'
+import Data from '../../utils/helpers/Data'
 import TypedButton from '../typedButton/TypedButton';
 import { useSelector } from 'react-redux';
 import { createReport, selectErrors, selectIsActive, selectTargetId, selectType, toggleIsActive, updateErrors } from './reportModuleSlice';

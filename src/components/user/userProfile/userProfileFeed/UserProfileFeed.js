@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
-import Data from '../../../../Data';
+import Data from '../../../../utils/helpers/Data';
 import { 
   followUser,
   selectAuthenticatedUser

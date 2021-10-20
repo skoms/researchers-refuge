@@ -9,7 +9,7 @@ import {
 } from '../user/userAccManage/userAccSlice';
 import { useLocation } from 'react-router-dom';
 import TypedButton from '../typedButton/TypedButton';
-import Data from '../../Data';
+import Data from '../../utils/helpers/Data';
 
 const ResultRecUser = ({ user }) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);

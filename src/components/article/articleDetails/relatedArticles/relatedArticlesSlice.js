@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Data from "../../../../Data";
+import Data from "../../../../utils/helpers/Data";
 
 const data = new Data();
 

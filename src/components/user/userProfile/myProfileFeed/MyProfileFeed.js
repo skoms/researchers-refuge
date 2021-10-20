@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import Data from '../../../../Data';
+import Data from '../../../../utils/helpers/Data';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import ImageUploader from '../../../imageUploader/ImageUploader';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';

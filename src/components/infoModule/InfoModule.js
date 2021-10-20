@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './InfoModule.module.css';
 import ReactMarkdown from 'react-markdown';
-import Data from '../../Data';
+import Data from '../../utils/helpers/Data';
 import { getIconUrl } from '../../Icons';
 
 const InfoModule = props => {

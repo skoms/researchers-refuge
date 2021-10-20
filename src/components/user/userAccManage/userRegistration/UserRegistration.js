@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import {
   signUp
 } from '../userAccSlice';
-import Data from '../../../../Data';
+import Data from '../../../../utils/helpers/Data';
 import TypedButton from '../../../typedButton/TypedButton';
 import { getIconUrl } from '../../../../Icons';
 

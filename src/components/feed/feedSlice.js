@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import Data from "../../Data";
+import Data from "../../utils/helpers/Data";
 
 const data = new Data();
 

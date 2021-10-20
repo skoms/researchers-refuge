@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import Data from '../../../../Data'
+import Data from '../../../../utils/helpers/Data'
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { updateTopic } from '../../../feed/feedSlice';
 import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';

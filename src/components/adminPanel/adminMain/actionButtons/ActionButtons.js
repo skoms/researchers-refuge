@@ -129,7 +129,7 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
   
   return isEntry ? (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} data-testid='action-buttons-component'>
         <button 
           className={styles.button} 
           onClick={viewData}
@@ -172,7 +172,7 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
               />
               <span className='tooltip'>More</span>
             </button>
-            <div className={styles.dropdownMenu}>
+            <div className={styles.dropdownMenu} data-testid='more-menu-dropdown'>
               { (type === 'users' || type === 'articles') && 
                 <button 
                   className={styles.dropdownMenuButton} 
@@ -287,7 +287,7 @@ const ActionButtons = ({ id, isEntry, statusFilter, setManagerProps, data, type 
     </>
     
   ) : (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='action-buttons-component'>
       <button
         className={styles.button}
         onClick={createNewData}

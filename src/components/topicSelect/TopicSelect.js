@@ -3,7 +3,7 @@ import styles from './TopicSelect.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTopic, updateTopic } from '../feed/feedSlice';
 import { selectCategories } from '../topics/topicsSlice';
-import Data from '../../Data';
+import Data from '../../utils/helpers/Data';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 import { getIconUrl } from '../../Icons';
 
