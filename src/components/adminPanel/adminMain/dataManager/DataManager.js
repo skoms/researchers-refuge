@@ -65,7 +65,7 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
   
   if (!isActive) return <></>;
   return (
-    <div className={`${styles.container} ${styles[source]}`} >
+    <div className={`${styles.container} ${styles[source]}`} data-testid='data-manager-component'>
       { 
         source === 'view' ? (
           <>
