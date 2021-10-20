@@ -25,7 +25,7 @@ import ReportModule from '../components/reportModule/ReportModule';
 function App() {
 
   return (
-    <div className="App">
+    <div className="App" data-testid='app-component'>
       <Router>
         <Header />
         <main>

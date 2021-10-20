@@ -26,12 +26,22 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:related": "react-scripts test --watchAll=false",
+    "prepare": "husky install",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-markdown)/"
     ]
   },
   "browserslist": {
@@ -47,6 +57,9 @@
     ]
   },
   "devDependencies": {
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "husky": "^7.0.2",
+    "jest-prop-type-error": "^1.1.0",
+    "moxios": "^0.4.0"
   }
 }

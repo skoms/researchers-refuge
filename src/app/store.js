@@ -19,25 +19,27 @@ import paginationBarReducer from '../components/paginationBar/paginationBarSlice
 import adminPanelReducer from '../components/adminPanel/adminPanelSlice';
 import reportModuleReducer from '../components/reportModule/reportModuleSlice';
 
+export const reducers = {
+  //TODO - Add all the reducers
+  screenWidth: screenWidthReducer,
+  searchField: searchFieldReducer,
+  feed: feedReducer,
+  userAcc: userAccReducer,
+  userFeed: userFeedReducer,
+  darkModeButton: darkModeButtonReducer,
+  articleDetails: articleDetailsReducer,
+  manageArticle: manageArticleReducer,
+  topics: topicsReducer,
+  searchResults: searchResultsReducer,
+  articleCards: articleCardsReducer,
+  recommendModule: recommendModuleReducer,
+  recPeople: recPeopleReducer,
+  relatedArticles: relatedArticlesReducer,
+  paginationBar: paginationBarReducer,
+  adminPanel: adminPanelReducer,
+  reportModule: reportModuleReducer,
+}
+
 export const store = configureStore({
-  reducer: {
-    //TODO - Add all the reducers
-    screenWidth: screenWidthReducer,
-    searchField: searchFieldReducer,
-    feed: feedReducer,
-    userAcc: userAccReducer,
-    userFeed: userFeedReducer,
-    darkModeButton: darkModeButtonReducer,
-    articleDetails: articleDetailsReducer,
-    manageArticle: manageArticleReducer,
-    topics: topicsReducer,
-    searchResults: searchResultsReducer,
-    articleCards: articleCardsReducer,
-    recommendModule: recommendModuleReducer,
-    recPeople: recPeopleReducer,
-    relatedArticles: relatedArticlesReducer,
-    paginationBar: paginationBarReducer,
-    adminPanel: adminPanelReducer,
-    reportModule: reportModuleReducer,
-  }
+  reducer: reducers
 });
