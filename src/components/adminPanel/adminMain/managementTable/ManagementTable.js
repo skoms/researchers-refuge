@@ -15,7 +15,7 @@ const ManagementTable = (
   const sortOrder = useSelector(selectSortOrder);
   const page = useSelector(selectPage);
 
-  const blockedIcon = <img src={getIconUrl('blocked', null, { size: 16, colors: { light: 'FFFFFF' } })} alt='block button' style={{margin: "0 0 -.1rem 0"}}/>;
+  const blockedIcon = <img src={getIconUrl('blocked', null, { size: 16, colors: { light: 'FFFFFF' } })} alt='blocked icon' style={{margin: "0 0 -.1rem 0"}}/>;
 
   const [managerProps, setManagerProps] = useState({ 
     isActive: false,
