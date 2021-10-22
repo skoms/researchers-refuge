@@ -37,7 +37,7 @@ const AdminPanel = () => {
 
   return didLoad && (
     !isMobile ? (
-      <div className={styles.container}>
+      <div className={styles.container} data-testid='admin-panel-component'>
         <AdminSidebar select={select} />
         <div className={styles.mainPanel}>
           { selection === 'Statistics' && <Statistics />}
@@ -49,7 +49,7 @@ const AdminPanel = () => {
         </div>
       </div>
     ) : (
-      <div>
+      <div data-testid='admin-panel-component'>
         <img
           src={getIconUrl('no-entry', darkModeOn, { size: 80 })}
           alt="forbidden"
