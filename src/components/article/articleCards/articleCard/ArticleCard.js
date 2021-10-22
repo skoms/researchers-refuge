@@ -15,7 +15,7 @@ import { selectIsMobile } from '../../../../app/screenWidthSlice';
 
 const data = new Data();
 
-const ArticleCard = props => {
+const ArticleCard = ({ id, credits, topic, authorId, author, title, intro }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -32,14 +32,14 @@ const ArticleCard = props => {
 
   useEffect(() => {
     if (!didLoad && user) {
-      if (user.accreditedArticles.includes(props.id)) {
+      if (user.accreditedArticles.includes(id)) {
         setCreditedStatus('accredited');
-      } else if (user.discreditedArticles.includes(props.id)) {
+      } else if (user.discreditedArticles.includes(id)) {
         setCreditedStatus('discredited');
       }
       setDidLoad(true);
     }  
-  }, [didLoad, user, props.id]);
+  }, [didLoad, user, id]);
 
   const goToTopic = (e) => {
     dispatch(updateTopic(e.target.innerHTML.toLowerCase()));
@@ -47,7 +47,7 @@ const ArticleCard = props => {
   }
 
   const accredit = () => {
-    dispatch(accreditDiscredit({ id: props.id, user: user, credit: {credit : 'accredit'}}));
+    dispatch(accreditDiscredit({ id: id, user: user, credit: {credit : 'accredit'}}));
     if (creditedStatus !== 'accredited') {
       setCreditedStatus('accredited');
     } else {
@@ -56,7 +56,7 @@ const ArticleCard = props => {
   }
 
   const discredit = () => {
-    dispatch(accreditDiscredit({ id: props.id, user: user, credit: {credit : 'discredit'}}));
+    dispatch(accreditDiscredit({ id: id, user: user, credit: {credit : 'discredit'}}));
     if (creditedStatus !== 'discredited') {
       setCreditedStatus('discredited');
     } else {
@@ -66,11 +66,12 @@ const ArticleCard = props => {
 
   return (
     <div
+      data-testid='article-card-component'
       className={
-        `${props.credits === undefined ? styles.relatedContainer : ''} ${styles.container} `
+        `${credits === undefined ? styles.relatedContainer : ''} ${styles.container} `
       }
     >
-      { props.credits !== undefined ? 
+      { credits !== undefined ? 
         <div className={styles.credits}>
           <button onClick={accredit}>
             <img 
@@ -94,7 +95,7 @@ const ArticleCard = props => {
                 }
               )}
               alt='credits' className={styles.ratingIcon}/>
-            <span>{props.credits}</span>
+            <span>{credits}</span>
           </div>
           <button onClick={discredit}>
             <img 
@@ -115,28 +116,33 @@ const ArticleCard = props => {
       <div className={styles.headline}>
         <button onClick={goToTopic}>
           <span>
-            {data.capitalize(props.topic, false)}
+            {data.capitalize(topic, false)}
           </span>
         </button>
-        <a href={`/users/${props.authorId}`}>
+        <button onClick={() => history.push({ pathname: `/users/${authorId}`, state: { from: location.pathname }})}>
           <span>
-            {data.capitalize(props.author, false)}
+            {data.capitalize(author, false)}
           </span>
-        </a>
+        </button>
       </div>
       <div className={styles.title}>
-        <a href={`/articles/${props.id}`}>
-          <h2>
-            {props.title}
-          </h2>
-        </a>
+        <h2 
+          onClick={() => 
+            history.push({ pathname: `/articles/${id}`, state: { from: location.pathname } })
+          }
+        >
+          {title}
+        </h2>
       </div>
-      <div className={styles.intro}>
-        <a href={`/articles/${props.id}`}>
-          <ReactMarkdown>
-            {props.intro}
-          </ReactMarkdown>
-        </a>
+      <div 
+        className={styles.intro}
+        onClick={() => 
+          history.push({ pathname: `/articles/${id}`, state: { from: location.pathname } })
+        }
+      >
+        <ReactMarkdown>
+          {intro}
+        </ReactMarkdown>
       </div>
     </div>
   )

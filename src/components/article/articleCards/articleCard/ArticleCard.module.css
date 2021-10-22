@@ -32,8 +32,13 @@
 :global(.darkmode) .relatedContainer {
   box-shadow: var(--base-blue) -.04rem .04rem .2rem;
 }
+
 .intro {
   grid-area: intro;
+}
+
+.intro:hover {
+  cursor: pointer;
 }
 
 .container a {
@@ -85,6 +90,10 @@
 
 .title h2 {
   color: var(--base-darkblue);
+}
+
+.title:hover {
+  cursor: pointer;
 }
 
 :global(.darkmode) .title h2 {
