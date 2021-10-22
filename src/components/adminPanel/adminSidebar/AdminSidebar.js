@@ -14,15 +14,17 @@ const AdminSidebar = ({select}) => {
       window.addEventListener('click', e => {
         const isDropdownButton = e.target.matches('[data-management-menu-button]');
   
-        if (!isDropdownButton) {
+        if (menuButtonRef.current && menuRef.current){
+          if (!isDropdownButton) {
           toggleMenuIsActive(false);
 
           menuButtonRef.current.classList.contains('active') 
             && menuButtonRef.current.classList.remove('active');
           return
-        } else {
-          toggleMenuIsActive(menuRef.current.classList.contains('active') ? false : true);
-          e.target.classList.toggle('active');
+          } else {
+            toggleMenuIsActive(menuRef.current.classList.contains('active') ? false : true);
+            e.target.classList.toggle('active');
+          }
         }
       });
     }
@@ -42,6 +44,7 @@ const AdminSidebar = ({select}) => {
         Statistics
       </button>
       <div
+        data-testid='dropdown'
         className={`${styles.dropdown} ${ menuIsActive ? 'active' : ''}`}
         ref={menuRef}
       >

@@ -20,3 +20,7 @@ export const testStore = (preloadedState = null) => {
     });
   }
 };
+
+export const getInitialState = () => ({
+  ...testStore().getState()
+})

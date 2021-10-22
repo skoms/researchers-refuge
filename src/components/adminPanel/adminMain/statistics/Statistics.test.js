@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Statistics from './Statistics';
-import { testStore } from '../../../../utils/testing';
+import { testStore, getInitialState } from '../../../../utils/testing';
 import { Provider } from 'react-redux';
 
-const initialState = {
-  ...testStore().getState()
-}
+const initialState = getInitialState();
+
 const preloadedState = {
   ...initialState,
   adminPanel: {
