@@ -46,6 +46,7 @@ const TableSearch = () => {
   return (
     <div className={styles.container}>
       <form
+        data-testid='search-form'
         onSubmit={submitHandler}
         className={styles.searchForm}
       >
