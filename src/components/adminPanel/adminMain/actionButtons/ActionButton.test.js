@@ -1,17 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ActionButtons from './ActionButtons';
-import { Provider } from 'react-redux';
-import { testStore } from '../../../../utils/testing';
+import { renderComponent } from '../../../../utils/testing';
 
-const renderComponent = (props) => {
-  render(
-    <Provider store={testStore()}>
-      <ActionButtons {...props} />
-    </Provider>
-  )
-}
+const needsStore = true;
 
 describe('ActionButtons', () => {
   
@@ -28,7 +20,7 @@ describe('ActionButtons', () => {
         },
         type: 'users'
       }
-      renderComponent(expectedProps);
+      renderComponent(ActionButtons, { expectedProps, needsStore});
     });
 
     it('should render without any errors', () => {
@@ -89,7 +81,7 @@ describe('ActionButtons', () => {
         },
         type: 'topics'
       }
-      renderComponent(expectedProps);
+      renderComponent(ActionButtons, {expectedProps, needsStore});
     });
 
     it('should render without any errors', () => {
@@ -125,7 +117,7 @@ describe('ActionButtons', () => {
         },
         type: 'reports'
       }
-      renderComponent(expectedProps);
+      renderComponent(ActionButtons, {expectedProps, needsStore});
     });
 
     it('should render the "create" button', () => {
@@ -164,7 +156,7 @@ describe('ActionButtons', () => {
           },
           type: 'reports'
         }
-        renderComponent(expectedProps);
+        renderComponent(ActionButtons, {expectedProps, needsStore});
       });
   
       it('should render without any errors', () => {
@@ -219,7 +211,7 @@ describe('ActionButtons', () => {
           },
           type: 'reports'
         }
-        renderComponent(expectedProps);
+        renderComponent(ActionButtons, {expectedProps, needsStore});
       });
   
       it('should disable the button for the selected "resolved" StatusFilter', () => {
@@ -243,7 +235,7 @@ describe('ActionButtons', () => {
           },
           type: 'reports'
         }
-        renderComponent(expectedProps);
+        renderComponent(ActionButtons, {expectedProps, needsStore});
       });
   
       it('should disable the button for the selected "rejected" StatusFilter', () => {

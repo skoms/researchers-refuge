@@ -1,22 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { testStore } from '../../../../utils/testing';
-import { Provider } from 'react-redux';
+import { renderComponent } from '../../../../utils/testing';
 import TableSearch from './TableSearch';
 
-const renderComponent = () => {
-  render(
-    <Provider store={testStore()}>
-      <TableSearch />      
-    </Provider>
-  );
-}
+const needsStore = true;
 
 describe('TableSearch', () => {
   
   beforeEach(() => {
-    renderComponent();
+    renderComponent(TableSearch, { needsStore });
   });
 
   it('should render without any errors', () => {

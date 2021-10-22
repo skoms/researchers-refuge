@@ -1,13 +1,12 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { getInitialState, testStore } from '../../../../utils/testing';
-import { MemoryRouter } from 'react-router';
+import { screen } from '@testing-library/react';
+import { getInitialState, renderComponent } from '../../../../utils/testing';
 import ArticleCard from './ArticleCard';
 import userEvent from '@testing-library/user-event';
 
 const mockHistoryPush = jest.fn();
 const initialState = getInitialState();
+const needsStore = true;
+const needsMemoryRouter = true;
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -15,16 +14,6 @@ jest.mock('react-router', () => ({
     push: mockHistoryPush,
   }),
 }));
-
-const renderComponent = (props = {}, preloadedState = null) => {
-  render(
-    <Provider store={testStore(preloadedState)}>
-      <MemoryRouter>
-        <ArticleCard {...props} />
-      </MemoryRouter>
-    </Provider>
-  )
-}
 
 describe('ArticleCard', () => {
   
@@ -40,7 +29,7 @@ describe('ArticleCard', () => {
         title: 'test title',
         intro: 'test intro'
       }
-      renderComponent(expectedProps);
+      renderComponent(ArticleCard, { expectedProps, needsStore, needsMemoryRouter });
     });
   
     afterEach(() => {
@@ -145,7 +134,7 @@ describe('ArticleCard', () => {
     });
 
     it('should render accredited button marked', () => {
-      renderComponent(expectedProps, preloadedState);
+      renderComponent(ArticleCard, { expectedProps, preloadedState, needsStore, needsMemoryRouter });
 
       expect(
         screen.getByAltText(/accredit button/i).src
@@ -155,7 +144,7 @@ describe('ArticleCard', () => {
     it('should render discredited button marked', () => {
       preloadedState.userAcc.authenticatedUser.accreditedArticles = [];
       preloadedState.userAcc.authenticatedUser.discreditedArticles = [1];
-      renderComponent(expectedProps, preloadedState); 
+      renderComponent(ArticleCard, { expectedProps, preloadedState, needsStore, needsMemoryRouter });
 
       expect(
         screen.getByAltText(/discredit button/i).src

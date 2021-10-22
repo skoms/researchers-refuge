@@ -1,8 +1,5 @@
-import React from 'react';
-import { MemoryRouter } from 'react-router';
-import { render, screen } from '@testing-library/react'
-import { Provider } from 'react-redux';
-import { getInitialState, testStore } from '../../utils/testing';
+import { screen } from '@testing-library/react'
+import { getInitialState, renderComponent } from '../../utils/testing';
 import AdminPanel from './AdminPanel';
 
 const mockHistoryPush = jest.fn();
@@ -15,21 +12,13 @@ jest.mock('react-router', () => ({
 }));
 
 const initialState = getInitialState();
-
-const renderComponent = (preloadedState = null) => {
-  render(
-    <Provider store={testStore(preloadedState)}>
-      <MemoryRouter>
-        <AdminPanel />
-      </MemoryRouter>
-    </Provider>
-  )
-}
+const needsStore = true;
+const needsMemoryRouter = true;
 
 describe('AdminPanel', () => {
 
   it('should render without errors', () => {
-    renderComponent();
+    renderComponent(AdminPanel, { needsStore, needsMemoryRouter })
     expect(
       screen.getByTestId('admin-panel-component')
     ).toBeInTheDocument();
@@ -54,7 +43,7 @@ describe('AdminPanel', () => {
     }
 
     beforeEach(() => {
-      renderComponent(preloadedState);
+      renderComponent(AdminPanel, { preloadedState, needsStore, needsMemoryRouter })
     });
 
     it('should not render the actual content, but rather warning content', () => {
@@ -84,7 +73,7 @@ describe('AdminPanel', () => {
     }
 
     beforeEach(() => {
-      renderComponent(preloadedState);
+      renderComponent(AdminPanel, { preloadedState, needsStore, needsMemoryRouter })
     });
 
     it('should call mockHistoryPush with /forbidden', () => {
@@ -109,7 +98,7 @@ describe('AdminPanel', () => {
     }
 
     beforeEach(() => {
-      renderComponent(preloadedState);
+      renderComponent(AdminPanel, { preloadedState, needsStore, needsMemoryRouter })
     });
 
     it('should call mockHistoryPush with /forbidden', () => {
@@ -139,7 +128,7 @@ describe('AdminPanel', () => {
     }
 
     beforeEach(() => {
-      renderComponent(preloadedState);
+      renderComponent(AdminPanel, { preloadedState, needsStore, needsMemoryRouter })
     });
 
     it('should render without errors', () => {

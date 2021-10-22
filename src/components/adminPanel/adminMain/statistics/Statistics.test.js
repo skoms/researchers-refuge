@@ -1,8 +1,6 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Statistics from './Statistics';
-import { testStore, getInitialState } from '../../../../utils/testing';
-import { Provider } from 'react-redux';
+import { getInitialState, renderComponent } from '../../../../utils/testing';
 
 const initialState = getInitialState();
 
@@ -30,18 +28,13 @@ const preloadedState = {
   }
 }
 
-const renderComponent = () => {
-  render(
-    <Provider store={testStore(preloadedState)}>
-      <Statistics />
-    </Provider>
-  );
-}
+const needsStore = true;
+
 
 describe('Statistics', () => {
   
   beforeEach(() => {
-    renderComponent();
+    renderComponent(Statistics, { needsStore, preloadedState });
   });
 
   it('should render all tables without errors', () => {

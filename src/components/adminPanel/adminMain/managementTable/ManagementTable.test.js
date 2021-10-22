@@ -1,25 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ManagementTable from './ManagementTable';
-import { testStore } from '../../../../utils/testing';
-import { Provider } from 'react-redux';
+import { renderComponent } from '../../../../utils/testing';
 
 let store;
-
-const renderComponent = (props = {}) => {
-  render(
-    <Provider store={store}>
-      <ManagementTable {...props} />
-    </Provider>
-  );
-}
+const needsStore = true;
 
 describe('ManagementTable', () => {
   let mockSetManagerProps;
   
   beforeEach(() => {
-    store = testStore();
     mockSetManagerProps = jest.fn();
     const expectedProps = {
       setManagerProps: mockSetManagerProps,
@@ -91,7 +81,7 @@ describe('ManagementTable', () => {
       },
       type: 'users'
     }
-    renderComponent(expectedProps);
+    store = renderComponent(ManagementTable, { expectedProps, needsStore }).store;
   });
 
   it('should render without any errors', () => {

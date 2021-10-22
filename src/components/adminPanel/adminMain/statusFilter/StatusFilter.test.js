@@ -1,17 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { renderComponent } from '../../../../utils/testing';
 import userEvent from '@testing-library/user-event';
 import StatusFilter from './StatusFilter';
 
 const mockSetStatusFilter = jest.fn();
-const renderComponent = () => {
-  render(<StatusFilter setStatusFilter={mockSetStatusFilter} />)
-}
 
 describe('StatusFilter', () => {
   
   beforeEach(() => {
-    renderComponent();
+    renderComponent(StatusFilter, { expectedProps: { setStatusFilter: mockSetStatusFilter }});
   });
 
   afterEach(() => {

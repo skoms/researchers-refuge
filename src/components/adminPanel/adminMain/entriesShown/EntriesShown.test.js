@@ -1,10 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { renderComponent } from '../../../../utils/testing';
 import EntriesShown from './EntriesShown';
 
-const renderComponent = (props = {}) => {
-  render( <EntriesShown {...props} /> );
-}
 
 describe('EntriesShown', () => {
   beforeEach(() => {
@@ -15,7 +12,7 @@ describe('EntriesShown', () => {
         total: 10
       }
     }
-    renderComponent(expectedProps);
+    renderComponent(EntriesShown, { expectedProps });
   });
 
   it('should render without any errors with props', () => {

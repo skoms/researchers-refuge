@@ -1,18 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
-import { testStore } from '../../../../utils/testing';
+import { renderComponent } from '../../../../utils/testing';
 import DataManager from './DataManager';
 import moxios from 'moxios';
 
-const renderComponent = (props) => {
-  render(
-    <Provider store={testStore()}>
-      <DataManager {...props} />
-    </Provider>
-  )
-}
+const needsStore = true;
 
 describe('DataManager', () => {
   
@@ -51,7 +43,7 @@ describe('DataManager', () => {
         },
         type: 'users'
       }
-      renderComponent(expectedProps);
+      renderComponent(DataManager, { expectedProps, needsStore });
     });
 
     afterEach(() => {
@@ -124,7 +116,7 @@ describe('DataManager', () => {
         },
         type: 'users'
       }
-      renderComponent(expectedProps);
+      renderComponent(DataManager, { expectedProps, needsStore });
     });
 
     afterEach(() => {
@@ -175,7 +167,7 @@ describe('DataManager', () => {
         },
         type: 'users'
       }
-      renderComponent(expectedProps);
+      renderComponent(DataManager, { expectedProps, needsStore });
     });
 
     afterEach(() => {

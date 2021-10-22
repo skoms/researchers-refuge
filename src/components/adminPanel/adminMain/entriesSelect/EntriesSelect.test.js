@@ -1,22 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import EntriesSelect from './EntriesSelect';
-import { testStore } from '../../../../utils/testing';
-import { Provider } from 'react-redux';
+import { renderComponent } from '../../../../utils/testing';
 
-const renderComponent = () => {
-  render(
-    <Provider store={testStore()}>
-      <EntriesSelect />
-    </Provider>
-  )
-}
+const needsStore = true;
 
 describe('Entries Select', () => {
   
   beforeEach(() => {
-    renderComponent();
+    renderComponent(EntriesSelect, { needsStore });
   });
 
   it('should render without any errors', () => {

@@ -1,26 +1,19 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
-import { testStore } from '../../../utils/testing';
+import { renderComponent } from '../../../utils/testing';
 import AdminSidebar from './AdminSidebar';
 
 const mockSelect = jest.fn();
-
-const renderComponent = () => {
-  render(
-    <Provider store={testStore()}>
-      <AdminSidebar 
-        select={mockSelect}
-      />
-    </Provider>
-  ) 
+const expectedProps = {
+  select: mockSelect
 }
+const needsStore = true;
+
 
 describe('AdminSidebar', () => {
   
   beforeEach(() => {
-    renderComponent();
+    renderComponent(AdminSidebar, { expectedProps, needsStore });
   });
 
   afterEach(() => {
