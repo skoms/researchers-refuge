@@ -125,27 +125,30 @@ const ArticleDetails = () => {
           </div>
           <ReactMarkdown className={styles.intro}>{ article.intro }</ReactMarkdown>
           <ReactMarkdown className={styles.articleBody}>{ article.body }</ReactMarkdown> 
-          <TypedButton
-            buttontype='secondary'
-            className={styles.reportButton}
-            onClick={openReportModule}
-            id='report-button'
-            content={
-              <>
-                <img 
-                  className={styles.reportIcon}
-                  src={getIconUrl('letter-and-paper', null, {
-                    size: 16,
-                    colors: {
-                      light: 'FFFFFF'
-                    }
-                  })}
-                  alt='report icon'
-                />
-                <span> Report Article</span>
-              </>
-            }
-          />
+          { authenticatedUser && 
+            (authenticatedUser.id !== author.id || authenticatedUser.accessLevel === 'admin') && 
+            <TypedButton
+              buttontype='secondary'
+              className={styles.reportButton}
+              onClick={openReportModule}
+              id='report-button'
+              content={
+                <>
+                  <img 
+                    className={styles.reportIcon}
+                    src={getIconUrl('letter-and-paper', null, {
+                      size: 16,
+                      colors: {
+                        light: 'FFFFFF'
+                      }
+                    })}
+                    alt='report icon'
+                  />
+                  <span> Report Article</span>
+                </>
+              }
+            />
+          }
           <div className={styles.navButtons}>
             { parseInt(id, 10) !== 1 
             ?
