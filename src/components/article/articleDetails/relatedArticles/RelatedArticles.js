@@ -4,8 +4,7 @@ import ArticleCard from '../../articleCards/articleCard/ArticleCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRelatedArticles, selectRelatedArticles } from './relatedArticlesSlice';
 import { Fragment } from 'react';
-
-//TODO - Replace sample data used here and connect to API
+import Loading from '../../../loading/Loading';
 
 const RelatedArticles = ({ article }) => {
   const [didLoad, setDidLoad] = useState(false);
@@ -32,14 +31,20 @@ const RelatedArticles = ({ article }) => {
             key={card.id}
             title={card.title}
             topic={card.topic}
-            author={card.author}
+            author={`${card.User.firstName} ${card.User.lastName}`}
             intro={card.intro}
             credits={undefined}
           />
         )
       }
     </div>
-  ) : <Fragment />
+  ) : relatedArticles ? (
+    <div className={styles.container}>
+      <Loading />
+    </div>
+  ) : (
+    <Fragment />
+  )
 }
 
 export default RelatedArticles
