@@ -162,6 +162,34 @@ describe('ArticleCards', () => {
   });
 
   describe('results', () => {
+    const expectedProps = {
+      type: 'results'
+    }
+
+    beforeEach(() => {
+      const preloadedState = {
+        ...initialState,
+        searchResults: {
+          ...initialState.searchResults,
+          articles: tempArticles
+        }
+      }
+      act(() => {
+        renderComponent(ArticleCards, { expectedProps, preloadedState, needsStore });
+      });
+    });
+
+    it('should render without any errors', () => {
+      expect(
+        screen.getByTestId('article-cards-component')
+      ).toBeInTheDocument();
+    });
+
+    it('should render all the supplied article cards', () => {
+      expect(
+        screen.getAllByRole('heading', { name: /test title/i }).length
+      ).toBe(15);
+    });
     
   });
   

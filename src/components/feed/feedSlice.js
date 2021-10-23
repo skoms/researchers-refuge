@@ -7,7 +7,7 @@ const data = new Data();
 const initialState = {
   filter: 'popular',
   topic: 'home',
-  feedArticles: [  ],
+  feedArticles: null,
 }
 
 //TODO - JUST TEMPORARY, Need to tailor the API more first (check project TODO)
