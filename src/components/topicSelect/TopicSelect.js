@@ -2,8 +2,8 @@ import React, { Fragment, useEffect, useRef } from 'react'
 import styles from './TopicSelect.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTopic, updateTopic } from '../feed/feedSlice';
+import { capitalize } from '../../utils/helpers';
 import { selectCategories } from '../topics/topicsSlice';
-import Data from '../../utils/helpers/Data';
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
 import { getIconUrl } from '../../Icons';
 
@@ -13,7 +13,6 @@ const TopicSelect = ({ use }) => {
   const topic = useSelector(selectTopic);
   const categories = useSelector(selectCategories);
   const darkModeOn = useSelector(selectDarkModeOn);
-  const data = new Data();
 
   const selectRef = useRef();
   
@@ -37,9 +36,9 @@ const TopicSelect = ({ use }) => {
         { categories ?
           categories.map( category => {
             return (
-              <optgroup key={category.id} label={data.capitalize(category.name)}>
+              <optgroup key={category.id} label={capitalize(category.name)}>
                 {
-                  category.Topics.map(topic => <option key={topic.id} value={topic.name}>{data.capitalize(topic.name)}</option>)
+                  category.Topics.map(topic => <option key={topic.id} value={topic.name}>{capitalize(topic.name)}</option>)
                 }
               </optgroup>
             )

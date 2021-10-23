@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './RecommendModule.module.css';
 import { useSelector, useDispatch } from 'react-redux'
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
-import Data from '../../utils/helpers/Data';
+import { capitalize } from '../../utils/helpers';
 import {
   selectRecommendedTopics,
   selectRecommendedArticles,
@@ -18,7 +18,6 @@ const RecommendModule = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectAuthenticatedUser);
   const [didLoad, setDidLoad] = useState(false);
-  const data = new Data();
 
   const recommendedTopics = useSelector(selectRecommendedTopics);
   const recommendedArticles = useSelector(selectRecommendedArticles);
@@ -48,7 +47,7 @@ const RecommendModule = () => {
                       className={styles.td}
                       onClick={() => dispatch(updateTopic(topic.name))}
                     >
-                      {data.capitalize(topic.name)}
+                      {capitalize(topic.name)}
                     </td>
                   </tr>
                 )
@@ -72,7 +71,7 @@ const RecommendModule = () => {
                       className={styles.a}
                       href={`/articles/${article.id}`}
                     >
-                      {data.capitalize(article.title)}
+                      {capitalize(article.title)}
                     </a>
                   </td>
                 </tr>
@@ -97,7 +96,7 @@ const RecommendModule = () => {
                         className={styles.a}
                         href={`/users/${user.id}`}
                       >
-                        {data.capitalize(`${user.firstName} ${user.lastName}`)}
+                        {capitalize(`${user.firstName} ${user.lastName}`)}
                       </a>
                     </td>
                   </tr>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './ImageUploader.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Data from '../../utils/helpers/Data';
+import Data from '../../Data';
 import TypedButton from '../typedButton/TypedButton';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 import { updateAccount } from '../user/userAccManage/userAccSlice';

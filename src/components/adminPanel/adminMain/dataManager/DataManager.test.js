@@ -2,8 +2,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderComponent } from '../../../../utils/testing';
 import DataManager from './DataManager';
-import moxios from 'moxios';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
 
+
+const axiosMock = new MockAdapter(axios, { onNoMatch: 'throwException' });
 const needsStore = true;
 
 describe('DataManager', () => {
@@ -73,15 +76,9 @@ describe('DataManager', () => {
           createdAt: 'test time',
         }
       }
-      moxios.install();
-
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 201,
-          response: expectedState
-        })
-      });
+      axiosMock
+        .onPost(/\/admin\/users/i)
+        .reply(201, expectedState)
 
       userEvent.click(screen.getByRole('button', { name: /create/i }))
 
@@ -203,15 +200,10 @@ describe('DataManager', () => {
           createdAt: 'test time',
         }
       }
-      moxios.install();
 
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 201,
-          response: expectedState
-        })
-      });
+      axiosMock
+        .onPut(/\/admin\/users/i)
+        .reply(201, expectedState)
 
       userEvent.click(screen.getByRole('button', { name: /edit/i }))
 

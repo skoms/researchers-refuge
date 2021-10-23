@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
-import Data from '../../../../utils/helpers/Data';
 import { 
   followUser,
   selectAuthenticatedUser
@@ -22,6 +21,7 @@ import ReactMarkdown from 'react-markdown';
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
 import TypedButton from '../../../typedButton/TypedButton';
 import { getIconUrl } from '../../../../Icons';
+import { capitalize } from '../../../../utils/helpers';
 
 const UserProfileFeed = props => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -29,7 +29,6 @@ const UserProfileFeed = props => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const data = new Data();
   const page = useSelector(selectPage);
   const [didLoad, setDidLoad] = useState(false);
   
@@ -135,7 +134,7 @@ const UserProfileFeed = props => {
           <div className={styles.nameOccupationAndBio}>
             <span className={styles.fullName}>
               <h2 className={styles.fullName}>
-                { data.capitalize(`${owner.firstName} ${owner.lastName}`, false) }
+                { capitalize(`${owner.firstName} ${owner.lastName}`, false) }
               </h2>
               {owner.accessLevel === 'admin' ? 
                 <img src={getIconUrl('admin-emblem', null, {
@@ -143,14 +142,14 @@ const UserProfileFeed = props => {
                   colors: { light: '38B6FF' }
                 })} alt='admin icon'/> : ''}
             </span>
-            <p className={styles.occupation}>{ data.capitalize(owner.occupation, false) || '' }</p>
+            <p className={styles.occupation}>{ capitalize(owner.occupation, false) || '' }</p>
             <ReactMarkdown className="bio">{ owner.bio || '' }</ReactMarkdown>
           </div>
 
           <div className={styles.stats}>
             <div className={`${styles.stat} most-active-field`}>
               <p className={styles.title}>Most active field:</p>
-              <p className={styles.data}>{ data.capitalize(owner.mostActiveField) || 'None' }</p>
+              <p className={styles.data}>{ capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
             <div className={`${styles.stat} articles`}>
               <p className={styles.title}>Articles:</p>

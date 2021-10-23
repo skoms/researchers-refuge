@@ -5,7 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import Data from '../../../../utils/helpers/Data';
 import ArticleCards from '../../../article/articleCards/ArticleCards';
 import ImageUploader from '../../../imageUploader/ImageUploader';
 import { selectAuthenticatedUser } from '../../userAccManage/userAccSlice';
@@ -15,6 +14,7 @@ import { updateTopic } from '../../../feed/feedSlice';
 import { selectPage } from '../../../paginationBar/paginationBarSlice';
 import TypedButton from '../../../typedButton/TypedButton';
 import { getIconUrl } from '../../../../Icons';
+import { capitalize } from '../../../../utils/helpers';
 
 const MyProfileFeed = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -22,7 +22,6 @@ const MyProfileFeed = () => {
   const history = useHistory();
   const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
-  const data = new Data();
   const page = useSelector(selectPage);
   
   const [owner, setOwner] = useState(authenticatedUser);
@@ -115,7 +114,7 @@ const MyProfileFeed = () => {
           <div className={styles.nameOccupationAndBio}>
             <span className={styles.fullName}>
               <h2 className={styles.fullName}>
-                { `${data.capitalize(owner.firstName)} ${data.capitalize(owner.lastName)}` }
+                { `${capitalize(owner.firstName)} ${capitalize(owner.lastName)}` }
               </h2>
               {owner.accessLevel === 'admin' ? 
                 <img src={getIconUrl('admin-emblem', null, {
@@ -124,13 +123,13 @@ const MyProfileFeed = () => {
                 })} alt='admin icon'/> : ''}
             </span>
             
-            <p className={styles.occupation}>{ data.capitalize(owner.occupation) || '' }</p>
+            <p className={styles.occupation}>{ capitalize(owner.occupation) || '' }</p>
             <ReactMarkdown className={styles.bio}>{ owner.bio || '' }</ReactMarkdown>
           </div>
           <div className={styles.stats}>
             <div className={`${styles.stat} most-active-field`}>
               <p className={styles.title}>Most active field:</p>
-              <p className={styles.data}>{ data.capitalize(owner.mostActiveField) || 'None' }</p>
+              <p className={styles.data}>{ capitalize(owner.mostActiveField) || 'None' }</p>
             </div>
             <div className={`${styles.stat} articles`}>
               <p className={styles.title}>Articles:</p>

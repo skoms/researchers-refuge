@@ -1,11 +1,10 @@
 import React from 'react'
 import styles from './InfoModule.module.css';
 import ReactMarkdown from 'react-markdown';
-import Data from '../../utils/helpers/Data';
 import { getIconUrl } from '../../Icons';
+import { capitalize } from '../../utils/helpers';
 
 const InfoModule = props => {
-  const data = new Data();
   const {
     firstName,
     lastName,
@@ -34,7 +33,7 @@ const InfoModule = props => {
       />
       <span className={styles.fullName}>
         <p className={styles.fullName}>
-          { `${data.capitalize(firstName)} ${data.capitalize(lastName)}` }
+          { `${capitalize(firstName)} ${capitalize(lastName)}` }
         </p>
         { accessLevel === 'admin' ? 
             <img
@@ -47,13 +46,13 @@ const InfoModule = props => {
             ''
         }
       </span>
-      <p className={styles.occupation}>{data.capitalize(occupation)}</p>
+      <p className={styles.occupation}>{capitalize(occupation)}</p>
       <ReactMarkdown className={styles.bio}>{bio}</ReactMarkdown>
       <table>
         <tbody>
           <tr>
             <th>Active in:</th>
-            <td>{ data.capitalize(mostActiveField) || '' }</td>
+            <td>{ capitalize(mostActiveField) || '' }</td>
           </tr>
           <tr>
             <th>Articles:</th>

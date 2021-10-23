@@ -12,6 +12,7 @@ import PaginationBar from '../../paginationBar/PaginationBar';
 import { selectLastPage } from '../../paginationBar/paginationBarSlice';
 import { selectDarkModeOn } from '../../darkmodeButton/darkModeButtonSlice';
 import { getIconUrl } from '../../../Icons';
+import { v4 as uuidv4 } from 'uuid';
 
 const ArticleCards = (props) => {
   const dispatch = useDispatch();
@@ -28,23 +29,23 @@ const ArticleCards = (props) => {
     const getRecentlyAccredited = async () => {
       const slicedAndSorted = [...props.recentlyAccredited].reverse().slice(0,5);
       if (slicedAndSorted.length > 0) {
-        const returnArray = await Promise.all(
+        await Promise.all(
           slicedAndSorted.map(async (id) => {
             return await dispatch(getArticleInfo(id))
               .then(res => res.payload.article);
           })
-        );
-        setSecondaryArticles(returnArray);
+        )
+          .then(res => setSecondaryArticles(res));
       } else {
-        setSecondaryArticles([]);;
+        setSecondaryArticles([]);
       }
-    }
+    };
     switch (props.type) {
       case 'ownersArticles':
         dispatch(updateArticles(ownersArticles));
         break;
       case 'accreditedArticles':
-        getRecentlyAccredited(); // To not use the same state as Primary ArticleCards
+        !didLoad && getRecentlyAccredited(); // To not use the same state as Primary ArticleCards
         break;
       case 'feed':
         dispatch(updateArticles(feedArticles));
@@ -66,7 +67,7 @@ const ArticleCards = (props) => {
         <ArticleCard 
           type={props.type}
           id={card.id}
-          key={card.id}
+          key={uuidv4()}
           title={card.title}
           intro={card.intro}
           topic={card.topic}
@@ -102,7 +103,7 @@ const ArticleCards = (props) => {
 
   if (props.type !== 'accreditedArticles') {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-testid='article-cards-component'>
         { didLoad && articles ? 
           articlesOrEmptyMessage(articles) : <Loading /> 
         }
@@ -111,7 +112,7 @@ const ArticleCards = (props) => {
     )
   } else {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-testid='article-cards-component'>
         { didLoad && secondaryArticles ?
             articlesOrEmptyMessage(secondaryArticles) : <Loading />
         }

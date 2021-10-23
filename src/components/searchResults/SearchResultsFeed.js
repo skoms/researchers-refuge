@@ -6,7 +6,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom'
 import Loading from '../loading/Loading'
 import { selectSearchTerm, updateSearchTerm } from '../searchField/searchFieldSlice'
 import { getResults, selectArticlesResults, selectTopicsResults, selectUsersResults } from './searchResultsSlice'
-import Data from '../../utils/helpers/Data'
+import { capitalize } from '../../utils/helpers';
 import ArticleCards from '../article/articleCards/ArticleCards'
 import { selectCategories } from '../topics/topicsSlice'
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
@@ -24,7 +24,6 @@ const SearchResultsFeed = () => {
   const [touchPosition, setTouchPosition] = useState(null);
   const { term } = useParams();
   const dispatch = useDispatch();
-  const data = new Data();
   const history = useHistory();
   const location = useLocation();
 
@@ -156,11 +155,11 @@ const SearchResultsFeed = () => {
                 const categoryTopics = topics.filter( topic => category.id === topic.categoryId ); 
                 return categoryTopics.length > 0 && (
                   <div key={category.id}>
-                    <h5>{data.capitalize(category.name)}</h5>
+                    <h5>{capitalize(category.name)}</h5>
                     <ul>
                       {
                         categoryTopics.map( topic => 
-                          <li key={topic.id}><button onClick={goToTopic}>{data.capitalize(topic.name)}</button></li>
+                          <li key={topic.id}><button onClick={goToTopic}>{capitalize(topic.name)}</button></li>
                         )
                       }
                     </ul>

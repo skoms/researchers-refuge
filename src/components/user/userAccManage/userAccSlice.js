@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import Data from "../../../utils/helpers/Data";
+import Data from "../../../Data";
 
 import { accreditDiscredit } from "../../article/articleCards/articleCardsSlice";
 

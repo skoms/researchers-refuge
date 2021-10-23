@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styles from './ReportModule.module.css'
-import Data from '../../utils/helpers/Data'
+import { capitalize } from '../../utils/helpers';
 import TypedButton from '../typedButton/TypedButton';
 import { useSelector } from 'react-redux';
 import { createReport, selectErrors, selectIsActive, selectTargetId, selectType, toggleIsActive, updateErrors } from './reportModuleSlice';
@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 
 const ReportModule = () => {
-  const data = new Data();
   const user = useSelector(selectAuthenticatedUser);
   const dispatch = useDispatch();
   const type = useSelector(selectType);
@@ -27,22 +26,22 @@ const ReportModule = () => {
         return (
         <>
           <option key={1} value={'offensive language'}>
-            {data.capitalize('offensive language')}
+            {capitalize('offensive language')}
           </option>
           <option key={2} value={'inappropriate header and / or profile picture'}>
-            {data.capitalize('inappropriate header and / or profile picture')}
+            {capitalize('inappropriate header and / or profile picture')}
           </option>
           <option key={3} value={'spam'}>
-            {data.capitalize('spam')}
+            {capitalize('spam')}
           </option>
           <option key={4} value={'fake name'}>
-            {data.capitalize('fake name')}
+            {capitalize('fake name')}
           </option>
           <option key={5} value={'impersonation / identity theft'}>
-            {data.capitalize('impersonation / identity theft')}
+            {capitalize('impersonation / identity theft')}
           </option>
           <option key={6} value={'other'}>
-            {data.capitalize('other')}
+            {capitalize('other')}
           </option>
         </>
         );
@@ -50,25 +49,25 @@ const ReportModule = () => {
         return (
           <>
             <option key={1} value={'offensive language / hate speech'}>
-              {data.capitalize('offensive language / hate speech')}
+              {capitalize('offensive language / hate speech')}
             </option>
             <option key={2} value={'inappropriate content'}>
-              {data.capitalize('inappropriate content')}
+              {capitalize('inappropriate content')}
             </option>
             <option key={3} value={'fraudulent / misleading data'}>
-              {data.capitalize('fraudulent / misleading data')}
+              {capitalize('fraudulent / misleading data')}
             </option>
             <option key={4} value={'stolen content'}>
-              {data.capitalize('stolen content')}
+              {capitalize('stolen content')}
             </option>
             <option key={5} value={'political propaganda'}>
-              {data.capitalize('political propaganda')}
+              {capitalize('political propaganda')}
             </option>
             <option key={6} value={'incomplete content'}>
-              {data.capitalize('incomplete content')}
+              {capitalize('incomplete content')}
             </option>
             <option key={7} value={'other'}>
-              {data.capitalize('other')}
+              {capitalize('other')}
             </option>
           </>
         );
@@ -76,19 +75,19 @@ const ReportModule = () => {
         return (
           <>
             <option key={1} value={'unexpected crash'}>
-              {data.capitalize('unexpected crash')}
+              {capitalize('unexpected crash')}
             </option>
             <option key={2} value={'visual content problems'}>
-              {data.capitalize('visual content problems')}
+              {capitalize('visual content problems')}
             </option>
             <option key={3} value={'a feature is broken'}>
-              {data.capitalize('a feature is broken')}
+              {capitalize('a feature is broken')}
             </option>
             <option key={4} value={'account issues'}>
-              {data.capitalize('account issues')}
+              {capitalize('account issues')}
             </option>
             <option key={5} value={'other'}>
-              {data.capitalize('other')}
+              {capitalize('other')}
             </option>
           </>
         );
@@ -177,7 +176,7 @@ const ReportModule = () => {
               value={selectValue}
             >
               <option key={0} value={''}>
-                {data.capitalize('please select a reason')}
+                {capitalize('please select a reason')}
               </option>
               { getOptions() }
             </select>

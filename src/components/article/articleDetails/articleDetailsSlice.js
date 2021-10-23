@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Data from "../../../utils/helpers/Data";
+import Data from "../../../Data";
+import { formatDate } from '../../../utils/helpers';
 
 const data = new Data();
 
@@ -28,7 +29,7 @@ export const articleDetailsSlice = createSlice({
         const { article } = action.payload;
         const { User, published } = article;
 
-        const formattedDate = data.formatDate(published);
+        const formattedDate = formatDate(published);
 
         return {
           ...state,

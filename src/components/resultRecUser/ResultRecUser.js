@@ -9,7 +9,7 @@ import {
 } from '../user/userAccManage/userAccSlice';
 import { useLocation } from 'react-router-dom';
 import TypedButton from '../typedButton/TypedButton';
-import Data from '../../utils/helpers/Data';
+import { capitalize } from '../../utils/helpers';
 
 const ResultRecUser = ({ user }) => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
@@ -18,7 +18,6 @@ const ResultRecUser = ({ user }) => {
   const history = useHistory();
   const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
-  const data = new Data();
 
 
   useEffect(() => {
@@ -49,8 +48,8 @@ const ResultRecUser = ({ user }) => {
       <a href={`/users/${user.id}`} className={styles.profilePic}>
         <img src={user.profileImgURL} alt="profile-pic" />
       </a>
-      <a href={`/users/${user.id}`} className={styles.fullName}><p>{data.capitalize(`${user.firstName} ${user.lastName}`, false)}</p></a>
-      <p className={styles.occupation}>{data.capitalize(user.occupation, false)}</p>
+      <a href={`/users/${user.id}`} className={styles.fullName}><p>{capitalize(`${user.firstName} ${user.lastName}`, false)}</p></a>
+      <p className={styles.occupation}>{capitalize(user.occupation, false)}</p>
       <div className={styles.buttons}>
         <TypedButton 
           buttontype='primary' 

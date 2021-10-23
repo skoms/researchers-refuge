@@ -5,15 +5,14 @@ import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import Data from '../../../../utils/helpers/Data'
 import { selectDarkModeOn } from '../../../darkmodeButton/darkModeButtonSlice';
 import { updateTopic } from '../../../feed/feedSlice';
 import { selectAuthenticatedUser } from '../../../user/userAccManage/userAccSlice';
 import { accreditDiscredit } from '../articleCardsSlice';
 import { getIconUrl } from '../../../../Icons';
 import { selectIsMobile } from '../../../../app/screenWidthSlice';
+import { capitalize } from '../../../../utils/helpers';
 
-const data = new Data();
 
 const ArticleCard = ({ id, credits, topic, authorId, author, title, intro }) => {
   const dispatch = useDispatch();
@@ -116,12 +115,12 @@ const ArticleCard = ({ id, credits, topic, authorId, author, title, intro }) => 
       <div className={styles.headline}>
         <button onClick={goToTopic}>
           <span>
-            {data.capitalize(topic, false)}
+            {capitalize(topic, false)}
           </span>
         </button>
         <button onClick={() => history.push({ pathname: `/users/${authorId}`, state: { from: location.pathname }})}>
           <span>
-            {data.capitalize(author, false)}
+            {capitalize(author, false)}
           </span>
         </button>
       </div>
