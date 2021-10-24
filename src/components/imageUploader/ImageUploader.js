@@ -6,6 +6,7 @@ import Data from '../../Data';
 import TypedButton from '../typedButton/TypedButton';
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice';
 import { updateAccount } from '../user/userAccManage/userAccSlice';
+import axios from 'axios';
 const crypto = require('crypto');
 const dictionary = require('../../.secret/dictionary.json');
 
@@ -21,6 +22,7 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
   const onImageSelected = (e) => {
     setImage(e.target.files[0]);
   }
+  
   const uploadImage = async () => {
     const formData = new FormData();
 
@@ -41,10 +43,13 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
 
     formData.append('signature', shaSignature.digest('hex'))
 
-    const response = await fetch(dictionary.UPLOAD_URL, { method:"post", body: formData })
-      .then(res => res.json())
-      .then(data => data.url)
-      .catch(err => console.log(err))
+    const response = await axios({
+      url: dictionary.UPLOAD_URL,
+      method: 'POST',
+      data: formData
+    })
+      .then( res => res.url)
+      .catch(err => console.error(err));
 
     if (response) {
       const updatedData = {
@@ -71,6 +76,7 @@ const ImageUploader = ({ purpose, toggleHeaderUploader, toggleProfileUploader })
     <div
       className={styles.container}
       data-value='upload-popup'
+      data-testid='image-uploader-component'
       onClick={ 
         purpose === 'header' ? 
           toggleHeaderUploader 
