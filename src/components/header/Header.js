@@ -73,7 +73,7 @@ const Header = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='header-component'>
       <a className={styles.homeLogo} href="/">
         <img
           src={process.env.PUBLIC_URL + '/logo192.png'}
@@ -116,6 +116,7 @@ const Header = () => {
           <div 
             className={`${styles.dropdown} ${!dropdownActive && 'invisible'}`}
             ref={dropdownRef}
+            data-testid='header-dropdown-menu'
           >
             <a href="/my-profile">My Profile</a>
             <hr />

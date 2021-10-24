@@ -47,7 +47,7 @@ export const getInitialState = () => ({
  * @param {object} options - Structure with default states: { expectedProps = {}, preloadedState = null, needsStore = false, needsMemoryRouter = false }
  * @returns {object} - returns an object with the store: { store }
  */
-export const renderComponent = ( Component, { expectedProps = {}, preloadedState = null, needsStore = false, needsMemoryRouter = false }) => {
+export const renderComponent = ( Component, { expectedProps = {}, preloadedState = null, needsStore = false, needsMemoryRouter = false } = {}) => {
   let wrapper = <Component {...expectedProps} />;
   let store;
 

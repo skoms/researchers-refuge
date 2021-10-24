@@ -11,26 +11,26 @@
 }
 
 :root {
-  --base-background: #9DD7F6;
+  --base-background: #9dd7f6;
   --base-semi-darkblue: #15458a;
   --base-darkblue: #1a3861;
-  --base-blue: #38B6FF;
+  --base-blue: #38b6ff;
   --base-shadow-blue: #1b4469;
-  --base-scroll-blue: #64B5F7;
-  --base-component-white: #E8F7FF;
+  --base-scroll-blue: #64b5f7;
+  --base-component-white: #e8f7ff;
   --base-fade-grey: #bdbdbd;
   --lightblue-border: #9cd8fa;
   --dark-component-grey: #27303d;
-  --dark-component-darkgrey: #161B22;
-  --dark-base-background: #0D1117;
+  --dark-component-darkgrey: #161b22;
+  --dark-base-background: #0d1117;
   --dark-light-darkgrey: #3a4658;
   --dark-darkgrey: #112541;
   --dark-shadow-blue: #3d84e7;
   --dark-semi-darkblue: #257aac;
   --dark-fade-grey: #5b6e8b;
-  --error-red: #FF2323;
+  --error-red: #ff2323;
   --error-background: rgba(240, 128, 128, 0.644);
-  --valid-green: #1FAD0D; 
+  --valid-green: #1fad0d;
   --valid-background: rgba(80, 236, 148, 0.658);
 }
 
@@ -46,7 +46,7 @@ body {
 
 body,
 body * {
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 body.darkmode {
@@ -64,51 +64,51 @@ body {
 }
 
 main {
-  margin: 4rem .5rem 2rem .5rem;
+  margin: 4rem 0.5rem 2rem 0.5rem;
 }
 
 h2 {
   font-size: 1.4rem;
   font-weight: 900;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 h3 {
   font-size: 1.3rem;
   font-weight: 800;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 h4 {
   font-size: 1.2rem;
   font-weight: 700;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 h5 {
   font-size: 1.1rem;
   font-weight: 700;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 select {
-  border-radius: .3rem;
-  border: var(--lightblue-border) solid .15rem;
+  border-radius: 0.3rem;
+  border: var(--lightblue-border) solid 0.15rem;
   color: var(--base-darkblue);
 }
 
 select:focus {
   outline: none;
-  border: var(--base-semi-darkblue) solid .15rem;
+  border: var(--base-semi-darkblue) solid 0.15rem;
 }
 
 .darkmode select {
-  border: var(--dark-darkgrey) solid .15rem;
+  border: var(--dark-darkgrey) solid 0.15rem;
   background: var(--dark-base-background);
 }
 
 .darkmode select:focus {
-  border: var(--dark-semi-darkblue) solid .15rem;
+  border: var(--dark-semi-darkblue) solid 0.15rem;
 }
 
 div .errors {
@@ -122,14 +122,14 @@ div .errors {
 
 .errors .error {
   font-weight: 900;
-  margin: .2rem 0;
+  margin: 0.2rem 0;
   color: var(--error-red);
 }
 
 /* Custom Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  width: .5rem;
+  width: 0.5rem;
 }
 
 /* Track */
@@ -152,26 +152,26 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: var(--base-darkblue);
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: var(--base-darkblue);
 }
 
 .darkmode input:-webkit-autofill,
 .darkmode input:-webkit-autofill:hover,
 .darkmode input:-webkit-autofill:focus,
 .darkmode input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: var(--base-component-white);
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: var(--base-component-white);
 }
 
 /* Button styling (Basic) */
 button {
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   border: none;
   outline: none;
   box-shadow: 0 2px 12px -3px var(--base-darkblue);
   opacity: 0.85;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .darkmode button {
@@ -192,8 +192,8 @@ button:hover {
   color: #555;
   box-shadow: 1px 2px 8px -3px #555;
   text-align: center;
-  padding: .3rem .6rem;
-  border-radius: .25rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.25rem;
   position: absolute;
   z-index: 1;
   bottom: -15%;
@@ -239,11 +239,11 @@ button.disabled:hover .tooltip {
 .darkmode .form-input {
   background: none;
 }
- .form-input label {
+.form-input label {
   font-size: 1.1rem;
-  margin: .4rem 0 .2rem 0;
+  margin: 0.4rem 0 0.2rem 0;
 }
- .invalid label {
+.invalid label {
   font-weight: 900;
   color: var(--error-red);
 }
@@ -258,59 +258,62 @@ button.disabled:hover .tooltip {
   font-weight: 900;
   color: var(--error-red);
 }
- .form-input input,  
- .form-input textarea, 
- .form-input select  {
-  border: .1rem transparent solid;
-  border-radius: .25rem;
-  background: var(--base-component-white)7e;
+.form-input input,
+.form-input textarea,
+.form-input select {
+  border: 0.1rem transparent solid;
+  border-radius: 0.25rem;
+  background: var(--base-component-white) 7e;
   box-shadow: 0 2px 8px -3px var(--base-darkblue);
   height: 2rem;
 }
- .invalid input,  .invalid textarea, .invalid select  {
-  border: .1rem transparent solid;
-  border-radius: .25rem;
+.invalid input,
+.invalid textarea,
+.invalid select {
+  border: 0.1rem transparent solid;
+  border-radius: 0.25rem;
   background: #d35b5b96;
   box-shadow: 0 2px 8px 1px var(--error-red);
   height: 2rem;
 }
- .form-input textarea {
+.form-input textarea {
   font-size: 1rem;
   height: 20rem;
 }
 
-.darkmode .form-input input, 
+.darkmode .form-input input,
 .darkmode .form-input textarea,
-.darkmode .form-input select  {
-  border: .1rem transparent solid;
-  background: var(--dark-component-darkgrey)93;
+.darkmode .form-input select {
+  border: 0.1rem transparent solid;
+  background: var(--dark-component-darkgrey) 93;
   box-shadow: 0 2px 8px -3px var(--base-blue);
 }
 
-.darkmode .invalid input, 
+.darkmode .invalid input,
 .darkmode .invalid textarea,
-.darkmode .invalid select  {
+.darkmode .invalid select {
   background: #380e1093;
   box-shadow: 0 2px 8px -3px var(--error-red);
 }
 
-.form-input input:focus, .form-input textarea:focus {
-  border: var(--dark-component-darkgrey) solid .1rem;
+.form-input input:focus,
+.form-input textarea:focus {
+  border: var(--dark-component-darkgrey) solid 0.1rem;
 }
 
-.darkmode .form-input input:focus, .darkmode .form-input textarea:focus {
-  border: var(--base-blue) solid .1rem;
+.darkmode .form-input input:focus,
+.darkmode .form-input textarea:focus {
+  border: var(--base-blue) solid 0.1rem;
 }
-
 
 /* ============== Small Screen Content Styling  ======================= */
 @media only screen and (max-width: 800px) {
   body {
     font-size: 18px;
   }
-  
+
   main {
-    margin: 8.5vh .3rem 0 .3rem;
+    margin: 8.5vh 0.3rem 0 0.3rem;
   }
 }
 
