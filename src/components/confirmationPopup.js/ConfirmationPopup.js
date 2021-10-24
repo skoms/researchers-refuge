@@ -5,7 +5,7 @@ const ConfirmationPopup = ({ action, target, confirm, containerRef }) => {
 
   // closes popup if clicks the blurred background
   const closeOnBlur = e => {
-    if ( e.target.classList.contains(styles.container) ) {
+    if ( e.target.classList.contains(styles.container) && containerRef.current ) {
       containerRef.current.classList.add('invisible');
     }
   }
@@ -23,6 +23,7 @@ const ConfirmationPopup = ({ action, target, confirm, containerRef }) => {
     >
       <div
         className={styles.container}
+        data-testid='blurred-background'
         onClick={closeOnBlur}
       >
         <div className={styles.popUp}>
