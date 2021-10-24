@@ -5,7 +5,7 @@ import ArticleForm from '../articleForm/ArticleForm'
 const ManageArticle = () => {
   const location = useLocation();
   return (
-    <div>
+    <div data-testid='manage-article-component'>
       <ArticleForm 
         isUpdate={ location.pathname.includes('update') }
       />
