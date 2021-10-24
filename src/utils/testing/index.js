@@ -48,25 +48,27 @@ export const getInitialState = () => ({
  * @returns {object} - returns an object with the store: { store }
  */
 export const renderComponent = ( Component, { expectedProps = {}, preloadedState = null, needsStore = false, needsMemoryRouter = false }) => {
-  if( !needsStore ) {
-    render(<Component {...expectedProps} />);
-  } else if ( needsStore && !needsMemoryRouter ) {
-    const store = testStore(preloadedState);
-    render(
+  let wrapper = <Component {...expectedProps} />;
+  let store;
+
+  if ( needsStore ) {
+    store = testStore(preloadedState);
+    wrapper = (
       <Provider store={store}>
-          <Component {...expectedProps} />
+        {wrapper}
       </Provider>
     );
-    return { store };
-  } else if ( needsStore && needsMemoryRouter ) {
-    const store = testStore(preloadedState);
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Component {...expectedProps} />
-        </MemoryRouter>
-      </Provider>
-    );
-    return { store };
   }
+
+  if ( needsMemoryRouter ) {
+    wrapper = (
+      <MemoryRouter>
+        { wrapper }
+      </MemoryRouter>
+    );
+  }
+  
+  const testLib = render(wrapper);
+  
+  return { store, ...testLib };  
 }

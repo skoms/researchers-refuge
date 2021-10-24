@@ -8,7 +8,7 @@ import { updateType, updateTargetId, toggleIsActive } from '../../reportModule/r
 
 //TODO - Hook up report bug form
 
-const UnhandledError = props => {
+const UnhandledError = ({ statusCode, errorMessage, errorStack }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -34,17 +34,31 @@ const UnhandledError = props => {
         })} 
         alt='stop-sign'
       />
-      <h1 className={styles.status}>{props.statusCode || 500}</h1>
-      <p className={styles.message}>
-        {props.errorMessage || 'Something went wrong, please try and refresh the page, if the issue persists, please '}
-        <span
-          onClick={openReportModule}
-          className={styles.reportIssueSpan}
-        >
-          issue a bug report
-        </span>
-      </p>
-      { props.errorStack && <p className={styles.stack}>{props.errorStack}</p> }
+      <h1 className={styles.status}>{statusCode || 500}</h1>
+      <div className={styles.message}>
+        <p>
+          {errorMessage || 'Something went wrong, please try and refresh the page, if the issue persists, please '}
+          { !errorMessage && 
+            <span
+              onClick={openReportModule}
+              className={styles.reportIssueSpan}
+            >
+              issue a bug report
+            </span>
+          }
+        </p>
+        { errorMessage && 
+          <p>
+            <span
+              onClick={openReportModule}
+              className={styles.reportIssueSpan}
+            >
+              Issue a bug report
+            </span>
+          </p>
+        }
+      </div>
+      { errorStack && <p className={styles.stack}>{errorStack}</p> }
       <TypedButton
         buttontype='secondary'
         onClick={goBack}
