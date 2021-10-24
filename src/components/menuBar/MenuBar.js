@@ -25,7 +25,7 @@ const MenuBar = () => {
     }
   }
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='menubar-component'>
       <div>
         <button 
           className={`${styles.button} selected`} 

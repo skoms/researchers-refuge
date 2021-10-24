@@ -24,7 +24,7 @@ const Feed = () => {
   }, [didLoad, dispatch, filter, topic, authenticatedUser, page]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='feed-component'>
       <MenuBar />
       { didLoad ? <ArticleCards type='feed' /> : <Loading /> }
     </div>

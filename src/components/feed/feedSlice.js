@@ -10,8 +10,6 @@ const initialState = {
   feedArticles: null,
 }
 
-//TODO - JUST TEMPORARY, Need to tailor the API more first (check project TODO)
-//TODO - SET UP FILTER TO SORT THE ORDER OF THE ARTICLES
 export const getFeedArticles = createAsyncThunk(
   'feed/getFeedArticles',
   async ({filter = null, topic = 'home', user = null, page = null}) => {
