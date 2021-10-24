@@ -30,7 +30,7 @@ const TopicSelect = ({ use }) => {
 
   return (
     <div className={styles.container}>
-      <select className={styles.select} name="topic-select" ref={selectRef} value={topic} onChange={changeHandler}>
+      <select className={styles.select} name="topic-select" ref={selectRef} value={topic} onChange={changeHandler} id='topic'>
         { use === 'header' && <option className='default' value='home' >Home</option> }
         { use === 'ArticleForm' && <option className='default' value='none' >None</option> }
         { categories ?

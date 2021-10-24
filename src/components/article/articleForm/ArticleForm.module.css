@@ -63,6 +63,11 @@
 }
 /*---------------------------*/
 
+.container textarea {
+  min-width: 98%;
+  max-width: 100%;
+}
+
 .h1 {
   grid-area: h1;
   font-weight: 900;
@@ -94,7 +99,7 @@
   max-width: 80%;
 }
 
-.topic select:focus {
+:global(.darkmode) .topic select:focus {
   background: var(--dark-component-grey);
 }
 

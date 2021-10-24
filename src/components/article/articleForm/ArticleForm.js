@@ -16,7 +16,7 @@ import { selectAuthenticatedUser } from '../../user/userAccManage/userAccSlice'
 import { selectTopic, updateTopic } from '../../feed/feedSlice'
 import TypedButton from '../../typedButton/TypedButton'
 
-const ArticleForm = props => {
+const ArticleForm = ({ isUpdate }) => {
   const dispatch = useDispatch();
   const [didLoad, setDidLoad] = useState(false);
   const article = useSelector(selectArticle);
@@ -53,10 +53,10 @@ const ArticleForm = props => {
     dispatch(updateArticleStateByKey({ key: 'topic', value: topic }));
 
     if (!didLoad) {
-      props.isUpdate && user && getArticleInfo(id, user);
+      isUpdate && user && getArticleInfo(id, user);
       setDidLoad(true);
     }
-  }, [topic, dispatch, didLoad, id, props.isUpdate, user, history, location.pathname]);
+  }, [topic, dispatch, didLoad, id, isUpdate, user, history, location.pathname]);
 
   const onChangeHandler = (e) => {
     dispatch(updateArticleStateByKey({ key: e.target.id, value: e.target.value }));
@@ -85,7 +85,7 @@ const ArticleForm = props => {
   const submit = (e) => {
     e.preventDefault();
     if (fieldsAreValid()) {
-      if ( props.isUpdate ) {
+      if ( isUpdate ) {
         dispatch(updateArticle({ article: article, id: id, user: user }))
           .then(res => res.payload)
           .then(res => {
@@ -106,22 +106,28 @@ const ArticleForm = props => {
             }
           })
       }
+      dispatch(updateTopic('home'));
     }
   }
 
   const cancel = (e) => {
     e.preventDefault();
     history.push({ pathname: '/', state: { from: location.pathname }});
+    dispatch(updateTopic('home'));
   }
 
   return didLoad && (
-    <div className={styles.container}>
+    <div 
+      className={styles.container}
+      data-testid='article-form-component'
+    >
       <form
+        data-testid='article-form'
         className={styles.form}
         onSubmit={submit}
       >
         <h1 className={styles.h1}>
-          {`${ props.isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE`}
+          {`${ isUpdate ? 'UPDATE' : 'CREATE' } ARTICLE`}
         </h1>
         <div
           className={`form-input ${styles.title}`}
@@ -179,6 +185,7 @@ const ArticleForm = props => {
         >
           <input
             id="published"
+            data-testid='date-input'
             name="date"
             type="date"
             value={ article.published || '' }
@@ -212,7 +219,7 @@ const ArticleForm = props => {
           <TypedButton 
             buttontype='primary' 
             type='submit' 
-            content={ props.isUpdate ? 'Update' : 'Create' } 
+            content={ isUpdate ? 'Update' : 'Create' } 
           />
           <TypedButton 
             buttontype='secondary'
