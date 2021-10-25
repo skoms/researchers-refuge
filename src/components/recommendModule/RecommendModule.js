@@ -33,7 +33,10 @@ const RecommendModule = () => {
   }, [user, dispatch, didLoad])
 
   return user !== null && didLoad && (
-    <div className={styles.container}>
+    <div 
+      className={styles.container}
+      data-testid='recommend-module-component'
+    >
       { recommendedTopics && recommendedTopics.length > 0 ? 
           <table className={styles.table}>
               <tbody>

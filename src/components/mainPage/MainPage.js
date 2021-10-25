@@ -16,7 +16,10 @@ const MainPage = () => {
   const loggedIn = useSelector(selectLoggedIn);
 
   return (
-    <div className={styles.container}>
+    <div 
+      className={styles.container}
+      data-testid='main-page-component'
+    >
       { loggedIn && !isMobile ? 
           <InfoModule user={authenticatedUser} /> 
         : 
