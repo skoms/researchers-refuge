@@ -34,7 +34,7 @@ const ReportCenter = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Topic Management</h2>
+      <h2 className={styles.title}>Report Center</h2>
       <EntriesSelect />
       <TableSearch />
       <StatusFilter setStatusFilter={setStatusFilter} />
