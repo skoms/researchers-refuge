@@ -1,18 +1,17 @@
 .container {
   background-color: var(--base-blue);
   color: white;
-  padding: .6rem 0;
+  padding: 0.6rem 0;
   position: fixed;
   width: 100%;
   z-index: 200;
   top: 0;
   display: grid;
-  grid-template-columns: 
-    calc( 50vw - 38rem )
+  grid-template-columns:
+    calc(50vw - 38rem)
     repeat(12, 1fr)
-    calc( 50vw - 38rem );
-  grid-template-areas: 
-    ". name name name search search search search select select profile profile profile .";
+    calc(50vw - 38rem);
+  grid-template-areas: ". name name name search search search search select select profile profile profile .";
   gap: 1.5rem;
   align-items: center;
 }
@@ -26,12 +25,13 @@
   color: white;
   grid-area: name;
   justify-self: left;
-  margin: 0 .7rem;
+  margin: 0 0.7rem;
   display: flex;
   align-items: center;
 }
 
-:global(.darkmode) .homeLogo, :global(.darkmode) .homeLogo * {
+:global(.darkmode) .homeLogo,
+:global(.darkmode) .homeLogo * {
   background: none;
 }
 
@@ -43,7 +43,7 @@
 .homeLogo img {
   height: 3rem;
   width: 3rem;
-  margin: -.6rem 0;
+  margin: -0.6rem 0;
   border-radius: 50%;
 }
 
@@ -59,7 +59,7 @@
   justify-content: space-between;
   align-items: center;
   grid-area: profile;
-  margin: 0 .7rem;
+  margin: 0 0.7rem;
   text-decoration: none;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .menuToggleButton {
-  margin: 0 .5rem;
+  margin: 0 0.5rem;
 }
 
 .dropdown {
@@ -93,13 +93,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: var(--dark-component-darkgrey) solid .05rem;
-  border-radius: .75rem 0 .75rem .75rem;
+  border: var(--dark-component-darkgrey) solid 0.05rem;
+  border-radius: 0.75rem 0 0.75rem 0.75rem;
   background: var(--base-component-white);
   z-index: 3;
   top: 2rem;
   right: 2.5rem;
-  padding: .7rem .3rem;
+  padding: 0.7rem 0.3rem;
   height: fit-content;
   transform: translateY(0);
 }
@@ -111,23 +111,24 @@
 }
 
 :global(.darkmode) .dropdown {
-  border: var(--dark-semi-darkblue) solid .05rem;
+  border: var(--dark-semi-darkblue) solid 0.05rem;
   background: var(--dark-component-darkgrey);
 }
 
 .dropdown hr {
   width: 90%;
-  margin-left: .25rem;
+  margin-left: 0.25rem;
   border: none;
-  border-top: var(--base-blue) .05rem solid;
+  border-top: var(--base-blue) 0.05rem solid;
 }
 
-:global(.darkmode) .dropdown button, 
+:global(.darkmode) .dropdown button,
 :global(.darkmode) .dropdown a {
   box-shadow: none;
 }
 
-.loggedInNav a, .menuButton {
+.loggedInNav a,
+.menuButton {
   border: none;
   box-shadow: none;
   padding: none;
@@ -135,15 +136,15 @@
   opacity: 1;
   line-height: 1rem;
   background: none;
-  margin: 0 .7rem 0 .3rem;
+  margin: 0 0.7rem 0 0.3rem;
   font-weight: 700;
   font-size: 1rem;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   text-decoration: none;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
-:global(.darkmode) .loggedInNav a, 
+:global(.darkmode) .loggedInNav a,
 :global(.darkmode) .menuButton {
   color: var(--base-component-white);
 }
@@ -152,12 +153,14 @@
   padding-left: 0;
 }
 
-.loggedInNav a:hover, .menuButton:hover {
+.loggedInNav a:hover,
+.menuButton:hover {
   cursor: pointer;
-  text-shadow: black 2px 2px 2px;
+  text-shadow: var(--base-fade-grey) 2px 0 8px;
 }
 
-:global(.darkmode).loggedInNav a:hover, :global(.darkmode).menuButton:hover {
+:global(.darkmode).loggedInNav a:hover,
+:global(.darkmode).menuButton:hover {
   text-shadow: var(--base-blue) 2px 2px 2px;
 }
 
@@ -175,9 +178,9 @@
   display: flex;
   align-items: center;
   grid-area: profile;
-  margin: 0 .7rem;
+  margin: 0 0.7rem;
   text-decoration: none;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 :global(.darkmode) .signButtons a {
@@ -186,11 +189,11 @@
 
 .signButtons a button {
   border: none;
-  border-radius: .75rem;
-  margin-left: .5rem;
-  padding: .2rem .5rem;
+  border-radius: 0.75rem;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
   color: var(--base-darkblue);
-  background:  var(--base-component-white);
+  background: var(--base-component-white);
   font-weight: 500;
 }
 
@@ -216,16 +219,14 @@
     min-height: 4vh;
     max-height: 7vh;
     display: grid;
-    grid-template-columns: 
-      1fr 1fr 1fr 1fr 1fr .5fr 1.5fr;
-    grid-template-areas: 
-      "name search . select select select profile";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr 1.5fr;
+    grid-template-areas: "name search . select select select profile";
     gap: 3px;
     align-items: center;
   }
 
   .container .loggedInNav {
-    margin: 0 .3rem 0 0;
+    margin: 0 0.3rem 0 0;
   }
 
   .homeLogo {
@@ -238,7 +239,7 @@
 
   .container .signButtons {
     margin-left: 0;
-    margin-right: .25rem;
+    margin-right: 0.25rem;
   }
 
   .container .signButtons a button,

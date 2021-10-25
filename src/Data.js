@@ -29,7 +29,7 @@ export default class Data {
    * Handles the validation of the response return
    * @param {object} res - the response object from the fetch
    * @param {boolean} returnData - whether or not to return the data
-   * @param {string} name - name of the propterty if 'returnData'
+   * @param {string} name - name of the property if 'returnData'
    * @returns an object with the response
    */
   responseHandler = (cb, returnData = false, name = 'data') => {
