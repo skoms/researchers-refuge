@@ -52,7 +52,7 @@ const InfoModule = props => {
         <tbody>
           <tr>
             <th>Active in:</th>
-            <td>{ capitalize(mostActiveField) || '' }</td>
+            <td>{ capitalize(mostActiveField || '' ) }</td>
           </tr>
           <tr>
             <th>Articles:</th>
