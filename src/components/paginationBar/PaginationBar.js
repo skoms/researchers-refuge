@@ -42,7 +42,10 @@ const PaginationBar = ({ use }) => {
   return !hasMore && page === 1 ? ( 
     <Fragment />
    ) : (
-    <div className={`${styles.container} ${use || ''}`}>
+    <div 
+      className={`${styles.container} ${use || ''}`}
+      data-testid='pagination-bar-component'
+    >
       { page !== 1 &&
         <div className={styles.navBefore}>
           { lastPage > 3 && 
@@ -73,7 +76,9 @@ const PaginationBar = ({ use }) => {
               {page - 1}
             </button> 
         }
-        <button className={styles.currentPage}>{page}</button>
+        <button className={styles.currentPage}>
+          {page}
+        </button>
         { hasMore && 
             <button
               data-value='next-page'
