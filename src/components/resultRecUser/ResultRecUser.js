@@ -44,12 +44,30 @@ const ResultRecUser = ({ user }) => {
   }
 
   return (
-    <div key={user.id} className={styles.container}>
-      <a href={`/users/${user.id}`} className={styles.profilePic}>
-        <img src={user.profileImgURL} alt="profile-pic" />
+    <div 
+      key={user.id} 
+      className={styles.container}
+    >
+      <a 
+        href={`/users/${user.id}`} 
+        className={styles.profilePic}
+      >
+        <img 
+          src={user.profileImgURL} 
+          alt="profile-pic" 
+        />
       </a>
-      <a href={`/users/${user.id}`} className={styles.fullName}><p>{capitalize(`${user.firstName} ${user.lastName}`, false)}</p></a>
-      <p className={styles.occupation}>{capitalize(user.occupation, false)}</p>
+      <a 
+        href={`/users/${user.id}`} 
+        className={styles.fullName}
+      >
+        <p>
+          {capitalize(`${user.firstName} ${user.lastName}`, false)}
+        </p>
+      </a>
+      <p className={styles.occupation}>
+        {capitalize(user.occupation, false)}
+      </p>
       <div className={styles.buttons}>
         <TypedButton 
           buttontype='primary' 
