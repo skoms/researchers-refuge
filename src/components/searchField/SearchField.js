@@ -22,9 +22,12 @@ const SearchField = () => {
   const location = useLocation();
   const isMobile = useSelector(selectIsMobile);
 
-  const search = () => {
-    history.push({ pathname: `/search/${searchTerm}`, state: { from: location.pathname }});
-    toggleMobileSearchActive(false);
+  const search = (e) => {
+    e.preventDefault();
+    if (searchTerm) {
+      history.push({ pathname: `/search/${searchTerm}`, state: { from: location.pathname }});
+      toggleMobileSearchActive(false);
+    }
   }
 
   return !isMobile ? (
@@ -63,7 +66,7 @@ const SearchField = () => {
               light: 'E8F7FF'
             }
           })}
-          alt='search button'
+          alt='toggle search button'
         />
       </button>
       <div className={`${styles.mobileSearch} ${!mobileSearchActive && 'invisible'}`}>

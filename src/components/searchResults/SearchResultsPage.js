@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import styles from './SearchResultsPage.module.css';
 import { useSelector } from 'react-redux'
 import InfoModule from '../infoModule/InfoModule'
@@ -10,14 +10,14 @@ import {
 import SearchResultsFeed from './SearchResultsFeed'
 import { selectIsMobile } from '../../app/screenWidthSlice';
 
-const SearchResultsPage = props => {
+const SearchResultsPage = () => {
   const authenticatedUser = useSelector(selectAuthenticatedUser);
   const loggedIn = useSelector(selectLoggedIn);
   const isMobile = useSelector(selectIsMobile);
 
   return (
     <div className={styles.container}>
-      { !isMobile && loggedIn ? <InfoModule user={authenticatedUser} /> :<Fragment /> }
+      { (!isMobile && loggedIn) && <InfoModule user={authenticatedUser} /> }
       <SearchResultsFeed />
       { !isMobile && <RecommendModule />}
     </div>

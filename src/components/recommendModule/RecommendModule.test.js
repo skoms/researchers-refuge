@@ -1,10 +1,9 @@
 import { act, screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
-import { getInitialState, renderComponent } from '../../utils/testing';
+import { server } from '../../mocks/server';
+import { getUrl } from '../../mocks/handlerUtils';
+import { rest } from 'msw';
+import { getInitialState, getMockUsers, renderComponent } from '../../utils/testing';
 import RecommendModule from './RecommendModule';
-
-jest.mock('axios')
-
 
 const initialState = getInitialState();
 const options = {
@@ -12,60 +11,10 @@ const options = {
   preloadedState: {
     ...initialState,
     userAcc: {
-      authenticatedUser: {
-        id: 1,
-        firstName: 'test',
-        lastName: 'user'
-      }
+      authenticatedUser: getMockUsers()
     }
   }
 }
-
-const mockTopics = [
-  {
-    id: 1,
-    name: 'test topic1'
-  },
-  {
-    id: 2,
-    name: 'test topic2'
-  },
-  {
-    id: 3,
-    name: 'test topic3'
-  }
-];
-const mockArticles = [
-  {
-    id: 1,
-    title: 'test title1'
-  },
-  {
-    id: 2,
-    title: 'test title2'
-  },
-  {
-    id: 3,
-    title: 'test title3'
-  }
-];
-const mockUsers = [
-  {
-    id: 1,
-    firstName: 'test',
-    lastName: 'user1'
-  },
-  {
-    id: 2,
-    firstName: 'test',
-    lastName: 'user2'
-  },
-  {
-    id: 3,
-    firstName: 'test',
-    lastName: 'user3'
-  },
-];
 
 describe('RecommendModule', () => {
   it('should render without any errors', async () => {
@@ -76,21 +25,6 @@ describe('RecommendModule', () => {
   });
 
   it('should render all the tables with data', async () => {
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: mockTopics
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: mockArticles
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: mockUsers
-    });
-    
     await act( async () => {
       await renderComponent(RecommendModule, options);
     });
@@ -106,26 +40,20 @@ describe('RecommendModule', () => {
         screen.getAllByRole('cell', { name: /(test title\d)/i })
       ).toHaveLength(3);
       expect(
-        screen.getAllByRole('cell', { name: /(test user\d)/i })
+        screen.getAllByRole('cell', { name: /(test\d user\d)/i })
       ).toHaveLength(3);
     });
   });
 
   it('should only render topic table with data', async () => {
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: mockTopics
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: []
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: []
-    });
+    server.use(
+      rest.get( getUrl('/articles/recommended'), (req, res, ctx) => 
+        res( ctx.status(200), ctx.json([]) )
+      ),
+      rest.get( getUrl('/users/recommended'), (req, res, ctx) => 
+        res( ctx.status(200), ctx.json([]) )
+      ),
+    )
     
     await act( async () => {
       await renderComponent(RecommendModule, options);
@@ -142,20 +70,14 @@ describe('RecommendModule', () => {
   });
 
   it('should only render articles table with data', async () => {
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: []
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: mockArticles
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: []
-    });
+    server.use(
+      rest.get( getUrl('/topics/recommended'), (req, res, ctx) => 
+        res( ctx.status(200), ctx.json([]) )
+      ),
+      rest.get( getUrl('/users/recommended'), (req, res, ctx) => 
+        res( ctx.status(200), ctx.json([]) )
+      ),
+    )
     
     await act( async () => {
       await renderComponent(RecommendModule, options);
@@ -172,20 +94,14 @@ describe('RecommendModule', () => {
   });
 
   it('should only render users table with data', async () => {
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: []
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: []
-    });
-
-    await axios.mockResolvedValueOnce({
-      status: 200,
-      data: mockUsers
-    });
+    server.use(
+      rest.get( getUrl('/topics/recommended'), (req, res, ctx) => 
+        res( ctx.status(200), ctx.json([]) )
+      ),
+      rest.get( getUrl('/articles/recommended'), (req, res, ctx) => 
+        res( ctx.status(200), ctx.json([]) )
+      ),
+    )
     
     await act( async () => {
       await renderComponent(RecommendModule, options);
@@ -196,7 +112,7 @@ describe('RecommendModule', () => {
         screen.getAllByText(/recommended/i)
       ).toHaveLength(1);
       expect(
-        screen.getAllByRole('cell', { name: /(test user\d)/i })
+        screen.getAllByRole('cell', { name: /(test\d user\d)/i })
       ).toHaveLength(3);
     });
   });

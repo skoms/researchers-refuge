@@ -1,16 +1,12 @@
 import { cleanup, screen, waitFor } from '@testing-library/react';
 import { getInitialState, renderComponent } from '../../../utils/testing';
-import axios from 'axios';
 import { act } from 'react-dom/test-utils';
 import ArticleCards from './ArticleCards';
 
-jest.mock('axios');
-
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  useHistory: jest.fn(),
-  useLocation: jest.fn(),
-}));
+  useLocation: () => ({ pathname: '/' }),
+}))
 
 const initialState = getInitialState();
 const needsStore = true;
@@ -113,25 +109,6 @@ describe('ArticleCards', () => {
     }
 
     beforeEach( async () => {
-      await axios.mockResolvedValue({ status: 200, data: {
-          id: 1,
-          title: 'test title',
-          topic: 'test',
-          intro: 'test intro',
-          body: 'test body',
-          tags: ['test tag1', 'test tag2', 'test tag3'],
-          published: '2020-01-01T10:10:10.769Z',
-          credits: 0,
-          blocked: false,
-          topicId: 1,
-          userId: 1,
-          User: {
-            firstName: 'test',
-            lastName: 'user'
-          }
-        } 
-      })
-      
       await act( async () => {
         await renderComponent(ArticleCards, { expectedProps, needsStore });
       });

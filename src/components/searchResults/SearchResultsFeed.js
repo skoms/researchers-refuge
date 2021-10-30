@@ -40,7 +40,7 @@ const SearchResultsFeed = () => {
   useEffect(() => {
     if (!didLoad) {
       dispatch(getResults({ query: term, page }));
-      dispatch(updateSearchTerm(term));
+      term && dispatch(updateSearchTerm(term));
       setDidLoad(true);
     }
   }, [didLoad, term, dispatch, page]);
@@ -113,9 +113,10 @@ const SearchResultsFeed = () => {
       { users && filteredUsers() && filteredUsers().length > 0 ?
         <div className={`${styles.results} ${styles.users}`}>
           <h4>Users</h4>
-          <div className={styles.userResultsMain} 
-               onTouchStart={handleTouchStart}
-               onTouchMove={handleTouchMove}
+          <div 
+            className={styles.userResultsMain} 
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
           >
             { !isMobile &&
               <button className={`${styles.prev} ${styles.navBtn} ${displayedUser === 0 ? 'invisible' : ''}`} onClick={(e) => nextPrevButton(e, 'prev')}>

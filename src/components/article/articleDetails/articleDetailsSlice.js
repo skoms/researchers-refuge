@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Data from "../../../Data";
-import { formatDate } from '../../../utils/helpers';
+import { checkParseInt, formatDate } from '../../../utils/helpers';
 
 const data = new Data();
 
@@ -39,7 +39,7 @@ export const articleDetailsSlice = createSlice({
           },
           author: {
             ...User,
-            id: article.userId
+            id: checkParseInt(article.userId)
           }
         }
       }

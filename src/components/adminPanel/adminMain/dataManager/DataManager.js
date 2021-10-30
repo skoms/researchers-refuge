@@ -13,7 +13,6 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
   const [isLoading, toggleIsLoading] = useToggle(true);
 
   const handleInputChange = e => {
-    console.log(`data: ${e.target.value} column: ${e.target.dataset.column} type: ${type}`);
     dispatch(updateNewData({ 
       data: e.target.value, 
       column: e.target.dataset.column, 
@@ -21,7 +20,7 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
     }));
   }
   
-  const submit = e => {
+  const submit = async (e) => {
     e.preventDefault();
     
     if ( source === 'edit' ) {
@@ -29,16 +28,15 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
         ...data,
         ...newData
       }
-      dispatch(updateEntryAdmin({ user, type, id: data.id, body: updatedData })); 
+      dispatch( await updateEntryAdmin({ user, type, id: data.id, body: updatedData })); 
     } else if (source === 'create') {
-      dispatch(createEntryAdmin({ user, type, body: newData }));
+      dispatch( await createEntryAdmin({ user, type, body: newData }));
     }
 
     setManagerProps( prevProps => ({
       ...prevProps,
       isActive: false
     }));
-    dispatch(updateNewData({ data: null, type }));
   }
   
   const closePopup = e => {
@@ -97,7 +95,7 @@ const DataManager = ({ setManagerProps, isActive, source, data, type }) => {
                               :
                                 data[key][val]
                             )}
-                           </td>
+                          </td>
                       }
                     </tr>
                   )

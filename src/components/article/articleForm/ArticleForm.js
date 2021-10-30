@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './ArticleForm.module.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router'
 
 import TopicSelect from '../../topicSelect/TopicSelect'
 import { 
@@ -44,7 +44,7 @@ const ArticleForm = ({ isUpdate }) => {
                 dispatch(updateArticleStateByKey({ key: key, value: res.article[key] }));
               }
             });
-          } else {
+          } else if (res.status === 401) {
             history.push({ pathname: '/forbidden', state: { from: location.pathname }});
           }
         });

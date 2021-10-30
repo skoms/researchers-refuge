@@ -1,9 +1,8 @@
 import { act, screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
-import { getInitialState, renderComponent } from '../../utils/testing';
+import { getInitialState, getMockUsers, renderComponent } from '../../utils/testing';
 import RecPeople from './RecPeople';
-
-jest.mock('axios')
+import { server } from '../../mocks/server';
+import { rest } from 'msw'
 
 const initialState = getInitialState();
 const options = {
@@ -20,32 +19,7 @@ const options = {
     }
   }
 }
-const mockUsers = [
-  {
-    id: 1,
-    firstName: 'test',
-    lastName: 'user1',
-    occupation: 'test occupation1',
-    profileImgURL: 'https://img.icons8.com/ios-glyphs/60/FFFFFF/user--v1.png',
-    followers: [1,2,3,4]
-  },
-  {
-    id: 2,
-    firstName: 'test',
-    lastName: 'user2',
-    occupation: 'test occupation2',
-    profileImgURL: 'https://img.icons8.com/ios-glyphs/60/FFFFFF/user--v1.png',
-    followers: [1,2,3,4]
-  },
-  {
-    id: 3,
-    firstName: 'test',
-    lastName: 'user3',
-    occupation: 'test occupation3',
-    profileImgURL: 'https://img.icons8.com/ios-glyphs/60/FFFFFF/user--v1.png',
-    followers: [1,2,3,4]
-  },
-];
+const mockUsers = getMockUsers({ amount: 3 });
 
 describe('RecPeople', () => {
 
@@ -56,11 +30,6 @@ describe('RecPeople', () => {
   describe('With results', () => {
 
     it('should render without any errors', async () => {
-      await axios.mockResolvedValueOnce({
-        status: 200,
-        data: mockUsers
-      });
-
       let store;
       await act( async () => {
         store = await renderComponent(RecPeople, options).store;
@@ -83,10 +52,9 @@ describe('RecPeople', () => {
     });
 
     it('should not render', async () => {
-      await axios.mockResolvedValueOnce({
-        status: 200,
-        data: []
-      });
+      server.use(
+        rest.get('*', (req, res, ctx) => res( ctx.status(200), ctx.json([]) ))
+      );
 
       let store;
       await act( async () => {

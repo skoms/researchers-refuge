@@ -1,73 +1,39 @@
-import { cleanup, screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
+import { screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import ArticleForm from './ArticleForm';
-import { getInitialState, renderComponent } from '../../../utils/testing';
+import { getInitialState, getMockArticles, getMockUsers, renderComponent } from '../../../utils/testing';
 import userEvent from '@testing-library/user-event';
-
-jest.mock('axios');
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  useHistory: jest.fn(),
-  useLocation: () => ({ pathname: '/' }),
+  useLocation: () => ({ pathname: '/update-article/1' }),
   useParams: () => ({ id: 1 }),
-}));
+}))
 
 
 const initialState = getInitialState();
-const needsStore = true;
-const needsMemoryRouter = true;
-const mockArticleInfo = {
-  id: 2,
-  title: 'test main title',
-  topic: 'test',
-  intro: 'test intro',
-  body: 'test body',
-  tags: ['test tag1', 'test tag2', 'test tag3'],
-  published: '2020-01-01T10:10:10.769Z',
-  credits: 0,
-  blocked: false,
-  topicId: 1,
-  userId: 1,
-  User: {
-    id:1,
-    firstName:"test",
-    lastName:"user",
-    profileImgURL: 'https://img.icons8.com/ios-filled/120/38B6FF/microsoft-admin.png',
-    accessLevel: 'none',
-    occupation: 'tester',
-    bio: 'test bio',
-    mostActiveField: 'testing',
-    articles: 2,
-    credits: 999,
-    followers: [1,2,3,4],
-    following: [1,2,3,4],
-  }
-}
+const mockArticleInfo = getMockArticles();
 
 describe('ArticleForm', () => {
+  afterAll(() => {
+    jest.restoreAllMocks();
+  })
 
   describe('general', () => {
-    const expectedProps = {
-      isUpdate: false
+    const options = {
+      needsStore: true,
+      needsMemoryRouter: true,
+      expectedProps: {
+        isUpdate: false
+      },
+      preloadedState: {
+        ...initialState
+      }
     }
-
-    const preloadedState = {
-      ...initialState
-    }
-
-    afterAll(() => {
-      cleanup();
-      jest.restoreAllMocks();
-    });
   
     beforeEach(() => {
       act(() => {
-        renderComponent(
-          ArticleForm, 
-          { expectedProps, preloadedState, needsStore, needsMemoryRouter }
-        );
+        renderComponent( ArticleForm, options );
       });
     });
 
@@ -158,26 +124,21 @@ describe('ArticleForm', () => {
   });
 
   describe(':CREATE:', () => {
-    const expectedProps = {
-      isUpdate: false
+    const options = {
+      needsStore: true,
+      needsMemoryRouter: true,
+      expectedProps: {
+        isUpdate: false
+      },
+      preloadedState: {
+        ...initialState
+      }
     }
-
-    const preloadedState = {
-      ...initialState
-    }
-
-    afterAll(() => {
-      cleanup();
-      jest.restoreAllMocks();
-    });
   
     beforeEach(() => {
       
       act(() => {
-        renderComponent(
-          ArticleForm, 
-          { expectedProps, preloadedState, needsStore, needsMemoryRouter }
-        );
+        renderComponent( ArticleForm, options );
       });
     });
 
@@ -228,64 +189,48 @@ describe('ArticleForm', () => {
   });
   
   describe(':UPDATE:', () => {
-    const expectedProps = {
-      isUpdate: true
-    }
-    
-    const preloadedState = {
-      ...initialState,
-      userAcc: {
-        loggedIn: true,
-        authenticatedUser: {
-          id: 1,
-          firstName: 'test',
-          lastName: 'user',
+    const options = {
+      needsStore: true,
+      needsMemoryRouter: true,
+      expectedProps: {
+        isUpdate: true
+      },
+      preloadedState: {
+        ...initialState,
+        userAcc: {
+          loggedIn: true,
+          authenticatedUser: getMockUsers({ id: 1 })
         }
       }
     }
 
-    afterAll(() => {
-      cleanup();
-      jest.restoreAllMocks();
-    });
-  
-    beforeEach( async () => {
-      await axios.mockResolvedValueOnce({ 
-        status: 200, 
-        data: mockArticleInfo
-      });
-      
-      await act( async () => {
-        await renderComponent(
-          ArticleForm, 
-          { expectedProps, preloadedState, needsStore, needsMemoryRouter }
-        );
-      });
-    });
-
     it('should render without any errors', () => {
+      act(() => {
+        renderComponent( ArticleForm, options );
+      });
       expect(
         screen.getByTestId('article-form-component')
       ).toBeInTheDocument();
     });
 
     it('should render with data', async () => {
+      const { 
+        store, findByDisplayValue, findAllByDisplayValue 
+      } = await renderComponent( ArticleForm, options );
+
+      expect( await findAllByDisplayValue('') ).toHaveLength(5);
+
       await waitFor(() => {
         expect(
-          screen.getByLabelText(/title/i)
-        ).toHaveValue(mockArticleInfo.title);
-        expect(
-          screen.getByLabelText(/intro/i)
-        ).toHaveValue(mockArticleInfo.intro);
-        expect(
-          screen.getByLabelText(/body/i)
-        ).toHaveValue(mockArticleInfo.body);
-        expect(
-          screen.getByLabelText(/tags/i)
-        ).toHaveValue(mockArticleInfo.tags.join(','));
+          store.getState().manageArticle.article
+        ).toStrictEqual( mockArticleInfo );
       });
+      
+      expect( await findByDisplayValue(mockArticleInfo.title) ).toBeInTheDocument();
+      expect( await findByDisplayValue(mockArticleInfo.intro) ).toBeInTheDocument();
+      expect( await findByDisplayValue(mockArticleInfo.body) ).toBeInTheDocument();
+      expect( await findByDisplayValue(mockArticleInfo.tags.join(',')) ).toBeInTheDocument();
     });
-
   });
   
 });

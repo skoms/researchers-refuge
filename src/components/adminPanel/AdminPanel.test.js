@@ -5,9 +5,8 @@ import AdminPanel from './AdminPanel';
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
   useHistory: () => ({
-    push: mockHistoryPush,
+    push: mockHistoryPush
   }),
 }));
 

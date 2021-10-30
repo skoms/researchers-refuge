@@ -435,6 +435,7 @@ export const adminPanelSlice = createSlice({
         result[type].entries =  [data.entry, ...result[type].entries];
         result[type].total++;
         result[type].rangeEnd++;
+        result[type].newData = null;
       }
       return result;
     });
@@ -447,6 +448,7 @@ export const adminPanelSlice = createSlice({
           ...result[type].entries[updatedIndex],
           ...data.entry
         }; 
+        result[type].newData = null;
       }
       return result;
     });

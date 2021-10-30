@@ -1,81 +1,21 @@
 import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
-import { renderComponent } from '../../utils/testing';
+import { getMockCategories, getMockTopics, getMockUsers, renderComponent } from '../../utils/testing';
 import { updateAccount } from '../user/userAccManage/userAccSlice';
 import Header from './Header';
 
-jest.mock('axios')
 
 const needsStore = true;
 const needsMemoryRouter = true;
-const mockCategories = [
-  {
-    id: 1,
-    name: 'test category 1',
-    Topics: [
-      {
-        id: 1,
-        name: 'test topic 1'
-      },
-      {
-        id: 2,
-        name: 'test topic 2'
-      },
-      {
-        id: 3,
-        name: 'test topic 3'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'test category 2',
-    Topics: [
-      {
-        id: 1,
-        name: 'test topic 1'
-      },
-      {
-        id: 2,
-        name: 'test topic 2'
-      },
-      {
-        id: 3,
-        name: 'test topic 3'
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: 'test category 3',
-    Topics: [
-      {
-        id: 1,
-        name: 'test topic 1'
-      },
-      {
-        id: 2,
-        name: 'test topic 2'
-      },
-      {
-        id: 3,
-        name: 'test topic 3'
-      }
-    ]
-  },
-  
-];
+const mockCategories = getMockCategories({ amount: 3 });
+mockCategories.forEach( category => {
+  category.Topics = getMockTopics({ amount: 3 });
+})
 
 describe('Header', () => {
   
   describe('general/not logged in', () => {
     beforeEach( async () => {
-      axios.mockResolvedValueOnce({
-        status: 200,
-        data: mockCategories
-      })
-  
       await act( async () => {
         await renderComponent(Header, { needsStore, needsMemoryRouter });
       });
@@ -100,9 +40,9 @@ describe('Header', () => {
       ).toBeInTheDocument();
     });
   
-    it('should render and populate the topic select', () => {
+    it('should render and populate the topic select', async () => {
       expect(
-        screen.getAllByRole('option', { name: /test topic/i })
+        await screen.findAllByRole('option', { name: /test topic/i })
       ).toHaveLength(9);
     });
   
@@ -136,21 +76,11 @@ describe('Header', () => {
     let store;
 
     beforeEach( async () => {
-      axios.mockResolvedValueOnce({
-        status: 200,
-        data: mockCategories
-      })
-  
       await act( async () => {
         store = await renderComponent(Header, { needsStore, needsMemoryRouter }).store;
       });
 
-      await store.dispatch(updateAccount({
-        id: 1,
-        firstName: 'test',
-        lastName: 'user',
-        accessLevel: 'none'
-      }));
+      await store.dispatch(updateAccount(getMockUsers()));
     });
 
     it('should render the menu button', () => {
@@ -209,21 +139,13 @@ describe('Header', () => {
     let store;
 
     beforeEach( async () => {
-      axios.mockResolvedValueOnce({
-        status: 200,
-        data: mockCategories
-      })
   
       await act( async () => {
         store = await renderComponent(Header, { needsStore, needsMemoryRouter }).store;
       });
-
-      await store.dispatch(updateAccount({
-        id: 1,
-        firstName: 'test',
-        lastName: 'user',
-        accessLevel: 'admin'
-      }));
+      const mockAdmin = getMockUsers();
+      mockAdmin.accessLevel = 'admin';
+      await store.dispatch(updateAccount(mockAdmin));
     });
 
     it('should render additional menu option: Admin Panel', () => {

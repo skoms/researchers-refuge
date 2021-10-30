@@ -4,15 +4,18 @@ import ManageArticle from './ManageArticle';
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  useLocation: () => ({ pathname: 'update' }),
-}));
+  useLocation: () => ({ pathname: '/update' }),
+  useParams: () => ({ id: '1' }),
+}))
 
-const needsStore = true;
-const needsMemoryRouter = true;
+const options = {
+  needsStore: true,
+  needsMemoryRouter: true,
+}
 
 describe('ManageArticle: General', () => {
   beforeEach(() => {
-    act(() => { renderComponent( ManageArticle, { needsStore, needsMemoryRouter } )});
+    act(() => { renderComponent( ManageArticle, options )});
   });
 
   it('should render without any issues', () => {

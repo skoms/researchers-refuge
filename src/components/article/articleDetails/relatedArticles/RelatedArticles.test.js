@@ -1,54 +1,34 @@
-import { cleanup, screen } from '@testing-library/react';
+import { cleanup, waitFor } from '@testing-library/react';
 import { renderComponent } from '../../../../utils/testing';
-import axios from 'axios';
-import { act } from 'react-dom/test-utils';
 import RelatedArticles from './RelatedArticles';
-
-jest.mock('axios');
+import { server } from '../../../../mocks/server';
+import { rest } from 'msw';
 
 jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useHistory: jest.fn(),
-  useLocation: jest.fn(),
+  ...jest.requireActual,
+  useHistory: () => ({ push: jest.fn() }),
+  useLocation: () => ({ pathname: '/' }),
 }));
 
-const needsStore = true;
-const tempArticles = [];
-for (let i = 0; i < 5; i++) {
-  tempArticles.push({
-    id: i,
-    title: 'test title'+i,
-    topic: 'test',
-    intro: 'test intro'+i,
-    body: 'test body'+i,
-    tags: ['test tag1', 'test tag2', 'test tag3'],
-    published: '2020-01-01T10:10:10.769Z',
-    credits: 0,
-    blocked: false,
-    topicId: 1,
-    userId: 1,
-    User: {
-      firstName: 'test',
-      lastName: 'user'
-    }
-  })
-}
-const expectedProps = {
-  article: {
-    id: 2,
-    title: 'test main title',
-    topic: 'test',
-    intro: 'test intro',
-    body: 'test body',
-    tags: ['test tag1', 'test tag2', 'test tag3'],
-    published: '2020-01-01T10:10:10.769Z',
-    credits: 0,
-    blocked: false,
-    topicId: 1,
-    userId: 1,
-    User: {
-      firstName: 'test',
-      lastName: 'user'
+const options = {
+  needsStore: true,
+  expectedProps: {
+    article: {
+      id: 2,
+      title: 'test main title',
+      topic: 'test',
+      intro: 'test intro',
+      body: 'test body',
+      tags: ['test tag1', 'test tag2', 'test tag3'],
+      published: '2020-01-01T10:10:10.769Z',
+      credits: 0,
+      blocked: false,
+      topicId: 1,
+      userId: 1,
+      User: {
+        firstName: 'test',
+        lastName: 'user'
+      }
     }
   }
 }
@@ -60,25 +40,11 @@ describe('RelatedArticles', () => {
       cleanup();
       jest.restoreAllMocks();
     });
-  
-    beforeEach( async () => {
-      await axios.mockResolvedValue({ 
-        status: 200, 
-        data: tempArticles 
-      });
-      
-      await act( async () => {
-        await renderComponent(RelatedArticles, { expectedProps, needsStore });
-      });
-    });
-  
-    afterEach(() => {
-      cleanup();
-    });
     
     it('should render without any errors', async () => {
+      const { findAllByRole } = renderComponent(RelatedArticles, options)
       expect(
-        await screen.findAllByRole('heading', { name: /test title/i })
+        await findAllByRole('heading', { name: /test title/i })
       ).toHaveLength(5);
     });
   });
@@ -88,26 +54,19 @@ describe('RelatedArticles', () => {
       cleanup();
       jest.restoreAllMocks();
     });
-  
-    beforeEach( async () => {
-      await axios.mockResolvedValue({ 
-        status: 200, 
-        data: [] 
-      });
-      
-      await act( async () => {
-        await renderComponent(RelatedArticles, { expectedProps, needsStore });
-      });
-    });
-  
-    afterEach(() => {
-      cleanup();
-    });
     
-    it('should not render at all if no related articles returned', () => {
-      expect(
-        screen.queryAllByRole('heading', { name: /test title/i })
-      ).toHaveLength(0);
+    it('should not render at all if no related articles returned', async () => {
+      server.use(
+        rest.get('*', (req, res, ctx) => {
+          return res( ctx.status(200), ctx.json([]) );
+        })
+      )
+      const { queryAllByRole } = renderComponent(RelatedArticles, options);
+      await waitFor(() => {
+        expect(
+          queryAllByRole('heading', { name: /test title/i })
+        ).toHaveLength(0);
+      })
     });
   })
 })

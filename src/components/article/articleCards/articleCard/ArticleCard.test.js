@@ -4,16 +4,17 @@ import ArticleCard from './ArticleCard';
 import userEvent from '@testing-library/user-event';
 
 const mockHistoryPush = jest.fn();
+
+jest.mock('react-router', () => ({
+  useLocation: () => ({ pathname: '/' }),
+  useHistory: () => ({
+    push: mockHistoryPush
+  }),
+}))
+
 const initialState = getInitialState();
 const needsStore = true;
 const needsMemoryRouter = true;
-
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useHistory: () => ({
-    push: mockHistoryPush,
-  }),
-}));
 
 describe('ArticleCard', () => {
   

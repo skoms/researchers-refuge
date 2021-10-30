@@ -7,6 +7,15 @@ import App from './app/App';
 import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 
+require('dotenv').config();
+
+const workerActive = true;
+
+if ( workerActive ) {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
+
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>

@@ -1,10 +1,7 @@
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
 import { getInitialState, renderComponent } from '../../utils/testing';
 import ReportModule from './ReportModule';
-
-jest.mock('axios');
 
 const initialState = getInitialState();
 const options = {
@@ -48,8 +45,6 @@ describe('ReportModule', () => {
           type: 'User'
         }
       }
-
-      await axios.mockResolvedValueOnce({ status: 204 });
 
       act(() => { 
         store = renderComponent(ReportModule, options).store 

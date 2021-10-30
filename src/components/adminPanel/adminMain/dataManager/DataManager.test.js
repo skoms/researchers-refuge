@@ -1,22 +1,20 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderComponent } from '../../../../utils/testing';
 import DataManager from './DataManager';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-
-
-const axiosMock = new MockAdapter(axios, { onNoMatch: 'throwException' });
-const needsStore = true;
 
 describe('DataManager', () => {
-  
+
   describe('where source: Create', () => {
+    const options = {
+      expectedProps: {  },
+      needsStore: true
+    }
     let mockSetManagerProps;
-    
-    beforeEach(() => {
+
+    beforeEach( async () => {
       mockSetManagerProps = jest.fn();
-      const expectedProps = {
+      options.expectedProps = {
         setManagerProps: mockSetManagerProps,
         isActive: true,
         source: 'create',
@@ -46,7 +44,6 @@ describe('DataManager', () => {
         },
         type: 'users'
       }
-      renderComponent(DataManager, { expectedProps, needsStore });
     });
 
     afterEach(() => {
@@ -54,40 +51,80 @@ describe('DataManager', () => {
     });
 
     it('should render without any errors', () => {
+      renderComponent(DataManager, options);
       expect(
         screen.getByTestId('data-manager-component')
       ).toBeInTheDocument();
     });
 
     it('should render all 5 inputs with label', () => {
+      renderComponent(DataManager, options);
       expect(
         screen.getAllByLabelText(/(first)|(last)|(e-mail)|(access)|(password)/i).length
       ).toBe(5);
     });
 
-    it('should close the data manager after create', () => {
-      const expectedState = {
-        entry: {
-          firstName: 'test fname',
-          lastName: 'test lname',
-          emailAddress: 'test email',
-          blocked: false,
-          updatedAt: 'test time',
-          createdAt: 'test time',
-        }
-      }
-      axiosMock
-        .onPost(/\/admin\/users/i)
-        .reply(201, expectedState)
+    it('should update the inputs with new data', () => {
+      renderComponent(DataManager, options);
+      userEvent.type(
+        screen.getByLabelText(/first name/i),
+        'test text'
+      );
+      expect(
+        screen.getByLabelText(/first name/i)
+      ).toHaveValue('test text');
+    });
+    
+
+    it('should close the data manager after create (regardless of success)', async () => {
+      renderComponent(DataManager, options);
+      userEvent.click(screen.getByRole('button', { name: /create/i }))
+
+      await waitFor(() => 
+        expect(
+          mockSetManagerProps // This function is whats used to hide DataManager
+        ).toHaveBeenCalledTimes(1)
+      );
+    });
+    
+    it('should close after submit request', async () => {
+      renderComponent(DataManager, options);
+      userEvent.type(
+        screen.getByLabelText(/first name/i),
+        'test1'
+      );
+      userEvent.type(
+        screen.getByLabelText(/last name/i),
+        'user1'
+      );
+      userEvent.type(
+        screen.getByLabelText(/e-mail/i),
+        'test1@user1.com'
+      );
+      userEvent.type(
+        screen.getByLabelText(/access/i),
+        'none'
+      );
+      userEvent.type(
+        screen.getByLabelText(/password/i),
+        'testUser123'
+      );
+
+      expect(
+        screen.getByLabelText(/e-mail/i)
+      ).toHaveValue('test1@user1.com');
 
       userEvent.click(screen.getByRole('button', { name: /create/i }))
 
-      return expect(
-        mockSetManagerProps // This function is whats used to hide DataManager
-      ).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(
+          mockSetManagerProps // This function is whats used to hide DataManager
+        ).toHaveBeenCalledTimes(1);
+      });
     });
 
     it('should close the data manager when the close button is clicked', () => {
+      renderComponent(DataManager, options)
       userEvent.click(screen.getByRole('button', { name: /cancel/i }))
       return expect(
         mockSetManagerProps // This function is whats used to hide DataManager
@@ -98,10 +135,14 @@ describe('DataManager', () => {
 
   describe('where source: View', () => {
     let mockSetManagerProps;
+    const options = {
+      expectedProps: {  },
+      needsStore: true
+    }
     
     beforeEach(() => {
       mockSetManagerProps = jest.fn();
-      const expectedProps = {
+      options.expectedProps = {
         setManagerProps: mockSetManagerProps,
         isActive: true,
         source: 'view',
@@ -113,7 +154,7 @@ describe('DataManager', () => {
         },
         type: 'users'
       }
-      renderComponent(DataManager, { expectedProps, needsStore });
+      renderComponent(DataManager, options);
     });
 
     afterEach(() => {
@@ -149,10 +190,14 @@ describe('DataManager', () => {
 
   describe('where source: Edit', () => {
     let mockSetManagerProps;
+    const options = {
+      expectedProps: {  },
+      needsStore: true
+    }
     
     beforeEach(() => {
       mockSetManagerProps = jest.fn();
-      const expectedProps = {
+      options.expectedProps = {
         setManagerProps: mockSetManagerProps,
         isActive: true,
         source: 'edit',
@@ -164,7 +209,7 @@ describe('DataManager', () => {
         },
         type: 'users'
       }
-      renderComponent(DataManager, { expectedProps, needsStore });
+      renderComponent(DataManager, options);
     });
 
     afterEach(() => {
@@ -189,27 +234,14 @@ describe('DataManager', () => {
       ).toBe(4);
     });
 
-    it('should close the data manager after edit', () => {
-      const expectedState = {
-        entry: {
-          firstName: 'test fname',
-          lastName: 'test lname',
-          emailAddress: 'test email',
-          blocked: false,
-          updatedAt: 'test time',
-          createdAt: 'test time',
-        }
-      }
-
-      axiosMock
-        .onPut(/\/admin\/users/i)
-        .reply(201, expectedState)
-
+    it('should close the data manager after edit', async () => {
       userEvent.click(screen.getByRole('button', { name: /edit/i }))
 
-      return expect(
-        mockSetManagerProps // This function is whats used to hide DataManager
-      ).toHaveBeenCalledTimes(1);
+      await waitFor(() => 
+        expect(
+          mockSetManagerProps // This function is whats used to hide DataManager
+        ).toHaveBeenCalledTimes(1)
+      );
     });
 
     it('should close the data manager when the close button is clicked', () => {

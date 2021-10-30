@@ -81,3 +81,12 @@ export const validateField = (type, data, target) => {
     }
   }
 }
+
+/**
+ * Takes a value that should be an integer and parses it if needed
+ * @param {number} value - the value to check for parse
+ * @returns the value with type of int
+ */
+export const checkParseInt = (value) => {
+  return typeof value === 'number' ? value : parseInt(value);
+}
