@@ -102,7 +102,7 @@ export const userAccSlice = createSlice({
           authenticatedUser: user
         }
       }
-      
+      return state;
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
       if (action.payload.status === 201) {
