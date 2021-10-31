@@ -30,7 +30,14 @@ const TopicSelect = ({ use }) => {
 
   return (
     <div className={styles.container}>
-      <select className={styles.select} name="topic-select" ref={selectRef} value={topic} onChange={changeHandler} id='topic'>
+      <select 
+        className={styles.select} 
+        name="topic-select" 
+        ref={selectRef} 
+        value={topic} 
+        onChange={changeHandler} 
+        id='topic'
+      >
         { use === 'header' && <option className='default' value='home' >Home</option> }
         { use === 'ArticleForm' && <option className='default' value='none' >None</option> }
         { categories ?
@@ -48,8 +55,16 @@ const TopicSelect = ({ use }) => {
         }
       </select>  
       { topic !== 'home' && use !== 'ArticleForm' ?
-        <button className={styles.button} onClick={clearTopic}>
-          <img src={getIconUrl('x', darkModeOn, {size: 20, colors: {dark: 'DD3939', light: '15458A'}})} alt='clear topic button' />
+        <button 
+          className={styles.button} 
+          onClick={clearTopic}
+        >
+          <img 
+            src={getIconUrl('x', darkModeOn, {
+              size: 20, 
+              colors: {dark: 'DD3939', light: '15458A'}
+            })} 
+            alt='clear topic button' />
         </button>
         : <Fragment />
       }
