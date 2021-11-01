@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import styles from './UserLogin.module.css';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import TypedButton from '../../../typedButton/TypedButton';
 import {
   signIn
 } from '../userAccSlice';
-//TODO - Add onClick on 'cancel' button to take them back whence they came
-//TODO - Add onSubmit on form
-//TODO - Add 'from' location state in the Link so to fix when they want to go back in their history
 
 const UserLogin = () => {
   
@@ -96,7 +93,7 @@ const UserLogin = () => {
             onClick={cancel}
           />
         </div>
-        <p className={styles.p}>Don't have a user account yet? Click here to <Link to={{pathname: '/sign-up', state: { from: from }}}>sign up</Link>!</p>
+        <p className={styles.p}>Don't have a user account yet? Click here to <a href='/sign-up'>sign up</a>!</p>
       </form>
     </div>
   )

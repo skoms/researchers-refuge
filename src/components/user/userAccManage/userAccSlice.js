@@ -41,9 +41,11 @@ export const signUp = createAsyncThunk(
         user: getRes.user
       };
     }
+    return { status: getRes.status };
   } else if (createRes.status === 400) {
     return createRes;
   }
+  return { status: createRes.status };
 });
 
 export const followUser = createAsyncThunk(

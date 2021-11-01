@@ -9,10 +9,6 @@ import TypedButton from '../../../typedButton/TypedButton';
 import { getIconUrl } from '../../../../Icons';
 import { validateField } from '../../../../utils/helpers';
 
-//TODO - Add onChange to each field to verify input
-//TODO - Add onClick on 'cancel' button to take them back whence they came
-//TODO - Add 'from' location state in the Link so to fix when they want to go back in their history
-
 const UserRegistration = () => {
   const dispatch = useDispatch();
 
