@@ -85,7 +85,7 @@ const EditProfile = ({ toggleEdit }) => {
   const submit = async (e) => {
     e.preventDefault();
     const updatedData = {  };
-    if (form === 'My Profile') {
+    if (form === 'Profile') {
       if (user.firstName !== firstName && 
           validateField('name', firstName, '#firstName-input-div')) updatedData.firstName = firstName;
 
@@ -99,7 +99,7 @@ const EditProfile = ({ toggleEdit }) => {
 
       if (user.bio !== bio) updatedData.bio = bio;
 
-    } else if (form === 'My Account') {
+    } else if (form === 'Account') {
       if ( oldPassword === user.password ) {
         if (user.emailAddress !== email && 
           validateField('email', email, '#email-input-div')) updatedData.emailAddress = email;
@@ -108,7 +108,7 @@ const EditProfile = ({ toggleEdit }) => {
             newPassword === confirmPassword && 
             validateField('password', newPassword, '#pass-input-div')) {
             updatedData.password = newPassword;
-      };
+        }
       } else {
         const { classList } = document.querySelector('#oldPass-input-div')
         !classList.contains('mismatch') && classList.add('mismatch');
@@ -119,6 +119,8 @@ const EditProfile = ({ toggleEdit }) => {
         if (res.status === 204) {
           dispatch(updateAccount({ ...user, ...updatedData }));
           toggleEdit();
+        } else if ( res.status === 500 ) {
+          history.push('/error');
         } else {
           history.push('/forbidden');
         }
@@ -135,7 +137,7 @@ const EditProfile = ({ toggleEdit }) => {
     toggleEdit();
   }
   return (
-    <div className={styles.container} onClick={(e) => toggleEdit(e)}>
+    <div className={styles.container}>
       <div className={styles.editProfileContainer}>
         <div className={styles.editHeader}> 
           <h2>Edit</h2>

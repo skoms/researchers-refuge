@@ -63,6 +63,11 @@ export const validateField = (type, data, target) => {
   }
 
   const isValid = regex.test(data);
+  
+  if ( typeof target === 'string' ) {
+    target = document.querySelector(target);
+  }
+  
   if (target === null) {
     return isValid;
   } else {
