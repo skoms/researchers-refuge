@@ -1,23 +1,23 @@
-import { cleanup, screen, waitFor } from '@testing-library/react';
-import { getInitialState, renderComponent } from '../../../utils/testing';
-import { act } from 'react-dom/test-utils';
-import ArticleCards from './ArticleCards';
+import { cleanup, screen, waitFor } from '@testing-library/react'
+import { getInitialState, renderComponent } from '../../../utils/testing'
+import { act } from 'react-dom/test-utils'
+import ArticleCards from './ArticleCards'
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useLocation: () => ({ pathname: '/' }),
 }))
 
-const initialState = getInitialState();
-const needsStore = true;
-const tempArticles = [];
+const initialState = getInitialState()
+const needsStore = true
+const tempArticles = []
 for (let i = 0; i < 15; i++) {
   tempArticles.push({
     id: i,
-    title: 'test title'+i,
+    title: 'test title' + i,
     topic: 'test',
-    intro: 'test intro'+i,
-    body: 'test body'+i,
+    intro: 'test intro' + i,
+    body: 'test body' + i,
     tags: ['test tag1', 'test tag2', 'test tag3'],
     published: '2020-01-01T10:10:10.769Z',
     credits: 0,
@@ -26,21 +26,20 @@ for (let i = 0; i < 15; i++) {
     userId: 1,
     User: {
       firstName: 'test',
-      lastName: 'user'
-    }
+      lastName: 'user',
+    },
   })
 }
 
 describe('ArticleCards', () => {
-
   afterAll(() => {
-    cleanup();
-    jest.restoreAllMocks();
+    cleanup()
+    jest.restoreAllMocks()
   })
 
   describe('feed', () => {
     const expectedProps = {
-      type: 'feed'
+      type: 'feed',
     }
 
     beforeEach(() => {
@@ -48,31 +47,32 @@ describe('ArticleCards', () => {
         ...initialState,
         feed: {
           ...initialState.feed,
-          feedArticles: tempArticles
-        }
+          feedArticles: tempArticles,
+        },
       }
-      act(() => { 
-        renderComponent(ArticleCards, { expectedProps, preloadedState, needsStore })
-      });
-    });
+      act(() => {
+        renderComponent(ArticleCards, {
+          expectedProps,
+          preloadedState,
+          needsStore,
+        })
+      })
+    })
 
     it('should render without any errors', () => {
-      expect(
-        screen.getByTestId('article-cards-component')
-      ).toBeInTheDocument();
-    });
+      expect(screen.getByTestId('article-cards-component')).toBeInTheDocument()
+    })
 
     it('should render all the supplied article cards', () => {
       expect(
-        screen.getAllByRole('heading', { name: /test title/i }).length
-      ).toBe(15);
-    });
-    
-  });
+        screen.getAllByRole('heading', { name: /test title/i }).length,
+      ).toBe(15)
+    })
+  })
 
   describe('ownersArticles', () => {
     const expectedProps = {
-      type: 'ownersArticles'
+      type: 'ownersArticles',
     }
 
     beforeEach(() => {
@@ -80,67 +80,63 @@ describe('ArticleCards', () => {
         ...initialState,
         userFeed: {
           ...initialState.userFeed,
-          userArticles: tempArticles
-        }
+          userArticles: tempArticles,
+        },
       }
       act(() => {
-        renderComponent(ArticleCards, { expectedProps, preloadedState, needsStore });
-      });
-    });
+        renderComponent(ArticleCards, {
+          expectedProps,
+          preloadedState,
+          needsStore,
+        })
+      })
+    })
 
     it('should render without any errors', () => {
-      expect(
-        screen.getByTestId('article-cards-component')
-      ).toBeInTheDocument();
-    });
+      expect(screen.getByTestId('article-cards-component')).toBeInTheDocument()
+    })
 
     it('should render all the supplied article cards', () => {
       expect(
-        screen.getAllByRole('heading', { name: /test title/i }).length
-      ).toBe(15);
-    });
-    
-  });
+        screen.getAllByRole('heading', { name: /test title/i }).length,
+      ).toBe(15)
+    })
+  })
 
   describe('accreditedArticles', () => {
     const expectedProps = {
       type: 'accreditedArticles',
-      recentlyAccredited: tempArticles.map( article => article.id ).slice(0,5)
+      recentlyAccredited: tempArticles.map((article) => article.id).slice(0, 5),
     }
 
-    beforeEach( async () => {
-      await act( async () => {
-        await renderComponent(ArticleCards, { expectedProps, needsStore });
-      });
-    });
+    beforeEach(async () => {
+      await act(async () => {
+        await renderComponent(ArticleCards, { expectedProps, needsStore })
+      })
+    })
 
     afterEach(() => {
-      cleanup();
-    });
+      cleanup()
+    })
 
     it('should render loading without any errors', async () => {
-      expect(
-        screen.getByTestId('article-cards-component')
-      ).toBeInTheDocument();
+      expect(screen.getByTestId('article-cards-component')).toBeInTheDocument()
       await waitFor(() => {
         expect(
-          screen.queryByTestId('loading-component')
-        ).not.toBeInTheDocument();
+          screen.queryByTestId('loading-component'),
+        ).not.toBeInTheDocument()
       })
-    });
+    })
 
     it('should render all the supplied article cards', async () => {
-      const cardTitles = await screen.findAllByText(/test title/i);
-      expect(
-        cardTitles
-      ).toHaveLength(5);
-    });
-    
-  });
+      const cardTitles = await screen.findAllByText(/test title/i)
+      expect(cardTitles).toHaveLength(5)
+    })
+  })
 
   describe('results', () => {
     const expectedProps = {
-      type: 'results'
+      type: 'results',
     }
 
     beforeEach(() => {
@@ -148,27 +144,26 @@ describe('ArticleCards', () => {
         ...initialState,
         searchResults: {
           ...initialState.searchResults,
-          articles: tempArticles
-        }
+          articles: tempArticles,
+        },
       }
       act(() => {
-        renderComponent(ArticleCards, { expectedProps, preloadedState, needsStore });
-      });
-    });
+        renderComponent(ArticleCards, {
+          expectedProps,
+          preloadedState,
+          needsStore,
+        })
+      })
+    })
 
     it('should render without any errors', () => {
-      expect(
-        screen.getByTestId('article-cards-component')
-      ).toBeInTheDocument();
-    });
+      expect(screen.getByTestId('article-cards-component')).toBeInTheDocument()
+    })
 
     it('should render all the supplied article cards', () => {
       expect(
-        screen.getAllByRole('heading', { name: /test title/i }).length
-      ).toBe(15);
-    });
-    
-  });
-  
-
-});
+        screen.getAllByRole('heading', { name: /test title/i }).length,
+      ).toBe(15)
+    })
+  })
+})

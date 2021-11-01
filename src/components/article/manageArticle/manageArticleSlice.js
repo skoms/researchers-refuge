@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Data from "../../../Data";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import Data from '../../../Data'
 
-const data = new Data();
+const data = new Data()
 
 const initialState = {
   article: {
@@ -11,53 +11,53 @@ const initialState = {
     published: null,
     tags: null,
     topic: null,
-  }
+  },
 }
 
 export const postArticle = createAsyncThunk(
   'manageArticle/postArticle',
-  async ({article, user}) => {
-    const response = await data.createArticle(article, user);
-    return response;
-  }
-);
+  async ({ article, user }) => {
+    const response = await data.createArticle(article, user)
+    return response
+  },
+)
 
 export const updateArticle = createAsyncThunk(
   'manageArticle/updateArticle',
-  async ({article, id, user}) => {
-    const response = await data.updateArticle(article, id, user);
-    return response;
-  }
-);
+  async ({ article, id, user }) => {
+    const response = await data.updateArticle(article, id, user)
+    return response
+  },
+)
 
 export const deleteArticle = createAsyncThunk(
   'manageArticle/deleteArticle',
-  async ({id, user}) => {
-    const response = await data.deleteArticle(id, user);
-    return response;
-  }
+  async ({ id, user }) => {
+    const response = await data.deleteArticle(id, user)
+    return response
+  },
 )
 
 export const getArticleIfOwner = createAsyncThunk(
   'manageArticle/getArticle',
-  async ({id, user}) => {
-    const response = await data.getArticle(id);
-    if ( response.article.userId === user.id || user.accessLevel === 'admin'){
-      return response;
+  async ({ id, user }) => {
+    const response = await data.getArticle(id)
+    if (response.article.userId === user.id || user.accessLevel === 'admin') {
+      return response
     } else {
       return { status: 401 }
     }
-  }
-);
+  },
+)
 
 export const manageArticleSlice = createSlice({
   name: 'manageArticle',
-  initialState, 
+  initialState,
   reducers: {
     updateArticleState: (state, { payload }) => {
       return {
         ...state,
-        article: payload
+        article: payload,
       }
     },
     updateArticleStateByKey: (state, { payload }) => {
@@ -65,8 +65,8 @@ export const manageArticleSlice = createSlice({
         ...state,
         article: {
           ...state.article,
-          [payload.key]: payload.value
-        }
+          [payload.key]: payload.value,
+        },
       }
     },
   },
@@ -75,14 +75,15 @@ export const manageArticleSlice = createSlice({
       if (payload.status === 200) {
         return {
           ...state,
-          article: payload.article
+          article: payload.article,
         }
       }
-    });
-  }
-});
+    })
+  },
+})
 
-export const selectArticle = state => state.manageArticle.article;
-export const { updateStateArticle, updateArticleStateByKey } = manageArticleSlice.actions;
+export const selectArticle = (state) => state.manageArticle.article
+export const { updateStateArticle, updateArticleStateByKey } =
+  manageArticleSlice.actions
 
-export default manageArticleSlice.reducer;
+export default manageArticleSlice.reducer

@@ -1,11 +1,11 @@
 /* eslint-disable react/forbid-foreign-prop-types */
-import PropTypes from 'prop-types';
-import { render } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
-import { reducers } from '../../app/store';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
-import { checkParseInt } from '../helpers';
+import PropTypes from 'prop-types'
+import { render } from '@testing-library/react'
+import { configureStore } from '@reduxjs/toolkit'
+import { reducers } from '../../app/store'
+import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router'
+import { checkParseInt } from '../helpers'
 
 /**
  * Assertion method to test if the props comply with .propTypes of that component
@@ -13,7 +13,12 @@ import { checkParseInt } from '../helpers';
  * @param {object} expectedProps - Example prop types that are to be expected
  */
 export const expectNoPropTypeErrors = (component, expectedProps) => {
-  PropTypes.checkPropTypes(component.propTypes, expectedProps, 'props', component.name);
+  PropTypes.checkPropTypes(
+    component.propTypes,
+    expectedProps,
+    'props',
+    component.name,
+  )
 }
 
 /**
@@ -26,20 +31,20 @@ export const testStore = (preloadedState = null) => {
     return configureStore({
       reducer: reducers,
       preloadedState,
-    });
+    })
   } else if (preloadedState === null) {
     return configureStore({
-      reducer: reducers
-    });
+      reducer: reducers,
+    })
   }
-};
+}
 
 /**
  * Returns the initial state of the store
  * @returns {object} Store's initialState
  */
 export const getInitialState = () => ({
-  ...testStore().getState()
+  ...testStore().getState(),
 })
 
 /**
@@ -48,34 +53,38 @@ export const getInitialState = () => ({
  * @param {object} options - Structure with default states: { expectedProps = {}, preloadedState = null, needsStore = false, needsMemoryRouter = false }
  * @returns {object} - returns an object with the store: { store }
  */
-export const renderComponent = ( Component, { expectedProps = {}, preloadedState = null, needsStore = false, needsMemoryRouter = false} = {}) => {
-  let wrapper = <Component {...expectedProps} />;
-  let store;
-  
-  if ( needsMemoryRouter ) {
-    wrapper = (
-      <MemoryRouter>
-        { wrapper }
-      </MemoryRouter>
-    );
+export const renderComponent = (
+  Component,
+  {
+    expectedProps = {},
+    preloadedState = null,
+    needsStore = false,
+    needsMemoryRouter = false,
+  } = {},
+) => {
+  let wrapper = <Component {...expectedProps} />
+  let store
+
+  if (needsMemoryRouter) {
+    wrapper = <MemoryRouter>{wrapper}</MemoryRouter>
   }
 
-  if ( needsStore ) {
-    store = testStore(preloadedState);
-    wrapper = (
-      <Provider store={store}>
-        {wrapper}
-      </Provider>
-    );
+  if (needsStore) {
+    store = testStore(preloadedState)
+    wrapper = <Provider store={store}>{wrapper}</Provider>
   }
-  
-  const testLib = render(wrapper);
-  
-  return { store, ...testLib };  
+
+  const testLib = render(wrapper)
+
+  return { store, ...testLib }
 }
 
-export const getMockUsers = ({ amount = 1, id = 1, accessLevel = 'none' } = {}) => {
-  if ( amount === 1 ) {
+export const getMockUsers = ({
+  amount = 1,
+  id = 1,
+  accessLevel = 'none',
+} = {}) => {
+  if (amount === 1) {
     return {
       id: checkParseInt(id),
       firstName: `test${id}`,
@@ -86,9 +95,9 @@ export const getMockUsers = ({ amount = 1, id = 1, accessLevel = 'none' } = {}) 
       bio: `test bio${id}`,
       mostActiveField: `testing${id}`,
       articles: checkParseInt(id),
-      credits: checkParseInt(id),
-      followers: [1,2,3,4,5],
-      following: [1,2,3,4,5],
+      credits: 0,
+      followers: [1, 2, 3, 4, 5],
+      following: [1, 2, 3, 4, 5],
       profileImgURL: 'https://img.icons8.com/ios-glyphs/60/FFFFFF/user--v1.png',
       headerImgURL: 'https://placeimg.com/1000/200/tech',
       accessLevel,
@@ -98,8 +107,8 @@ export const getMockUsers = ({ amount = 1, id = 1, accessLevel = 'none' } = {}) 
       createdAt: '1111-11-11',
       updatedAt: '1111-11-11',
     }
-  } else if ( amount > 1 ) {
-    const users = [];
+  } else if (amount > 1) {
+    const users = []
 
     for (let i = 1; i <= amount; i++) {
       users.push({
@@ -112,10 +121,11 @@ export const getMockUsers = ({ amount = 1, id = 1, accessLevel = 'none' } = {}) 
         bio: `test bio${i}`,
         mostActiveField: `testing${i}`,
         articles: checkParseInt(i),
-        credits: 1,
-        followers: [1,2,3,4,5],
-        following: [1,2,3,4,5],
-        profileImgURL: 'https://img.icons8.com/ios-glyphs/60/FFFFFF/user--v1.png',
+        credits: 0,
+        followers: [1, 2, 3, 4, 5],
+        following: [1, 2, 3, 4, 5],
+        profileImgURL:
+          'https://img.icons8.com/ios-glyphs/60/FFFFFF/user--v1.png',
         headerImgURL: 'https://placeimg.com/1000/200/tech',
         accessLevel: 'none',
         accreditedArticles: [],
@@ -123,15 +133,15 @@ export const getMockUsers = ({ amount = 1, id = 1, accessLevel = 'none' } = {}) 
         blocked: false,
         createdAt: '1111-11-11',
         updatedAt: '1111-11-11',
-      });
+      })
     }
 
-    return users;
+    return users
   }
 }
 
 export const getMockArticles = ({ amount = 1, id = 1 } = {}) => {
-  if ( amount === 1 ) {
+  if (amount === 1) {
     const article = {
       id: checkParseInt(id),
       userId: checkParseInt(id),
@@ -140,17 +150,17 @@ export const getMockArticles = ({ amount = 1, id = 1 } = {}) => {
       topic: `test topic${id}`,
       intro: `test intro${id}`,
       body: `test body${id}`,
-      tags: ['test tag1','test tag 2','test tag 3'],
-      credits: 1,
+      tags: ['test tag1', 'test tag 2', 'test tag 3'],
+      credits: 0,
       published: `${id}${id}${id}${id}-${id}${id}-${id}${id}`,
       blocked: false,
       createdAt: '1111-11-11',
       updatedAt: '1111-11-11',
     }
-    article.User = getMockUsers({ id });
-    return article;
-  } else if ( amount > 1 ) {
-    const articles = [];
+    article.User = getMockUsers({ id })
+    return article
+  } else if (amount > 1) {
+    const articles = []
 
     for (let i = 1; i <= amount; i++) {
       articles.push({
@@ -161,24 +171,24 @@ export const getMockArticles = ({ amount = 1, id = 1 } = {}) => {
         topic: `test topic${i}`,
         intro: `test intro${i}`,
         body: `test body${i}`,
-        tags: ['test tag1','test tag 2','test tag 3'],
-        credits: 1,
+        tags: ['test tag1', 'test tag 2', 'test tag 3'],
+        credits: 0,
         published: `${i}${i}${i}${i}-${i}${i}-${i}${i}`,
         blocked: false,
         createdAt: '1111-11-11',
         updatedAt: '1111-11-11',
-      });
+      })
     }
-    articles.forEach( (article, i) => {
-      article.User = getMockUsers({ id: i + 1 });
+    articles.forEach((article, i) => {
+      article.User = getMockUsers({ id: i + 1 })
     })
 
-    return articles;
+    return articles
   }
 }
 
 export const getMockTopics = ({ amount = 1, id = 1 } = {}) => {
-  if ( amount === 1 ) {
+  if (amount === 1) {
     return {
       id: checkParseInt(id),
       categoryId: checkParseInt(id),
@@ -186,8 +196,8 @@ export const getMockTopics = ({ amount = 1, id = 1 } = {}) => {
       createdAt: '1111-11-11',
       updatedAt: '1111-11-11',
     }
-  } else if ( amount > 1 ) {
-    const topics = [];
+  } else if (amount > 1) {
+    const topics = []
 
     for (let i = 1; i <= amount; i++) {
       topics.push({
@@ -196,23 +206,23 @@ export const getMockTopics = ({ amount = 1, id = 1 } = {}) => {
         name: `test topic${i}`,
         createdAt: '1111-11-11',
         updatedAt: '1111-11-11',
-      });
+      })
     }
 
-    return topics;
+    return topics
   }
 }
 
-export const getMockCategories = ({ amount = 1, id = 1} = {}) => {
-  if ( amount === 1 ) {
+export const getMockCategories = ({ amount = 1, id = 1 } = {}) => {
+  if (amount === 1) {
     return {
       id: checkParseInt(id),
       name: `test category${id}`,
       createdAt: '1111-11-11',
       updatedAt: '1111-11-11',
     }
-  } else if ( amount > 1 ) {
-    const categories = [];
+  } else if (amount > 1) {
+    const categories = []
 
     for (let i = 1; i <= amount; i++) {
       categories.push({
@@ -220,15 +230,19 @@ export const getMockCategories = ({ amount = 1, id = 1} = {}) => {
         name: `test category${i}`,
         createdAt: '1111-11-11',
         updatedAt: '1111-11-11',
-      });
+      })
     }
 
-    return categories;
+    return categories
   }
 }
 
-export const getMockReports = ({ amount = 1, status = 'open', id = 1 } = {}) => {
-  if ( amount === 1 ) {
+export const getMockReports = ({
+  amount = 1,
+  status = 'open',
+  id = 1,
+} = {}) => {
+  if (amount === 1) {
     return {
       id: checkParseInt(id),
       title: `test title${id}`,
@@ -238,8 +252,8 @@ export const getMockReports = ({ amount = 1, status = 'open', id = 1 } = {}) => 
       createdAt: '1111-11-11',
       updatedAt: '1111-11-11',
     }
-  } else if ( amount > 1 ) {
-    const reports = [];
+  } else if (amount > 1) {
+    const reports = []
 
     for (let i = 1; i <= amount; i++) {
       reports.push({
@@ -250,9 +264,9 @@ export const getMockReports = ({ amount = 1, status = 'open', id = 1 } = {}) => 
         userId: checkParseInt(i),
         createdAt: '1111-11-11',
         updatedAt: '1111-11-11',
-      });
+      })
     }
 
-    return reports;
+    return reports
   }
 }

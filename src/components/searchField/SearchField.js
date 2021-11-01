@@ -1,32 +1,32 @@
 import React from 'react'
-import styles from './SearchField.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice';
-import { 
-  updateSearchTerm,
-  selectSearchTerm
-} from './searchFieldSlice';
-import { getIconUrl } from '../../Icons';
-import useToggle from '../../customHooks/useToggle';
-import { selectIsMobile } from '../../app/screenWidthSlice';
+import styles from './SearchField.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory, useLocation } from 'react-router-dom'
+import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
+import { updateSearchTerm, selectSearchTerm } from './searchFieldSlice'
+import { getIconUrl } from '../../Icons'
+import useToggle from '../../customHooks/useToggle'
+import { selectIsMobile } from '../../app/screenWidthSlice'
 
 const SearchField = () => {
-  const [mobileSearchActive, toggleMobileSearchActive] = useToggle(false);
-  
-  const searchTerm = useSelector(selectSearchTerm);
-  const darkModeOn = useSelector(selectDarkModeOn);
+  const [mobileSearchActive, toggleMobileSearchActive] = useToggle(false)
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
-  const isMobile = useSelector(selectIsMobile);
+  const searchTerm = useSelector(selectSearchTerm)
+  const darkModeOn = useSelector(selectDarkModeOn)
+
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const location = useLocation()
+  const isMobile = useSelector(selectIsMobile)
 
   const search = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (searchTerm) {
-      history.push({ pathname: `/search/${searchTerm}`, state: { from: location.pathname }});
-      toggleMobileSearchActive(false);
+      history.push({
+        pathname: `/search/${searchTerm}`,
+        state: { from: location.pathname },
+      })
+      toggleMobileSearchActive(false)
     }
   }
 
@@ -41,35 +41,42 @@ const SearchField = () => {
           onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
           placeholder="Search for articles or people"
         />
-        <button className={styles.searchButton} type='submit'>
-          <img 
+        <button className={styles.searchButton} type="submit">
+          <img
             src={getIconUrl('magnifying-glass', darkModeOn, {
               size: 20,
               colors: {
                 dark: '38B6FF',
-                light: 'E8F7FF'
-              }
+                light: 'E8F7FF',
+              },
             })}
-            alt='search button'
+            alt="search button"
           />
         </button>
       </form>
     </div>
   ) : (
     <div className={styles.container}>
-      <button className={styles.toggleMobileSearch} onClick={toggleMobileSearchActive}>
-        <img 
+      <button
+        className={styles.toggleMobileSearch}
+        onClick={toggleMobileSearchActive}
+      >
+        <img
           src={getIconUrl('magnifying-glass', darkModeOn, {
             size: 32,
             colors: {
               dark: '38B6FF',
-              light: 'E8F7FF'
-            }
+              light: 'E8F7FF',
+            },
           })}
-          alt='toggle search button'
+          alt="toggle search button"
         />
       </button>
-      <div className={`${styles.mobileSearch} ${!mobileSearchActive && 'invisible'}`}>
+      <div
+        className={`${styles.mobileSearch} ${
+          !mobileSearchActive && 'invisible'
+        }`}
+      >
         <form onSubmit={search}>
           <input
             id="search"
@@ -78,16 +85,16 @@ const SearchField = () => {
             onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
             placeholder="Search for articles or people"
           />
-          <button className={styles.searchButton} type='submit'>
-            <img 
+          <button className={styles.searchButton} type="submit">
+            <img
               src={getIconUrl('magnifying-glass', darkModeOn, {
                 size: 20,
                 colors: {
                   dark: '38B6FF',
-                  light: 'E8F7FF'
-                }
+                  light: 'E8F7FF',
+                },
               })}
-              alt='search button'
+              alt="search button"
             />
           </button>
         </form>
@@ -95,6 +102,5 @@ const SearchField = () => {
     </div>
   )
 }
-
 
 export default SearchField

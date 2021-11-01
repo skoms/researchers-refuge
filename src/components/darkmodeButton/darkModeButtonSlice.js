@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  darkModeOn: (localStorage.getItem('darkmode') === 'true')
+  darkModeOn: localStorage.getItem('darkmode') === 'true',
 }
 
 export const darkModeButtonSlice = createSlice({
@@ -11,14 +11,14 @@ export const darkModeButtonSlice = createSlice({
     toggleDarkMode: (state) => {
       return {
         ...state,
-        darkModeOn: state.darkModeOn === false
+        darkModeOn: state.darkModeOn === false,
       }
     },
-  }
-});
+  },
+})
 
-export const { toggleDarkMode } = darkModeButtonSlice.actions;
+export const { toggleDarkMode } = darkModeButtonSlice.actions
 
-export const selectDarkModeOn = state => state.darkModeButton.darkModeOn;
+export const selectDarkModeOn = (state) => state.darkModeButton.darkModeOn
 
-export default darkModeButtonSlice.reducer;
+export default darkModeButtonSlice.reducer

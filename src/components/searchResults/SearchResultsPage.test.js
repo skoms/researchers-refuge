@@ -1,21 +1,24 @@
-import { act, screen } from '@testing-library/react';
-import { renderComponent, getInitialState, getMockUsers } from '../../utils/testing';
-import SearchResultsPage from './SearchResultsPage';
+import { act, screen } from '@testing-library/react'
+import {
+  renderComponent,
+  getInitialState,
+  getMockUsers,
+} from '../../utils/testing'
+import SearchResultsPage from './SearchResultsPage'
 
-const mockHistoryPush = jest.fn();
+const mockHistoryPush = jest.fn()
 jest.mock('react-router', () => ({
   ...jest.requireActual(),
   useParams: () => ({ term: 'test' }),
   useHistory: () => ({ push: mockHistoryPush }),
   useLocation: () => ({ pathname: '/search?term=test' }),
-}));
+}))
 
-const mockUser = getMockUsers();
+const mockUser = getMockUsers()
 
-const initialState = getInitialState();
+const initialState = getInitialState()
 
 describe('SearchResultsPage', () => {
-  
   describe('not on mobile (logged in)', () => {
     const options = {
       needsStore: true,
@@ -24,33 +27,28 @@ describe('SearchResultsPage', () => {
         ...initialState,
         userAcc: {
           loggedIn: true,
-          authenticatedUser: mockUser
+          authenticatedUser: mockUser,
         },
         screenWidth: {
           ...initialState.screenWidth,
-          isMobile: false
-        }
-      }
+          isMobile: false,
+        },
+      },
     }
 
     beforeEach(() => {
       act(() => {
-        renderComponent(SearchResultsPage, options);
-      });
-    });
-    
+        renderComponent(SearchResultsPage, options)
+      })
+    })
+
     it('should render without any errors', () => {
-      expect(
-        screen.getByText(/search results/i)
-      ).toBeInTheDocument();
-    });
+      expect(screen.getByText(/search results/i)).toBeInTheDocument()
+    })
 
     it('should render InfoModule', () => {
-      expect(
-        screen.getByAltText(/your profile/i)
-      ).toBeInTheDocument();
-    });
-    
+      expect(screen.getByAltText(/your profile/i)).toBeInTheDocument()
+    })
   })
 
   describe('not on mobile (not logged in)', () => {
@@ -61,35 +59,30 @@ describe('SearchResultsPage', () => {
         ...initialState,
         userAcc: {
           loggedIn: false,
-          authenticatedUser: null
+          authenticatedUser: null,
         },
         screenWidth: {
           ...initialState.screenWidth,
-          isMobile: false
-        }
-      }
+          isMobile: false,
+        },
+      },
     }
 
     beforeEach(() => {
       act(() => {
-        renderComponent(SearchResultsPage, options);
-      });
-    });
-    
+        renderComponent(SearchResultsPage, options)
+      })
+    })
+
     it('should render feed without any errors', () => {
-      expect(
-        screen.getByText(/search results/i)
-      ).toBeInTheDocument();
-    });
-    
+      expect(screen.getByText(/search results/i)).toBeInTheDocument()
+    })
+
     it('should not render InfoModule', () => {
-      expect(
-        screen.queryByAltText(/your profile/i)
-      ).toBeNull();
-    });
-    
-  });
-  
+      expect(screen.queryByAltText(/your profile/i)).toBeNull()
+    })
+  })
+
   describe('on mobile', () => {
     const options = {
       needsStore: true,
@@ -98,34 +91,27 @@ describe('SearchResultsPage', () => {
         ...initialState,
         userAcc: {
           loggedIn: true,
-          authenticatedUser: mockUser
+          authenticatedUser: mockUser,
         },
         screenWidth: {
           ...initialState.screenWidth,
-          isMobile: true
-        }
-      }
+          isMobile: true,
+        },
+      },
     }
 
     beforeEach(() => {
       act(() => {
-        renderComponent(SearchResultsPage, options);
-      });
-    });
-    
+        renderComponent(SearchResultsPage, options)
+      })
+    })
+
     it('should render without any errors', () => {
-      expect(
-        screen.getByText(/search results/i)
-      ).toBeInTheDocument();
-    });
+      expect(screen.getByText(/search results/i)).toBeInTheDocument()
+    })
 
     it('should not render InfoModule', () => {
-      expect(
-        screen.queryByAltText(/your profile/i)
-      ).toBeNull();
-    });
-    
-  });
-  
-
+      expect(screen.queryByAltText(/your profile/i)).toBeNull()
+    })
+  })
 })

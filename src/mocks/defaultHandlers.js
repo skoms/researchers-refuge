@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { rest } from 'msw'
 
 export const defaultHandlers = [
   rest.get('*', (req, res, ctx) => res(ctx.status(200), ctx.json({}))),

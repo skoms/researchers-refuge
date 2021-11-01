@@ -5,8 +5,8 @@ import { putHandlers } from './putHandlers'
 import { deleteHandlers } from './deleteHandlers'
 
 export const worker = setupWorker(
-  ...getHandlers, 
-  ...postHandlers, 
-  ...putHandlers, 
-  ...deleteHandlers
+  ...getHandlers,
+  ...postHandlers,
+  ...putHandlers,
+  ...deleteHandlers,
 )

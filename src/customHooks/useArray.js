@@ -1,33 +1,36 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 const useArray = (defaultValue) => {
-  const [array, setArray] = useState(defaultValue);
+  const [array, setArray] = useState(defaultValue)
 
   const push = (element) => {
-    setArray( arr => [...arr, element] );
+    setArray((arr) => [...arr, element])
   }
 
   const filter = (callback) => {
-    setArray( arr => arr.filter(callback) );
+    setArray((arr) => arr.filter(callback))
   }
 
   const update = (index, newElement) => {
-    setArray( arr => [
+    setArray((arr) => [
       ...arr.slice(0, index),
       newElement,
-      arr.slice(index + 1, arr.length - 1)
-    ]);
+      arr.slice(index + 1, arr.length - 1),
+    ])
   }
 
   const remove = (index) => {
-    setArray( arr => [...arr.slice(0, index), ...arr.slice(index + 1, arr.length - 1)] );
+    setArray((arr) => [
+      ...arr.slice(0, index),
+      ...arr.slice(index + 1, arr.length - 1),
+    ])
   }
 
   const clear = () => {
-    setArray([]);
+    setArray([])
   }
 
-  return { array, set: setArray, push, filter, update, remove, clear };
+  return { array, set: setArray, push, filter, update, remove, clear }
 }
 
-export default useArray;
+export default useArray

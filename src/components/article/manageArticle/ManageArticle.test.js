@@ -1,6 +1,6 @@
-import { act, screen } from '@testing-library/react';
-import { renderComponent } from '../../../utils/testing';
-import ManageArticle from './ManageArticle';
+import { act, screen } from '@testing-library/react'
+import { renderComponent } from '../../../utils/testing'
+import ManageArticle from './ManageArticle'
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -15,18 +15,18 @@ const options = {
 
 describe('ManageArticle: General', () => {
   beforeEach(() => {
-    act(() => { renderComponent( ManageArticle, options )});
-  });
+    act(() => {
+      renderComponent(ManageArticle, options)
+    })
+  })
 
   it('should render without any issues', () => {
-    expect(
-      screen.getByTestId('manage-article-component')
-    ).toBeInTheDocument();
-  });
+    expect(screen.getByTestId('manage-article-component')).toBeInTheDocument()
+  })
 
   it('should render the update form', () => {
     expect(
-      screen.getByRole('heading', { name: /update article/i })
+      screen.getByRole('heading', { name: /update article/i }),
     ).toBeInTheDocument()
-  });
-});
+  })
+})

@@ -1,17 +1,17 @@
 import React from 'react'
-import styles from './MyProfile.module.css';
-import { useSelector } from 'react-redux';
-import { selectIsMobile } from '../../../../app/screenWidthSlice';
+import styles from './MyProfile.module.css'
+import { useSelector } from 'react-redux'
+import { selectIsMobile } from '../../../../app/screenWidthSlice'
 import RecPeople from '../../../recPeople/RecPeople'
 
-import MyProfileFeed from '../myProfileFeed/MyProfileFeed';
+import MyProfileFeed from '../myProfileFeed/MyProfileFeed'
 
 const MyProfile = () => {
-  const isMobile = useSelector(selectIsMobile);
+  const isMobile = useSelector(selectIsMobile)
   return (
-    <div className={styles.container}>
+    <div data-testid="my-profile-component" className={styles.container}>
       <MyProfileFeed />
-      { !isMobile && <RecPeople />}
+      {!isMobile && <RecPeople />}
     </div>
   )
 }

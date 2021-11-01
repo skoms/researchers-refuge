@@ -5,14 +5,14 @@
  * @returns the altered string
  */
 export const capitalize = (string, firstOnly = false) => {
-  let strArray = string.split(' ');
+  let strArray = string.split(' ')
   if (strArray.length <= 1 || firstOnly) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1)
   } else {
-    strArray = strArray.map( str => {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    });
-    return strArray.join(' ');
+    strArray = strArray.map((str) => {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    })
+    return strArray.join(' ')
   }
 }
 
@@ -24,14 +24,14 @@ export const capitalize = (string, firstOnly = false) => {
 export const isStringAndStringToArray = (value) => {
   if (typeof value !== 'object') {
     if (value.length === 1 || typeof value === 'number') {
-      return [value.toString()];
+      return [value.toString()]
     } else if (value === '') {
-      return [];
+      return []
     } else {
-      return value.split(',').filter(entry => entry !== ' ' && entry !== '');
+      return value.split(',').filter((entry) => entry !== ' ' && entry !== '')
     }
   } else {
-    return value;
+    return value
   }
 }
 
@@ -41,8 +41,8 @@ export const isStringAndStringToArray = (value) => {
  * @returns a 'DD-MM-YYYY' formatted date string
  */
 export const formatDate = (string) => {
-  const match = string.match(/^(\d+)-(\d+)-(\d+)/);
-  return `${match[3]}-${match[2]}-${match[1]}`;
+  const match = string.match(/^(\d+)-(\d+)-(\d+)/)
+  return `${match[3]}-${match[2]}-${match[1]}`
 }
 
 /**
@@ -53,36 +53,36 @@ export const formatDate = (string) => {
  * @returns validation boolean, true of false
  */
 export const validateField = (type, data, target) => {
-  let regex;
+  let regex
   if (type === 'name' || type === 'occupation') {
-    regex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/;
+    regex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,30}$/
   } else if (type === 'email') {
-    regex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
+    regex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/
   } else if (type === 'password') {
-    regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/;
+    regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/
   }
 
-  const isValid = regex.test(data);
-  
-  if ( typeof target === 'string' ) {
-    target = document.querySelector(target);
+  const isValid = regex.test(data)
+
+  if (typeof target === 'string') {
+    target = document.querySelector(target)
   }
-  
+
   if (target === null) {
-    return isValid;
+    return isValid
   } else {
-    const { classList } = target;
-    if ( isValid ) {
-      classList.contains('mismatch') && classList.remove('mismatch');
-      !classList.contains('match') && classList.add('match');
-      return true;
+    const { classList } = target
+    if (isValid) {
+      classList.contains('mismatch') && classList.remove('mismatch')
+      !classList.contains('match') && classList.add('match')
+      return true
     } else if (data === '') {
-      classList.contains('mismatch') && classList.remove('mismatch');
-      classList.contains('match') && classList.remove('match');
+      classList.contains('mismatch') && classList.remove('mismatch')
+      classList.contains('match') && classList.remove('match')
     } else {
-      !classList.contains('mismatch') && classList.add('mismatch');
-      classList.contains('match') && classList.remove('match');
-      return false;
+      !classList.contains('mismatch') && classList.add('mismatch')
+      classList.contains('match') && classList.remove('match')
+      return false
     }
   }
 }
@@ -93,5 +93,5 @@ export const validateField = (type, data, target) => {
  * @returns the value with type of int
  */
 export const checkParseInt = (value) => {
-  return typeof value === 'number' ? value : parseInt(value);
+  return typeof value === 'number' ? value : parseInt(value)
 }

@@ -1,16 +1,16 @@
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import ManagementTable from './ManagementTable';
-import { renderComponent } from '../../../../utils/testing';
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import ManagementTable from './ManagementTable'
+import { renderComponent } from '../../../../utils/testing'
 
-let store;
-const needsStore = true;
+let store
+const needsStore = true
 
 describe('ManagementTable', () => {
-  let mockSetManagerProps;
-  
+  let mockSetManagerProps
+
   beforeEach(() => {
-    mockSetManagerProps = jest.fn();
+    mockSetManagerProps = jest.fn()
     const expectedProps = {
       setManagerProps: mockSetManagerProps,
       isActive: true,
@@ -24,7 +24,7 @@ describe('ManagementTable', () => {
           { column: 'accessLevel', name: 'Access Level', input: true },
           { column: 'createdAt', name: 'Created', input: false },
           { column: 'updatedAt', name: 'Last Updated', input: false },
-          { column: 'blocked', name: 'Blocked', input: false }
+          { column: 'blocked', name: 'Blocked', input: false },
         ],
         entries: [
           {
@@ -35,7 +35,7 @@ describe('ManagementTable', () => {
             accessLevel: 'none',
             createdAt: 'some time',
             updatedAt: 'some time',
-            blocked: false
+            blocked: false,
           },
           {
             id: 2,
@@ -45,7 +45,7 @@ describe('ManagementTable', () => {
             accessLevel: 'none',
             createdAt: 'some time',
             updatedAt: 'some time',
-            blocked: false
+            blocked: false,
           },
           {
             id: 3,
@@ -55,7 +55,7 @@ describe('ManagementTable', () => {
             accessLevel: 'none',
             createdAt: 'some time',
             updatedAt: 'some time',
-            blocked: false
+            blocked: false,
           },
           {
             id: 4,
@@ -65,7 +65,7 @@ describe('ManagementTable', () => {
             accessLevel: 'none',
             createdAt: 'some time',
             updatedAt: 'some time',
-            blocked: false
+            blocked: false,
           },
           {
             id: 5,
@@ -75,67 +75,75 @@ describe('ManagementTable', () => {
             accessLevel: 'none',
             createdAt: 'some time',
             updatedAt: 'some time',
-            blocked: false
+            blocked: false,
           },
         ],
       },
-      type: 'users'
+      type: 'users',
     }
-    store = renderComponent(ManagementTable, { expectedProps, needsStore }).store;
-  });
+    store = renderComponent(ManagementTable, {
+      expectedProps,
+      needsStore,
+    }).store
+  })
 
   it('should render without any errors', () => {
-    expect(
-      screen.getByRole('table')
-    ).toBeInTheDocument();
-  });
+    expect(screen.getByRole('table')).toBeInTheDocument()
+  })
 
   it('should render all the tableheaders', () => {
-    expect(
-      screen.getAllByRole('columnheader').length
-    ).toBe(8);
-  });
+    expect(screen.getAllByRole('columnheader').length).toBe(8)
+  })
 
   it('should render blocked icon instead of "blocked" for blocked column', () => {
-    expect(
-      screen.getByAltText(/blocked icon/i)
-    ).toBeVisible();
-  });
+    expect(screen.getByAltText(/blocked icon/i)).toBeVisible()
+  })
 
   it('should render the entries given in props', () => {
-    expect(
-      screen.getAllByRole('cell', { name: /test fname\d/i }).length
-    ).toBe(5);
-  });
+    expect(screen.getAllByRole('cell', { name: /test fname\d/i }).length).toBe(
+      5,
+    )
+  })
 
   it('should render all the inputs for the required columns', () => {
     expect(
-      screen.getAllByPlaceholderText(/(first name)|(last name)|(e-mail)|(access level)/i).length
-    ).toBe(4);
-  });
+      screen.getAllByPlaceholderText(
+        /(first name)|(last name)|(e-mail)|(access level)/i,
+      ).length,
+    ).toBe(4)
+  })
 
   it('should should get the class of the statusFilter (Only used for "Report Center")', () => {
-    expect(
-      screen.getByRole('table')
-    ).toHaveClass('open');
-  });
+    expect(screen.getByRole('table')).toHaveClass('open')
+  })
 
   it('should update the newData in the store when getting user input', () => {
     const expectedOutput = {
       firstName: 'test fname',
       lastName: 'test lname',
       emailAddress: 'test email',
-      accessLevel: 'admin'
+      accessLevel: 'admin',
     }
 
-    userEvent.type(screen.getByPlaceholderText(/first name/i), expectedOutput.firstName);
-    userEvent.type(screen.getByPlaceholderText(/last name/i), expectedOutput.lastName);
-    userEvent.type(screen.getByPlaceholderText(/e-mail/i), expectedOutput.emailAddress);
-    userEvent.type(screen.getByPlaceholderText(/access level/i), expectedOutput.accessLevel);
+    userEvent.type(
+      screen.getByPlaceholderText(/first name/i),
+      expectedOutput.firstName,
+    )
+    userEvent.type(
+      screen.getByPlaceholderText(/last name/i),
+      expectedOutput.lastName,
+    )
+    userEvent.type(
+      screen.getByPlaceholderText(/e-mail/i),
+      expectedOutput.emailAddress,
+    )
+    userEvent.type(
+      screen.getByPlaceholderText(/access level/i),
+      expectedOutput.accessLevel,
+    )
 
-    expect(
-      store.getState().adminPanel.users.newData
-    ).toStrictEqual(expectedOutput);
-  });
-
+    expect(store.getState().adminPanel.users.newData).toStrictEqual(
+      expectedOutput,
+    )
+  })
 })

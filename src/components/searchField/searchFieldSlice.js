@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const searchFieldSlice = createSlice({
   name: 'searchField',
@@ -9,15 +9,14 @@ export const searchFieldSlice = createSlice({
     updateSearchTerm: (state, action) => {
       return {
         ...state,
-        searchTerm: action.payload.replace(/[$-/:-?{-~!"^_`[\]]/, '')
+        searchTerm: action.payload.replace(/[$-/:-?{-~!"^_`[\]]/, ''),
       }
     },
-  }
+  },
 })
 
-export const { updateSearchTerm } = searchFieldSlice.actions;
+export const { updateSearchTerm } = searchFieldSlice.actions
 
-export const selectSearchTerm = state => state.searchField.searchTerm;
+export const selectSearchTerm = (state) => state.searchField.searchTerm
 
-export default searchFieldSlice.reducer;
-
+export default searchFieldSlice.reducer

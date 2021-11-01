@@ -1,53 +1,48 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Data from "../../../Data";
-import { checkParseInt, formatDate } from '../../../utils/helpers';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import Data from '../../../Data'
+import { checkParseInt, formatDate } from '../../../utils/helpers'
 
-const data = new Data();
+const data = new Data()
 
 const initialState = {
   article: null,
-  author: null
+  author: null,
 }
 
-export const getArticleInfo = createAsyncThunk(
-  'articleDetails',
-  async (id) => {
-    const response = await data.getArticle(id);
-    return response;
-  }
-);
+export const getArticleInfo = createAsyncThunk('articleDetails', async (id) => {
+  const response = await data.getArticle(id)
+  return response
+})
 
 export const articleDetailsSlice = createSlice({
   name: 'articleDetails',
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getArticleInfo.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
-        const { article } = action.payload;
-        const { User, published } = article;
+        const { article } = action.payload
+        const { User, published } = article
 
-        const formattedDate = formatDate(published);
+        const formattedDate = formatDate(published)
 
         return {
           ...state,
           article: {
             ...article,
-            published: formattedDate
+            published: formattedDate,
           },
           author: {
             ...User,
-            id: checkParseInt(article.userId)
-          }
+            id: checkParseInt(article.userId),
+          },
         }
       }
-    });
-  }
-});
+    })
+  },
+})
 
-export const selectArticle = state => state.articleDetails.article;
-export const selectAuthor = state => state.articleDetails.author;
+export const selectArticle = (state) => state.articleDetails.article
+export const selectAuthor = (state) => state.articleDetails.author
 
-export default articleDetailsSlice.reducer;
+export default articleDetailsSlice.reducer

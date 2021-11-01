@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Data from "../../Data";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import Data from '../../Data'
 
-const data = new Data();
+const data = new Data()
 
 const initialState = {
   recPeople: null,
@@ -10,30 +10,28 @@ const initialState = {
 export const getRecPeople = createAsyncThunk(
   'recPeople/getRecPeople',
   async (user) => {
-    const response = await data.getRecommendedUsers(user);
-    return response;
-  }
-);
+    const response = await data.getRecommendedUsers(user)
+    return response
+  },
+)
 
 export const recPeopleSlice = createSlice({
   name: 'recPeople',
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getRecPeople.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
-        const { users } = action.payload;
+        const { users } = action.payload
         return {
           ...state,
-          recPeople: users
+          recPeople: users,
         }
       }
-    });
-  }
-});
+    })
+  },
+})
 
-export const selectRecPeople = state => state.recPeople.recPeople;
+export const selectRecPeople = (state) => state.recPeople.recPeople
 
-export default recPeopleSlice.reducer;
+export default recPeopleSlice.reducer

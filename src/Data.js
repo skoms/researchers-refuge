@@ -1,4 +1,4 @@
-import axios  from 'axios';
+import axios from 'axios'
 
 export default class Data {
   /**
@@ -11,19 +11,27 @@ export default class Data {
    * @param {object} credentials - login credentials (only used when 'requiresAuth' is true)
    * @returns returns a promise of the fetch request
    */
-  api(path, method = 'GET', params = null, body = null, requiresAuth = false, credentials = null) {
+  api(
+    path,
+    method = 'GET',
+    params = null,
+    body = null,
+    requiresAuth = false,
+    credentials = null,
+  ) {
     const options = {
       method,
-      url: ( process.env.REACT_APP_DEV_API || process.env.REACT_APP_API_URL ) + path,
+      url:
+        (process.env.REACT_APP_DEV_API || process.env.REACT_APP_API_URL) + path,
       params,
-      auth: requiresAuth ? 
-        { username: credentials.emailAddress, password: credentials.password } : {},
-      data: body || {}
-    };
+      auth: requiresAuth
+        ? { username: credentials.emailAddress, password: credentials.password }
+        : {},
+      data: body || {},
+    }
 
-    return axios(options);
+    return axios(options)
   }
-
 
   /**
    * Handles the validation of the response return
@@ -34,42 +42,42 @@ export default class Data {
    */
   responseHandler = (cb, returnData = false, name = 'data') => {
     return cb
-      .then( res => {
-        if ( res.status === 201 || res.status ===  200 || res.status ===  204 ) {
-          if ( returnData ) {
+      .then((res) => {
+        if (res.status === 201 || res.status === 200 || res.status === 204) {
+          if (returnData) {
             return {
               status: res.status,
-              [name]: res.data
-            };
+              [name]: res.data,
+            }
           } else {
             return {
               status: res.status,
-            };
+            }
           }
         }
       })
       .catch(({ response }) => {
-        if ( response.status === 404 || response.status === 403 ||  response.status === 500 ) {
-          return { status: response.status };
-        } else if ( response.status > 299 ) {
-          if ( typeof response.data.message === 'string' ) {
+        if (
+          response.status === 404 ||
+          response.status === 403 ||
+          response.status === 500
+        ) {
+          return { status: response.status }
+        } else if (response.status > 299) {
+          if (typeof response.data.message === 'string') {
             return {
               status: response.status,
-              errors: [response.data.message] // this is done because we want to ensure the return of 'errors' is of type: 'array'
-            };
+              errors: [response.data.message], // this is done because we want to ensure the return of 'errors' is of type: 'array'
+            }
           } else {
             return {
               status: response.status,
-              errors: response.data.message
-            };
+              errors: response.data.message,
+            }
           }
         }
-      });
+      })
   }
-
-
-
-
 
   //! GET DATA API FUNCTIONS
 
@@ -81,9 +89,13 @@ export default class Data {
    */
   async getUser(emailAddress, password) {
     return await this.responseHandler(
-      this.api('/users/me', 'GET', null, null, true, {emailAddress, password}), 
-      true, 'user'
-    );
+      this.api('/users/me', 'GET', null, null, true, {
+        emailAddress,
+        password,
+      }),
+      true,
+      'user',
+    )
   }
 
   /**
@@ -93,9 +105,10 @@ export default class Data {
    */
   async getUserById(id) {
     return await this.responseHandler(
-      this.api('/users', 'GET', { id }), 
-      true, 'user'
-    );
+      this.api('/users', 'GET', { id }),
+      true,
+      'user',
+    )
   }
 
   /**
@@ -105,9 +118,10 @@ export default class Data {
    */
   async getUsersByQuery(query, page = 1) {
     return await this.responseHandler(
-      this.api(`/users/query`, 'GET', { query, page }), 
-      true, 'users'
-    );
+      this.api(`/users/query`, 'GET', { query, page }),
+      true,
+      'users',
+    )
   }
 
   /**
@@ -117,9 +131,10 @@ export default class Data {
    */
   async getRecommendedUsers(user) {
     return await this.responseHandler(
-      this.api(`/users/recommended`, 'GET', null, null, true, user), 
-      true, 'users'
-    );
+      this.api(`/users/recommended`, 'GET', null, null, true, user),
+      true,
+      'users',
+    )
   }
 
   /**
@@ -129,9 +144,10 @@ export default class Data {
    */
   async getArticle(id) {
     return await this.responseHandler(
-      this.api(`/articles`, 'GET', { id }), 
-      true, 'article'
-    );
+      this.api(`/articles`, 'GET', { id }),
+      true,
+      'article',
+    )
   }
 
   /**
@@ -140,9 +156,10 @@ export default class Data {
    */
   async getArticlesWithFilter(filter, page = 1) {
     return await this.responseHandler(
-      this.api(`/articles/filter`, 'GET', { filter, page }), 
-      true, 'data'
-    );
+      this.api(`/articles/filter`, 'GET', { filter, page }),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -151,9 +168,10 @@ export default class Data {
    */
   async getFollowingArticles(user, page = 1) {
     return await this.responseHandler(
-      this.api('/articles/following', 'GET', { page }, null, true, user), 
-      true, 'data'
-    );
+      this.api('/articles/following', 'GET', { page }, null, true, user),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -161,11 +179,12 @@ export default class Data {
    * @param {number} id - the ID of the article
    * @returns status code, data on success, errors on failure
    */
-   async getArticlesByOwnerId(id, page = 1) {
+  async getArticlesByOwnerId(id, page = 1) {
     return await this.responseHandler(
-      this.api(`/articles/owner`, 'GET', { id, page }), 
-      true, 'data'
-    );
+      this.api(`/articles/owner`, 'GET', { id, page }),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -173,11 +192,12 @@ export default class Data {
    * @param {string} tag - article tag
    * @returns status code, data on success, errors on failure
    */
-   async getArticlesByTag(tag, id, page = 1) {
+  async getArticlesByTag(tag, id, page = 1) {
     return await this.responseHandler(
-      this.api(`/articles/tag`, 'GET', { tag, id, page }), 
-      true, 'articles'
-    );
+      this.api(`/articles/tag`, 'GET', { tag, id, page }),
+      true,
+      'articles',
+    )
   }
 
   /**
@@ -187,9 +207,10 @@ export default class Data {
    */
   async getArticlesByQuery(query, page = 1) {
     return await this.responseHandler(
-      this.api(`/articles/query`, 'GET', { query, page }), 
-      true, 'data'
-    );
+      this.api(`/articles/query`, 'GET', { query, page }),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -199,9 +220,10 @@ export default class Data {
    */
   async getRecommendedArticles(user) {
     return await this.responseHandler(
-      this.api(`/articles/recommended`, 'GET', null, null, true, user), 
-      true, 'articles'
-    );
+      this.api(`/articles/recommended`, 'GET', null, null, true, user),
+      true,
+      'articles',
+    )
   }
 
   /**
@@ -211,9 +233,10 @@ export default class Data {
    */
   async getTopicById(id) {
     return await this.responseHandler(
-      this.api(`/topics/id`, 'GET', { id }), 
-      true, 'topic'
-    );
+      this.api(`/topics/id`, 'GET', { id }),
+      true,
+      'topic',
+    )
   }
 
   /**
@@ -223,9 +246,10 @@ export default class Data {
    */
   async getTopicByName(name, filter, page) {
     return await this.responseHandler(
-      this.api(`/topics/name`, 'GET', { name, filter, page }), 
-      true, 'data'
-    );
+      this.api(`/topics/name`, 'GET', { name, filter, page }),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -234,9 +258,10 @@ export default class Data {
    */
   async getTopics() {
     return await this.responseHandler(
-      this.api(`/topics`, 'GET'), 
-      true, 'topics'
-    );
+      this.api(`/topics`, 'GET'),
+      true,
+      'topics',
+    )
   }
 
   /**
@@ -246,9 +271,10 @@ export default class Data {
    */
   async getTopicsByTag(tag) {
     return await this.responseHandler(
-      this.api(`/topics/tag`, 'GET', { tag }), 
-      true, 'topics'
-    );
+      this.api(`/topics/tag`, 'GET', { tag }),
+      true,
+      'topics',
+    )
   }
 
   /**
@@ -258,9 +284,10 @@ export default class Data {
    */
   async getTopicsByQuery(query) {
     return await this.responseHandler(
-      this.api(`/topics/query`, 'GET', { query }), 
-      true, 'topics'
-    );
+      this.api(`/topics/query`, 'GET', { query }),
+      true,
+      'topics',
+    )
   }
 
   /**
@@ -268,11 +295,12 @@ export default class Data {
    * @param {object} user - logged in user
    * @returns status code, data on success, errors on failure
    */
-   async getRecommendedTopics(user) {
+  async getRecommendedTopics(user) {
     return await this.responseHandler(
-      this.api(`/topics/recommended`, 'GET', null, null, true, user), 
-      true, 'topics'
-    );
+      this.api(`/topics/recommended`, 'GET', null, null, true, user),
+      true,
+      'topics',
+    )
   }
 
   /**
@@ -282,9 +310,10 @@ export default class Data {
    */
   async getCategoryById(id) {
     return await this.responseHandler(
-      this.api(`/categories`, 'GET', { id }), 
-      true, 'category'
-    );
+      this.api(`/categories`, 'GET', { id }),
+      true,
+      'category',
+    )
   }
 
   /**
@@ -293,9 +322,10 @@ export default class Data {
    */
   async getCategories() {
     return await this.responseHandler(
-      this.api(`/categories`, 'GET'), 
-      true, 'categories'
-    );
+      this.api(`/categories`, 'GET'),
+      true,
+      'categories',
+    )
   }
 
   /**
@@ -305,9 +335,10 @@ export default class Data {
    */
   async getCategoriesByQuery(query) {
     return await this.responseHandler(
-      this.api(`/categories/query`, 'GET', { query }), 
-      true, 'categories'
-    );
+      this.api(`/categories/query`, 'GET', { query }),
+      true,
+      'categories',
+    )
   }
 
   /**
@@ -317,9 +348,10 @@ export default class Data {
    */
   async getStatsAdmin(user) {
     return await this.responseHandler(
-      this.api(`/admin/stats`, 'GET', null, null, true, user), 
-      true, 'data'
-    );
+      this.api(`/admin/stats`, 'GET', null, null, true, user),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -333,9 +365,17 @@ export default class Data {
    */
   async getUsersAdmin(user, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/users`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/users`,
+        'GET',
+        { limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -350,9 +390,17 @@ export default class Data {
    */
   async getUsersByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/users/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/users/search`,
+        'GET',
+        { query, limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -366,9 +414,17 @@ export default class Data {
    */
   async getArticlesAdmin(user, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/articles`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/articles`,
+        'GET',
+        { limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -381,11 +437,26 @@ export default class Data {
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { articles, hasMore, lastPage } }
    */
-  async getArticlesByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
+  async getArticlesByQueryAdmin(
+    user,
+    query,
+    limit,
+    page,
+    sortColumn,
+    sortOrder,
+  ) {
     return await this.responseHandler(
-      this.api(`/admin/articles/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/articles/search`,
+        'GET',
+        { query, limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -397,11 +468,19 @@ export default class Data {
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { topics, hasMore, lastPage } }
    */
-   async getTopicsAdmin(user, limit, page, sortColumn, sortOrder) {
+  async getTopicsAdmin(user, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/topics`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/topics`,
+        'GET',
+        { limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -416,9 +495,17 @@ export default class Data {
    */
   async getTopicsByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/topics/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/topics/search`,
+        'GET',
+        { query, limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -430,11 +517,19 @@ export default class Data {
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { categories, hasMore, lastPage } }
    */
-   async getCategoriesAdmin(user, limit, page, sortColumn, sortOrder) {
+  async getCategoriesAdmin(user, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/categories`, 'GET', { limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/categories`,
+        'GET',
+        { limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -447,11 +542,26 @@ export default class Data {
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { categories, hasMore, lastPage } }
    */
-  async getCategoriesByQueryAdmin(user, query, limit, page, sortColumn, sortOrder) {
+  async getCategoriesByQueryAdmin(
+    user,
+    query,
+    limit,
+    page,
+    sortColumn,
+    sortOrder,
+  ) {
     return await this.responseHandler(
-      this.api(`/admin/categories/search`, 'GET', { query, limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/categories/search`,
+        'GET',
+        { query, limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -464,11 +574,19 @@ export default class Data {
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { reports, hasMore, lastPage } }
    */
-   async getReportsAdmin(user, status, limit, page, sortColumn, sortOrder) {
+  async getReportsAdmin(user, status, limit, page, sortColumn, sortOrder) {
     return await this.responseHandler(
-      this.api(`/admin/reports`, 'GET', { status, limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/reports`,
+        'GET',
+        { status, limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -482,19 +600,28 @@ export default class Data {
    * @param {string} sortOrder - ascending or descending order
    * @returns {object} - { status, data: { reports, hasMore, lastPage } }
    */
-  async getReportsByQueryAdmin(user, status, query, limit, page, sortColumn, sortOrder) {
+  async getReportsByQueryAdmin(
+    user,
+    status,
+    query,
+    limit,
+    page,
+    sortColumn,
+    sortOrder,
+  ) {
     return await this.responseHandler(
-      this.api(`/admin/reports/search`, 'GET', { status, query, limit, page, sortColumn, sortOrder }, null, true, user), 
-      true, 'data'
-    );
+      this.api(
+        `/admin/reports/search`,
+        'GET',
+        { status, query, limit, page, sortColumn, sortOrder },
+        null,
+        true,
+        user,
+      ),
+      true,
+      'data',
+    )
   }
-
-  
-
-
-
-  
-
 
   //! POST DATA API FUNCTIONS
 
@@ -506,8 +633,9 @@ export default class Data {
   async createUser(user) {
     return await this.responseHandler(
       this.api('/users', 'POST', null, user),
-      true, 'user'
-    );
+      true,
+      'user',
+    )
   }
 
   /**
@@ -518,9 +646,10 @@ export default class Data {
    */
   async createArticle(article, user) {
     return await this.responseHandler(
-      this.api('/articles', 'POST', null, article, true, user), 
-      true, 'article'
-    );
+      this.api('/articles', 'POST', null, article, true, user),
+      true,
+      'article',
+    )
   }
 
   /**
@@ -531,8 +660,8 @@ export default class Data {
    */
   async createReport(report, user) {
     return await this.responseHandler(
-      this.api('/reports', 'POST', null, report, true, user)
-    );
+      this.api('/reports', 'POST', null, report, true, user),
+    )
   }
 
   /**
@@ -545,13 +674,10 @@ export default class Data {
   async createEntryAdmin(user, type, body) {
     return await this.responseHandler(
       this.api(`/admin/${type}`, 'POST', null, body, true, user),
-      true, 'data'
-    );
+      true,
+      'data',
+    )
   }
-
-
-
-
 
   //! PUT DATA API FUNCTIONS
 
@@ -563,9 +689,10 @@ export default class Data {
    */
   async followUnfollow({ id, user }) {
     return await this.responseHandler(
-      this.api(`/users/follow`, 'PUT', { id }, null, true, user), 
-      true, 'users'
-    );
+      this.api(`/users/follow`, 'PUT', { id }, null, true, user),
+      true,
+      'users',
+    )
   }
 
   /**
@@ -575,11 +702,12 @@ export default class Data {
    * @param {object} user - the user object with properties: firstName, lastName, emailAddress and password ( for authentification )
    * @returns status code, data on success, errors on failure
    */
-   async updateUser( source, id, updatedData, user) {
+  async updateUser(source, id, updatedData, user) {
     return await this.responseHandler(
       this.api(`/users`, 'PUT', { source, id }, updatedData, true, user),
-      true, 'user'
-    );
+      true,
+      'user',
+    )
   }
 
   /**
@@ -592,8 +720,9 @@ export default class Data {
   async updateArticle(article, id, user) {
     return await this.responseHandler(
       this.api(`/articles`, 'PUT', { id }, article, true, user),
-      true, 'article'
-    );
+      true,
+      'article',
+    )
   }
 
   /**
@@ -604,9 +733,10 @@ export default class Data {
    */
   async accreditDiscredit(id, user, credit) {
     return await this.responseHandler(
-      this.api(`/articles/credit`, 'PUT', { id }, credit, true, user), 
-      true, 'data'
-    );
+      this.api(`/articles/credit`, 'PUT', { id }, credit, true, user),
+      true,
+      'data',
+    )
   }
 
   /**
@@ -620,8 +750,9 @@ export default class Data {
   async updateEntryAdmin(user, type, id, body) {
     return await this.responseHandler(
       this.api(`/admin/${type}`, 'PUT', { id }, body, true, user),
-      true, 'data'
-    );
+      true,
+      'data',
+    )
   }
 
   /**
@@ -631,11 +762,12 @@ export default class Data {
    * @param {number} id - id of target user/article
    * @returns {object} - { status }
    */
-   async blockEntryAdmin(user, type, id) {
+  async blockEntryAdmin(user, type, id) {
     return await this.responseHandler(
       this.api(`/admin/${type}/block`, 'PUT', { id }, null, true, user),
-      true, 'data'
-    );
+      true,
+      'data',
+    )
   }
 
   /**
@@ -648,13 +780,10 @@ export default class Data {
   async markReportAsAdmin(user, status, id) {
     return await this.responseHandler(
       this.api(`/admin/reports/mark`, 'PUT', { status, id }, null, true, user),
-      true, 'data'
-    );
+      true,
+      'data',
+    )
   }
-
-
-
-
 
   //! DELETE DATA API FUNCTIONS
 
@@ -666,8 +795,8 @@ export default class Data {
    */
   async deleteArticle(id, user) {
     return await this.responseHandler(
-      this.api(`/articles`, 'DELETE', { id }, null, true, user)
-    );
+      this.api(`/articles`, 'DELETE', { id }, null, true, user),
+    )
   }
 
   /**
@@ -677,9 +806,9 @@ export default class Data {
    * @param {number} id - id of target user/article
    * @returns {object} - { status }
    */
-   async deleteEntryAdmin(user, type, id) {
+  async deleteEntryAdmin(user, type, id) {
     return await this.responseHandler(
-      this.api(`/admin/${type}`, 'DELETE', { id }, null, true, user)
-    );
+      this.api(`/admin/${type}`, 'DELETE', { id }, null, true, user),
+    )
   }
 }

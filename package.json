@@ -31,7 +31,8 @@
     "test:related": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --watchAll=false --coverage",
     "prepare": "husky install",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write src/**/*.js"
   },
   "eslintConfig": {
     "extends": [
@@ -66,7 +67,8 @@
     "husky": "^7.0.2",
     "jest-prop-type-error": "^1.1.0",
     "moxios": "^0.4.0",
-    "msw": "^0.35.0"
+    "msw": "^0.35.0",
+    "prettier": "2.4.1"
   },
   "msw": {
     "workerDirectory": "public"

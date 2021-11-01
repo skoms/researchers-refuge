@@ -1,24 +1,21 @@
 import React, { useRef } from 'react'
-import styles from './StatusFilter.module.css';
+import styles from './StatusFilter.module.css'
 
 const StatusFilter = ({ setStatusFilter }) => {
-  const selectedRef = useRef();
+  const selectedRef = useRef()
 
-  const handleStatusFilter = e => {
-    const isFilterButton = e.target.matches('[data-status-filter-button]');
-    if (!isFilterButton) return;
+  const handleStatusFilter = (e) => {
+    const isFilterButton = e.target.matches('[data-status-filter-button]')
+    if (!isFilterButton) return
     if (isFilterButton) {
-      selectedRef.current.classList.remove('selected');
-      e.target.classList.add('selected');
-      selectedRef.current = e.target;
-      setStatusFilter(e.target.innerHTML.toLowerCase());
+      selectedRef.current.classList.remove('selected')
+      e.target.classList.add('selected')
+      selectedRef.current = e.target
+      setStatusFilter(e.target.innerHTML.toLowerCase())
     }
   }
   return (
-    <div
-      className={styles.container}
-      onClick={handleStatusFilter}
-    >
+    <div className={styles.container} onClick={handleStatusFilter}>
       <button
         data-status-filter-button
         ref={selectedRef}
@@ -26,16 +23,10 @@ const StatusFilter = ({ setStatusFilter }) => {
       >
         Open
       </button>
-      <button
-        data-status-filter-button
-        className={styles.resolvedButton}
-      >
+      <button data-status-filter-button className={styles.resolvedButton}>
         Resolved
       </button>
-      <button
-        data-status-filter-button
-        className={styles.rejectedButton}
-      >
+      <button data-status-filter-button className={styles.rejectedButton}>
         Rejected
       </button>
     </div>
