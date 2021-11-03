@@ -1,13 +1,12 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-columns: 
-    calc(50vw - 38rem) 
-    repeat(12, 1fr) 
+  grid-template-columns:
+    calc(50vw - 38rem)
+    repeat(12, 1fr)
     calc(50vw - 38rem);
-  grid-template-areas: 
-    ". info info info article article article article article article article article article .";
-  gap: .5rem;
+  grid-template-areas: '. info info info article article article article article article article article article .';
+  gap: 0.5rem;
   justify-items: center;
 }
 
@@ -26,7 +25,7 @@
   min-width: 30rem;
   padding: 0;
   background-color: var(--base-component-white);
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   text-align: left;
 }
 
@@ -39,7 +38,7 @@
 }
 
 .ownerButtons {
-  margin: .5rem;
+  margin: 0.5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -52,9 +51,11 @@
 }
 
 :global(.darkmode) .ownerButton {
-  background: linear-gradient(var(--base-darkblue), var(--dark-component-darkgrey));
+  background: linear-gradient(
+    var(--base-darkblue),
+    var(--dark-component-darkgrey)
+  );
 }
-
 
 .title {
   font-size: 2.5rem;
@@ -66,13 +67,15 @@
   color: var(--base-blue);
 }
 
-.header, .intro, .articleBody {
+.header,
+.intro,
+.articleBody {
   margin: 1rem 2rem;
   text-indent: 2rem;
 }
 
 .articleContainer p {
-  margin-top: .3rem;
+  margin-top: 0.3rem;
 }
 
 .header {
@@ -92,22 +95,22 @@
 }
 
 :global(#report-button).reportButton {
-  padding: .1rem .2rem;
+  padding: 0.1rem 0.2rem;
   line-height: 1.5rem;
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   border: none;
   outline: none;
   opacity: 0.5;
-  transition: all .3s;
+  transition: all 0.3s;
   min-width: 7rem;
-  font-size: .7rem;
+  font-size: 0.7rem;
   margin: 1rem 1rem;
-  background: linear-gradient(#FF5858, #FF2323);
+  background: linear-gradient(#ff5858, #ff2323);
   color: var(--base-component-white);
 }
 
 :global(.darkmode) :global(#report-button).reportButton {
-  background: linear-gradient(#FF5858, #FF2323);
+  background: linear-gradient(#ff5858, #ff2323);
   color: var(--base-component-white);
 }
 
@@ -117,9 +120,8 @@
 }
 
 .reportIcon {
-  margin-bottom: -.2rem;
+  margin-bottom: -0.2rem;
 }
-
 
 .navButtons {
   margin: 2rem 0;
@@ -139,12 +141,12 @@
 .navButtons a:hover {
   cursor: pointer;
   transform: scale(1.2);
-  transition-duration: .2s;
+  transition-duration: 0.2s;
 }
 
 @media only screen and (max-width: 768px) {
   .container {
-    margin: 4.5rem .5rem 2rem .5rem;
+    margin: 4.5rem 0.5rem 2rem 0.5rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -153,11 +155,12 @@
 
   .articleContainer {
     padding: 1rem 0;
-    margin-bottom: .2rem;
+    min-width: unset;
+    margin-bottom: 0.2rem;
   }
 
   .articleContainer .ownerButtons {
-    margin: 0 .8rem;
+    margin: 0 0.8rem;
   }
 
   .ownerButton {

@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals'
 
 require('dotenv').config()
 
-const workerActive = true
+const workerActive = false
 
 if (workerActive) {
   const { worker } = require('./mocks/browser')

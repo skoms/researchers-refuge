@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './AdminPanel.module.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { selectAuthenticatedUser } from '../user/userAccManage/userAccSlice'
 import ArticleManagement from './adminMain/articleManagement/ArticleManagement'
@@ -13,8 +13,10 @@ import AdminSidebar from './adminSidebar/AdminSidebar'
 import { selectIsMobile } from '../../app/screenWidthSlice'
 import { getIconUrl } from '../../Icons'
 import { selectDarkModeOn } from '../darkmodeButton/darkModeButtonSlice'
+import { updateSortOrder } from './adminPanelSlice'
 
 const AdminPanel = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(selectAuthenticatedUser)
   const [didLoad, setDidLoad] = useState(false)
@@ -23,6 +25,7 @@ const AdminPanel = () => {
   const darkModeOn = useSelector(selectDarkModeOn)
 
   const select = (e) => {
+    dispatch(updateSortOrder())
     setSelection(e.target.innerHTML)
   }
 
