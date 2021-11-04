@@ -51,11 +51,26 @@ This website is a social media inspired by Reddit and LinkedIn. It is a fullstac
 
 1. <a href='#'>Make sure to install and start the API</a>
 2. Clone this repo by clicking the clone button or with command line:
-   "`git clone https://github.com/skoms/researchers-refuge.git`"
-3. Open the files downloaded and install dependencies (Command: "`npm install`")
-4. In the project root folder, create a `.env` file and add this line "`REACT_APP_DEV_API=http://localhost:5000/api`" and save the file
-5. Run the program (Command: `npm start`), this should open the browser with the website, if not, open browser on "`http://localhost:3000`"
-6. To use either create your own user, or use demo user: `email: demo@user.com, password: demoUser123`
+   ```
+   git clone https://github.com/skoms/researchers-refuge.git
+   ```
+3. Open the files downloaded and install dependencies
+   ```
+   npm install
+   ```
+4. In the project root folder, create a `.env` file and add this line and save the file
+   ```
+   REACT_APP_DEV_API=http://localhost:5000/api
+   ```
+5. Run the program with the command below, this should open the browser with the website, if not, open browser on "`http://localhost:3000`"
+   ```
+   npm start
+   ```
+6. To use either create your own user, or use demo user:
+   ```
+   email: demo@user.com
+   password: demoUser123
+   ```
 
 ## 3. <a name='Features'></a>📘 Features
 
