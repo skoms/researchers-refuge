@@ -1,3 +1,5 @@
+import Data from '../../Data'
+
 /**
  * Capitalizes the first word or all words in a string
  * @param {string} string - the string to capitalize
@@ -94,4 +96,17 @@ export const validateField = (type, data, target) => {
  */
 export const checkParseInt = (value) => {
   return typeof value === 'number' ? value : parseInt(value)
+}
+
+/**
+ * Checks for authorization
+ * @param {object} user - user to check authorization of
+ * @returns boolean of is authorized or not
+ */
+export const checkIfAdmin = async (user) => {
+  const data = new Data()
+  const response = await data
+    .authorize(user)
+    .then((res) => res.isAuthorized || false)
+  return response
 }

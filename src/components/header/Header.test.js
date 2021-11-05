@@ -1,4 +1,4 @@
-import { screen, act } from '@testing-library/react'
+import { screen, act, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   getMockCategories,
@@ -8,6 +8,8 @@ import {
 } from '../../utils/testing'
 import { updateAccount } from '../user/userAccManage/userAccSlice'
 import Header from './Header'
+import { server } from '../../mocks/server'
+import { rest } from 'msw'
 
 const needsStore = true
 const needsMemoryRouter = true
@@ -118,12 +120,25 @@ describe('Header', () => {
       userEvent.click(screen.getByRole('button', { name: /report bug/i }))
       expect(store.getState().reportModule.isActive).toBe(true)
     })
+
+    it('should not render additional menu option: Admin Panel', async () => {
+      await waitFor(() => {
+        expect(
+          screen.queryByRole('link', { name: /admin panel/i }),
+        ).not.toBeInTheDocument()
+      })
+    })
   })
 
   describe('when logged in (admin)', () => {
     let store
 
     beforeEach(async () => {
+      server.use(
+        rest.get('*/users/authorize', (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(true)),
+        ),
+      )
       await act(async () => {
         store = await renderComponent(Header, { needsStore, needsMemoryRouter })
           .store
@@ -133,10 +148,12 @@ describe('Header', () => {
       await store.dispatch(updateAccount(mockAdmin))
     })
 
-    it('should render additional menu option: Admin Panel', () => {
-      expect(
-        screen.getByRole('link', { name: /admin panel/i }),
-      ).toBeInTheDocument()
+    it('should render additional menu option: Admin Panel', async () => {
+      await waitFor(() => {
+        expect(
+          screen.getByRole('link', { name: /admin panel/i }),
+        ).toBeInTheDocument()
+      })
     })
   })
 })

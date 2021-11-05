@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import Data from '../../../Data'
+import { checkIfAdmin } from '../../../utils/helpers'
 
 const data = new Data()
 
@@ -42,7 +43,11 @@ export const getArticleIfOwner = createAsyncThunk(
   'manageArticle/getArticle',
   async ({ id, user }) => {
     const response = await data.getArticle(id)
-    if (response.article.userId === user.id || user.accessLevel === 'admin') {
+    let isAdmin
+    await checkIfAdmin(user).then((res) => {
+      isAdmin = res
+    })
+    if (response.article.userId === user.id || isAdmin) {
       return response
     } else {
       return { status: 401 }

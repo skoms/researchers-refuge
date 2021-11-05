@@ -24,6 +24,7 @@ import {
   updateTargetId,
   toggleIsActive,
 } from '../../reportModule/reportModuleSlice'
+import { checkIfAdmin } from '../../../utils/helpers'
 
 const ArticleDetails = () => {
   const darkModeOn = useSelector(selectDarkModeOn)
@@ -39,6 +40,7 @@ const ArticleDetails = () => {
 
   const confirmationPopupRef = useRef()
   const [didLoad, setDidLoad] = useState(false)
+  const [isAdmin, setIsAdmin] = useState()
 
   useEffect(() => {
     const loadData = async (id) => {
@@ -54,10 +56,11 @@ const ArticleDetails = () => {
         })
     }
     if (!didLoad) {
+      authenticatedUser && checkIfAdmin(authenticatedUser).then(setIsAdmin)
       loadData(id)
       setDidLoad(true)
     }
-  }, [didLoad, id, dispatch, history, location.pathname])
+  }, [didLoad, id, dispatch, history, location.pathname, authenticatedUser])
 
   const togglePopUp = () => {
     const confirmationBox = confirmationPopupRef.current
@@ -105,8 +108,7 @@ const ArticleDetails = () => {
       {didLoad && author && article ? (
         <div className={styles.articleContainer}>
           {authenticatedUser &&
-          (authenticatedUser.id === author.id ||
-            authenticatedUser.accessLevel === 'admin') ? (
+          (authenticatedUser.id === author.id || isAdmin) ? (
             <div className={styles.ownerButtons}>
               <a href={`/update-article/${id}`}>
                 <TypedButton
@@ -142,8 +144,7 @@ const ArticleDetails = () => {
             {article.body}
           </ReactMarkdown>
           {authenticatedUser &&
-            (authenticatedUser.id !== author.id ||
-              authenticatedUser.accessLevel === 'admin') && (
+            (authenticatedUser.id !== author.id || isAdmin) && (
               <TypedButton
                 buttontype="secondary"
                 className={styles.reportButton}

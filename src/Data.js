@@ -99,6 +99,19 @@ export default class Data {
   }
 
   /**
+   * Checks the authorization of a user
+   * @param {object} user - the user to check for authorization
+   * @returns an object with bool { isAuthorized: boolean }
+   */
+  async authorize(user) {
+    return await this.responseHandler(
+      this.api('/users/authorize', 'GET', null, null, true, user),
+      true,
+      'isAuthorized',
+    )
+  }
+
+  /**
    * Gets a specific user and returns it
    * @param {number} id - the ID of the user
    * @returns status code, data on success, errors on failure

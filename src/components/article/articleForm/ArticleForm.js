@@ -52,7 +52,6 @@ const ArticleForm = ({ isUpdate }) => {
           } else if (res.status === 401) {
             history.push({
               pathname: '/forbidden',
-              state: { from: location.pathname },
             })
           }
         })

@@ -6,6 +6,8 @@ import {
   getMockUsers,
   renderComponent,
 } from '../../../utils/testing'
+import { server } from '../../../mocks/server'
+import { rest } from 'msw'
 
 const initialState = getInitialState()
 const needsStore = true
@@ -151,6 +153,11 @@ describe('ArticleDetails', () => {
     }
 
     beforeEach(async () => {
+      server.use(
+        rest.get('*/users/authorize', (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(true)),
+        ),
+      )
       await act(async () => {
         await renderComponent(ArticleDetails, options)
       })
@@ -195,6 +202,11 @@ describe('ArticleDetails', () => {
     }
 
     beforeEach(async () => {
+      server.use(
+        rest.get('*/users/authorize', (req, res, ctx) =>
+          res(ctx.status(200), ctx.json(true)),
+        ),
+      )
       await act(async () => {
         await renderComponent(ArticleDetails, options)
       })

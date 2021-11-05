@@ -280,6 +280,10 @@ export const getHandlers = [
     const id = req.url.searchParams.get('id')
     return res(ctx.status(200), ctx.json(getMockUsers({ id })))
   }),
+  rest.get(getUrl('/users/authorize'), (req, res, ctx) => {
+    if (authenticate(req, res, ctx)) return authenticate(req, res, ctx)
+    return res(ctx.status(200), ctx.json(false))
+  }),
   rest.get(getUrl('/users/me'), (req, res, ctx) => {
     if (authenticate(req, res, ctx)) return authenticate(req, res, ctx)
     return res(ctx.status(200), ctx.json(getMockUsers()))

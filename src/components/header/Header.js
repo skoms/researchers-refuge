@@ -26,10 +26,12 @@ import {
 } from '../reportModule/reportModuleSlice'
 import useToggle from '../../customHooks/useToggle'
 import useFirstVisitAlert from '../../customHooks/useFirstVisitAlert'
+import { checkIfAdmin } from '../../utils/helpers'
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false)
   const [dropdownActive, toggleDropdownActive] = useToggle(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const dropdownRef = useRef()
 
   const loggedIn = useSelector(selectLoggedIn)
@@ -65,6 +67,9 @@ const Header = () => {
       )
       dispatch(getCategories())
       setDidLoad(true)
+    }
+    if (authenticatedUser) {
+      checkIfAdmin(authenticatedUser).then(setIsAdmin)
     }
   }, [authenticatedUser, didLoad, dispatch])
 
@@ -146,7 +151,7 @@ const Header = () => {
           >
             <a href="/my-profile">My Profile</a>
             <hr />
-            {authenticatedUser.accessLevel === 'admin' && (
+            {isAdmin && (
               <>
                 <a href="/admin-panel">Admin Panel</a>
                 <hr />
