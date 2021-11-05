@@ -25,6 +25,7 @@ import {
   updateType,
 } from '../reportModule/reportModuleSlice'
 import useToggle from '../../customHooks/useToggle'
+import useFirstVisitAlert from '../../customHooks/useFirstVisitAlert'
 
 const Header = () => {
   const [didLoad, setDidLoad] = useState(false)
@@ -39,6 +40,16 @@ const Header = () => {
   const history = useHistory()
   const location = useLocation()
   const dispatch = useDispatch()
+
+  useFirstVisitAlert(
+    `Hello there, new visitor!
+
+    This website is for learning and displaying skills mainly and is not intended for commercial use. If you want to test the website you can either sign up, or just use this demo user:
+
+    Email: demo@user.com | Password: demoUser123
+
+    Thank you for visiting my page.`,
+  )
 
   useEffect(() => {
     if (!didLoad) {
