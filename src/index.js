@@ -7,8 +7,6 @@ import App from './app/App'
 import { store } from './app/store'
 import reportWebVitals from './reportWebVitals'
 
-require('dotenv').config()
-
 const workerActive = false
 
 if (workerActive) {
